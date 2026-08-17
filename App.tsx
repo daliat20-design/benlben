@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HashRouter as Router, Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import Recipes from './pages/Recipes';
@@ -9,6 +8,11 @@ import MwmPage from './pages/MwmPage';
 
 const InternalNav: React.FC = () => {
   const location = useLocation();
+  
+  // Do not show internal nav bar on the standalone MWM landing page
+  if (location.pathname === '/mwm' || location.pathname === '/ky-mwm') {
+    return null;
+  }
   
   const baseUrl = "https://ais-pre-jttptouynfsjqnrg3kuoj3-29867443297.europe-west1.run.app";
   const [showLinks, setShowLinks] = React.useState(false);
@@ -69,13 +73,12 @@ const InternalNav: React.FC = () => {
   );
 };
 
-const App: React.FC = () => {
-  // Show internal navigation only in development URLs
+const AppContent: React.FC = () => {
   const isDevelopment = typeof window !== 'undefined' && 
     (window.location.hostname.includes('-dev-') || window.location.hostname.includes('localhost'));
 
   return (
-    <Router>
+    <>
       {isDevelopment && <InternalNav />}
       <Routes>
         <Route path="/" element={<MarketingPage />} />
@@ -86,6 +89,14 @@ const App: React.FC = () => {
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/part2" element={<PartTwo />} />
       </Routes>
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 };

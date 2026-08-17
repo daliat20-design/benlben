@@ -44,7 +44,7 @@ export const TestimonialsSection: React.FC = () => {
             המלצות
           </div>
           <h2 className="text-4xl md:text-6xl font-black mb-4 text-brand-green tracking-tight text-center">
-            ציפור לחשה לנו שככה מספרות עלינו
+            ציפור לחשה לנו שמספרות עלינו ש...
           </h2>
           <div className="h-1.5 w-24 bg-brand-orange mx-auto rounded-full opacity-50"></div>
         </div>

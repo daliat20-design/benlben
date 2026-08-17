@@ -43,7 +43,7 @@ export const MwmHero: React.FC = () => {
           {/* Main Card Content */}
           <div className="text-lg md:text-xl text-gray-700 max-w-2xl leading-relaxed mb-8 space-y-4 text-right bg-white/40 backdrop-blur-sm p-6 md:p-8 rounded-3xl border border-white/50 shadow-sm">
             <p className="font-bold text-xl md:text-2xl text-brand-green">
-              תקופת אמצע החיים היא תקופה מעניינת ומאתגרת גם יחד.
+              תקופת אמצע החיים היא תקופה מעניינת ומאתגרת גם יחד
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-gray-700 font-semibold border-y border-brand-beige/60 py-3 my-2">
