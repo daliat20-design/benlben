@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "FoodItem": {
+      "title": "Food Item",
+      "description": "An item to be brought to the session",
+      "type": "object",
+      "properties": {
+        "category": { "type": "string", "description": "The category of the food (e.g., סלט)" },
+        "label": { "type": "string", "description": "Human readable label (e.g., סלט 1)" },
+        "takenBy": { "type": "string", "description": "Name of the person who claimed it" },
+        "claimedAt": { "type": "string", "description": "When it was claimed" },
+        "claimedByUid": { "type": "string", "description": "UID of the person who claimed it" }
+      },
+      "required": ["category", "label"]
+    }
+  },
+  "firestore": {
+    "foodItems": {
+      "schema": "FoodItem",
+      "description": "Collection of food items for the refreshment signup"
+    }
+  }
+}
