@@ -13,7 +13,7 @@ export const MarketingSpeakers: React.FC = () => {
           <div className="inline-block px-5 py-2 bg-brand-orange/10 text-brand-orange rounded-full text-xs md:text-sm font-black mb-4 tracking-tight border border-brand-orange/20">
             מעטפת של ידע ורגישות
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-brand-green tracking-tight mb-4">על המרצות בתוכנית</h2>
+          <h2 className="text-4xl md:text-6xl font-black text-brand-green tracking-tight mb-4">על המרצות בסדנה</h2>
           <div className="h-1.5 w-24 bg-brand-orange rounded-full"></div>
         </div>
 
@@ -23,7 +23,7 @@ export const MarketingSpeakers: React.FC = () => {
           <ButterflyIcon size={200} className="absolute bottom-[-50px] right-[-50px] opacity-[0.04] text-brand-green hidden md:block pointer-events-none" />
 
           <p className="text-xl md:text-3xl text-gray-800 leading-relaxed font-black text-right mb-8">
-            צוות המרצות של “בין לבין” נבחר בקפידה בהתאם לאופי הקבוצה, למטרות התוכנית ולנושאים המרכזיים של כל מחזור.
+            צוות המרצות בסדנת אמצע החיים נבחר בקפידה בהתאם לאופי הקבוצה, למטרות הסדנה ולנושאים המרכזיים של כל מחזור.
           </p>
           
           <p className="text-lg md:text-2xl text-gray-600 leading-relaxed font-medium text-right mb-10">

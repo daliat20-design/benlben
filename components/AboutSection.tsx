@@ -19,7 +19,7 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
           
           <div className="grid gap-12 text-right max-w-4xl mx-auto">
             <div className="bg-brand-beige/30 p-8 md:p-10 rounded-[3rem] border-r-[10px] border-brand-beige shadow-sm hover:shadow-md transition-shadow relative">
-              <ButterflyIcon size={35} className="absolute -top-4 -left-4 animate-float opacity-60 -z-10" />
+              <ButterflyIcon size={35} className="absolute -top-4 -left-4 animate-float opacity-40 -z-10 hidden md:block pointer-events-none" />
               <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-bold">
                 אמצע החיים מביא איתו לא מעט שינויים.
               </p>
@@ -37,7 +37,10 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
                 <p className="text-2xl md:text-4xl font-black italic text-center">
                   בתוך כל אלה נפתח מרחב חדש
                 </p>
-                <ButterflyIcon size={60} className="absolute -bottom-8 -right-8 animate-float opacity-90 -z-10" />
+                <p className="text-lg md:text-xl text-gray-700 font-medium text-center mt-4 leading-relaxed max-w-2xl mx-auto">
+                  מרחב לעצור ולשאול מה נכון לי עכשיו. להבין את השינויים שאני עוברת, לקבל ידע וכלים, לפגוש נשים שנמצאות בשלב דומה ולגלות מה עוד מחכה לי בפרק הבא.
+                </p>
+                <ButterflyIcon size={60} className="absolute -bottom-8 -right-8 animate-float opacity-40 -z-10 hidden md:block pointer-events-none" />
               </div>
             </div>
             
@@ -55,7 +58,7 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
 
         <div className="mt-20 md:mt-24">
           <div className="flex flex-col items-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black text-brand-green text-center tracking-tight">הרבה יותר מתוכנית על גיל המעבר</h2>
+            <h2 className="text-4xl md:text-6xl font-black text-brand-green text-center tracking-tight">הרבה יותר מסדנה על גיל המעבר</h2>
             <div className="h-2 w-24 bg-brand-orange mt-6 rounded-full"></div>
           </div>
 
@@ -71,11 +74,11 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
                 נשים באמצע החיים זקוקות ליותר ממידע. הן זקוקות למרחב בטוח שבו אפשר לעצור, לשאול, לשתף, לקבל כלים, לפגוש נשים שנמצאות בשלב דומה בחיים ולגלות כוחות שאולי חיכו זמן רב לרגע הנכון.
               </p>
               <p className="text-brand-orange font-black text-2xl border-t border-brand-orange/10 pt-4 mt-4">
-                מתוך האמונה הזו נולדה "בין לבין".
+                מתוך האמונה הזו נולדה "אמצע החיים", סדנת הדגל של בין לבין.
               </p>
             </div>
             <p className="text-xl md:text-2xl text-brand-green font-black italic leading-relaxed bg-brand-green/5 p-6 rounded-[2rem] border-x-4 border-brand-green shadow-inner">
-              זו תוכנית לצמיחה באמצע החיים. מעטפת מקצועית המשלבת ידע עדכני, שיח נשי, התבוננות אישית וכלים מעשיים.
+              זו סדנה לצמיחה באמצע החיים. מעטפת מקצועית המשלבת ידע עדכני, שיח נשי, התבוננות אישית וכלים מעשיים.
             </p>
             <p className="text-2xl md:text-3xl text-brand-orange font-black mt-6">
               אנחנו יוצרות מרחב שמאפשר לכל אישה לכתוב את הפרק הבא שלה מתוך בחירה, בהירות ואומץ.
@@ -93,7 +96,7 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
 
         <div className="mt-12 md:mt-16">
           <div className="flex flex-col items-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black text-brand-green text-center tracking-tight">על התוכנית</h2>
+            <h2 className="text-4xl md:text-6xl font-black text-brand-green text-center tracking-tight">על הסדנה</h2>
             <div className="h-2 w-24 bg-brand-orange mt-6 rounded-full"></div>
           </div>
 
@@ -165,10 +168,10 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
               ) : (
                 <div className="text-lg md:text-xl text-gray-600 font-bold mt-6 leading-relaxed max-w-2xl mx-auto space-y-4">
                   <p>
-                    התוכנית בנויה מ-8 מפגשים חווייתיים: 4 מפגשים של חלק א' ו-4 מפגשים של חלק ב'.
+                    הסדנה בנויה מ-8 מפגשים חווייתיים: 4 מפגשים של חלק א' ו-4 מפגשים של חלק ב'.
                   </p>
                   <p className="text-brand-orange font-black">
-                    ניתן להירשם גם לאחד משני החלקים בנפרד, למרות שמומלץ להירשם לתוכנית המקיפה והכוללת.
+                    ניתן להירשם גם לאחד משני החלקים בנפרד, למרות שמומלץ לעבור את הסדנה במלואה וליהנות מהתהליך השלם.
                   </p>
                 </div>
               )}

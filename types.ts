@@ -28,3 +28,12 @@ export interface TeamMember {
   role: string;
   description: string;
 }
+
+export interface WhatsAppContactItem {
+  name: string;
+  role?: string;
+  phone: string;
+  rawPhone: string;
+  internationalPhone: string;
+  message: string;
+}

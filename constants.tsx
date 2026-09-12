@@ -1,9 +1,47 @@
 
-import { Session, Speaker, TeamMember } from './types';
+import { Session, Speaker, TeamMember, WhatsAppContactItem } from './types';
 
 // פרטי התקשרות
 export const CONTACT_PHONE = "972508353731"; 
 export const WHATSAPP_MESSAGE = encodeURIComponent("אשמח לשמוע פרטים נוספים על בין לבין, סדנאות וריטרטים אמצע החיים");
+
+// אנשי קשר בוואטסאפ - בין לבין שיווקי / ארצי (דלית ואלסי)
+export const MARKETING_CONTACTS: WhatsAppContactItem[] = [
+  {
+    name: "דלית כורה",
+    role: "מייסדת בין לבין ומובילת הסדנה",
+    phone: "050-8353731",
+    rawPhone: "0508353731",
+    internationalPhone: "972508353731",
+    message: encodeURIComponent("היי דלית, אשמח לקבל פרטים נוספים על סדנת אמצע החיים מבית בין לבין")
+  },
+  {
+    name: "אלסי זיסלמן",
+    role: "מנחה ומרצה, טריינרית NLP",
+    phone: "054-7458668",
+    rawPhone: "0547458668",
+    internationalPhone: "972547458668",
+    message: encodeURIComponent("היי אלסי, אשמח לקבל פרטים נוספים על סדנת אמצע החיים מבית בין לבין")
+  }
+];
+
+// אנשי קשר בוואטסאפ - כוכב יאיר צור יגאל
+export const MWM_CONTACTS: WhatsAppContactItem[] = [
+  {
+    name: "ענבל סטביצקי",
+    phone: "054-7791598",
+    rawPhone: "0547791598",
+    internationalPhone: "972547791598",
+    message: encodeURIComponent("היי ענבל, אשמח לשמוע פרטים נוספים על תוכנית בין לבין בכוכב יאיר - צור יגאל")
+  },
+  {
+    name: "תניה פינצבסקי",
+    phone: "054-5444949",
+    rawPhone: "0545444949",
+    internationalPhone: "972545444949",
+    message: encodeURIComponent("היי תניה, אשמח לשמוע פרטים נוספים על תוכנית בין לבין בכוכב יאיר - צור יגאל")
+  }
+];
 
 // שעות המפגשים - הגדרה גלובלית
 export const MEETING_HOURS = "19:00 - 22:00";
@@ -264,12 +302,12 @@ export const SPEAKERS: Speaker[] = [
 export const TEAM: TeamMember[] = [
   {
     name: "דלית כורה",
-    role: "הוגה ומובילת התוכנית",
-    description: "מתמחה בהובלת פרויקטים ותרגום רעיונות לתהליכים יישומיים וברורים. בתוכנית בין לבין דלית מחזיקה את המבנה, הרצף והקצב ומלווה את הצוות מהרעיון – אל המימוש."
+    role: "מייסדת בין לבין ומובילת הסדנה",
+    description: "מתמחה בהובלת פרויקטים ותרגום רעיונות לתהליכים יישומיים וברורים. בסדנת אמצע החיים דלית מחזיקה את המבנה, הרצף והקצב ומלווה את הצוות מהרעיון – אל המימוש."
   },
   {
     name: "אלסי זיסלמן",
     role: "מנחה ומרצה, טריינרית NLP",
-    description: "מלווה תהליכים אישיים וקבוצתיים של שינוי וקבלת החלטות. מביאה רגישות גבוהה, הקשבה עמוקה, בתוכנית היא מסייעת לנשים לתרגם תובנות פנימיות לצעדים מעשיים."
+    description: "מלווה תהליכים אישיים וקבוצתיים של שינוי וקבלת החלטות. מביאה רגישות גבוהה, הקשבה עמוקה, בסדנה היא מסייעת לנשים לתרגם תובנות פנימיות לצעדים מעשיים."
   }
 ];

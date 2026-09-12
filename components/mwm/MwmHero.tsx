@@ -11,13 +11,13 @@ export const MwmHero: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10">
         <div className="flex-1 text-center md:text-right">
           
-          {/* Badge: אמהות עם מהות כוכב יאיר צור יגאל מזמינות אתכן - צבעי כתום, צהוב, אדום */}
-          <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
-            <div className="inline-block bg-gradient-to-r from-red-600 via-orange-500 to-amber-400 text-white px-6 py-2.5 rounded-full text-sm md:text-base font-black tracking-wide shadow-lg border-b-4 border-red-700/40">
-              אמהות עם מהות כוכב יאיר צור יגאל מזמינות אתכן
+          {/* Badge: אמהות עם מהות כוכב יאיר - צור יגאל מזמינות אתכן + גילאי 45-60 */}
+          <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2.5 sm:gap-3 mb-8">
+            <div className="w-full sm:w-auto text-center bg-gradient-to-r from-red-600 via-orange-500 to-amber-400 text-white px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm md:text-base font-black tracking-wide shadow-md border-b-2 border-red-700/40 leading-snug">
+              אמהות עם מהות כוכב יאיר - צור יגאל מזמינות אתכן
             </div>
-            <div className="inline-block bg-brand-orange/15 text-brand-orange border border-brand-orange/30 px-6 py-2.5 rounded-full text-sm font-black tracking-widest shadow-lg">
-              קהל יעד: נשים בגילאי 45-65
+            <div className="inline-flex items-center justify-center bg-brand-orange/15 text-brand-orange border border-brand-orange/30 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-black tracking-wide shadow-sm shrink-0">
+              נשים בגילאי 45-60
             </div>
           </div>
           
@@ -95,7 +95,7 @@ export const MwmHero: React.FC = () => {
           <div className="relative z-10 p-6 bg-white shadow-[0_50px_100px_-20px_rgba(84,99,79,0.3)] rounded-[3rem] transform rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden">
             <div className="overflow-hidden rounded-[2rem] aspect-[4/3] shadow-inner">
               <img 
-                src="https://i.postimg.cc/9Q701MnD/f3194e77-4e89-4b03-a176-0e2ebcb3745e-(1).jpg" 
+                src="https://i.postimg.cc/LsC6W6cG/Chat-GPT-Image-Sep-9-2026-09-44-51-AM.png" 
                 alt="בין לבין - תוכנית לנשים באמצע החיים" 
                 className="w-full h-full object-cover"
               />

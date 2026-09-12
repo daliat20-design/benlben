@@ -77,14 +77,14 @@ export const ImportantInfo: React.FC<{ hideDates?: boolean }> = ({ hideDates }) 
                 </svg>
               </div>
 
-              <h3 className="text-2xl md:text-4xl font-black text-brand-green mb-6 md:mb-8">קהל יעד ומיקום</h3>
+              <h3 className="text-2xl md:text-4xl font-black text-brand-green mb-6 md:mb-8">גילאים ומיקום</h3>
               
               <div className="space-y-6 md:space-y-10 text-gray-700 font-medium text-lg md:text-xl leading-relaxed flex-1">
                 <div className="space-y-4 md:space-y-6">
                   <div className="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-brand-orange/5 rounded-[1.5rem] md:rounded-[2rem] border-r-8 border-brand-orange shadow-sm">
                     <div>
                       <p className="text-[10px] md:text-xs font-black text-brand-orange uppercase tracking-widest mb-1">טווח גילאים מומלץ</p>
-                      <p className="text-2xl md:text-3xl font-black text-brand-green" dir="ltr">45-65</p>
+                      <p className="text-2xl md:text-3xl font-black text-brand-green" dir="ltr">45-60</p>
                     </div>
                   </div>
 

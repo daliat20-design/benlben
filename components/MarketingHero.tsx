@@ -6,9 +6,9 @@ import { ButterflyIcon } from './ButterflyIcon';
 export const MarketingHero: React.FC = () => {
   return (
     <section id="top" className="relative pt-16 pb-24 px-6 overflow-hidden bg-brand-cream">
-      {/* Background Decor Butterflies */}
-      <ButterflyIcon size={220} className="absolute -top-10 -left-20 opacity-10 animate-float" />
-      <ButterflyIcon size={140} className="absolute top-1/4 right-0 opacity-10 animate-drift hidden lg:block" />
+      {/* Background Decor Butterflies - strictly hidden on mobile and kept behind content */}
+      <ButterflyIcon size={220} className="absolute -top-10 -left-20 opacity-10 animate-float pointer-events-none select-none hidden md:block -z-10" />
+      <ButterflyIcon size={140} className="absolute top-1/4 right-0 opacity-10 animate-drift pointer-events-none select-none hidden lg:block -z-10" />
       
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10">
         <div className="flex-1 text-center md:text-right">
@@ -35,7 +35,7 @@ export const MarketingHero: React.FC = () => {
           <div className="mb-8 inline-flex items-center gap-2 bg-brand-orange/10 text-brand-orange px-4 py-1.5 rounded-full border border-brand-orange/20 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
             <span className="text-lg font-black tracking-tight flex items-center gap-1">
-              קהל יעד מומלץ: <span dir="ltr">45-65</span>
+              נשים בגילאי <span dir="ltr">45-60</span>
             </span>
           </div>
           
@@ -51,7 +51,7 @@ export const MarketingHero: React.FC = () => {
           <div className="relative z-10 p-6 bg-white shadow-[0_50px_100px_-20px_rgba(84,99,79,0.3)] rounded-[3rem] transform rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden">
             <div className="overflow-hidden rounded-[2rem] aspect-[4/3] shadow-inner">
               <img 
-                src="https://i.postimg.cc/zXNcsDYk/header-jpg.png" 
+                src="https://i.postimg.cc/LsC6W6cG/Chat-GPT-Image-Sep-9-2026-09-44-51-AM.png" 
                 alt="בין לבין - תוכנית לנשים באמצע החיים" 
                 className="w-full h-full object-cover"
               />

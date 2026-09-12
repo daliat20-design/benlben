@@ -7,14 +7,14 @@ const sections = [
   { id: 'marketing-about', name: 'על התוכנית' },
   { id: 'program-highlights', name: 'עיקרי התוכנית' },
   { id: 'program-structure', name: 'מבנה המפגשים' },
-  { id: 'marketing-middle-cta', name: 'בואי נדבר' },
   { id: 'marketing-speakers', name: 'המרצות' },
   { id: 'marketing-team', name: 'הצוות' },
   { id: 'marketing-success', name: 'סיפור הצלחה' },
   { id: 'marketing-info', name: 'חשוב לדעת' },
   { id: 'marketing-gallery', name: 'גלריה' },
   { id: 'testimonials', name: 'המלצות' },
-  { id: 'marketing-contact', name: 'יצירת קשר' },
+  { id: 'other-programs', name: 'עוד מבין לבין' },
+  { id: 'footer-contact', name: 'יצירת קשר' },
 ];
 
 export const MarketingQuickNav: React.FC = () => {

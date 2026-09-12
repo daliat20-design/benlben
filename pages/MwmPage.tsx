@@ -6,6 +6,7 @@ import { MwmDates } from '../components/mwm/MwmDates';
 import { MwmSessions } from '../components/mwm/MwmSessions';
 import { MwmSpeakers } from '../components/mwm/MwmSpeakers';
 import { MwmTeam } from '../components/mwm/MwmTeam';
+import { MwmPricing } from '../components/mwm/MwmPricing';
 import { MwmTestimonials } from '../components/mwm/MwmTestimonials';
 import { MwmFooter } from '../components/mwm/MwmFooter';
 import { WhatsAppShare } from '../components/WhatsAppShare';
@@ -38,6 +39,7 @@ const MwmPage: React.FC = () => {
         <MwmDates />
         <MwmSessions />
         <MwmSpeakers />
+        <MwmPricing />
         <MwmTeam />
         <MwmTestimonials />
       </main>

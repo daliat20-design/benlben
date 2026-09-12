@@ -6,6 +6,7 @@ import { MarketingSessions } from '../components/MarketingSessions';
 import { MarketingSpeakers } from '../components/MarketingSpeakers';
 import { TeamSection } from '../components/TeamSection';
 import { TestimonialsSection } from '../components/TestimonialsSection';
+import { OtherProgramsSection } from '../components/OtherProgramsSection';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
@@ -15,7 +16,7 @@ const MarketingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
 
   useEffect(() => {
-    document.title = "בין לבין - תוכנית לנשים באמצע החיים";
+    document.title = "אמצע החיים | סדנת הדגל של בין לבין לנשים בגילאי 45-60";
   }, []);
 
   const openTerms = (e: React.MouseEvent) => {
@@ -38,6 +39,7 @@ const MarketingPage: React.FC = () => {
         <MarketingSpeakers />
         <TeamSection />
         <TestimonialsSection />
+        <OtherProgramsSection currentProgramId="midlife" />
       </main>
       <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
       <WhatsAppShare />

@@ -8,6 +8,7 @@ import { ImportantInfo } from '../components/ImportantInfo';
 import { PricingSection } from '../components/PricingSection';
 import { TeamSection } from '../components/TeamSection';
 import { TestimonialsSection } from '../components/TestimonialsSection';
+import { OtherProgramsSection } from '../components/OtherProgramsSection';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
@@ -42,6 +43,7 @@ const LandingPage: React.FC = () => {
         <PricingSection />
         <TeamSection />
         <TestimonialsSection />
+        <OtherProgramsSection currentProgramId="midlife" />
       </main>
       <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
       <WhatsAppShare />

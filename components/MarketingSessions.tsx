@@ -189,7 +189,7 @@ export const MarketingSessions: React.FC = () => {
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-7xl font-black mb-6 text-brand-green tracking-tighter">מבנה המפגשים</h2>
           <p className="text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
-            התוכנית בנויה משמונה מפגשים המשלבים ידע מקצועי, שיח נשי, התבוננות אישית וכלים מעשיים.
+            סדנת אמצע החיים בנויה משמונה מפגשים המשלבים ידע מקצועי, שיח נשי, התבוננות אישית וכלים מעשיים.
           </p>
           <p className="text-sm md:text-lg text-gray-500 max-w-3xl mx-auto mt-4 font-medium leading-relaxed">
             בכל מפגש נעסוק בנושא מרכזי אחר מתוך עולמן של נשים באמצע החיים ובתקופת גיל המעבר, דרך הרצאה מקצועית, מעגלי שיח, שאלות מנחות ותהליך אישי מתמשך.

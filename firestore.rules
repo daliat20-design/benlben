@@ -25,11 +25,30 @@ service cloud.firestore {
     // FoodItem Validation for final list
     function isValidFoodItemFinal(data) {
       return data.keys().hasAll(['category', 'label']) &&
-             data.keys().size() <= 4 && 
+             data.keys().size() <= 5 && 
              data.category is string && data.category.size() <= 100 &&
              data.label is string && data.label.size() <= 100 &&
              (!data.keys().hasAny(['takenBy']) || (data.takenBy == null || (data.takenBy is string && data.takenBy.size() <= 100))) &&
              (!data.keys().hasAny(['claimedAt']) || (data.claimedAt == null || (data.claimedAt is string && data.claimedAt.size() <= 100)));
+    }
+
+    // MwmIntakeForm Validation (city is optional)
+    function isValidMwmIntakeForm(data) {
+      return data.keys().hasAll(['fullName', 'phone', 'ageRange', 'motivation', 'expectations', 'personalWish']) &&
+             data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 100 &&
+             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 50 &&
+             data.ageRange is string && data.ageRange.size() > 0 && data.ageRange.size() <= 50 &&
+             data.motivation is string && data.motivation.size() > 0 && data.motivation.size() <= 2000 &&
+             data.expectations is string && data.expectations.size() > 0 && data.expectations.size() <= 2000 &&
+             data.personalWish is string && data.personalWish.size() > 0 && data.personalWish.size() <= 500 &&
+             (!data.keys().hasAny(['city']) || (data.city is string && data.city.size() <= 100)) &&
+             (!data.keys().hasAny(['notes']) || (data.notes is string && data.notes.size() <= 2000)) &&
+             (!data.keys().hasAny(['submittedAt']) || (data.submittedAt is string && data.submittedAt.size() <= 100));
+    }
+
+    match /mwm_intake_forms/{formId} {
+      allow create: if isValidMwmIntakeForm(incoming());
+      allow read, delete: if true; // Allows team review and deletion of test submissions
     }
 
     match /foodItems_v3/{itemId} {

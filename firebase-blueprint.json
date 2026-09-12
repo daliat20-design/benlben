@@ -12,12 +12,36 @@
         "claimedByUid": { "type": "string", "description": "UID of the person who claimed it" }
       },
       "required": ["category", "label"]
+    },
+    "MwmIntakeForm": {
+      "title": "MWM Intake Form",
+      "description": "Participant intake questionnaire response for Bein Levein Kochav Yair Tzur Yigal",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "description": "Full name of participant", "maxLength": 100 },
+        "phone": { "type": "string", "description": "Mobile phone number", "maxLength": 50 },
+        "city": { "type": "string", "description": "City of residence (optional)", "maxLength": 100 },
+        "ageRange": { "type": "string", "description": "Age range selection", "maxLength": 50 },
+        "motivation": { "type": "string", "description": "Reason for joining the program", "maxLength": 2000 },
+        "periodCharacteristics": { "type": "array", "description": "What characterizes this period for the participant" },
+        "topicsOfInterest": { "type": "array", "description": "Topics of particular interest" },
+        "topicDetails": { "type": "object", "description": "Dynamic questions and expectations for each checked topic" },
+        "expectations": { "type": "string", "description": "What participant hopes to gain from the program", "maxLength": 2000 },
+        "notes": { "type": "string", "description": "Additional notes/info to know beforehand", "maxLength": 2000 },
+        "personalWish": { "type": "string", "description": "One thing the participant wishes to have more of", "maxLength": 500 },
+        "submittedAt": { "type": "string", "description": "ISO timestamp of submission" }
+      },
+      "required": ["fullName", "phone", "ageRange", "motivation", "expectations", "personalWish"]
     }
   },
   "firestore": {
     "foodItems": {
       "schema": "FoodItem",
       "description": "Collection of food items for the refreshment signup"
+    },
+    "mwm_intake_forms": {
+      "schema": "MwmIntakeForm",
+      "description": "Intake questionnaire responses for Bein Levein KY"
     }
   }
 }

@@ -35,8 +35,8 @@ const testimonials = [
 export const TestimonialsSection: React.FC = () => {
   return (
     <section id="testimonials" className="py-24 bg-brand-cream px-6 relative overflow-hidden">
-      <ButterflyIcon size={200} className="absolute -top-10 -right-10 opacity-5 animate-drift" />
-      <ButterflyIcon size={150} className="absolute -bottom-10 -left-10 opacity-5 animate-float" />
+      <ButterflyIcon size={200} className="absolute -top-10 -right-10 opacity-5 animate-drift pointer-events-none select-none hidden md:block -z-10" />
+      <ButterflyIcon size={150} className="absolute -bottom-10 -left-10 opacity-5 animate-float pointer-events-none select-none hidden md:block -z-10" />
       
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-20">

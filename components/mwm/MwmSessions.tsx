@@ -77,8 +77,8 @@ export const MwmSessions: React.FC = () => {
 
   return (
     <section id="sessions" className="py-24 bg-white px-4 md:px-6 relative overflow-hidden">
-      <ButterflyIcon size={300} className="absolute top-20 -right-20 animate-drift opacity-[0.03] -z-10 hidden md:block" />
-      <ButterflyIcon size={240} className="absolute bottom-20 -left-10 animate-float opacity-[0.03] -z-10 hidden md:block" />
+      <ButterflyIcon size={380} className="absolute top-20 -right-20 animate-drift opacity-[0.05] -z-10 hidden md:block" />
+      <ButterflyIcon size={300} className="absolute bottom-20 -left-10 animate-float opacity-[0.05] -z-10 hidden md:block" />
       
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
@@ -108,7 +108,7 @@ export const MwmSessions: React.FC = () => {
                     <div className={`p-4 rounded-2xl ${iconBg} shadow-sm`}>
                       <Icon size={28} />
                     </div>
-                    <ButterflyIcon size={28} className="opacity-15 text-brand-green" />
+                    <ButterflyIcon size={44} className={`transition-all duration-300 ${isAccent ? 'opacity-30 text-brand-orange' : 'opacity-25 text-brand-green'}`} />
                   </div>
 
                   <h3 className="text-2xl md:text-3xl font-black text-brand-green mb-2">
