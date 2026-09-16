@@ -37,8 +37,7 @@ const InternalNav: React.FC = () => {
   const [showLinks, setShowLinks] = React.useState(false);
 
   const links = [
-    { name: 'דף הנחיתה של התוכניות (ראשי)', path: '#/', full: `${baseUrl}/` },
-    { name: 'דף הנחיתה של התוכניות (נשים)', path: '#/women-programs', full: `${baseUrl}/#/women-programs` },
+    { name: 'דף הנחיתה של התוכניות', path: '#/', full: `${baseUrl}/` },
     { name: 'סדנת אמצע החיים (דף ישן)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
     { name: 'ניהול מיני-דפים', path: '#/mini-admin', full: `${baseUrl}/#/mini-admin` },
     { name: 'בין לבין כיצ"י MWM', path: '#/mwm', full: `${baseUrl}/#/mwm` },
