@@ -4,8 +4,8 @@ import { ButterflyIcon } from '../../components/Hero';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
 import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
 
-const HIGHLIGHTS_LOGO_URL = "https://i.postimg.cc/MTVpW36p/Chat-GPT-Image-Sep-16-2026-09-47-40-AM.png";
-const HIGHLIGHTS_LOGO_FALLBACK = "https://i.postimg.cc/MTVpW36p/Chat-GPT-Image-Sep-16-2026-09-47-40-AM.png";
+const HIGHLIGHTS_LOGO_URL = "/logos/highlights.webp";
+const HIGHLIGHTS_LOGO_FALLBACK = "/logos/highlights.png";
 
 export const HighlightsMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'highlights' }) => {
   useEffect(() => {

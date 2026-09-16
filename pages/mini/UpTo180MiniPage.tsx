@@ -4,8 +4,8 @@ import { ButterflyIcon } from '../../components/Hero';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
 import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
 
-const UNTIL180_LOGO_URL = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
-const UNTIL180_LOGO_FALLBACK = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
+const UNTIL180_LOGO_URL = "/logos/up-to-180.webp";
+const UNTIL180_LOGO_FALLBACK = "/logos/up-to-180.png";
 
 export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'up-to-180' }) => {
   useEffect(() => {

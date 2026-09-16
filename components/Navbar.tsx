@@ -97,14 +97,14 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
             <Link to={isMwmPage || isMwmFormPage ? "/mwm" : "/"} className="flex items-center gap-2 group">
               <div className="w-12 h-12 rounded-full bg-white border border-brand-green/30 p-1 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-xs">
                 <img 
-                  src="https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png" 
+                  src="/logos/brand-main.webp" 
                   alt="בין לבין לוגו" 
                   className="w-full h-full object-contain rounded-full"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     const target = e.currentTarget;
-                    if (target.src !== 'https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png') {
-                      target.src = 'https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png';
+                    if (target.src !== '/logos/brand-main.png') {
+                      target.src = '/logos/brand-main.png';
                     }
                   }}
                 />

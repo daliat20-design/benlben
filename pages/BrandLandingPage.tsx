@@ -43,26 +43,26 @@ interface ProgramCardTheme {
   accentBar: string;
 }
 
-const MAIN_BRAND_LOGO_URL = "https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png";
-const MAIN_BRAND_LOGO_FALLBACK = "https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png";
+const MAIN_BRAND_LOGO_URL = "/logos/brand-main.webp";
+const MAIN_BRAND_LOGO_FALLBACK = "/logos/brand-main.png";
 
-const MIDLIFE_LOGO_URL = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
-const MIDLIFE_LOGO_FALLBACK = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
+const MIDLIFE_LOGO_URL = "/logos/midlife.webp";
+const MIDLIFE_LOGO_FALLBACK = "/logos/midlife.png";
 
-const UNTIL180_LOGO_URL = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
-const UNTIL180_LOGO_FALLBACK = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
+const UNTIL180_LOGO_URL = "/logos/up-to-180.webp";
+const UNTIL180_LOGO_FALLBACK = "/logos/up-to-180.png";
 
-const ALCHEMY_LOGO_URL = "https://i.postimg.cc/K80KVWz5/Chat-GPT-Image-Sep-16-2026-10-08-21-AM.png";
-const ALCHEMY_LOGO_FALLBACK = "https://i.postimg.cc/K80KVWz5/Chat-GPT-Image-Sep-16-2026-10-08-21-AM.png";
+const ALCHEMY_LOGO_URL = "/logos/alchemy.webp";
+const ALCHEMY_LOGO_FALLBACK = "/logos/alchemy.png";
 
-const AHEAD_OF_YOU_LOGO_URL = "https://i.postimg.cc/L53wDLTH/Chat-GPT-Image-Sep-16-2026-10-04-45-AM.png";
-const AHEAD_OF_YOU_LOGO_FALLBACK = "https://i.postimg.cc/L53wDLTH/Chat-GPT-Image-Sep-16-2026-10-04-45-AM.png";
+const AHEAD_OF_YOU_LOGO_URL = "/logos/ahead-of-you.webp";
+const AHEAD_OF_YOU_LOGO_FALLBACK = "/logos/ahead-of-you.png";
 
-const HIGHLIGHTS_LOGO_URL = "https://i.postimg.cc/MTVpW36p/Chat-GPT-Image-Sep-16-2026-09-47-40-AM.png";
-const HIGHLIGHTS_LOGO_FALLBACK = "https://i.postimg.cc/MTVpW36p/Chat-GPT-Image-Sep-16-2026-09-47-40-AM.png";
+const HIGHLIGHTS_LOGO_URL = "/logos/highlights.webp";
+const HIGHLIGHTS_LOGO_FALLBACK = "/logos/highlights.png";
 
-const THE_TENT_LOGO_URL = "https://i.postimg.cc/bwwrQRTN/Chat-GPT-Image-Sep-16-2026-09-50-49-AM.png";
-const THE_TENT_LOGO_FALLBACK = "https://i.postimg.cc/bwwrQRTN/Chat-GPT-Image-Sep-16-2026-09-50-49-AM.png";
+const THE_TENT_LOGO_URL = "/logos/the-tent.webp";
+const THE_TENT_LOGO_FALLBACK = "/logos/the-tent.png";
 
 const getProgramBorderColor = (id: string) => {
   switch (id) {
@@ -285,6 +285,8 @@ export const BrandLandingPage: React.FC = () => {
                 src={MAIN_BRAND_LOGO_URL} 
                 alt="לוגו בין לבין" 
                 className="w-full h-full object-contain rounded-full"
+                loading="eager"
+                fetchPriority="high"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   const target = e.currentTarget;
@@ -537,6 +539,8 @@ export const BrandLandingPage: React.FC = () => {
                     src={MAIN_BRAND_LOGO_URL} 
                     alt="לוגו בין לבין - בית נשי לתוכן, חוויה ומפגש" 
                     className="w-full h-full object-contain rounded-full"
+                    loading="eager"
+                    fetchPriority="high"
                     referrerPolicy="no-referrer"
                     onError={(e) => {
                       const target = e.currentTarget;

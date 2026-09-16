@@ -4,8 +4,8 @@ import { ButterflyIcon } from '../../components/Hero';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
 import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
 
-const ALCHEMY_LOGO_URL = "https://i.postimg.cc/K80KVWz5/Chat-GPT-Image-Sep-16-2026-10-08-21-AM.png";
-const ALCHEMY_LOGO_FALLBACK = "https://i.postimg.cc/K80KVWz5/Chat-GPT-Image-Sep-16-2026-10-08-21-AM.png";
+const ALCHEMY_LOGO_URL = "/logos/alchemy.webp";
+const ALCHEMY_LOGO_FALLBACK = "/logos/alchemy.png";
 
 export const AlchemyOfElementsPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'alchemy' }) => {
   useEffect(() => {

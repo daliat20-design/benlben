@@ -4,8 +4,8 @@ import { ButterflyIcon } from '../../components/Hero';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
 import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
 
-const THE_TENT_LOGO_URL = "https://i.postimg.cc/bwwrQRTN/Chat-GPT-Image-Sep-16-2026-09-50-49-AM.png";
-const THE_TENT_LOGO_FALLBACK = "https://i.postimg.cc/bwwrQRTN/Chat-GPT-Image-Sep-16-2026-09-50-49-AM.png";
+const THE_TENT_LOGO_URL = "/logos/the-tent.webp";
+const THE_TENT_LOGO_FALLBACK = "/logos/the-tent.png";
 
 export const TheTentMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'the-tent' }) => {
   useEffect(() => {

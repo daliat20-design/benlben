@@ -4,8 +4,8 @@ import { ButterflyIcon } from '../../components/Hero';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
 import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
 
-const MIDLIFE_LOGO_URL = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
-const MIDLIFE_LOGO_FALLBACK = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
+const MIDLIFE_LOGO_URL = "/logos/midlife.webp";
+const MIDLIFE_LOGO_FALLBACK = "/logos/midlife.png";
 
 export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'midlife' }) => {
   useEffect(() => {

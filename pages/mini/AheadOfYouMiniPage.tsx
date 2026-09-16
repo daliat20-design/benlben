@@ -4,8 +4,8 @@ import { ButterflyIcon } from '../../components/Hero';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
 import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
 
-const AHEAD_OF_YOU_LOGO_URL = "https://i.postimg.cc/L53wDLTH/Chat-GPT-Image-Sep-16-2026-10-04-45-AM.png";
-const AHEAD_OF_YOU_LOGO_FALLBACK = "https://i.postimg.cc/L53wDLTH/Chat-GPT-Image-Sep-16-2026-10-04-45-AM.png";
+const AHEAD_OF_YOU_LOGO_URL = "/logos/ahead-of-you.webp";
+const AHEAD_OF_YOU_LOGO_FALLBACK = "/logos/ahead-of-you.png";
 
 export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'ahead-of-you' }) => {
   useEffect(() => {
