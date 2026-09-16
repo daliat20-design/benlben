@@ -43,8 +43,8 @@ interface ProgramCardTheme {
   accentBar: string;
 }
 
-const MAIN_BRAND_LOGO_URL = "https://i.postimg.cc/prm1bgJ2/Chat-GPT-Image-Sep-14-2026-07-18-04-PM.png";
-const MAIN_BRAND_LOGO_FALLBACK = "https://i.postimg.cc/PrH50HRm/logo-jpg.webp";
+const MAIN_BRAND_LOGO_URL = "https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png";
+const MAIN_BRAND_LOGO_FALLBACK = "https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png";
 
 const MIDLIFE_LOGO_URL = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
 const MIDLIFE_LOGO_FALLBACK = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
@@ -809,10 +809,10 @@ export const BrandLandingPage: React.FC = () => {
               
               <div className="space-y-4 text-gray-700 leading-[1.8] text-lg sm:text-xl font-normal">
                 <p>
-                  מתמחה בהובלת פרויקטים ובתרגום רעיונות לתהליכים יישומיים, מדויקים וברורים. פעילה לאורך שנים ב"אמהות עם מהות", ברמה המקומית והארצית, בהובלת קהילה, תוכן, תוכניות ואירועים. הניסיון הזה מביא לתוכניות היכרות עמוקה עם קהילות נשים ועם הדרך לבנות תהליך שמחבר בין תוכן, שיח וחוויה.
+                  מתמחה בהובלת פרויקטים, בפיתוח תוכניות ובתרגום רעיונות לתהליכים יישומיים, מדויקים וברורים. לאורך השנים צברה ניסיון בהובלת קהילות נשים, בפיתוח תוכן ובהפקת תוכניות ואירועים, מתוך היכרות עמוקה עם הדרך שבה תוכן, שיח וחוויה מתחברים לתהליך שלם.
                 </p>
                 <p className="font-bold text-brand-green text-center text-lg sm:text-xl">
-                  ב"בין לבין" דלית מחזיקה את המבנה, הרצף והקצב, ומובילה את התהליך מהרעיון ועד למימוש.
+                  ב&quot;בין לבין&quot; דלית מחזיקה את התמונה הגדולה ואת הפרטים הקטנים, ומובילה את התוכניות משלב הרעיון, דרך הפיתוח והדיוק ועד למימוש.
                 </p>
               </div>
             </div>
@@ -842,10 +842,10 @@ export const BrandLandingPage: React.FC = () => {
               
               <div className="space-y-4 text-gray-700 leading-[1.8] text-lg sm:text-xl font-normal">
                 <p>
-                  מלווה תהליכים אישיים וקבוצתיים של שינוי, התבוננות וקבלת החלטות. פעילה לאורך שנים ב"אמהות עם מהות", ברמה המקומית והארצית, ומביאה איתה ניסיון בהנחיית קבוצות והיכרות עמוקה עם נשים, קהילות ותהליכים קבוצתיים.
+                  מלווה תהליכים אישיים וקבוצתיים של שינוי, התבוננות וקבלת החלטות. בעלת ניסיון בהנחיית קבוצות ובעבודה עם נשים, ומביאה לתוכניות כלים מעולם ה־NLP לצד יכולת להוביל שיח שמאפשר להתבונן, לדייק ולנוע קדימה.
                 </p>
                 <p className="font-bold text-brand-green text-center text-lg sm:text-xl">
-                  ב"בין לבין" אלסי מובילה את תהליכי ההתבוננות והשיח, ומסייעת לנשים לתרגם תובנות פנימיות לבחירות ולצעדים מעשיים.
+                  ב&quot;בין לבין&quot; אלסי מובילה את תהליכי ההתבוננות והשיח, ומסייעת לנשים לתרגם תובנות לבחירות ולצעדים מעשיים.
                 </p>
               </div>
             </div>

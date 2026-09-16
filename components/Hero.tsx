@@ -45,14 +45,14 @@ export const Hero: React.FC = () => {
           <div className="mb-6 sm:mb-8 flex justify-center md:justify-start">
             <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full shadow-2xl p-2.5 sm:p-3 border-4 border-brand-beige flex items-center justify-center overflow-hidden animate-float relative bg-white">
               <img 
-                src="https://i.postimg.cc/prm1bgJ2/Chat-GPT-Image-Sep-14-2026-07-18-04-PM.png" 
+                src="https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png" 
                 alt="לוגו בין לבין" 
                 className="w-full h-full object-contain rounded-full"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   const target = e.currentTarget;
-                  if (target.src !== 'https://i.postimg.cc/PrH50HRm/logo-jpg.webp') {
-                    target.src = 'https://i.postimg.cc/PrH50HRm/logo-jpg.webp';
+                  if (target.src !== 'https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png') {
+                    target.src = 'https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png';
                   }
                 }}
               />

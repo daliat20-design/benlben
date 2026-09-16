@@ -210,10 +210,9 @@ export const MwmIntakeFormPage: React.FC = () => {
           <Link to="/mwm" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <div className="w-12 h-12 flex items-center justify-center overflow-hidden rounded-full shadow-sm border border-brand-beige/50 bg-white">
               <img 
-                src="https://i.postimg.cc/PrH50HRm/logo-jpg.webp" 
+                src="https://i.postimg.cc/BQ9MQm3W/Chat-GPT-Image-Sep-16-2026-12-36-40-PM.png" 
                 alt="בין לבין לוגו" 
-                className="w-full h-full object-cover"
-                style={{ mixBlendMode: 'multiply' }}
+                className="w-full h-full object-contain rounded-full"
               />
             </div>
             <div className="flex flex-col">
