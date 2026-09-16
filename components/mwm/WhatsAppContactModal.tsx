@@ -50,13 +50,13 @@ export const WhatsAppContactModal: React.FC<WhatsAppContactModalProps> = ({
 
             {/* Header */}
             <div className="space-y-2 pt-2">
-              <div className="w-16 h-16 bg-[#25D366]/10 text-[#25D366] rounded-full flex items-center justify-center mx-auto shadow-inner border border-[#25D366]/20">
-                <MessageCircle className="w-8 h-8" />
+              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-100 shadow-2xs">
+                <MessageCircle className="w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-black text-brand-green">
+              <h3 className="text-2xl font-black text-gray-900">
                 {title}
               </h3>
-              <p className="text-sm font-bold text-gray-500">
+              <p className="text-sm font-medium text-gray-500">
                 {subtitle}
               </p>
             </div>
@@ -70,25 +70,25 @@ export const WhatsAppContactModal: React.FC<WhatsAppContactModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={onClose}
-                  className="flex items-center justify-between p-4 rounded-2xl bg-brand-cream/50 hover:bg-[#25D366] text-gray-800 hover:text-white border border-brand-beige hover:border-[#25D366] transition-all group shadow-sm hover:shadow-md transform hover:-translate-y-0.5 cursor-pointer"
+                  className="flex items-center justify-between p-3.5 rounded-2xl bg-gray-50 hover:bg-white text-gray-800 border border-gray-200 hover:border-emerald-300 transition-all group shadow-2xs hover:shadow-md transform hover:-translate-y-0.5 cursor-pointer"
                 >
                   <div className="flex items-center gap-3 text-right">
-                    <div className="w-10 h-10 rounded-xl bg-white group-hover:bg-white/20 flex items-center justify-center text-[#25D366] group-hover:text-white transition-colors shadow-sm">
+                    <div className="w-10 h-10 rounded-xl bg-white group-hover:bg-emerald-50 flex items-center justify-center text-emerald-600 transition-colors border border-gray-100 shadow-2xs">
                       <MessageCircle className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-base font-black text-brand-green group-hover:text-white transition-colors">
+                      <h4 className="text-base font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">
                         {contact.name}
                       </h4>
                       {contact.role && (
-                        <p className="text-[11px] font-bold text-brand-orange group-hover:text-white/90 transition-colors">
+                        <p className="text-[11px] font-medium text-gray-500">
                           {contact.role}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <span className="text-xs font-black bg-white group-hover:bg-white/20 text-brand-green group-hover:text-white px-3 py-1.5 rounded-full transition-colors shadow-sm">
+                  <span className="text-xs font-bold bg-white group-hover:bg-emerald-50 text-gray-700 group-hover:text-emerald-700 px-3 py-1.5 rounded-full transition-colors border border-gray-200 group-hover:border-emerald-200 shadow-2xs">
                     שליחת הודעה ←
                   </span>
                 </a>

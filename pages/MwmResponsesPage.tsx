@@ -9,6 +9,7 @@ import {
   deleteIntakeSubmission, 
   IntakeSubmission 
 } from '../utils/mwmStorage';
+import { InquiriesTab } from '../components/InquiriesTab';
 import { 
   Users, Trash2, Phone, Calendar, Heart, HelpCircle, 
   Sparkles, ArrowRight, ShieldCheck, Download, Search, 
@@ -35,6 +36,7 @@ export const MwmResponsesPage: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [submissions, setSubmissions] = useState<IntakeSubmission[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'inquiries' | 'intake'>('inquiries');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubmission, setSelectedSubmission] = useState<IntakeSubmission | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -423,8 +425,38 @@ export const MwmResponsesPage: React.FC = () => {
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         
-        {/* Actions & Stats Banner */}
-        <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-lg border border-brand-beige mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        {/* Navigation Tabs */}
+        <div className="flex items-center gap-3 mb-8 bg-white/80 backdrop-blur p-1.5 rounded-2xl border border-brand-beige max-w-md shadow-sm">
+          <button
+            type="button"
+            onClick={() => setActiveTab('inquiries')}
+            className={`flex-1 py-3 px-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === 'inquiries'
+                ? 'bg-brand-green text-white shadow-md'
+                : 'text-gray-600 hover:text-brand-green hover:bg-brand-cream/50'
+            }`}
+          >
+            <span>פניות התעניינות מהאתר</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('intake')}
+            className={`flex-1 py-3 px-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === 'intake'
+                ? 'bg-brand-green text-white shadow-md'
+                : 'text-gray-600 hover:text-brand-green hover:bg-brand-cream/50'
+            }`}
+          >
+            <span>שאלון נעים להכיר ({submissions.length})</span>
+          </button>
+        </div>
+
+        {activeTab === 'inquiries' ? (
+          <InquiriesTab />
+        ) : (
+          <>
+            {/* Actions & Stats Banner */}
+            <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-lg border border-brand-beige mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-brand-green text-white rounded-2xl flex items-center justify-center shadow-md">
               <Users className="w-7 h-7" />
@@ -739,6 +771,8 @@ export const MwmResponsesPage: React.FC = () => {
             </div>
 
           </div>
+        )}
+          </>
         )}
       </main>
 

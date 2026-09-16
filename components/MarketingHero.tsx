@@ -13,12 +13,18 @@ export const MarketingHero: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10">
         <div className="flex-1 text-center md:text-right">
           <div className="mb-10 flex flex-col md:flex-row justify-center md:justify-start items-center gap-8">
-            <div className="w-40 h-40 md:w-56 md:h-56 rounded-full shadow-2xl p-2 border-4 border-brand-beige flex items-center justify-center overflow-hidden animate-float relative bg-white/50 backdrop-blur-sm">
+            <div className="w-40 h-40 md:w-56 md:h-56 rounded-full shadow-2xl p-2.5 sm:p-3 border-4 border-brand-beige flex items-center justify-center overflow-hidden animate-float relative bg-white">
               <img 
-                src="https://i.postimg.cc/PrH50HRm/logo-jpg.webp" 
+                src="https://i.postimg.cc/prm1bgJ2/Chat-GPT-Image-Sep-14-2026-07-18-04-PM.png" 
                 alt="לוגו בין לבין" 
-                className="w-full h-full object-cover rounded-full"
-                style={{ mixBlendMode: 'multiply' }}
+                className="w-full h-full object-contain rounded-full"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== 'https://i.postimg.cc/PrH50HRm/logo-jpg.webp') {
+                    target.src = 'https://i.postimg.cc/PrH50HRm/logo-jpg.webp';
+                  }
+                }}
               />
             </div>
           </div>

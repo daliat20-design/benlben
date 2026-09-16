@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  MessageCircle, 
-  ArrowDown, 
   Share2, 
   Sparkles, 
   ChevronUp, 
+  ChevronDown,
   Compass, 
   Sun, 
   Trees, 
   Tent, 
   Flower2, 
   ArrowLeft,
-  Crown
+  Crown,
+  Menu,
+  X
 } from 'lucide-react';
 import { ButterflyIcon } from '../components/Hero';
+import { WhatsAppIcon } from '../components/WhatsAppIcon';
+import { InterestForm } from '../components/InterestForm';
+import { BrandGallerySlider } from '../components/BrandGallerySlider';
+
+const DALIT_PHOTO_URL = "https://i.postimg.cc/TPYf2twq/DSC-3250.jpg";
+const ELSIE_PHOTO_URL = "https://i.postimg.cc/fbc302jS/Whats-App-Image-2026-09-14-at-11-31-04.jpg";
 
 interface ProgramCardTheme {
   id: string;
   name: string;
   isFlagship?: boolean;
-  categoryNode: React.ReactNode;
-  tagline: string;
+  winterBadge?: boolean;
+  winterBadgeText?: string;
+  categoryNode?: React.ReactNode;
+  tagline: React.ReactNode;
   icon: React.ComponentType<{ className?: string }>;
+  logoUrl?: string;
+  logoFallback?: string;
   link: string;
   cardBg: string;
   borderStyle: string;
@@ -32,14 +43,49 @@ interface ProgramCardTheme {
   accentBar: string;
 }
 
+const MAIN_BRAND_LOGO_URL = "https://i.postimg.cc/prm1bgJ2/Chat-GPT-Image-Sep-14-2026-07-18-04-PM.png";
+const MAIN_BRAND_LOGO_FALLBACK = "https://i.postimg.cc/PrH50HRm/logo-jpg.webp";
+
+const MIDLIFE_LOGO_URL = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
+const MIDLIFE_LOGO_FALLBACK = "https://i.postimg.cc/vH9cYBmz/Chat-GPT-Image-Sep-16-2026-09-57-23-AM.png";
+
+const UNTIL180_LOGO_URL = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
+const UNTIL180_LOGO_FALLBACK = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
+
+const ALCHEMY_LOGO_URL = "https://i.postimg.cc/K80KVWz5/Chat-GPT-Image-Sep-16-2026-10-08-21-AM.png";
+const ALCHEMY_LOGO_FALLBACK = "https://i.postimg.cc/K80KVWz5/Chat-GPT-Image-Sep-16-2026-10-08-21-AM.png";
+
+const AHEAD_OF_YOU_LOGO_URL = "https://i.postimg.cc/L53wDLTH/Chat-GPT-Image-Sep-16-2026-10-04-45-AM.png";
+const AHEAD_OF_YOU_LOGO_FALLBACK = "https://i.postimg.cc/L53wDLTH/Chat-GPT-Image-Sep-16-2026-10-04-45-AM.png";
+
+const HIGHLIGHTS_LOGO_URL = "https://i.postimg.cc/MTVpW36p/Chat-GPT-Image-Sep-16-2026-09-47-40-AM.png";
+const HIGHLIGHTS_LOGO_FALLBACK = "https://i.postimg.cc/MTVpW36p/Chat-GPT-Image-Sep-16-2026-09-47-40-AM.png";
+
+const THE_TENT_LOGO_URL = "https://i.postimg.cc/bwwrQRTN/Chat-GPT-Image-Sep-16-2026-09-50-49-AM.png";
+const THE_TENT_LOGO_FALLBACK = "https://i.postimg.cc/bwwrQRTN/Chat-GPT-Image-Sep-16-2026-09-50-49-AM.png";
+
+const getProgramBorderColor = (id: string) => {
+  switch (id) {
+    case 'midlife': return 'rgba(203,119,69,0.4)';
+    case 'up-to-180': return 'rgba(13,110,122,0.4)';
+    case 'alchemy': return 'rgba(72,153,107,0.4)';
+    case 'ahead-of-you': return 'rgba(178,58,95,0.4)';
+    case 'the-tent': return 'rgba(168,103,42,0.4)';
+    case 'highlights': return 'rgba(32,76,142,0.4)';
+    default: return 'rgba(203,119,69,0.4)';
+  }
+};
+
 const ALL_PROGRAMS: ProgramCardTheme[] = [
   {
     id: 'midlife',
     name: 'אמצע החיים',
     isFlagship: true,
+    winterBadge: true,
+    winterBadgeText: 'מחזור חורף נפתח בקרוב',
     categoryNode: (
       <span>
-        סדנת הדגל לנשים בגילאי{' '}
+        נשים{' '}
         <span dir="ltr" className="inline-block font-sans font-black">
           45-60
         </span>
@@ -47,59 +93,21 @@ const ALL_PROGRAMS: ProgramCardTheme[] = [
     ),
     tagline: 'מעטפת מקצועית של ידע, שיח והתבוננות אישית לתקופת גיל המעבר.',
     icon: Flower2,
+    logoUrl: MIDLIFE_LOGO_URL,
+    logoFallback: MIDLIFE_LOGO_FALLBACK,
     link: '/p/midlife',
     cardBg: 'bg-gradient-to-b from-[#fffbf7] via-[#fff7ef] to-[#ffeedd]',
     borderStyle: 'border-2 border-brand-orange/60 ring-2 ring-brand-orange/20 shadow-[0_12px_40px_rgba(203,119,69,0.15)] hover:border-brand-orange hover:shadow-2xl',
     iconBoxStyle: 'bg-brand-orange/20 text-brand-orange border border-brand-orange/40 shadow-xs',
-    badgeStyle: 'bg-brand-orange text-white border border-brand-orange shadow-xs font-black',
+    badgeStyle: 'bg-brand-orange/10 text-brand-orange border border-brand-orange/30 font-black',
     buttonStyle: 'bg-brand-orange hover:bg-brand-green text-white shadow-sm hover:shadow-md',
     accentBar: 'bg-brand-orange'
   },
   {
-    id: 'up-to-180',
-    name: 'עד 180°',
-    categoryNode: <span>סדנה לתהליכי שינוי</span>,
-    tagline: 'לעצור, לשנות זווית ולבחור את הצעד הבא.',
-    icon: Compass,
-    link: '/p/up-to-180',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f7fbfb] to-[#edf6f6]',
-    borderStyle: 'border border-teal-200/80 hover:border-teal-400 hover:shadow-xl shadow-[0_8px_30px_rgba(20,110,120,0.05)]',
-    iconBoxStyle: 'bg-teal-50 text-teal-700 border border-teal-200/70',
-    badgeStyle: 'bg-teal-50 text-teal-800 border border-teal-200/80',
-    buttonStyle: 'bg-teal-700/10 hover:bg-teal-700 text-teal-800 hover:text-white',
-    accentBar: 'bg-teal-500'
-  },
-  {
-    id: 'the-tent',
-    name: 'האוהל',
-    categoryNode: <span>מנהיגות, יוזמה והשפעה</span>,
-    tagline: 'מהכוחות והעוגנים הפנימיים אל יוזמה, הובלה ועשייה בקהילה.',
-    icon: Tent,
-    link: '/p/the-tent',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fffdf9] to-[#fbf2e3]',
-    borderStyle: 'border border-amber-200/80 hover:border-amber-400 hover:shadow-xl shadow-[0_8px_30px_rgba(180,120,20,0.05)]',
-    iconBoxStyle: 'bg-amber-50 text-amber-700 border border-amber-200/70',
-    badgeStyle: 'bg-amber-50 text-amber-800 border border-amber-200/80',
-    buttonStyle: 'bg-amber-700/10 hover:bg-amber-700 text-amber-800 hover:text-white',
-    accentBar: 'bg-amber-500'
-  },
-  {
-    id: 'alchemy',
-    name: 'אלכימיה של יסודות',
-    categoryNode: <span>יום שיא בטבע</span>,
-    tagline: 'חוויה שמחברת בין טבע, תנועה, התבוננות וחיבור לעצמנו.',
-    icon: Trees,
-    link: '/p/alchemy',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fbfdfb] to-[#edf6ec]',
-    borderStyle: 'border border-emerald-200/80 hover:border-emerald-400 hover:shadow-xl shadow-[0_8px_30px_rgba(40,120,60,0.05)]',
-    iconBoxStyle: 'bg-emerald-50 text-emerald-700 border border-emerald-200/70',
-    badgeStyle: 'bg-emerald-50 text-emerald-800 border border-emerald-200/80',
-    buttonStyle: 'bg-emerald-700/10 hover:bg-emerald-700 text-emerald-800 hover:text-white',
-    accentBar: 'bg-emerald-600'
-  },
-  {
     id: 'ahead-of-you',
-    name: 'עוד לפנייך',
+    name: 'עוֹד לְפָנַיִךְ',
+    winterBadge: true,
+    winterBadgeText: 'מחזור חורף נפתח בקרוב',
     categoryNode: (
       <span>
         תוכנית לנשים{' '}
@@ -110,13 +118,63 @@ const ALL_PROGRAMS: ProgramCardTheme[] = [
     ),
     tagline: 'להמשיך לגלות, לבחור, להתחדש וליצור משמעות.',
     icon: Sun,
+    logoUrl: AHEAD_OF_YOU_LOGO_URL,
+    logoFallback: AHEAD_OF_YOU_LOGO_FALLBACK,
     link: '/p/ahead-of-you',
     cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fffbfc] to-[#fcedf0]',
-    borderStyle: 'border border-rose-200/80 hover:border-rose-400 hover:shadow-xl shadow-[0_8px_30px_rgba(180,50,80,0.05)]',
-    iconBoxStyle: 'bg-rose-50 text-rose-700 border border-rose-200/70',
-    badgeStyle: 'bg-rose-50 text-rose-800 border border-rose-200/80',
-    buttonStyle: 'bg-rose-700/10 hover:bg-rose-700 text-rose-800 hover:text-white',
-    accentBar: 'bg-rose-500'
+    borderStyle: 'border-2 border-[#b23a5f]/40 hover:border-[#b23a5f] hover:shadow-xl shadow-[0_8px_30px_rgba(178,58,95,0.08)]',
+    iconBoxStyle: 'bg-[#b23a5f]/15 text-[#b23a5f] border border-[#b23a5f]/30',
+    badgeStyle: 'bg-[#b23a5f]/10 text-[#b23a5f] border border-[#b23a5f]/30 font-black',
+    buttonStyle: 'bg-[#b23a5f] hover:bg-[#8f2847] text-white shadow-sm hover:shadow-md',
+    accentBar: 'bg-[#b23a5f]'
+  },
+  {
+    id: 'up-to-180',
+    name: 'עד 180°',
+    categoryNode: <span>סדנה לתהליכי שינוי</span>,
+    tagline: 'לעצור, לשנות זווית ולבחור את הצעד הבא.',
+    icon: Compass,
+    logoUrl: UNTIL180_LOGO_URL,
+    logoFallback: UNTIL180_LOGO_FALLBACK,
+    link: '/p/up-to-180',
+    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f7fbfb] to-[#edf6f6]',
+    borderStyle: 'border-2 border-[#0d6e7a]/40 hover:border-[#0d6e7a] hover:shadow-xl shadow-[0_8px_30px_rgba(13,110,122,0.08)]',
+    iconBoxStyle: 'bg-[#0d6e7a]/15 text-[#0d6e7a] border border-[#0d6e7a]/30',
+    badgeStyle: 'bg-[#0d6e7a]/10 text-[#0d6e7a] border border-[#0d6e7a]/30 font-black',
+    buttonStyle: 'bg-[#0d6e7a] hover:bg-[#08545e] text-white shadow-sm hover:shadow-md',
+    accentBar: 'bg-[#0d6e7a]'
+  },
+  {
+    id: 'alchemy',
+    name: 'אלכימיה של יסודות',
+    categoryNode: <span>יום שיא בטבע</span>,
+    tagline: 'חוויה שמחברת בין טבע, תנועה, התבוננות וחיבור לעצמנו.',
+    icon: Trees,
+    logoUrl: ALCHEMY_LOGO_URL,
+    logoFallback: ALCHEMY_LOGO_FALLBACK,
+    link: '/p/alchemy',
+    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f7faf8] to-[#eaf4ee]',
+    borderStyle: 'border-2 border-[#48996B]/40 hover:border-[#48996B] hover:shadow-xl shadow-[0_8px_30px_rgba(72,153,107,0.08)]',
+    iconBoxStyle: 'bg-[#48996B]/15 text-[#327a51] border border-[#48996B]/30',
+    badgeStyle: 'bg-[#48996B]/10 text-[#327a51] border border-[#48996B]/30 font-black',
+    buttonStyle: 'bg-[#48996B] hover:bg-[#397d56] text-white shadow-sm hover:shadow-md',
+    accentBar: 'bg-[#48996B]'
+  },
+  {
+    id: 'the-tent',
+    name: 'האוהל',
+    categoryNode: <span>מנהיגות, יוזמה והשפעה</span>,
+    tagline: 'מהכוחות והעוגנים הפנימיים אל יוזמה, הובלה ועשייה בקהילה.',
+    icon: Tent,
+    logoUrl: THE_TENT_LOGO_URL,
+    logoFallback: THE_TENT_LOGO_FALLBACK,
+    link: '/p/the-tent',
+    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fdfbf7] to-[#f7efe3]',
+    borderStyle: 'border-2 border-[#b87333]/40 hover:border-[#a05a20] hover:shadow-xl shadow-[0_8px_30px_rgba(184,115,51,0.08)]',
+    iconBoxStyle: 'bg-[#b87333]/15 text-[#914e13] border border-[#b87333]/30',
+    badgeStyle: 'bg-[#b87333]/10 text-[#914e13] border border-[#b87333]/30 font-black',
+    buttonStyle: 'bg-[#914e13] hover:bg-[#723b0b] text-white shadow-sm hover:shadow-md',
+    accentBar: 'bg-[#b87333]'
   },
   {
     id: 'highlights',
@@ -124,18 +182,21 @@ const ALL_PROGRAMS: ProgramCardTheme[] = [
     categoryNode: <span>תוכנית פיתוח בארגונים</span>,
     tagline: 'מניסיון ונוכחות להובלה והשפעה לנשים באמצע החיים.',
     icon: Sparkles,
+    logoUrl: HIGHLIGHTS_LOGO_URL,
+    logoFallback: HIGHLIGHTS_LOGO_FALLBACK,
     link: '/p/highlights',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fafaff] to-[#edf0fc]',
-    borderStyle: 'border border-indigo-200/80 hover:border-indigo-400 hover:shadow-xl shadow-[0_8px_30px_rgba(70,60,160,0.05)]',
-    iconBoxStyle: 'bg-indigo-50 text-indigo-700 border border-indigo-200/70',
-    badgeStyle: 'bg-indigo-50 text-indigo-800 border border-indigo-200/80',
-    buttonStyle: 'bg-indigo-700/10 hover:bg-indigo-700 text-indigo-800 hover:text-white',
-    accentBar: 'bg-indigo-600'
+    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f8fbff] to-[#edf4fc]',
+    borderStyle: 'border-2 border-[#204C8E]/40 hover:border-[#204C8E] hover:shadow-xl shadow-[0_8px_30px_rgba(32,76,142,0.08)]',
+    iconBoxStyle: 'bg-[#204C8E]/15 text-[#204C8E] border border-[#204C8E]/30',
+    badgeStyle: 'bg-[#204C8E]/10 text-[#204C8E] border border-[#204C8E]/30 font-black',
+    buttonStyle: 'bg-[#204C8E] hover:bg-[#183a6d] text-white shadow-sm hover:shadow-md',
+    accentBar: 'bg-[#204C8E]'
   }
 ];
 
 export const BrandLandingPage: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = "בין לבין תוכניות לנשים";
@@ -145,23 +206,19 @@ export const BrandLandingPage: React.FC = () => {
       setShowScrollTop(window.scrollY > 400);
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsNavOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
-
-  const scrollToPrograms = () => {
-    const el = document.getElementById('programs-section');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToContact = () => {
-    const el = document.getElementById('contact');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const whatsappMasterText = encodeURIComponent(
     "אשמח לשמוע פרטים על תוכניות בין לבין לנשים"
@@ -169,127 +226,382 @@ export const BrandLandingPage: React.FC = () => {
   const dalitWhatsappUrl = `https://wa.me/972508353731?text=${whatsappMasterText}`;
   const elsieWhatsappUrl = `https://wa.me/972547458668?text=${whatsappMasterText}`;
 
+  const shareText = "תראי מה מצאתי !! סדנאות, מרחבים וריטרטים לנשים";
+  
   const handleShare = async () => {
     const url = window.location.href;
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "בין לבין | תוכניות וריטריטים לנשים",
-          text: "בית לתוכניות, סדנאות וריטריטים לנשים מבית בין לבין.",
+          title: "בין לבין | מרחבים לנשים",
+          text: shareText,
           url,
         });
       } catch {
         // user cancelled share
       }
     } else {
-      navigator.clipboard.writeText(url);
-      alert('הקישור הועתק ללוח!');
+      // Fallback: open WhatsApp share or copy to clipboard
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${shareText}\n${url}`)}`;
+      window.open(whatsappUrl, '_blank');
     }
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    setIsNavOpen(false);
+    setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        const yOffset = -75; // account for sticky header
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 50);
   };
 
   return (
     <div className="min-h-screen bg-brand-cream text-gray-800 antialiased selection:bg-brand-orange/20 selection:text-brand-green font-sans" dir="rtl">
       
       {/* =========================================================================
+          תפריט עליון קבוע ודביק (Sticky Top) עם תפריט נפתח (Dropdown)
+          - לוגו ושם המותג
+          - לחצן "הזמיני חברה" (מופיע גם כאן למעלה וגם בתחתית הדף)
+          - לחצן תפריט נפתח לניווט מהיר לכל התוכניות, הצוות ו"צרי קשר"
+      ========================================================================= */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-beige/90 shadow-xs">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3">
+          
+          {/* מותג ימין: לוגו עגול + שם המותג */}
+          <a 
+            href="#" 
+            onClick={(e) => { 
+              e.preventDefault(); 
+              window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            }} 
+            className="flex items-center gap-2.5 hover:opacity-90 transition-opacity group"
+          >
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-brand-green/30 shadow-xs flex items-center justify-center overflow-hidden bg-white p-1 group-hover:scale-105 transition-transform">
+              <img 
+                src={MAIN_BRAND_LOGO_URL} 
+                alt="לוגו בין לבין" 
+                className="w-full h-full object-contain rounded-full"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== MAIN_BRAND_LOGO_FALLBACK) {
+                    target.src = MAIN_BRAND_LOGO_FALLBACK;
+                  }
+                }}
+              />
+            </div>
+            <span className="text-xl sm:text-2xl font-black text-brand-green tracking-tight">
+              בין לבין
+            </span>
+          </a>
+
+          {/* פעולות שמאל: לחצן "הזמיני חברה" + לחצן תפריט נפתח */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            
+            {/* לחצן הזמיני חברה - מופיע למעלה (וגם בתחתית הדף) */}
+            <button
+              onClick={handleShare}
+              aria-label="הזמיני חברה"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gray-700 hover:text-brand-orange transition-colors py-2 px-3.5 sm:px-4 rounded-full bg-brand-cream hover:bg-white border border-brand-beige cursor-pointer shadow-xs active:scale-95"
+              title="הזמיני חברה"
+            >
+              <Share2 className="w-4 h-4 text-brand-orange" />
+              <span>הזמיני חברה</span>
+            </button>
+
+            {/* לחצן תפריט נפתח */}
+            <button
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              aria-expanded={isNavOpen}
+              aria-label="תפריט ניווט"
+              className={`inline-flex items-center gap-2 text-xs sm:text-sm font-black py-2 px-3.5 sm:px-4 rounded-full border transition-all cursor-pointer shadow-xs active:scale-95 ${
+                isNavOpen 
+                  ? 'bg-brand-green text-white border-brand-green shadow-sm' 
+                  : 'bg-white hover:bg-brand-cream text-brand-green border-brand-green/40 hover:border-brand-green'
+              }`}
+            >
+              {isNavOpen ? (
+                <X className="w-4 h-4 text-white" />
+              ) : (
+                <Menu className="w-4 h-4 text-brand-green" />
+              )}
+              <span>תפריט</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isNavOpen ? 'rotate-180 text-white' : 'text-brand-green'}`} />
+            </button>
+
+          </div>
+        </div>
+
+        {/* התפריט הנפתח (Dropdown Panel) */}
+        {isNavOpen && (
+          <>
+            {/* מסך שקוף לסגירה בלחיצה בחוץ */}
+            <div 
+              className="fixed inset-0 top-[57px] sm:top-[65px] bg-black/25 backdrop-blur-2xs z-40 transition-opacity"
+              onClick={() => setIsNavOpen(false)}
+            />
+
+            <div className="relative z-50 border-t border-brand-beige bg-white/98 backdrop-blur-md shadow-2xl px-4 sm:px-6 py-5 max-h-[82vh] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200 text-right">
+              <div className="max-w-5xl mx-auto">
+                <div className="flex items-center justify-between mb-3 px-1">
+                  <span className="text-xs sm:text-sm font-black text-brand-green tracking-wide">
+                    התוכניות והריטריטים של בין לבין:
+                  </span>
+                  <span className="text-[11px] text-gray-500 font-medium">
+                    לחצי למעבר מהיר
+                  </span>
+                </div>
+
+                {/* רשת קישורים לתוכניות */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
+                  
+                  {/* אמצע החיים */}
+                  <Link
+                    to="/p/midlife"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200 hover:border-brand-orange transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Flower2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-brand-orange transition-colors">
+                        אמצע החיים
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        סדנת הדגל לנשים <span dir="ltr">45-60</span>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* עוד לפנייך */}
+                  <Link
+                    to="/p/ahead-of-you"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-rose-50/70 hover:bg-rose-100/80 border border-rose-200 hover:border-rose-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Sun className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-rose-700 transition-colors">
+                        עוֹד לְפָנַיִךְ
+                      </div>
+                      <div className="text-xs text-gray-600">תוכנית לנשים 60+</div>
+                    </div>
+                  </Link>
+
+                  {/* אלכימיה של היסודות */}
+                  <Link
+                    to="/p/alchemy"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-teal-50/70 hover:bg-teal-100/80 border border-teal-200 hover:border-teal-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Trees className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-teal-700 transition-colors">
+                        אלכימיה של היסודות
+                      </div>
+                      <div className="text-xs text-gray-600">יום שיא וסדנת טבע</div>
+                    </div>
+                  </Link>
+
+                  {/* עד 180° */}
+                  <Link
+                    to="/p/up-to-180"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-sky-50/70 hover:bg-sky-100/80 border border-sky-200 hover:border-sky-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Compass className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-sky-700 transition-colors">
+                        עד 180°
+                      </div>
+                      <div className="text-xs text-gray-600">סדנה לתהליכי שינוי</div>
+                    </div>
+                  </Link>
+
+                  {/* היילייטס */}
+                  <Link
+                    to="/p/highlights"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 border border-blue-200 hover:border-blue-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-blue-700 transition-colors">
+                        היילייטס
+                      </div>
+                      <div className="text-xs text-gray-600">לארגונים וחברות</div>
+                    </div>
+                  </Link>
+
+                  {/* האוהל */}
+                  <Link
+                    to="/p/the-tent"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200/90 hover:border-amber-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-amber-100/80 text-[#914e13] flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Tent className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-[#914e13] transition-colors">
+                        האוהל
+                      </div>
+                      <div className="text-xs text-gray-600">מנהיגות והשפעה נשית</div>
+                    </div>
+                  </Link>
+
+                </div>
+
+                {/* קישורים תחתונים בתפריט: הצוות, צרי קשר והזמיני חברה */}
+                <div className="mt-4 pt-3.5 border-t border-brand-beige flex items-center justify-between flex-wrap gap-3">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection('gallery')}
+                      className="px-4 py-2 rounded-full text-xs sm:text-sm font-black bg-white hover:bg-brand-orange hover:text-white text-gray-800 border border-brand-orange/30 transition-all shadow-2xs cursor-pointer"
+                    >
+                      גלריית רגעים
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection('team')}
+                      className="px-4 py-2 rounded-full text-xs sm:text-sm font-black bg-brand-cream hover:bg-brand-green hover:text-white text-brand-green border border-brand-green/30 transition-all cursor-pointer"
+                    >
+                      הצוות - מי אנחנו
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection('contact')}
+                      className="px-5 py-2 rounded-full text-xs sm:text-sm font-black bg-brand-orange hover:bg-brand-green text-white transition-all shadow-xs cursor-pointer"
+                    >
+                      צרי קשר
+                    </button>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsNavOpen(false);
+                      handleShare();
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-brand-orange transition-colors cursor-pointer"
+                  >
+                    <Share2 className="w-3.5 h-3.5 text-brand-orange" />
+                    <span>הזמיני חברה</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </>
+        )}
+      </header>
+
+      {/* =========================================================================
           1. HERO ופתיח המותג
           - פרפרים מוסתרים במובייל ומוגנים מכיסוי טקסט (-z-10, pointer-events-none, hidden md:block)
           - תמונה מוצגת לרוחב (Landscape) ללא חיתוך
           - כותרות ממורכזות בנייד, פונטים מוגדלים לקריאה מיטבית בגלילה
       ========================================================================= */}
-      <section className="relative pt-6 sm:pt-12 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden bg-brand-cream border-b-2 border-brand-beige/80">
-        {/* Subtle Ambient Butterflies: Strictly hidden on mobile and kept behind all content (-z-10) */}
-        <ButterflyIcon size={260} className="absolute -top-10 -right-20 opacity-[0.035] animate-drift pointer-events-none select-none hidden md:block -z-10" />
-        <ButterflyIcon size={220} className="absolute bottom-0 -left-16 opacity-[0.03] animate-float pointer-events-none select-none hidden md:block -z-10" />
+      <section className="relative pt-8 sm:pt-14 pb-14 sm:pb-20 px-4 sm:px-6 overflow-hidden bg-brand-cream border-b border-brand-beige/80">
+        {/* Floating Butterflies: Located in non-obstructive spots on both mobile & desktop */}
+        <ButterflyIcon size={65} className="absolute top-4 left-3 sm:top-8 sm:left-10 opacity-40 animate-float pointer-events-none select-none z-0" />
+        <ButterflyIcon size={55} className="absolute top-2 right-2 sm:top-6 sm:right-12 opacity-35 animate-drift pointer-events-none select-none z-0" />
+        <ButterflyIcon size={50} className="absolute bottom-4 right-4 sm:bottom-6 sm:right-20 opacity-30 animate-float pointer-events-none select-none z-0" />
 
         <div className="max-w-5xl mx-auto relative z-10">
-          
-          {/* Top Bar: Clean Brand Mark & Share */}
-          <div className="flex items-center justify-between gap-4 mb-6 sm:mb-10">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-brand-beige shadow-sm flex items-center justify-center overflow-hidden bg-white/80">
-                <img 
-                  src="https://i.postimg.cc/PrH50HRm/logo-jpg.webp" 
-                  alt="לוגו בין לבין" 
-                  className="w-full h-full object-cover"
-                  style={{ mixBlendMode: 'multiply' }}
-                />
-              </div>
-              <span className="text-xl sm:text-2xl font-black text-brand-green tracking-tight">
-                בין לבין
-              </span>
-            </div>
-
-            <button
-              onClick={handleShare}
-              aria-label="מוזמנת לשתף"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gray-600 hover:text-brand-orange transition-colors py-1.5 px-3.5 rounded-full bg-white/80 hover:bg-white border border-brand-beige cursor-pointer shadow-xs active:scale-95"
-              title="מוזמנת לשתף"
-            >
-              <Share2 className="w-3.5 h-3.5 text-brand-orange" />
-              <span>מוזמנת לשתף</span>
-            </button>
-          </div>
 
           {/* Hero Content Grid: Typography + Authentic Feminine Photo displayed in Horizontal Landscape */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Main Text Content */}
-            <div className="lg:col-span-7 text-right">
+            <div className="lg:col-span-7 text-center">
               
-              <h1 className="text-[36px] sm:text-5xl md:text-6xl font-black text-brand-green tracking-tight leading-[1.15] mb-2 drop-shadow-xs text-center lg:text-right">
+              {/* Main Brand Logo - Prominent, circular & perfectly positioned without covering text */}
+              <div className="flex justify-center mb-6 sm:mb-8">
+                <div className="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full bg-white p-3 sm:p-4 border-4 border-brand-green/30 shadow-[0_16px_45px_rgba(35,78,61,0.18)] flex items-center justify-center transition-transform hover:scale-105 duration-300 shrink-0 overflow-hidden">
+                  <img 
+                    src={MAIN_BRAND_LOGO_URL} 
+                    alt="לוגו בין לבין - בית נשי לתוכן, חוויה ומפגש" 
+                    className="w-full h-full object-contain rounded-full"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src !== MAIN_BRAND_LOGO_FALLBACK) {
+                        target.src = MAIN_BRAND_LOGO_FALLBACK;
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-brand-green tracking-tight leading-[1.12] mb-3 drop-shadow-xs text-center">
                 בין לבין
               </h1>
 
-              <div className="text-[24px] sm:text-3xl md:text-4xl font-black text-brand-orange mb-6 sm:mb-8 tracking-tight text-center lg:text-right">
-                תוכניות וריטריטים לנשים
+              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-orange mb-8 tracking-tight text-center">
+                מרחבים לנשים
               </div>
 
               {/* Flowing Copy with enlarged mobile font and generous line-height */}
-              <div className="space-y-4 text-[17px] sm:text-lg text-gray-700 leading-[1.75] sm:leading-relaxed font-normal max-w-2xl text-right">
-                <p>
-                  יש תקופות שבהן אנחנו רוצות לעצור ולהבין קצת יותר.
-                  <br />
-                  לפעמים מתעורר רצון לשנות, להתחדש, להוביל, לפגוש נשים אחרות או פשוט לצאת מהשגרה למשהו שעושה לנו טוב.
+              <div className="space-y-6 text-xl sm:text-2xl text-gray-800 leading-[1.85] sm:leading-relaxed font-normal max-w-2xl text-right mx-auto">
+                <p className="font-extrabold text-2xl sm:text-3xl text-gray-900 text-center sm:text-right text-brand-green">
+                  בכל גיל אנחנו מחפשות משהו קצת אחר.
                 </p>
 
                 <p>
-                  <strong className="font-black text-brand-green">בין לבין</strong> נולדה מתוך ההבנה שבכל שלב אנחנו מחפשות משהו קצת שונה.
+                  מה שמעסיק אותנו בגיל 45 לא בהכרח מעסיק אותנו בגיל 60. לפעמים אנחנו רוצות להבין תקופה שאנחנו עוברות, להניע שינוי, לפתח רעיון או יוזמה, להכיר נשים חדשות, ולפעמים פשוט לצאת מהשגרה ליום של חברותא וכיף.
                 </p>
+
+                <div className="bg-brand-green/8 border-r-4 border-brand-green pr-4 py-3 rounded-l-2xl my-2">
+                  <p className="font-bold text-gray-900 text-xl sm:text-2xl">
+                    <strong className="font-black text-brand-green">בין לבין</strong> יוצרת מרחבים שונים לנשים, שכל אחד מהם פוגש תקופה, גיל או מטרה אחרת.
+                  </p>
+                </div>
 
                 <p>
-                  יצרנו בית לתוכניות, סדנאות וריטריטים לנשים, שנוגעים בנקודות שונות לאורך הדרך ומשלבים ידע, התבוננות, שיח, עשייה וחוויה.
+                  <strong className="font-black text-brand-orange">מאמצע החיים</strong>, תוכנית הדגל שלנו לנשים בגילאי <span dir="ltr">45-60</span>, דרך תוכנית לנשים בגילאי 60+ ותוכניות נוספות של שינוי, מנהיגות ופיתוח בארגונים, ועד ריטריטים וימי שיא.
                 </p>
 
-                <p>
-                  יש בהם מקום לשינויים שמביאים איתם שלבים שונים בחיים, להתפתחות אישית, למנהיגות ויוזמה, וגם ליציאה אל הטבע ולמפגש נשי שמאפשר לעצור לרגע את הקצב הרגיל.
+                <p className="font-semibold text-gray-900">
+                  אפשר להגיע לבד, כקבוצה, קהילה או ארגון.
                 </p>
 
-                <p className="pt-3 text-brand-green font-bold text-[18px] sm:text-xl border-t border-brand-beige/90 text-center sm:text-right">
-                  מוזמנות להכיר את בין לבין ולראות מה מדבר אליכן
+                <p className="pt-4 text-brand-green font-black text-2xl sm:text-3xl border-t-2 border-brand-beige text-center">
+                  מוזמנת להכיר ולמצוא את המרחב שמתאים לך.
                 </p>
               </div>
 
-              {/* Quick Actions - centered on mobile */}
-              <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3.5">
-                <button
-                  onClick={scrollToPrograms}
-                  className="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-orange text-white px-7 py-3.5 rounded-full text-base font-black transition-all shadow-sm hover:shadow cursor-pointer active:scale-98"
+              {/* כפתור פנייה / יצירת קשר עם וואטסאפ: אשמח לשוחח */}
+              <div className="mt-8 sm:mt-10 flex justify-center">
+                <a
+                  href={dalitWhatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-900 px-8 sm:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-black transition-all border-2 border-slate-300 hover:border-slate-400 shadow-md hover:shadow-lg cursor-pointer active:scale-98 group"
                 >
-                  <span>להכיר את התוכניות</span>
-                  <ArrowDown className="w-4 h-4 animate-bounce" />
-                </button>
-
-                <button
-                  onClick={scrollToContact}
-                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-brand-orange/10 text-brand-green hover:text-brand-orange px-7 py-3.5 rounded-full text-base font-black transition-all border border-brand-green/20 cursor-pointer shadow-xs active:scale-98"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>דברו איתנו</span>
-                </button>
+                  <div className="w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors">
+                    <WhatsAppIcon className="w-5 h-5 fill-current" />
+                  </div>
+                  <span>אשמח לשוחח</span>
+                </a>
               </div>
             </div>
 
-              {/* Authentic Brand Photograph: Presented in Landscape (לרוחב) without vertical cropping */}
+            {/* Authentic Brand Photograph: Presented in Landscape (לרוחב) with Bein Levein Logo in the bottom-right corner */}
             <div className="lg:col-span-5 flex justify-center w-full mt-2 lg:mt-0">
               <div className="relative w-full max-w-lg">
                 <div className="overflow-hidden rounded-3xl shadow-xl border-4 border-white aspect-[16/10] sm:aspect-[3/2] bg-brand-beige/30">
@@ -299,9 +611,10 @@ export const BrandLandingPage: React.FC = () => {
                     className="w-full h-full object-cover object-center transform hover:scale-102 transition-transform duration-700"
                   />
                 </div>
-                {/* Organic decorative badge - text "6 תוכניות..." removed as requested */}
-                <div className="absolute -bottom-4 -left-2 bg-white/95 backdrop-blur-xs py-2 px-4 rounded-2xl border border-brand-beige shadow-md text-right">
-                  <span className="text-xs sm:text-sm font-bold text-brand-orange block">
+
+                {/* Organic decorative badge */}
+                <div className="absolute -bottom-3 sm:-bottom-4 -left-2 bg-white/95 backdrop-blur-xs py-2 px-4 rounded-2xl border border-brand-beige shadow-md text-right">
+                  <span className="text-sm sm:text-base font-bold text-brand-orange block">
                     מרחב של הקשבה, חיבור וצמיחה
                   </span>
                 </div>
@@ -310,76 +623,120 @@ export const BrandLandingPage: React.FC = () => {
 
           </div>
 
-
         </div>
       </section>
 
       {/* =========================================================================
-          2. אזור המוצרים בקוביות
-          מעוצב כפרק נפרד עם רקע מובחן בגוון מרווה טבעי (Sage), מסגרות מודגשות וכרטיסים בולטים
-          סדנת הדגל "אמצע החיים" מסומנת בהבלטה מיוחדת
+          2. אזור המוצרים בקוביות קומפקטיות ומאוזנות
       ========================================================================= */}
-      <section id="programs-section" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#ebf1e6] border-y-4 border-[#d5ded0] relative overflow-hidden shadow-inner">
-        {/* Subtle decorative background accents - safely hidden on mobile */}
-        <ButterflyIcon size={240} className="absolute -top-16 -right-16 opacity-[0.03] animate-drift pointer-events-none select-none hidden md:block -z-10" />
-        <ButterflyIcon size={200} className="absolute -bottom-16 -left-16 opacity-[0.03] animate-float pointer-events-none select-none hidden md:block -z-10" />
+      <section id="programs-section" className="py-12 sm:py-16 px-4 sm:px-6 bg-white border-b border-brand-beige/80 relative overflow-hidden">
+        {/* Floating Butterflies: Placed safely in outer corners so they never cover text */}
+        <ButterflyIcon size={65} className="absolute top-4 right-3 sm:top-8 sm:right-8 opacity-35 animate-float pointer-events-none select-none z-0" />
+        <ButterflyIcon size={55} className="absolute bottom-4 left-3 sm:bottom-8 sm:left-8 opacity-30 animate-drift pointer-events-none select-none z-0" />
 
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-5xl mx-auto relative z-10">
           
           {/* Section Heading - Centered for Mobile and Desktop with solid badge */}
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-1.5 bg-brand-green text-white rounded-full text-xs md:text-sm font-black mb-3.5 tracking-tight shadow-xs">
+          <div className="text-center mb-8 sm:mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1 bg-brand-green text-white rounded-full text-xs sm:text-sm font-black mb-2.5 tracking-tight shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
               <span>הבית של בין לבין</span>
             </div>
-            <h2 className="text-[30px] sm:text-4xl md:text-5xl font-black text-brand-green tracking-tight mb-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-green tracking-tight mb-2">
               התוכניות והריטריטים שלנו
             </h2>
-            <p className="text-[17px] sm:text-lg text-gray-700 font-bold max-w-xl mx-auto leading-relaxed px-2">
+            <p className="text-sm sm:text-base text-gray-700 font-bold max-w-xl mx-auto leading-relaxed px-2">
               כל תוכנית פוגשת צורך אחר ומציעה דרך ייחודית לעבור תהליך, ללמוד ולהתחבר
             </p>
-            <div className="h-1.5 w-20 bg-brand-orange mx-auto mt-5 rounded-full opacity-60"></div>
+            <div className="h-1 w-16 bg-brand-orange mx-auto mt-3 rounded-full opacity-60"></div>
+
+            {/* Winter Cohorts Announcement Bar - Delicate & Refined */}
+            <div className="mt-6 max-w-2xl mx-auto bg-gradient-to-r from-brand-cream via-white to-brand-cream border-2 border-brand-orange/30 rounded-2xl p-4 sm:p-5 shadow-xs text-center">
+              <div className="inline-flex items-center gap-2 text-brand-orange font-black text-sm sm:text-base mb-1">
+                <span className="text-lg">❄️</span>
+                <span>החורף נפגשות בין לבין</span>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-800 font-bold leading-relaxed">
+                מחזורים חדשים של <span className="text-brand-orange font-black">אמצע החיים (<span dir="ltr">45-60</span>)</span> ושל <span className="text-[#b23a5f] font-black">עוד לפנייך (60+)</span> נפתחים בקרוב!
+              </p>
+              <div className="mt-2 text-xs text-gray-500 font-medium">
+                רוצה להבטיח מקום? לחצי על התוכנית לפרטים או השאירי פרטים בטופס בתחתית העמוד.
+              </div>
+            </div>
           </div>
 
           {/* Cards Grid: 6 Distinct Products */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
             {ALL_PROGRAMS.map((prog) => {
               const IconComponent = prog.icon;
               return (
                 <div
                   key={prog.id}
-                  id={`program-card-${prog.id}`}
-                  className={`${prog.cardBg} rounded-3xl p-6 sm:p-8 ${prog.borderStyle} border-2 hover:-translate-y-1.5 transition-all duration-300 flex flex-col text-right group relative overflow-hidden shadow-md hover:shadow-xl`}
+                  id={`program-${prog.id}`}
+                  className={`${prog.cardBg} rounded-3xl p-6 sm:p-7 ${prog.borderStyle} border-2 hover:-translate-y-1 transition-all duration-300 flex flex-col text-right group relative overflow-hidden shadow-sm hover:shadow-xl scroll-mt-24`}
                 >
                   {/* Colored top accent bar for instant card visual identity */}
-                  <div className={`h-1.5 w-full ${prog.accentBar} absolute top-0 right-0 left-0`}></div>
+                  <div className={`h-2 w-full ${prog.accentBar} absolute top-0 right-0 left-0`}></div>
 
-                  {/* Flagship special ribbon badge at top */}
-                  {prog.isFlagship && (
-                    <div className="mb-4 inline-flex items-center gap-1.5 self-start bg-brand-orange text-white px-3.5 py-1 rounded-full text-xs font-black shadow-xs tracking-wide">
-                      <Crown className="w-3.5 h-3.5 fill-current" />
-                      <span>סדנת הדגל של בין לבין</span>
-                    </div>
-                  )}
+                  {/* Top Badges Area: Flagship ribbon & Winter Cohort badge */}
+                  <div className="flex flex-wrap items-center gap-2 mb-3.5">
+                    {prog.isFlagship && (
+                      <div className="inline-flex items-center gap-1.5 bg-brand-orange text-white px-3.5 py-1 rounded-full text-xs sm:text-sm font-black shadow-xs tracking-wide">
+                        <Crown className="w-3.5 h-3.5 fill-current" />
+                        <span>סדנת הדגל של בין לבין</span>
+                      </div>
+                    )}
+                    {prog.winterBadge && (
+                      <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-700 text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black shadow-lg tracking-wide border-2 border-indigo-200 animate-badge-blink">
+                        <span className="w-2 h-2 rounded-full bg-cyan-300 animate-ping shrink-0" />
+                        <span>{prog.winterBadgeText || 'מחזור חורף נפתח בקרוב'}</span>
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Top Row: Delicate Icon & Category Badge */}
+                  {/* Top Row: Delicate Icon / Custom Logo & Category Badge */}
                   <div className="flex items-start justify-between gap-3 mb-5">
-                    <div className={`w-12 h-12 rounded-2xl ${prog.iconBoxStyle} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shrink-0`}>
-                      <IconComponent className="w-6 h-6" />
-                    </div>
+                    {prog.logoUrl ? (
+                      <div 
+                        className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-white p-1.5 border-2 shadow-md flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0 overflow-hidden"
+                        style={{
+                          borderColor: getProgramBorderColor(prog.id)
+                        }}
+                      >
+                        <img 
+                          src={prog.logoUrl} 
+                          alt={`לוגו ${prog.name}`} 
+                          className="w-full h-full object-contain rounded-full"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            const fallback = prog.logoFallback || MIDLIFE_LOGO_FALLBACK;
+                            if (target.src !== fallback) {
+                              target.src = fallback;
+                            }
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className={`w-16 h-16 rounded-2xl ${prog.iconBoxStyle} flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0`}>
+                        <IconComponent className="w-8 h-8" />
+                      </div>
+                    )}
                     
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-black tracking-tight ${prog.badgeStyle}`}>
-                      {prog.categoryNode}
-                    </span>
+                    {prog.categoryNode && (
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-black tracking-tight ${prog.badgeStyle}`}>
+                        {prog.categoryNode}
+                      </span>
+                    )}
                   </div>
 
                   {/* Program Name */}
-                  <h3 className="text-[25px] sm:text-3xl font-black text-brand-green group-hover:text-brand-orange transition-colors tracking-tight mb-3">
+                  <h3 className="text-2xl sm:text-3xl font-black text-gray-900 group-hover:text-brand-orange transition-colors tracking-tight mb-2 text-center sm:text-right">
                     {prog.name}
                   </h3>
 
                   {/* Single Short Essence / Tagline */}
-                  <p className="text-[17px] sm:text-lg text-gray-700 font-medium leading-relaxed mb-6 flex-1">
+                  <p className="text-base sm:text-lg text-gray-700 font-medium leading-relaxed mb-6 flex-1 text-right">
                     {prog.tagline}
                   </p>
 
@@ -387,10 +744,10 @@ export const BrandLandingPage: React.FC = () => {
                   <div className="pt-4 border-t border-brand-beige/80 mt-auto">
                     <Link
                       to={prog.link}
-                      className={`w-full inline-flex items-center justify-between ${prog.buttonStyle} px-5 py-4 rounded-2xl text-base font-black transition-all duration-300 group/btn shadow-xs active:scale-98`}
+                      className={`w-full inline-flex items-center justify-between ${prog.buttonStyle} px-5 py-3.5 sm:py-4 rounded-2xl text-base sm:text-lg font-black transition-all duration-300 group/btn shadow-xs hover:shadow-md active:scale-98`}
                     >
                       <span>לפרטים על התוכנית</span>
-                      <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover/btn:-translate-x-1" />
+                      <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover/btn:-translate-x-1" />
                     </Link>
                   </div>
                 </div>
@@ -403,67 +760,91 @@ export const BrandLandingPage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          3. קצת עלינו - אלסי ודלית (About Us)
-          פרק נפרד עם רקע לבן צח ונקי לקונטרסט מרבי, כרטיסים צבעוניים מובחנים
+          גלריית תמונות בגלילה צידית מתוך התוכניות והריטריטים
       ========================================================================= */}
-      <section id="about" className="py-16 sm:py-24 px-4 sm:px-6 bg-white border-b-4 border-brand-beige relative overflow-hidden text-right">
-        {/* Decorative background butterfly - hidden on mobile and kept behind content */}
-        <ButterflyIcon size={220} className="absolute top-10 -right-16 opacity-[0.035] animate-drift pointer-events-none select-none hidden md:block -z-10" />
+      <BrandGallerySlider />
+
+      {/* =========================================================================
+          3. קצת עלינו
+      ========================================================================= */}
+      <section id="team" className="py-16 sm:py-24 px-4 sm:px-6 bg-brand-cream border-b border-brand-beige/80 relative overflow-hidden text-right scroll-mt-20">
+        {/* Floating Butterflies: Placed in outer margins to ensure text is never covered */}
+        <ButterflyIcon size={65} className="absolute top-6 left-3 sm:top-10 sm:left-10 opacity-35 animate-drift pointer-events-none select-none z-0" />
+        <ButterflyIcon size={55} className="absolute bottom-6 right-3 sm:bottom-10 sm:right-12 opacity-30 animate-float pointer-events-none select-none z-0" />
 
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-1.5 bg-brand-green text-white rounded-full text-xs md:text-sm font-black mb-3.5 tracking-tight shadow-xs">
-              <span>קצת עלינו</span>
-            </div>
-            <h2 className="text-[30px] sm:text-4xl md:text-5xl font-black text-brand-green tracking-tight mb-3">
-              אלסי ודלית
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-brand-green tracking-tight mb-3">
+              קצת עלינו
             </h2>
-            <p className="text-[17px] sm:text-lg text-gray-700 font-medium max-w-xl mx-auto leading-relaxed px-2">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-bold max-w-xl mx-auto leading-relaxed px-2">
               הצוות שמאחורי התוכניות, הסדנאות והריטריטים של בין לבין
             </p>
-            <div className="h-1.5 w-20 bg-brand-orange mx-auto mt-4 rounded-full opacity-60"></div>
+            <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-4 rounded-full opacity-60"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8 max-w-4xl mx-auto">
             {/* דלית כורה - כרטיס ירוק מותג מובחן */}
-            <div className="bg-[#f6f9f4] rounded-3xl p-7 sm:p-9 shadow-md border-2 border-brand-green/30 border-t-8 border-t-brand-green hover:shadow-lg transition-all duration-300 flex flex-col text-right">
-              <div className="mb-4 text-center sm:text-right flex flex-col sm:items-start items-center">
-                <h3 className="text-[26px] sm:text-3xl font-black text-brand-green mb-2">
+            <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-md border-2 border-brand-green/30 border-t-8 border-t-brand-green hover:shadow-lg transition-all duration-300 flex flex-col text-right">
+              <div className="mb-4 text-center flex flex-col items-center">
+                {/* תמונה עגולה של דלית - ממורכזת למעלה ללא חיתוך הפנים */}
+                <div className="relative mb-4">
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-white shadow-lg ring-4 ring-brand-green/25 bg-brand-cream">
+                    <img 
+                      src={DALIT_PHOTO_URL} 
+                      alt="דלית כורה - בין לבין" 
+                      className="w-full h-full object-cover object-[center_20%]"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-black text-brand-green mb-2 text-center">
                   דלית כורה
                 </h3>
-                <div className="inline-block px-4 py-1 bg-white text-brand-green font-black text-sm rounded-full border border-brand-green/20 shadow-xs">
+                <div className="inline-block px-4 py-1.5 bg-white text-brand-green font-black text-base rounded-full border border-brand-green/20 shadow-xs">
                   הוגה ומובילת התוכניות
                 </div>
               </div>
-              <div className="w-12 h-1 bg-brand-orange mb-6 rounded-full mx-auto sm:mx-0"></div>
+              <div className="w-16 h-1 bg-brand-orange mb-6 rounded-full mx-auto"></div>
               
-              <div className="space-y-4 text-gray-700 leading-[1.75] text-[16px] sm:text-[17px] font-normal">
+              <div className="space-y-4 text-gray-700 leading-[1.8] text-lg sm:text-xl font-normal">
                 <p>
                   מתמחה בהובלת פרויקטים ובתרגום רעיונות לתהליכים יישומיים, מדויקים וברורים. פעילה לאורך שנים ב"אמהות עם מהות", ברמה המקומית והארצית, בהובלת קהילה, תוכן, תוכניות ואירועים. הניסיון הזה מביא לתוכניות היכרות עמוקה עם קהילות נשים ועם הדרך לבנות תהליך שמחבר בין תוכן, שיח וחוויה.
                 </p>
-                <p className="font-semibold text-brand-green">
+                <p className="font-bold text-brand-green text-center text-lg sm:text-xl">
                   ב"בין לבין" דלית מחזיקה את המבנה, הרצף והקצב, ומובילה את התהליך מהרעיון ועד למימוש.
                 </p>
               </div>
             </div>
 
             {/* אלסי זיסלמן - כרטיס כתום מותג מובחן */}
-            <div className="bg-[#fdf8f2] rounded-3xl p-7 sm:p-9 shadow-md border-2 border-brand-orange/30 border-t-8 border-t-brand-orange hover:shadow-lg transition-all duration-300 flex flex-col text-right">
-              <div className="mb-4 text-center sm:text-right flex flex-col sm:items-start items-center">
-                <h3 className="text-[26px] sm:text-3xl font-black text-brand-green mb-2">
+            <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-md border-2 border-brand-orange/30 border-t-8 border-t-brand-orange hover:shadow-lg transition-all duration-300 flex flex-col text-right">
+              <div className="mb-4 text-center flex flex-col items-center">
+                {/* תמונה עגולה של אלסי */}
+                <div className="relative mb-4">
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-white shadow-lg ring-4 ring-brand-orange/25 bg-brand-cream">
+                    <img 
+                      src={ELSIE_PHOTO_URL} 
+                      alt="אלסי זיסלמן - בין לבין" 
+                      className="w-full h-full object-cover object-[center_25%]"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-black text-brand-green mb-2 text-center">
                   אלסי זיסלמן
                 </h3>
-                <div className="inline-block px-4 py-1 bg-white text-brand-orange font-black text-sm rounded-full border border-brand-orange/20 shadow-xs">
+                <div className="inline-block px-4 py-1.5 bg-white text-brand-orange font-black text-base rounded-full border border-brand-orange/20 shadow-xs">
                   מנחה ומרצה, טריינרית NLP
                 </div>
               </div>
-              <div className="w-12 h-1 bg-brand-green mb-6 rounded-full mx-auto sm:mx-0"></div>
+              <div className="w-16 h-1 bg-brand-green mb-6 rounded-full mx-auto"></div>
               
-              <div className="space-y-4 text-gray-700 leading-[1.75] text-[16px] sm:text-[17px] font-normal">
+              <div className="space-y-4 text-gray-700 leading-[1.8] text-lg sm:text-xl font-normal">
                 <p>
                   מלווה תהליכים אישיים וקבוצתיים של שינוי, התבוננות וקבלת החלטות. פעילה לאורך שנים ב"אמהות עם מהות", ברמה המקומית והארצית, ומביאה איתה ניסיון בהנחיית קבוצות והיכרות עמוקה עם נשים, קהילות ותהליכים קבוצתיים.
                 </p>
-                <p className="font-semibold text-brand-green">
+                <p className="font-bold text-brand-green text-center text-lg sm:text-xl">
                   ב"בין לבין" אלסי מובילה את תהליכי ההתבוננות והשיח, ומסייעת לנשים לתרגם תובנות פנימיות לבחירות ולצעדים מעשיים.
                 </p>
               </div>
@@ -475,56 +856,74 @@ export const BrandLandingPage: React.FC = () => {
       </section>
 
       {/* =========================================================================
-          4. "מכאן, אפשר פשוט לדבר" ואחריו כפתורי צור קשר (ללא כותרת)
-          חלק סיום מעוצב עם רקע חם בגוון דבש-חימר (Terracotta/Honey-Cream) מובחן ובולט
+          4. "מכאן, אפשר פשוט לדבר" ואחריו כפתורי צרי קשר
       ========================================================================= */}
-      <section id="contact" className="bg-gradient-to-b from-[#fbf2e7] via-[#f7eae0] to-[#efdecb] py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden shadow-inner">
-        {/* Gentle Butterfly Accent - safely hidden on mobile */}
-        <ButterflyIcon size={240} className="absolute -bottom-10 -left-16 opacity-[0.035] animate-float pointer-events-none select-none hidden md:block -z-10" />
+      <section id="contact" className="bg-white py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden scroll-mt-20">
+        {/* Floating Butterflies: Placed in outer margins to ensure text is never covered */}
+        <ButterflyIcon size={65} className="absolute top-6 right-3 sm:top-10 sm:right-10 opacity-35 animate-float pointer-events-none select-none z-0" />
+        <ButterflyIcon size={55} className="absolute bottom-6 left-3 sm:bottom-10 sm:left-10 opacity-30 animate-drift pointer-events-none select-none z-0" />
 
         <div className="max-w-3xl mx-auto relative z-10 text-right">
           
-          {/* בלוק "מכאן, אפשר פשוט לדבר" - מסגרת כרטיס מוגבהת לקריאה נוחה */}
-          <div className="bg-white/95 backdrop-blur-xs p-6 sm:p-9 rounded-3xl border-2 border-brand-orange/20 shadow-md mb-10 sm:mb-12">
-            <div className="flex justify-center sm:justify-start">
-              <div className="inline-flex items-center gap-2 bg-brand-orange text-white px-5 py-1.5 rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-white" />
+          {/* בלוק "מכאן, אפשר פשוט לדבר" */}
+          <div className="bg-brand-cream p-7 sm:p-10 rounded-3xl border-2 border-brand-beige shadow-sm mb-10 sm:mb-12">
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 bg-brand-orange text-white px-5 py-2 rounded-full text-sm font-black mb-4 tracking-tight shadow-xs">
+                <Sparkles className="w-4 h-4 text-white" />
                 <span>החיבור מתחיל בשיחה</span>
               </div>
             </div>
 
-            <h2 className="text-[30px] sm:text-4xl md:text-5xl font-black text-brand-green mb-6 tracking-tight text-center sm:text-right">
-              מכאן, אפשר פשוט לדבר
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-brand-green mb-6 tracking-tight text-center">
+              בואי נדבר בין לבין
             </h2>
 
-            <div className="space-y-4 text-[17px] sm:text-lg text-gray-700 leading-[1.75] font-normal text-right">
+            <div className="space-y-5 text-xl sm:text-2xl text-gray-800 leading-[1.8] font-normal text-right max-w-2xl mx-auto">
               <p>
-                אולי הגעת לכאן כי אחת התוכניות סקרנה אותך.
+                הגעת לכאן כי משהו סיקרן או נגע בך.
                 <br />
-                אולי את מחפשת משהו לעצמך, ואולי עבור קבוצה, קהילה או ארגון.
+                יכול להיות שאת מחפשת משהו לעצמך, לקבוצה, לקהילה או לארגון.
               </p>
 
               <p>
-                כך או כך, נשמח לשמוע ממך, להכיר ולספר קצת יותר על מה שקורה עכשיו בבין לבין.
+                כך או כך, נשמח להכיר, לשמוע מה את מחפשת ולבדוק איזה מרחב מתאים
               </p>
 
-              <p className="font-medium text-brand-green pt-1">
-                אפשר להצטרף לתוכניות ולריטריטים שאנחנו פותחות לאורך השנה, ואפשר גם ליצור איתנו משהו שמתאים במיוחד לקבוצה שלכן.
+              <p>
+                את יכולה להצטרף לאחד המרחבים שאנחנו פותחות לאורך השנה, או לפנות אלינו כדי שניצור יחד מרחב שמתאים לקבוצה.
+              </p>
+
+              <p className="font-black text-brand-green pt-3 text-center text-2xl sm:text-3xl border-t-2 border-brand-beige/80">
+                אז באיזה מרחב ניפגש ?
               </p>
             </div>
           </div>
 
-          {/* כפתורי יצירת קשר (ישירות, ללא כותרת נוספת) */}
+          {/* טופס התעניינות */}
+          <div className="mb-14">
+            <InterestForm
+              id="interest-form"
+              source="דף מרחבים לנשים (ראשי)"
+              title="טופס התעניינות"
+              subtitle="השאירי פרטים, סמני את המרחבים שמעניינים אותך ונשמח לחזור אלייך בהקדם"
+            />
+          </div>
+
+          {/* אפשרות לשיחה ישירה בוואטסאפ */}
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-green/10 text-brand-green text-base sm:text-lg font-bold">
+              <span>או מוזמנת לכתוב לנו ישירות בוואטסאפ:</span>
+            </div>
+          </div>
+
+          {/* כפתורי צרי קשר (ישירות, ללא כותרת נוספת) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-10 max-w-xl mx-auto text-center">
             
             {/* דלית כורה */}
-            <div className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-brand-green/30 border-t-6 border-t-brand-green shadow-md hover:shadow-lg transition-all flex flex-col justify-between">
-              <div>
-                <div className="font-black text-2xl text-brand-green mb-1.5">
+            <div className="bg-white p-7 sm:p-8 rounded-3xl border-2 border-brand-green/30 border-t-8 border-t-brand-green shadow-md hover:shadow-lg transition-all flex flex-col justify-between">
+              <div className="mb-6">
+                <div className="font-black text-2xl sm:text-3xl text-brand-green">
                   דלית כורה
-                </div>
-                <div className="text-sm font-bold text-gray-500 mb-6">
-                  הוגה ומובילת התוכניות
                 </div>
               </div>
               
@@ -532,21 +931,20 @@ export const BrandLandingPage: React.FC = () => {
                 href={dalitWhatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 w-full py-4 px-5 rounded-2xl bg-brand-green hover:bg-brand-orange text-white font-black text-base shadow-sm hover:shadow-md transition-all active:scale-98"
+                className="inline-flex items-center justify-center gap-3 w-full py-4 sm:py-5 px-6 rounded-2xl bg-white hover:bg-slate-50 text-slate-900 hover:text-black font-black text-lg sm:text-xl border-2 border-slate-300 hover:border-slate-400 shadow-sm hover:shadow-md transition-all active:scale-98 group"
               >
-                <MessageCircle className="w-5 h-5 fill-current text-white" />
-                <span>הודעת וואטסאפ לדלית</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors">
+                  <WhatsAppIcon className="w-5 h-5 fill-current" />
+                </div>
+                <span>אשמח לשוחח</span>
               </a>
             </div>
 
             {/* אלסי זיסלמן */}
-            <div className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-brand-orange/30 border-t-6 border-t-brand-orange shadow-md hover:shadow-lg transition-all flex flex-col justify-between">
-              <div>
-                <div className="font-black text-2xl text-brand-green mb-1.5">
+            <div className="bg-white p-7 sm:p-8 rounded-3xl border-2 border-brand-orange/30 border-t-8 border-t-brand-orange shadow-md hover:shadow-lg transition-all flex flex-col justify-between">
+              <div className="mb-6">
+                <div className="font-black text-2xl sm:text-3xl text-brand-green">
                   אלסי זיסלמן
-                </div>
-                <div className="text-sm font-bold text-gray-500 mb-6">
-                  מנחה ומרצה, טריינרית NLP
                 </div>
               </div>
               
@@ -554,35 +952,42 @@ export const BrandLandingPage: React.FC = () => {
                 href={elsieWhatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 w-full py-4 px-5 rounded-2xl bg-brand-orange hover:bg-brand-green text-white font-black text-base shadow-sm hover:shadow-md transition-all active:scale-98"
+                className="inline-flex items-center justify-center gap-3 w-full py-4 sm:py-5 px-6 rounded-2xl bg-white hover:bg-slate-50 text-slate-900 hover:text-black font-black text-lg sm:text-xl border-2 border-slate-300 hover:border-slate-400 shadow-sm hover:shadow-md transition-all active:scale-98 group"
               >
-                <MessageCircle className="w-5 h-5 fill-current text-white" />
-                <span>הודעת וואטסאפ לאלסי</span>
+                <div className="w-8 h-8 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors">
+                  <WhatsAppIcon className="w-5 h-5 fill-current" />
+                </div>
+                <span>אשמח לשוחח</span>
               </a>
             </div>
 
           </div>
 
-          {/* כפתור מרכזי: "בואי נדבר" במסגרת כרטיס בולטת */}
-          <div className="bg-white/90 rounded-3xl p-6 sm:p-8 border-2 border-brand-orange/30 shadow-md flex flex-col items-center justify-center gap-3 text-center max-w-lg mx-auto">
-            <a
-              href={dalitWhatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-brand-green text-white px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-black transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 active:scale-98"
+          {/* לחצן הזמיני חברה בתחתית הדף */}
+          <div className="mt-8 mb-6 flex justify-center">
+            <button
+              onClick={handleShare}
+              aria-label="הזמיני חברה"
+              className="inline-flex items-center justify-center gap-3 bg-white hover:bg-brand-cream text-brand-green hover:text-brand-orange px-8 sm:px-10 py-3.5 sm:py-4 rounded-full text-base sm:text-lg font-black border-2 border-brand-green/30 hover:border-brand-orange transition-all shadow-sm hover:shadow-md cursor-pointer active:scale-95 group"
             >
-              <MessageCircle className="w-6 h-6 fill-current text-white" />
-              <span>בואי נדבר</span>
-            </a>
-
-            <span className="text-xs sm:text-sm text-gray-600 font-medium">
-              לחיצה תפתח שיחת וואטסאפ עם הודעה מוכנה לתיאום ובירור פרטים
-            </span>
+              <div className="w-8 h-8 rounded-full bg-brand-orange/15 group-hover:bg-brand-orange/25 flex items-center justify-center text-brand-orange transition-colors">
+                <Share2 className="w-4 h-4" />
+              </div>
+              <span>הזמיני חברה</span>
+            </button>
           </div>
 
-          {/* סיום הדף / זכויות יוצרים */}
-          <div className="mt-14 pt-8 border-t border-brand-beige/80 text-xs text-gray-500 font-medium text-center">
-            © {new Date().getFullYear()} בין לבין | תוכניות וריטריטים לנשים. כל הזכויות שמורות.
+          {/* סיום הדף / זכויות יוצרים - נוסח מבוקש בדיוק */}
+          <div className="mt-12 pt-8 border-t border-brand-beige/80 text-sm sm:text-base text-gray-700 font-medium text-center space-y-1">
+            <p className="font-extrabold text-brand-green text-base sm:text-lg">
+              2026 בין לבין | מרחבים לנשים
+            </p>
+            <p className="text-gray-500 text-xs sm:text-sm">
+              כל הזכויות שמורות
+            </p>
+            <p className="text-xs text-gray-400 font-mono tracking-wider pt-1">
+              benlven
+            </p>
           </div>
         </div>
       </section>

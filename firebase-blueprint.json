@@ -32,6 +32,21 @@
         "submittedAt": { "type": "string", "description": "ISO timestamp of submission" }
       },
       "required": ["fullName", "phone", "ageRange", "motivation", "expectations", "personalWish"]
+    },
+    "Inquiry": {
+      "title": "Interest Inquiry",
+      "description": "Short interest form submission from website visitors",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "description": "Full name of visitor", "maxLength": 100 },
+        "phone": { "type": "string", "description": "Mobile phone number", "maxLength": 50 },
+        "email": { "type": "string", "description": "Email address", "maxLength": 150 },
+        "programs": { "type": "array", "description": "Selected programs of interest" },
+        "notes": { "type": "string", "description": "Optional notes or message", "maxLength": 2000 },
+        "submittedAt": { "type": "string", "description": "ISO timestamp of submission" },
+        "source": { "type": "string", "description": "Originating page or CTA", "maxLength": 100 }
+      },
+      "required": ["fullName", "phone", "email"]
     }
   },
   "firestore": {
@@ -42,6 +57,10 @@
     "mwm_intake_forms": {
       "schema": "MwmIntakeForm",
       "description": "Intake questionnaire responses for Bein Levein KY"
+    },
+    "inquiries": {
+      "schema": "Inquiry",
+      "description": "Short interest inquiries from potential participants"
     }
   }
 }

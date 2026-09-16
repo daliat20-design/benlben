@@ -46,9 +46,26 @@ service cloud.firestore {
              (!data.keys().hasAny(['submittedAt']) || (data.submittedAt is string && data.submittedAt.size() <= 100));
     }
 
+    // Inquiry Validation
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['fullName', 'phone', 'email']) &&
+             data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 100 &&
+             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 50 &&
+             data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
+             (!data.keys().hasAny(['programs']) || (data.programs is list && data.programs.size() <= 20)) &&
+             (!data.keys().hasAny(['notes']) || (data.notes is string && data.notes.size() <= 2000)) &&
+             (!data.keys().hasAny(['submittedAt']) || (data.submittedAt is string && data.submittedAt.size() <= 100)) &&
+             (!data.keys().hasAny(['source']) || (data.source is string && data.source.size() <= 100));
+    }
+
     match /mwm_intake_forms/{formId} {
       allow create: if isValidMwmIntakeForm(incoming());
       allow read, delete: if true; // Allows team review and deletion of test submissions
+    }
+
+    match /inquiries/{inquiryId} {
+      allow create: if isValidInquiry(incoming());
+      allow read, delete: if true; // Allows team review and follow-up
     }
 
     match /foodItems_v3/{itemId} {

@@ -28,12 +28,6 @@ const InternalNav: React.FC = () => {
     location.pathname === '/mwm-responses' ||
     location.pathname === '/responses' ||
     location.pathname === '/admin' ||
-    location.pathname === '/alchemy' ||
-    location.pathname === '/women-programs' ||
-    location.pathname === '/all-programs' ||
-    location.pathname === '/programs' ||
-    location.pathname === '/brand' ||
-    location.pathname === '/hub' ||
     location.pathname.startsWith('/p/')
   ) {
     return null;
@@ -43,8 +37,9 @@ const InternalNav: React.FC = () => {
   const [showLinks, setShowLinks] = React.useState(false);
 
   const links = [
-    { name: 'דף נחיתה בין לבין - אמצע החיים', path: '#/', full: `${baseUrl}/#/` },
-    { name: 'בין לבין תוכניות לנשים', path: '#/women-programs', full: `${baseUrl}/#/women-programs` },
+    { name: 'דף הנחיתה של התוכניות (ראשי)', path: '#/', full: `${baseUrl}/` },
+    { name: 'דף הנחיתה של התוכניות (נשים)', path: '#/women-programs', full: `${baseUrl}/#/women-programs` },
+    { name: 'סדנת אמצע החיים (דף ישן)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
     { name: 'ניהול מיני-דפים', path: '#/mini-admin', full: `${baseUrl}/#/mini-admin` },
     { name: 'בין לבין כיצ"י MWM', path: '#/mwm', full: `${baseUrl}/#/mwm` },
     { name: 'טופס נעים להכיר', path: '#/mwm-form', full: `${baseUrl}/#/mwm-form` },
@@ -100,24 +95,12 @@ const InternalNav: React.FC = () => {
   );
 };
 
-const DevAdminBackPill: React.FC = () => {
-  const location = useLocation();
-  const isMiniPage = location.pathname.startsWith('/p/') || location.pathname === '/alchemy';
-  const isDevelopment = typeof window !== 'undefined' && 
-    (window.location.hostname.includes('-dev-') || window.location.hostname.includes('localhost'));
-
-  if (!isDevelopment || !isMiniPage) return null;
-
-  return (
-    <div className="fixed top-3 left-3 z-50 pointer-events-auto">
-      <Link
-        to="/mini-admin"
-        className="inline-flex items-center gap-1.5 bg-slate-900/85 hover:bg-slate-900 text-white px-3.5 py-1.5 rounded-full text-xs font-black shadow-lg backdrop-blur-sm transition-all border border-white/20 hover:scale-105"
-      >
-        <span>← חזרה לניהול מיני-דפים</span>
-      </Link>
-    </div>
-  );
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname]);
+  return null;
 };
 
 const AppContent: React.FC = () => {
@@ -126,27 +109,38 @@ const AppContent: React.FC = () => {
 
   return (
     <>
+      <ScrollToTop />
       {isDevelopment && <InternalNav />}
-      <DevAdminBackPill />
       <Routes>
-        <Route path="/" element={<MarketingPage />} />
-        <Route path="/marketing" element={<MarketingPage />} />
-        
-        {/* Central Master Brand Landing Page (All Products & Retreats) */}
+        {/* Central Master Brand Landing Page (All Products & Retreats - מרחבים לנשים) */}
+        <Route path="/" element={<BrandLandingPage />} />
         <Route path="/women-programs" element={<BrandLandingPage />} />
         <Route path="/all-programs" element={<BrandLandingPage />} />
         <Route path="/programs" element={<BrandLandingPage />} />
         <Route path="/brand" element={<BrandLandingPage />} />
         <Route path="/hub" element={<BrandLandingPage />} />
+        <Route path="/index.html" element={<BrandLandingPage />} />
+        
+        {/* Full Landing Page - Midlife Workshop (סדנת הדגל אמצע החיים) */}
+        <Route path="/midlife-workshop" element={<LandingPage />} />
+        <Route path="/midlife-full" element={<LandingPage />} />
+        <Route path="/workshop" element={<LandingPage />} />
+        <Route path="/marketing" element={<MarketingPage />} />
+        <Route path="/midlife-landing" element={<MarketingPage />} />
         
         {/* Independent Product Mini Landing Pages (Each standalone, no cross-navigation) */}
         <Route path="/p/alchemy" element={<AlchemyOfElementsPage />} />
         <Route path="/alchemy" element={<AlchemyOfElementsPage />} />
         <Route path="/p/midlife" element={<MidlifeMiniPage />} />
+        <Route path="/midlife" element={<MidlifeMiniPage />} />
         <Route path="/p/up-to-180" element={<UpTo180MiniPage />} />
+        <Route path="/up-to-180" element={<UpTo180MiniPage />} />
         <Route path="/p/highlights" element={<HighlightsMiniPage />} />
+        <Route path="/highlights" element={<HighlightsMiniPage />} />
         <Route path="/p/the-tent" element={<TheTentMiniPage />} />
+        <Route path="/the-tent" element={<TheTentMiniPage />} />
         <Route path="/p/ahead-of-you" element={<AheadOfYouMiniPage />} />
+        <Route path="/ahead-of-you" element={<AheadOfYouMiniPage />} />
 
         {/* Central Management Workspace (Internal Operational Hub Only) */}
         <Route path="/mini-admin" element={<MiniPagesManager />} />
@@ -159,10 +153,14 @@ const AppContent: React.FC = () => {
         <Route path="/form" element={<MwmIntakeFormPage />} />
         <Route path="/mwm-responses" element={<MwmResponsesPage />} />
         <Route path="/responses" element={<MwmResponsesPage />} />
+        <Route path="/inquiries" element={<MwmResponsesPage />} />
         <Route path="/admin" element={<MwmResponsesPage />} />
         <Route path="/recipes" element={<Recipes />} />
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/landing" element={<BrandLandingPage />} />
         <Route path="/part2" element={<PartTwo />} />
+
+        {/* Fallback route - any unrecognized path opens the brand landing page */}
+        <Route path="*" element={<BrandLandingPage />} />
       </Routes>
     </>
   );

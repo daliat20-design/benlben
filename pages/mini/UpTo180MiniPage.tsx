@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
-import { MessageCircle, Share2, Compass, CheckCircle2, Sparkles, ArrowLeft } from 'lucide-react';
+import { MessageCircle, Compass, CheckCircle2, Sparkles } from 'lucide-react';
 import { ButterflyIcon } from '../../components/Hero';
+import { WhatsAppIcon } from '../../components/WhatsAppIcon';
+import { MiniPageTopNav, OtherProgramsNav } from '../../components/MiniProgramNav';
+
+const UNTIL180_LOGO_URL = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
+const UNTIL180_LOGO_FALLBACK = "https://i.postimg.cc/X7FcRnSt/Chat-GPT-Image-Sep-16-2026-09-39-24-AM.png";
 
 export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({ embedded = false, id = 'up-to-180' }) => {
   useEffect(() => {
@@ -57,94 +62,105 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
   ];
 
   return (
-    <section id={id} className={`text-gray-800 antialiased selection:bg-brand-orange/20 selection:text-brand-green relative overflow-hidden ${embedded ? 'py-12 sm:py-16' : 'min-h-screen bg-brand-cream'}`} dir="rtl">
+    <section id={id} className={`text-gray-800 antialiased selection:bg-[#0d6e7a]/20 selection:text-[#0d6e7a] relative overflow-hidden ${embedded ? 'py-12 sm:py-16' : 'min-h-screen bg-gradient-to-b from-[#f3fafb] via-[#eaf5f7] to-[#def0f3]'}`} dir="rtl">
       {/* Background Ambience Elements */}
       <ButterflyIcon size={260} className="absolute -top-16 -right-20 opacity-[0.035] animate-drift pointer-events-none hidden md:block" />
       <ButterflyIcon size={220} className="absolute top-1/2 -left-20 opacity-[0.03] animate-float pointer-events-none hidden md:block" />
       <ButterflyIcon size={240} className="absolute -bottom-16 right-10 opacity-[0.035] animate-float pointer-events-none hidden md:block" />
 
-      {/* Header / Brand Tag - standalone only */}
+      {/* Top Navigation Hub - Standalone */}
       {!embedded && (
-        <header className="pt-8 pb-4 px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto flex items-center justify-between">
-            <div className="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-4 py-1.5 rounded-full text-xs sm:text-sm font-black tracking-wide border border-brand-green/15">
-              <span>בין לבין</span>
-              <span className="text-brand-orange font-light">|</span>
-              <span>תוכניות לנשים</span>
-            </div>
-
-            <button
-              onClick={handleShare}
-              aria-label="שתפי את הדף"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-brand-orange transition-colors p-1.5 rounded-lg hover:bg-white/50"
-              title="שתפי את הדף"
-            >
-              <Share2 className="w-4 h-4" />
-              <span className="hidden sm:inline">שיתוף</span>
-            </button>
-          </div>
-        </header>
+        <MiniPageTopNav 
+          currentTitle="עד 180°" 
+          themeColor="#0d6e7a" 
+          onShare={handleShare} 
+        />
       )}
 
       {/* Main Content */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-16 relative z-10">
 
         {/* Hero Section */}
-        <div className="text-center md:text-right pt-4 pb-10 sm:pb-12 border-b border-brand-beige/80">
+        <div className="text-center pt-4 pb-10 sm:pb-12 border-b border-[#0d6e7a]/20">
           
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-brand-green tracking-tight leading-[1.1] mb-4">
+          {/* Program Dedicated Logo */}
+          <div className="flex justify-center mb-6 sm:mb-8">
+            <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-full bg-white p-2 sm:p-3 border-4 border-[#0d6e7a]/30 shadow-[0_12px_35px_rgba(13,110,122,0.18)] flex items-center justify-center transition-transform hover:scale-105 duration-300 shrink-0 overflow-hidden">
+              <img 
+                src={UNTIL180_LOGO_URL} 
+                alt="לוגו עד 180°" 
+                className="w-full h-full object-contain rounded-full"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== UNTIL180_LOGO_FALLBACK) {
+                    target.src = UNTIL180_LOGO_FALLBACK;
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm sm:text-base font-black mb-4 bg-[#0d6e7a]/10 text-[#0d6e7a] border border-[#0d6e7a]/30 shadow-xs">
+            <Compass className="w-4 h-4" />
+            <span>סדנה לתהליכי שינוי</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#0d6e7a] tracking-tight leading-[1.1] mb-4 text-center">
             עד 180°
           </h1>
 
-          <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-brand-orange tracking-tight mb-8">
+          <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-8 text-center">
             ארבעה מפגשים שמניעים שינוי
           </div>
 
           {/* Narrative Opening */}
-          <div className="space-y-4 text-lg sm:text-xl text-gray-700 leading-relaxed max-w-2xl font-medium">
-            <p>
+          <div className="space-y-5 text-xl sm:text-2xl text-gray-800 leading-[1.8] max-w-2xl font-normal mx-auto text-right">
+            <p className="text-2xl sm:text-3xl font-black text-[#0d6e7a] text-center">
               יש דברים שאנחנו כבר יודעות שאנחנו רוצות לשנות.
             </p>
 
-            <p className="text-gray-800">
+            <p>
               רעיון שמסתובב בראש. החלטה שאנחנו דוחות. משהו שכבר לא מתאים לנו כמו פעם. רצון להתחיל, להפסיק, להתקדם או פשוט לעשות אחרת.
             </p>
 
-            <p className="text-gray-600 text-base sm:text-lg pt-1">
+            <p className="text-gray-700 text-lg sm:text-xl pt-1 text-center font-bold">
               אבל בין הרצון לשינוי לבין הרגע שבו באמת מתחילים לזוז, יש לפעמים מרחק.
             </p>
 
-            <p className="text-2xl sm:text-3xl font-black text-brand-green tracking-tight py-1">
-              <strong>עד 180°</strong> נולדה בדיוק בשביל המרחק הזה.
-            </p>
+            <div className="bg-[#0d6e7a]/10 p-5 rounded-2xl border-r-4 border-[#0d6e7a] my-2 text-center">
+              <p className="text-2xl sm:text-3xl font-black text-[#0d6e7a] tracking-tight py-1">
+                <strong>עד 180°</strong> נולדה בדיוק בשביל המרחק הזה.
+              </p>
+            </div>
 
-            <p className="text-gray-700 text-base sm:text-lg">
+            <p>
               סדרה של ארבעה מפגשים תהליכיים שמאפשרת לעצור, להסתכל על מה שאנחנו רוצות לשנות מזווית אחרת ולהתחיל להפוך רצון לתנועה.
             </p>
           </div>
         </div>
 
         {/* Section: You don't have to turn everything upside down */}
-        <section className="py-10 sm:py-12 border-b border-brand-beige/80">
-          <div className="inline-block px-4 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs sm:text-sm font-black mb-3">
+        <section className="py-10 sm:py-14 border-b border-[#0d6e7a]/20 text-center">
+          <div className="inline-block px-5 py-1.5 bg-[#0d6e7a]/10 text-[#0d6e7a] rounded-full text-sm sm:text-base font-black mb-3 border border-[#0d6e7a]/30">
             זווית של תנועה
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-black text-brand-green mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-[#0d6e7a] mb-6 tracking-tight text-center">
             לא חייבים להפוך את הכול
           </h2>
 
-          <div className="space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
-            <p className="text-xl sm:text-2xl font-black text-brand-green">
+          <div className="space-y-5 text-lg sm:text-xl md:text-2xl text-gray-800 leading-[1.8] font-normal max-w-2xl mx-auto text-right">
+            <p className="text-2xl sm:text-3xl font-black text-gray-900 text-center">
               לפעמים מספיק לשנות כמה מעלות כדי להתחיל לנוע לכיוון אחר.
             </p>
 
-            <p>
+            <p className="text-center">
               במהלך ארבעת המפגשים נשלב בין הרצאות השראה, עבודה אישית, כתיבה ושיתופים.
             </p>
 
-            <div className="bg-white/80 p-5 sm:p-6 rounded-2xl border border-brand-beige/80 shadow-2xs mt-3">
-              <p className="text-gray-800 leading-relaxed">
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-[#0d6e7a]/25 shadow-sm mt-4 text-center">
+              <p className="text-gray-800 leading-relaxed font-bold">
                 כל מפגש ייקח אותנו עוד צעד בתהליך: מהרצון הכללי שמשהו ישתנה, דרך הבנה מדויקת יותר של מה אנחנו באמת רוצות, מה עוצר אותנו ומה יכול לעזור לנו להתקדם, ועד לבחירה בצעדים שאפשר להתחיל לעשות בפועל.
               </p>
             </div>
@@ -152,36 +168,36 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
         </section>
 
         {/* Section: From Four Angles to Motion */}
-        <section className="py-10 sm:py-12 border-b border-brand-beige/80">
-          <div className="text-center md:text-right mb-8">
-            <h2 className="text-2xl sm:text-4xl font-black text-brand-green tracking-tight mb-2">
+        <section className="py-10 sm:py-14 border-b border-[#0d6e7a]/20">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-3xl sm:text-5xl font-black text-[#0d6e7a] tracking-tight mb-3 text-center">
               מארבע זוויות לתנועה
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg font-medium">
+            <p className="text-gray-700 text-lg sm:text-xl font-bold text-center">
               ארבעה צעדים מדויקים המובילים מהתבוננות אל עשייה ומחויבות
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
             {angles.map((a) => (
               <div
                 key={a.step}
-                className="bg-white/85 backdrop-blur-sm p-5 sm:p-6 rounded-3xl border border-brand-beige shadow-2xs hover:shadow-md hover:border-brand-orange/40 transition-all text-right flex flex-col"
+                className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-[#0d6e7a]/25 shadow-sm hover:shadow-md hover:border-[#0d6e7a] transition-all text-right flex flex-col"
               >
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="w-8 h-8 rounded-xl bg-brand-green/10 text-brand-green font-black text-sm flex items-center justify-center">
+                  <span className="w-10 h-10 rounded-2xl bg-[#0d6e7a]/15 text-[#0d6e7a] font-black text-base flex items-center justify-center">
                     0{a.step}
                   </span>
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
                     שלב {a.step}
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-black text-brand-green tracking-tight mb-2">
+                <h3 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight mb-2 text-center">
                   {a.name}
                 </h3>
 
-                <p className="text-sm sm:text-base text-gray-700 font-medium leading-relaxed mt-auto">
+                <p className="text-base sm:text-lg text-gray-700 font-medium leading-relaxed mt-auto text-center">
                   {a.question}
                 </p>
               </div>
@@ -190,27 +206,27 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
         </section>
 
         {/* Section: Inspiration meets action */}
-        <section className="py-10 sm:py-12 border-b border-brand-beige/80">
-          <div className="bg-white/90 p-7 sm:p-9 rounded-3xl border border-brand-beige shadow-sm space-y-4 text-right">
-            <div className="flex items-center gap-2 text-brand-orange font-black text-sm mb-1">
-              <Sparkles className="w-5 h-5 text-brand-orange" />
+        <section className="py-10 sm:py-14 border-b border-[#0d6e7a]/20">
+          <div className="bg-white p-8 sm:p-10 rounded-3xl border-2 border-[#0d6e7a]/25 shadow-sm space-y-5 text-center max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-2 text-[#0d6e7a] font-black text-sm sm:text-base mb-1">
+              <Sparkles className="w-5 h-5 text-[#0d6e7a]" />
               <span>נקודת פתיחה מעוררת השראה</span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl font-black text-brand-green tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-[#0d6e7a] tracking-tight text-center">
               השראה שפוגשת עשייה
             </h2>
 
-            <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
-              חלק מהתהליך יכלול הרצאות השראה, ובהן <strong className="font-black text-brand-green">&quot;אלסי ב־180 מעלות&quot;</strong>, הרצאתה האישית של אלסי זיסלמן על שינוי, בחירה והיכולת לשנות כיוון.
+            <p className="text-lg sm:text-xl text-gray-800 leading-relaxed font-medium text-right">
+              חלק מהתהליך יכלול הרצאות השראה, ובהן <strong className="font-black text-[#0d6e7a]">&quot;אלסי ב־180 מעלות&quot;</strong>, הרצאתה האישית של אלסי זיסלמן על שינוי, בחירה והיכולת לשנות כיוון.
             </p>
 
-            <p className="text-lg sm:text-xl font-black text-brand-orange pt-1">
+            <p className="text-xl sm:text-2xl font-black text-gray-900 pt-1 text-center">
               אבל ההשראה היא רק נקודת הפתיחה.
             </p>
 
-            <div className="p-5 bg-brand-cream/80 rounded-2xl border border-brand-beige/80">
-              <p className="text-base sm:text-lg text-brand-green font-bold leading-relaxed">
+            <div className="p-6 bg-[#0d6e7a]/10 rounded-2xl border border-[#0d6e7a]/30">
+              <p className="text-lg sm:text-xl text-[#0d6e7a] font-black leading-relaxed text-center">
                 הסדנא תתווה דרך כיוון וצעד ראשון שיזיז את הזוית במספר מעלות.
               </p>
             </div>
@@ -218,33 +234,33 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
         </section>
 
         {/* Section: Who is the workshop for? */}
-        <section className="py-10 sm:py-12 border-b border-brand-beige/80">
-          <div className="bg-brand-beige/40 p-6 sm:p-8 rounded-3xl border border-brand-beige space-y-4">
-            <div className="flex items-center gap-2 text-brand-green font-bold text-xs sm:text-sm">
-              <Compass className="w-4 h-4" />
+        <section className="py-10 sm:py-14 border-b border-[#0d6e7a]/20">
+          <div className="bg-white p-7 sm:p-9 rounded-3xl border-2 border-[#0d6e7a]/25 space-y-5 shadow-sm">
+            <div className="flex items-center justify-center gap-2 text-[#0d6e7a] font-bold text-sm sm:text-base">
+              <Compass className="w-5 h-5" />
               <span>המרחב שלך</span>
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-black text-brand-green tracking-tight mb-4">
+            <h3 className="text-3xl sm:text-4xl font-black text-[#0d6e7a] tracking-tight mb-4 text-center">
               למי הסדנה מתאימה?
             </h3>
 
-            <div className="flex items-start gap-3 text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
-              <CheckCircle2 className="w-6 h-6 text-brand-green shrink-0 mt-0.5" />
+            <div className="flex items-start gap-4 text-lg sm:text-xl text-gray-800 leading-relaxed font-medium">
+              <CheckCircle2 className="w-7 h-7 text-[#0d6e7a] shrink-0 mt-1" />
               <p>
                 לנשים שמרגישות שיש משהו שהן רוצות להזיז בחיים, גם אם הן עדיין לא יודעות בדיוק איך.
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed pr-9">
+            <p className="text-base sm:text-lg text-gray-700 leading-relaxed pr-10 font-medium">
               זה יכול להיות שינוי אישי, מקצועי, משפחתי, שינוי בהרגלים או רצון שכבר הרבה זמן מחכה לקבל מקום.
             </p>
 
-            <div className="pt-4 border-t border-brand-beige space-y-1 text-center md:text-right">
-              <p className="text-base sm:text-lg text-gray-600">
+            <div className="pt-5 border-t border-[#0d6e7a]/20 space-y-2 text-center">
+              <p className="text-lg sm:text-xl text-gray-700 font-medium">
                 לא צריך להגיע עם תוכנית מוכנה.
               </p>
-              <p className="text-xl sm:text-2xl font-black text-brand-orange">
+              <p className="text-2xl sm:text-3xl font-black text-[#0d6e7a]">
                 מספיק להגיע עם רצון שמשהו יהיה קצת אחרת.
               </p>
             </div>
@@ -252,13 +268,13 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
         </section>
 
         {/* CTA Section */}
-        <section className="pt-8 pb-8 text-center">
-          <div className="bg-white p-7 sm:p-10 rounded-[2.5rem] border-2 border-brand-beige shadow-lg max-w-xl mx-auto">
-            <div className="text-xl sm:text-2xl font-black text-brand-green mb-2">
-              רוצה לקבל פרטים על המפגשים הקרובים?
+        <section className="py-10 sm:py-14 border-b border-[#0d6e7a]/20 text-center">
+          <div className="bg-white p-8 sm:p-11 rounded-[2.5rem] border-2 border-[#0d6e7a]/30 shadow-md max-w-xl mx-auto">
+            <div className="text-2xl sm:text-3xl font-black text-[#0d6e7a] mb-3 text-center">
+              רוצה לקבל פרטים?
             </div>
             
-            <p className="text-sm sm:text-base text-gray-600 mb-6 font-medium">
+            <p className="text-base sm:text-lg text-gray-700 mb-7 font-medium text-center">
               דלית מזמינה אותך לשיחה אישית ופתוחה לבדוק האם זה המרחב המדויק עבורך עכשיו.
             </p>
 
@@ -266,20 +282,27 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 bg-brand-green hover:bg-brand-orange text-white px-8 py-4 rounded-full text-base sm:text-lg font-black transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-3 bg-[#0d6e7a] hover:bg-[#08545e] text-white px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-black transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 active:scale-98"
             >
-              <MessageCircle className="w-5 h-5 fill-current" />
-              <span>שיחה עם דלית בוואטסאפ</span>
+              <WhatsAppIcon className="w-6 h-6 fill-current text-white" />
+              <span>אשמח לשוחח</span>
             </a>
           </div>
 
           {/* Sub-footer sign-off */}
-          <div className="mt-12 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
-            <div className="font-black text-brand-green text-base sm:text-lg">עד 180°</div>
+          <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
+            <div className="font-black text-[#0d6e7a] text-base sm:text-lg">עד 180°</div>
             <div className="text-gray-700">4 מפגשים תהליכיים להתנעת שינוי</div>
-            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות לנשים</span></div>
+            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
           </div>
         </section>
+
+        {/* Navigation to Other Programs - AT THE VERY END */}
+        {!embedded && (
+          <div className="pt-8 pb-4">
+            <OtherProgramsNav currentProgramId="up-to-180" />
+          </div>
+        )}
 
       </div>
     </section>
