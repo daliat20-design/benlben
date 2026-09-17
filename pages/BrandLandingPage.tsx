@@ -564,7 +564,7 @@ export const BrandLandingPage: React.FC = () => {
               {/* Flowing Copy with enlarged mobile font and generous line-height */}
               <div className="space-y-6 text-xl sm:text-2xl text-gray-800 leading-[1.85] sm:leading-relaxed font-normal max-w-2xl text-right mx-auto">
                 <h3 className="font-extrabold text-2xl sm:text-3xl text-brand-green text-center sm:text-right leading-snug">
-                  בבין לבין אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו.
+                  ב<span className="text-brand-orange font-black bg-brand-orange/15 px-2.5 py-0.5 rounded-xl border border-brand-orange/25 mx-1 inline-block shadow-2xs">בין לבין</span> אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו.
                 </h3>
 
                 <div className="bg-brand-orange/10 border-r-4 border-brand-orange pr-4 py-3 rounded-l-2xl">
@@ -582,7 +582,7 @@ export const BrandLandingPage: React.FC = () => {
                 </p>
 
                 <p>
-                  אחרי שנים של הובלת קהילה נשית ומפגש עם נשים בתקופות שונות בחיים, הבנו שכל מה שצברנו בדרך, הניסיון, הידע, ההיכרות עם עצמנו, הקשרים, ולפעמים גם הזמן שמתפנה, יכול להפוך דווקא עכשיו ליתרון.
+                  אחרי שנים של הובלת קהילה נשית ומפגש עם נשים בתקופות שונות בחייהן, הבנו שכל מה שצברנו בדרך, הניסיון, הידע, ההיכרות עם עצמנו, הקשרים, ולפעמים גם הזמן שמתפנה, יכול להפוך דווקא עכשיו ליתרון.
                 </p>
 
                 <div className="bg-brand-green/8 border-r-4 border-brand-green pr-4 py-3.5 rounded-l-2xl my-2">
@@ -591,13 +591,44 @@ export const BrandLandingPage: React.FC = () => {
                   </p>
                 </div>
 
-                <p>
-                  מכאן נולדו המרחבים שלנו, המשלבים <strong className="font-black text-brand-green">מפגש, תוכן וחוויה</strong>, וכל אחד מהם פוגש גיל, תקופה או מטרה אחרת.
-                </p>
-
-                <p>
-                  מ<strong className="font-black text-brand-orange">אמצע החיים</strong>, תוכנית הדגל שלנו לנשים בגילאי <strong className="font-black" dir="ltr">45-60</strong>, דרך <strong className="font-black text-brand-orange">עוד לפנייך</strong> לנשים 60+, תוכניות להאצת שינויים ולהגשמת רצונות וחלומות, ועד מנהיגות, פיתוח בארגונים, ריטריטים וימי שיא.
-                </p>
+                <div className="bg-brand-cream/60 rounded-2xl border border-brand-beige/80 p-5 sm:p-6 shadow-xs my-4 space-y-3.5">
+                  <p className="font-semibold text-gray-900 text-lg sm:text-xl">
+                    מכאן נולדו המרחבים שלנו, המשלבים <strong className="font-black text-brand-green">מפגש, תוכן וחוויה</strong>, וכל אחד מהם פוגש גיל, תקופה או מטרה אחרת:
+                  </p>
+                  
+                  <ul className="space-y-2.5 text-lg sm:text-xl text-gray-800 pr-1">
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                      <span>
+                        מ<strong className="font-black text-brand-orange">אמצע החיים</strong> – תוכנית הדגל שלנו לנשים בגילאי <span dir="ltr">45-60</span>
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                      <span>
+                        דרך <strong className="font-black text-brand-orange">עוד לפנייך</strong> – לנשים בגילאי 60+
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                      <span>
+                        <strong className="font-black text-brand-orange">עד 180°</strong> – תוכנית להאצת שינויים ולהגשמת רצונות וחלומות
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                      <span>
+                        <strong className="font-black text-brand-orange">היילייטס</strong> – מנהיגות ופיתוח בארגונים
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                      <span>
+                        ועד <strong className="font-black text-brand-orange">ריטריטים וימי שיא</strong>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
 
                 <div className="pt-6 border-t-2 border-brand-beige text-center space-y-2">
                   <p className="text-gray-900 font-bold text-xl sm:text-2xl">
