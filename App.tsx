@@ -7,6 +7,7 @@ import MarketingPage from './pages/MarketingPage';
 import MwmPage from './pages/MwmPage';
 import MwmIntakeFormPage from './pages/MwmIntakeFormPage';
 import MwmResponsesPage from './pages/MwmResponsesPage';
+import InquiriesResponsesPage from './pages/InquiriesResponsesPage';
 import AlchemyOfElementsPage from './pages/mini/AlchemyOfElementsPage';
 import MidlifeMiniPage from './pages/mini/MidlifeMiniPage';
 import UpTo180MiniPage from './pages/mini/UpTo180MiniPage';
@@ -27,6 +28,7 @@ const InternalNav: React.FC = () => {
     location.pathname === '/form' ||
     location.pathname === '/mwm-responses' ||
     location.pathname === '/responses' ||
+    location.pathname === '/inquiries' ||
     location.pathname === '/admin' ||
     location.pathname.startsWith('/p/')
   ) {
@@ -37,12 +39,12 @@ const InternalNav: React.FC = () => {
   const [showLinks, setShowLinks] = React.useState(false);
 
   const links = [
-    { name: 'דף הנחיתה של התוכניות', path: '#/', full: `${baseUrl}/` },
-    { name: 'סדנת אמצע החיים (דף ישן)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
-    { name: 'ניהול מיני-דפים', path: '#/mini-admin', full: `${baseUrl}/#/mini-admin` },
+    { name: 'דף הבית', path: '#/', full: `${baseUrl}/` },
+    { name: 'פניות מהאתר (בין לבין)', path: '#/responses?code=9672', full: `${baseUrl}/#/responses?code=9672` },
+    { name: 'שאלון נעים להכיר (כיצ"י)', path: '#/mwm-responses?code=9672', full: `${baseUrl}/#/mwm-responses?code=9672` },
+    { name: 'טופס נעים להכיר (למילוי)', path: '#/mwm-form', full: `${baseUrl}/#/mwm-form` },
     { name: 'בין לבין כיצ"י MWM', path: '#/mwm', full: `${baseUrl}/#/mwm` },
-    { name: 'טופס נעים להכיר', path: '#/mwm-form', full: `${baseUrl}/#/mwm-form` },
-    { name: 'ניהול תשובות (Admin)', path: '#/mwm-responses', full: `${baseUrl}/#/mwm-responses` },
+    { name: 'ניהול מיני-דפים', path: '#/mini-admin', full: `${baseUrl}/#/mini-admin` },
     { name: 'ספר המתכונים', path: '#/recipes', full: `${baseUrl}/#/recipes` },
   ];
 
@@ -146,14 +148,18 @@ const AppContent: React.FC = () => {
         <Route path="/mini-hub" element={<MiniPagesManager />} />
         <Route path="/mini" element={<MiniPagesManager />} />
 
+        {/* כוכב יאיר - שאלון נעים להכיר */}
         <Route path="/mwm" element={<MwmPage />} />
         <Route path="/ky-mwm" element={<MwmPage />} />
         <Route path="/mwm-form" element={<MwmIntakeFormPage />} />
         <Route path="/form" element={<MwmIntakeFormPage />} />
         <Route path="/mwm-responses" element={<MwmResponsesPage />} />
-        <Route path="/responses" element={<MwmResponsesPage />} />
-        <Route path="/inquiries" element={<MwmResponsesPage />} />
-        <Route path="/admin" element={<MwmResponsesPage />} />
+        <Route path="/ky-responses" element={<MwmResponsesPage />} />
+
+        {/* בין לבין - פניות התעניינות מהאתר הראשי */}
+        <Route path="/inquiries" element={<InquiriesResponsesPage />} />
+        <Route path="/responses" element={<InquiriesResponsesPage />} />
+        <Route path="/admin" element={<InquiriesResponsesPage />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/landing" element={<BrandLandingPage />} />
         <Route path="/part2" element={<PartTwo />} />

@@ -9,7 +9,6 @@ import {
   deleteIntakeSubmission, 
   IntakeSubmission 
 } from '../utils/mwmStorage';
-import { InquiriesTab } from '../components/InquiriesTab';
 import { 
   Users, Trash2, Phone, Calendar, Heart, HelpCircle, 
   Sparkles, ArrowRight, ShieldCheck, Download, Search, 
@@ -22,7 +21,10 @@ const PIN_STORAGE_KEY = 'mwm_team_pin_auth_granted';
 
 export const MwmResponsesPage: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return sessionStorage.getItem(PIN_STORAGE_KEY) === 'true';
+    return (
+      sessionStorage.getItem(PIN_STORAGE_KEY) === 'true' ||
+      localStorage.getItem(PIN_STORAGE_KEY) === 'true'
+    );
   });
   const [pinDigits, setPinDigits] = useState(['', '', '', '']);
   const [pinError, setPinError] = useState(false);
@@ -36,7 +38,6 @@ export const MwmResponsesPage: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [submissions, setSubmissions] = useState<IntakeSubmission[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'inquiries' | 'intake'>('inquiries');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubmission, setSelectedSubmission] = useState<IntakeSubmission | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -46,15 +47,23 @@ export const MwmResponsesPage: React.FC = () => {
   const [copiedShareLink, setCopiedShareLink] = useState(false);
 
   useEffect(() => {
-    document.title = 'ניהול תשובות טופס נעים להכיר | בין לבין כיצ"י';
+    document.title = 'ניהול תשובות טופס נעים להכיר - כוכב יאיר | בין לבין';
 
     // Auto-login if accessed with PIN query parameter (e.g. ?code=9672 or ?pin=9672)
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      const codeParam = urlParams.get('pin') || urlParams.get('code');
+      const hashQuery = window.location.hash.includes('?') ? window.location.hash.split('?')[1] : '';
+      const hashParams = new URLSearchParams(hashQuery);
+      const codeParam =
+        urlParams.get('pin') ||
+        urlParams.get('code') ||
+        hashParams.get('pin') ||
+        hashParams.get('code');
+
       if (codeParam === REQUIRED_PIN) {
         setIsAuthenticated(true);
         sessionStorage.setItem(PIN_STORAGE_KEY, 'true');
+        localStorage.setItem(PIN_STORAGE_KEY, 'true');
       }
     } catch (e) {
       console.error('URL params check failed:', e);
@@ -65,6 +74,7 @@ export const MwmResponsesPage: React.FC = () => {
       if (user?.email === 'daliat20@gmail.com') {
         setIsAuthenticated(true);
         sessionStorage.setItem(PIN_STORAGE_KEY, 'true');
+        localStorage.setItem(PIN_STORAGE_KEY, 'true');
       }
     });
 
@@ -98,6 +108,7 @@ export const MwmResponsesPage: React.FC = () => {
       if (completeCode === REQUIRED_PIN) {
         setIsAuthenticated(true);
         sessionStorage.setItem(PIN_STORAGE_KEY, 'true');
+        localStorage.setItem(PIN_STORAGE_KEY, 'true');
       } else {
         setPinError(true);
         setTimeout(() => {
@@ -116,6 +127,7 @@ export const MwmResponsesPage: React.FC = () => {
 
   const handleLockOut = () => {
     sessionStorage.removeItem(PIN_STORAGE_KEY);
+    localStorage.removeItem(PIN_STORAGE_KEY);
     setIsAuthenticated(false);
     setPinDigits(['', '', '', '']);
     setPinError(false);
@@ -178,12 +190,15 @@ export const MwmResponsesPage: React.FC = () => {
   };
 
   const getDirectTeamLink = () => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    return `${origin}/mwm-responses?code=${REQUIRED_PIN}`;
+    const publicBase = 'https://ais-pre-jttptouynfsjqnrg3kuoj3-29867443297.europe-west1.run.app';
+    const origin = (typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('ais-dev-') && !window.location.origin.includes('localhost'))
+      ? window.location.origin
+      : publicBase;
+    return `${origin}/responses?code=${REQUIRED_PIN}`;
   };
 
   const copyTeamLink = () => {
-    const shareMessage = `היי, הנה הקישור הישיר לצפייה בתשובות טופס ההיכרות "נעים להכיר" (בין לבין):\n${getDirectTeamLink()}\n\nקוד גישה: ${REQUIRED_PIN}`;
+    const shareMessage = `🌸 הקישור הישיר לניהול פניות התעניינות ותשובות (בין לבין):\n${getDirectTeamLink()}\n\nקוד גישה: ${REQUIRED_PIN}`;
     navigator.clipboard.writeText(shareMessage);
     setCopiedShareLink(true);
     setTimeout(() => setCopiedShareLink(false), 3000);
@@ -191,7 +206,7 @@ export const MwmResponsesPage: React.FC = () => {
 
   const shareToWhatsApp = () => {
     const shareMessage = encodeURIComponent(
-      `היי, הנה הקישור הישיר לצפייה בכל תשובות טופס ההיכרות "נעים להכיר" (בין לבין):\n${getDirectTeamLink()}\n\nקוד גישה: ${REQUIRED_PIN}`
+      `🌸 הקישור הישיר לניהול פניות התעניינות ותשובות (בין לבין):\n${getDirectTeamLink()}\n\nקוד גישה: ${REQUIRED_PIN}`
     );
     window.open(`https://api.whatsapp.com/send?text=${shareMessage}`, '_blank');
   };
@@ -430,38 +445,8 @@ export const MwmResponsesPage: React.FC = () => {
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-3 mb-8 bg-white/80 backdrop-blur p-1.5 rounded-2xl border border-brand-beige max-w-md shadow-sm">
-          <button
-            type="button"
-            onClick={() => setActiveTab('inquiries')}
-            className={`flex-1 py-3 px-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'inquiries'
-                ? 'bg-brand-green text-white shadow-md'
-                : 'text-gray-600 hover:text-brand-green hover:bg-brand-cream/50'
-            }`}
-          >
-            <span>פניות התעניינות מהאתר</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('intake')}
-            className={`flex-1 py-3 px-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'intake'
-                ? 'bg-brand-green text-white shadow-md'
-                : 'text-gray-600 hover:text-brand-green hover:bg-brand-cream/50'
-            }`}
-          >
-            <span>שאלון נעים להכיר ({submissions.length})</span>
-          </button>
-        </div>
-
-        {activeTab === 'inquiries' ? (
-          <InquiriesTab />
-        ) : (
-          <>
-            {/* Actions & Stats Banner */}
-            <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-lg border border-brand-beige mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        {/* Actions & Stats Banner */}
+        <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-lg border border-brand-beige mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-brand-green text-white rounded-2xl flex items-center justify-center shadow-md">
               <Users className="w-7 h-7" />
@@ -471,7 +456,7 @@ export const MwmResponsesPage: React.FC = () => {
                 {submissions.length} {submissions.length === 1 ? 'משתתפת מילאה' : 'משתתפות מילאו'}
               </div>
               <p className="text-sm font-bold text-gray-500">
-                כל התשובות מתעדכנות כאן בזמן אמת. ניתן לבצע ניסיון ולמחוק תשובות בדיקה בקלות.
+                טופס היכרות "נעים להכיר" - סדנת אמצע החיים (כוכב יאיר צור יגאל).
               </p>
             </div>
           </div>
@@ -776,8 +761,6 @@ export const MwmResponsesPage: React.FC = () => {
             </div>
 
           </div>
-        )}
-          </>
         )}
       </main>
 

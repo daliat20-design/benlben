@@ -55,10 +55,10 @@ export const AVAILABLE_PROGRAMS: Array<{
   },
   {
     id: 'highlights',
-    label: 'Highlights',
+    label: 'היילייטס (Highlights)',
     sub: 'תוכנית פיתוח אישית ומקצועית לנשים בארגונים.',
-    color: 'border-teal-700 text-teal-800 bg-teal-50',
-    activeColor: 'bg-teal-700 text-white border-teal-700',
+    color: 'border-[#204C8E] text-[#204C8E] bg-[#204C8E]/5',
+    activeColor: 'bg-[#204C8E] text-white border-[#204C8E]',
   },
   {
     id: 'retreats',

@@ -13,7 +13,8 @@ import {
   ArrowLeft,
   Crown,
   Menu,
-  X
+  X,
+  Lock
 } from 'lucide-react';
 import { ButterflyIcon } from '../components/Hero';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
@@ -562,31 +563,50 @@ export const BrandLandingPage: React.FC = () => {
 
               {/* Flowing Copy with enlarged mobile font and generous line-height */}
               <div className="space-y-6 text-xl sm:text-2xl text-gray-800 leading-[1.85] sm:leading-relaxed font-normal max-w-2xl text-right mx-auto">
-                <p className="font-extrabold text-2xl sm:text-3xl text-gray-900 text-center sm:text-right text-brand-green">
-                  בכל גיל אנחנו מחפשות משהו קצת אחר.
-                </p>
+                <h3 className="font-extrabold text-2xl sm:text-3xl text-brand-green text-center sm:text-right leading-snug">
+                  בבין לבין אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו.
+                </h3>
 
-                <p>
-                  מה שמעסיק אותנו בגיל 45 לא בהכרח מעסיק אותנו בגיל 60. לפעמים אנחנו רוצות להבין תקופה שאנחנו עוברות, להניע שינוי, לפתח רעיון או יוזמה, להכיר נשים חדשות, ולפעמים פשוט לצאת מהשגרה ליום של חברותא וכיף.
-                </p>
-
-                <div className="bg-brand-green/8 border-r-4 border-brand-green pr-4 py-3 rounded-l-2xl my-2">
-                  <p className="font-bold text-gray-900 text-xl sm:text-2xl">
-                    <strong className="font-black text-brand-green">בין לבין</strong> יוצרת מרחבים שונים לנשים, שכל אחד מהם פוגש תקופה, גיל או מטרה אחרת.
+                <div className="bg-brand-orange/10 border-r-4 border-brand-orange pr-4 py-3 rounded-l-2xl">
+                  <p className="font-black text-brand-orange text-xl sm:text-2xl">
+                    רוצה לגלות איך? בואי, יש לנו הרגשה שנפתיע אותך.
                   </p>
                 </div>
 
                 <p>
-                  <strong className="font-black text-brand-orange">מאמצע החיים</strong>, תוכנית הדגל שלנו לנשים בגילאי <span dir="ltr">45-60</span>, דרך תוכנית לנשים בגילאי 60+ ותוכניות נוספות של שינוי, מנהיגות ופיתוח בארגונים, ועד ריטריטים וימי שיא.
+                  לפעמים נדמה שככל שהשנים עוברות, האפשרויות דווקא מצטמצמות. שהשינויים בגוף, במשפחה, בזוגיות או בעבודה דורשים מאיתנו בעיקר להסתגל. שיש דברים שכבר מאוחר מדי לשנות.
                 </p>
 
-                <p className="font-semibold text-gray-900">
-                  אפשר להגיע לבד, כקבוצה, קהילה או ארגון.
+                <p className="font-black text-2xl sm:text-3xl text-brand-green">
+                  אנחנו גילינו בדיוק את ההפך.
                 </p>
 
-                <p className="pt-4 text-brand-green font-black text-2xl sm:text-3xl border-t-2 border-brand-beige text-center">
-                  מוזמנת להכיר ולמצוא את המרחב שמתאים לך.
+                <p>
+                  אחרי שנים של הובלת קהילה נשית ומפגש עם נשים בתקופות שונות בחיים, הבנו שכל מה שצברנו בדרך, הניסיון, הידע, ההיכרות עם עצמנו, הקשרים, ולפעמים גם הזמן שמתפנה, יכול להפוך דווקא עכשיו ליתרון.
                 </p>
+
+                <div className="bg-brand-green/8 border-r-4 border-brand-green pr-4 py-3.5 rounded-l-2xl my-2">
+                  <p className="font-normal text-gray-900 text-xl sm:text-2xl">
+                    <strong className="font-black text-brand-green">זו הגישה של בין לבין:</strong> לא להתעלם מהשינויים, אלא ללמוד איך להשתמש במה שכבר יש לנו כדי לנוע בתוכם, להניע את מה שאנחנו רוצות ולמקסם את מה שעוד לפנינו.
+                  </p>
+                </div>
+
+                <p>
+                  מכאן נולדו המרחבים שלנו, המשלבים <strong className="font-black text-brand-green">מפגש, תוכן וחוויה</strong>, וכל אחד מהם פוגש גיל, תקופה או מטרה אחרת.
+                </p>
+
+                <p>
+                  מ<strong className="font-black text-brand-orange">אמצע החיים</strong>, תוכנית הדגל שלנו לנשים בגילאי <strong className="font-black" dir="ltr">45-60</strong>, דרך <strong className="font-black text-brand-orange">עוד לפנייך</strong> לנשים 60+, תוכניות להאצת שינויים ולהגשמת רצונות וחלומות, ועד מנהיגות, פיתוח בארגונים, ריטריטים וימי שיא.
+                </p>
+
+                <div className="pt-6 border-t-2 border-brand-beige text-center space-y-2">
+                  <p className="text-gray-900 font-bold text-xl sm:text-2xl">
+                    אנחנו מאמינות שבין המרחבים האלה נמצא גם המענה למה שאת מחפשת.
+                  </p>
+                  <p className="text-brand-green font-black text-2xl sm:text-3xl">
+                    בואי לגלות מה מתאים לך.
+                  </p>
+                </div>
               </div>
 
               {/* כפתור פנייה / יצירת קשר עם וואטסאפ: אשמח לשוחח */}
@@ -989,9 +1009,16 @@ export const BrandLandingPage: React.FC = () => {
             <p className="text-gray-500 text-xs sm:text-sm">
               כל הזכויות שמורות
             </p>
-            <p className="text-xs text-gray-400 font-mono tracking-wider pt-1">
-              benlven
-            </p>
+            <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                to="/responses?code=9672"
+                title="כניסת צוות לניהול פניות מתעניינות"
+                className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand-green font-bold transition-colors py-1.5 px-3.5 rounded-full bg-white/80 hover:bg-white border border-brand-beige shadow-xs active:scale-95"
+              >
+                <Lock className="w-3.5 h-3.5 text-brand-orange" />
+                <span>כניסת צוות | ניהול פניות מהאתר</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
