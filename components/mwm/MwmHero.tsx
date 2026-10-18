@@ -102,9 +102,17 @@ export const MwmHero: React.FC = () => {
           <div className="relative z-10 p-6 bg-white shadow-[0_50px_100px_-20px_rgba(84,99,79,0.3)] rounded-[3rem] transform rotate-3 hover:rotate-0 transition-transform duration-700 overflow-hidden">
             <div className="overflow-hidden rounded-[2rem] aspect-[4/3] shadow-inner">
               <img 
-                src="https://i.postimg.cc/LsC6W6cG/Chat-GPT-Image-Sep-9-2026-09-44-51-AM.png" 
+                src="/mwm-hero.webp" 
                 alt="בין לבין - תוכנית לנשים באמצע החיים" 
                 className="w-full h-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== 'https://i.postimg.cc/LsC6W6cG/Chat-GPT-Image-Sep-9-2026-09-44-51-AM.png') {
+                    target.src = 'https://i.postimg.cc/LsC6W6cG/Chat-GPT-Image-Sep-9-2026-09-44-51-AM.png';
+                  }
+                }}
               />
             </div>
           </div>

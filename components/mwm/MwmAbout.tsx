@@ -44,9 +44,16 @@ export const MwmAbout: React.FC = () => {
             <div className="py-6 flex justify-center">
               <div className="w-full max-w-2xl bg-gradient-to-tr from-brand-green to-brand-lightGreen rounded-[3rem] p-3 shadow-2xl transform -rotate-1 hover:rotate-0 transition-transform duration-500">
                 <img 
-                  src="https://i.postimg.cc/WpysKVr6/17.jpg" 
+                  src="/mwm-about.webp" 
                   alt="בין לבין - נשים באמצע החיים" 
                   className="w-full h-auto rounded-[2.5rem] shadow-lg object-cover"
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== 'https://i.postimg.cc/WpysKVr6/17.jpg') {
+                      target.src = 'https://i.postimg.cc/WpysKVr6/17.jpg';
+                    }
+                  }}
                 />
               </div>
             </div>

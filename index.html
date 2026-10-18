@@ -33,9 +33,9 @@
     <script>
         (function() {
             try {
-                var p = window.location.pathname || '';
+                var p = (window.location.pathname || '').toLowerCase();
                 var s = window.location.search || '';
-                var h = window.location.hash || '';
+                var h = (window.location.hash || '').toLowerCase();
                 
                 if (p.endsWith('/index.html')) {
                     p = p.replace(/\/index\.html$/, '') || '/';
@@ -43,12 +43,34 @@
 
                 var params = new URLSearchParams(s);
                 var code = params.get('code') || params.get('pin');
-                var isResponses = p.includes('responses') || p.includes('inquiries') || params.has('responses') || params.has('inquiries');
+                
+                // Normalizing recipe intent from path, hash or query params
+                var isRecipes = p.includes('recipe') || 
+                                p.includes('מתכונ') || 
+                                p.includes('cookbook') || 
+                                p.includes('matkonim') || 
+                                h.includes('recipe') || 
+                                h.includes('מתכונ') || 
+                                h.includes('cookbook') || 
+                                h.includes('matkonim') || 
+                                params.has('recipes') || 
+                                params.has('recipe') || 
+                                params.get('page') === 'recipes' || 
+                                params.get('p') === 'recipes';
+
+                // If visiting recipes in any form, route directly to #/recipes
+                if (isRecipes) {
+                    if (window.location.hash !== '#/recipes' || (window.location.pathname !== '/' && window.location.pathname !== '')) {
+                        window.location.replace('/#/recipes' + (s ? s : ''));
+                        return;
+                    }
+                }
 
                 // If visiting responses or inquiries path/query
+                var isResponses = p.includes('responses') || p.includes('inquiries') || h.includes('responses') || h.includes('inquiries') || params.has('responses') || params.has('inquiries');
                 if (isResponses) {
                     var targetCode = code ? ('?code=' + code) : '?code=9672';
-                    if (!h || !h.includes('/responses')) {
+                    if (!window.location.hash.startsWith('#/responses')) {
                         window.location.replace('/#/responses' + targetCode);
                         return;
                     }
@@ -60,9 +82,17 @@
                     return;
                 }
 
-                // Standard pathname to hash rewrite
+                // Fix any hash missing a leading slash (e.g., #recipes -> #/recipes, #programs -> #/programs)
+                if (h && h.startsWith('#') && !h.startsWith('#/')) {
+                    var cleanHash = '#/' + h.slice(1);
+                    window.location.replace(cleanHash + s);
+                    return;
+                }
+
+                // Standard pathname to hash rewrite for SPA navigation
                 if (p && p !== '/' && !h) {
                     var cleanP = p.startsWith('/') ? p : ('/' + p);
+                    cleanP = cleanP.replace(/\/+$/, '') || '/';
                     window.location.replace('/#' + cleanP + s);
                     return;
                 }

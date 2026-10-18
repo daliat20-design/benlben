@@ -525,157 +525,152 @@ export const BrandLandingPage: React.FC = () => {
         <ButterflyIcon size={55} className="absolute top-2 right-2 sm:top-6 sm:right-12 opacity-35 animate-drift pointer-events-none select-none z-0" />
         <ButterflyIcon size={50} className="absolute bottom-4 right-4 sm:bottom-6 sm:right-20 opacity-30 animate-float pointer-events-none select-none z-0" />
 
-        <div className="max-w-5xl mx-auto relative z-10">
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
 
-          {/* Hero Content Grid: Typography + Authentic Feminine Photo displayed in Horizontal Landscape */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Hero Content: Centered brand header, flowing narrative copy, WhatsApp CTA and featured photograph */}
+          <div className="w-full text-center">
             
-            {/* Main Text Content */}
-            <div className="lg:col-span-7 text-center">
-              
-              {/* Main Brand Logo - Prominent, circular & perfectly positioned without covering text */}
-              <div className="flex justify-center mb-6 sm:mb-8">
-                <div className="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full bg-white p-3 sm:p-4 border-4 border-brand-green/30 shadow-[0_16px_45px_rgba(35,78,61,0.18)] flex items-center justify-center transition-transform hover:scale-105 duration-300 shrink-0 overflow-hidden">
-                  <img 
-                    src={MAIN_BRAND_LOGO_URL} 
-                    alt="לוגו בין לבין - בית נשי לתוכן, חוויה ומפגש" 
-                    className="w-full h-full object-contain rounded-full"
-                    loading="eager"
-                    fetchPriority="high"
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (target.src !== MAIN_BRAND_LOGO_FALLBACK) {
-                        target.src = MAIN_BRAND_LOGO_FALLBACK;
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-brand-green tracking-tight leading-[1.12] mb-3 drop-shadow-xs text-center">
-                בין לבין
-              </h1>
-
-              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-orange mb-8 tracking-tight text-center">
-                מרחבים לנשים
-              </div>
-
-              {/* Flowing Copy with enlarged mobile font and generous line-height */}
-              <div className="space-y-6 text-xl sm:text-2xl text-gray-800 leading-[1.85] sm:leading-relaxed font-normal max-w-2xl text-right mx-auto">
-                <h3 className="font-extrabold text-2xl sm:text-3xl text-brand-green text-center sm:text-right leading-snug">
-                  ב<span className="text-brand-orange font-black bg-brand-orange/15 px-2.5 py-0.5 rounded-xl border border-brand-orange/25 mx-1 inline-block shadow-2xs">בין לבין</span> אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו.
-                </h3>
-
-                <div className="bg-brand-orange/10 border-r-4 border-brand-orange pr-4 py-3 rounded-l-2xl">
-                  <p className="font-black text-brand-orange text-xl sm:text-2xl">
-                    רוצה לגלות איך? בואי, יש לנו הרגשה שנפתיע אותך.
-                  </p>
-                </div>
-
-                <p>
-                  לפעמים נדמה שככל שהשנים עוברות, האפשרויות דווקא מצטמצמות. שהשינויים בגוף, במשפחה, בזוגיות או בעבודה דורשים מאיתנו בעיקר להסתגל. שיש דברים שכבר מאוחר מדי לשנות.
-                </p>
-
-                <p className="font-black text-2xl sm:text-3xl text-brand-green">
-                  אנחנו גילינו בדיוק את ההפך.
-                </p>
-
-                <p>
-                  אחרי שנים של הובלת קהילה נשית ומפגש עם נשים בתקופות שונות בחייהן, הבנו שכל מה שצברנו בדרך, הניסיון, הידע, ההיכרות עם עצמנו, הקשרים, ולפעמים גם הזמן שמתפנה, יכול להפוך דווקא עכשיו ליתרון.
-                </p>
-
-                <div className="bg-brand-green/8 border-r-4 border-brand-green pr-4 py-3.5 rounded-l-2xl my-2">
-                  <p className="font-normal text-gray-900 text-xl sm:text-2xl">
-                    <strong className="font-black text-brand-green">זו הגישה של בין לבין:</strong> לא להתעלם מהשינויים, אלא ללמוד איך להשתמש במה שכבר יש לנו כדי לנוע בתוכם, להניע את מה שאנחנו רוצות ולמקסם את מה שעוד לפנינו.
-                  </p>
-                </div>
-
-                <div className="bg-brand-cream/60 rounded-2xl border border-brand-beige/80 p-5 sm:p-6 shadow-xs my-4 space-y-3.5">
-                  <p className="font-semibold text-gray-900 text-lg sm:text-xl">
-                    מכאן נולדו המרחבים שלנו, המשלבים <strong className="font-black text-brand-green">מפגש, תוכן וחוויה</strong>, וכל אחד מהם פוגש גיל, תקופה או מטרה אחרת:
-                  </p>
-                  
-                  <ul className="space-y-2.5 text-lg sm:text-xl text-gray-800 pr-1">
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
-                      <span>
-                        מ<strong className="font-black text-brand-orange">אמצע החיים</strong> – תוכנית הדגל שלנו לנשים בגילאי <span dir="ltr">45-60</span>
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
-                      <span>
-                        דרך <strong className="font-black text-brand-orange">עוד לפנייך</strong> – לנשים בגילאי 60+
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
-                      <span>
-                        <strong className="font-black text-brand-orange">עד 180°</strong> – תוכנית להאצת שינויים ולהגשמת רצונות וחלומות
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
-                      <span>
-                        <strong className="font-black text-brand-orange">היילייטס</strong> – מנהיגות ופיתוח בארגונים
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
-                      <span>
-                        ועד <strong className="font-black text-brand-orange">ריטריטים וימי שיא</strong>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="pt-6 border-t-2 border-brand-beige text-center space-y-2">
-                  <p className="text-gray-900 font-bold text-xl sm:text-2xl">
-                    אנחנו מאמינות שבין המרחבים האלה נמצא גם המענה למה שאת מחפשת.
-                  </p>
-                  <p className="text-brand-green font-black text-2xl sm:text-3xl">
-                    בואי לגלות מה מתאים לך.
-                  </p>
-                </div>
-              </div>
-
-              {/* כפתור פנייה / יצירת קשר עם וואטסאפ: אשמח לשוחח */}
-              <div className="mt-8 sm:mt-10 flex justify-center">
-                <a
-                  href={dalitWhatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-900 px-8 sm:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-black transition-all border-2 border-slate-300 hover:border-slate-400 shadow-md hover:shadow-lg cursor-pointer active:scale-98 group"
-                >
-                  <div className="w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors">
-                    <WhatsAppIcon className="w-5 h-5 fill-current" />
-                  </div>
-                  <span>אשמח לשוחח</span>
-                </a>
+            {/* Main Brand Logo - Prominent, circular & perfectly positioned without covering text */}
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <div className="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full bg-white p-3 sm:p-4 border-4 border-brand-green/30 shadow-[0_16px_45px_rgba(35,78,61,0.18)] flex items-center justify-center transition-transform hover:scale-105 duration-300 shrink-0 overflow-hidden mx-auto">
+                <img 
+                  src={MAIN_BRAND_LOGO_URL} 
+                  alt="לוגו בין לבין - בית נשי לתוכן, חוויה ומפגש" 
+                  className="w-full h-full object-contain rounded-full"
+                  loading="eager"
+                  fetchPriority="high"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== MAIN_BRAND_LOGO_FALLBACK) {
+                      target.src = MAIN_BRAND_LOGO_FALLBACK;
+                    }
+                  }}
+                />
               </div>
             </div>
 
-            {/* Authentic Brand Photograph: Presented in Landscape (לרוחב) with Bein Levein Logo in the bottom-right corner */}
-            <div className="lg:col-span-5 flex justify-center w-full mt-2 lg:mt-0">
-              <div className="relative w-full max-w-lg">
-                <div className="overflow-hidden rounded-3xl shadow-xl border-4 border-white aspect-[16/10] sm:aspect-[3/2] bg-brand-beige/30">
-                  <img 
-                    src="https://i.postimg.cc/X73f8XLh/IS-1193.jpg" 
-                    alt="בין לבין - תוכניות וריטריטים לנשים" 
-                    className="w-full h-full object-cover object-center transform hover:scale-102 transition-transform duration-700"
-                  />
-                </div>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-brand-green tracking-tight leading-[1.12] mb-3 drop-shadow-xs text-center">
+              בין לבין
+            </h1>
 
-                {/* Organic decorative badge */}
-                <div className="absolute -bottom-3 sm:-bottom-4 -left-2 bg-white/95 backdrop-blur-xs py-2 px-4 rounded-2xl border border-brand-beige shadow-md text-right">
-                  <span className="text-sm sm:text-base font-bold text-brand-orange block">
-                    מרחב של הקשבה, חיבור וצמיחה
-                  </span>
-                </div>
+            <div className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-orange mb-8 tracking-tight text-center">
+              מרחבים לנשים
+            </div>
+
+            {/* Flowing Copy with enlarged mobile font and generous line-height */}
+            <div className="space-y-6 text-xl sm:text-2xl text-gray-800 leading-[1.85] sm:leading-relaxed font-normal max-w-2xl lg:max-w-3xl text-right mx-auto">
+              <h3 className="font-extrabold text-2xl sm:text-3xl text-brand-green text-center leading-snug">
+                ב<span className="text-brand-orange font-black bg-brand-orange/15 px-2.5 py-0.5 rounded-xl border border-brand-orange/25 mx-1 inline-block shadow-2xs">בין לבין</span> אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו.
+              </h3>
+
+              <div className="bg-brand-orange/10 border-r-4 border-brand-orange pr-4 py-3 rounded-l-2xl">
+                <p className="font-black text-brand-orange text-xl sm:text-2xl">
+                  רוצה לגלות איך? בואי, יש לנו הרגשה שנפתיע אותך.
+                </p>
+              </div>
+
+              <p>
+                לפעמים נדמה שככל שהשנים עוברות, האפשרויות דווקא מצטמצמות. שהשינויים בגוף, במשפחה, בזוגיות או בעבודה דורשים מאיתנו בעיקר להסתגל. שיש דברים שכבר מאוחר מדי לשנות.
+              </p>
+
+              <p className="font-black text-2xl sm:text-3xl text-brand-green">
+                אנחנו גילינו בדיוק את ההפך.
+              </p>
+
+              <p>
+                אחרי שנים של הובלת קהילה נשית ומפגש עם נשים בתקופות שונות בחייהן, הבנו שכל מה שצברנו בדרך, הניסיון, הידע, ההיכרות עם עצמנו, הקשרים, ולפעמים גם הזמן שמתפנה, יכול להפוך דווקא עכשיו ליתרון.
+              </p>
+
+              <div className="bg-brand-green/8 border-r-4 border-brand-green pr-4 py-3.5 rounded-l-2xl my-2">
+                <p className="font-normal text-gray-900 text-xl sm:text-2xl">
+                  <strong className="font-black text-brand-green">זו הגישה של בין לבין:</strong> לא להתעלם מהשינויים, אלא ללמוד איך להשתמש במה שכבר יש לנו כדי לנוע בתוכם, להניע את מה שאנחנו רוצות ולמקסם את מה שעוד לפנינו.
+                </p>
+              </div>
+
+              <div className="bg-brand-cream/60 rounded-2xl border border-brand-beige/80 p-5 sm:p-6 shadow-xs my-4 space-y-3.5">
+                <p className="font-semibold text-gray-900 text-lg sm:text-xl">
+                  מכאן נולדו המרחבים שלנו, המשלבים <strong className="font-black text-brand-green">מפגש, תוכן וחוויה</strong>, וכל אחד מהם פוגש גיל, תקופה או מטרה אחרת:
+                </p>
+                
+                <ul className="space-y-2.5 text-lg sm:text-xl text-gray-800 pr-1">
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                    <span>
+                      מ<strong className="font-black text-brand-orange">אמצע החיים</strong> – תוכנית הדגל שלנו לנשים בגילאי <span dir="ltr">45-60</span>
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                    <span>
+                      דרך <strong className="font-black text-brand-orange">עוד לפנייך</strong> – לנשים בגילאי 60+
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                    <span>
+                      <strong className="font-black text-brand-orange">עד 180°</strong> – תוכנית להאצת שינויים ולהגשמת רצונות וחלומות
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                    <span>
+                      <strong className="font-black text-brand-orange">היילייטס</strong> – מנהיגות ופיתוח בארגונים
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                    <span>
+                      ועד <strong className="font-black text-brand-orange">ריטריטים וימי שיא</strong>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-6 border-t-2 border-brand-beige text-center space-y-2">
+                <p className="text-gray-900 font-bold text-xl sm:text-2xl">
+                  אנחנו מאמינות שבין המרחבים האלה נמצא גם המענה למה שאת מחפשת.
+                </p>
+                <p className="text-brand-green font-black text-2xl sm:text-3xl">
+                  בואי לגלות מה מתאים לך.
+                </p>
               </div>
             </div>
 
+            {/* כפתור פנייה / יצירת קשר עם וואטסאפ: אשמח לשוחח */}
+            <div className="mt-8 sm:mt-10 flex justify-center">
+              <a
+                href={dalitWhatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-900 px-8 sm:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-black transition-all border-2 border-slate-300 hover:border-slate-400 shadow-md hover:shadow-lg cursor-pointer active:scale-98 group"
+              >
+                <div className="w-9 h-9 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-600 transition-colors">
+                  <WhatsAppIcon className="w-5 h-5 fill-current" />
+                </div>
+                <span>אשמח לשוחח</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Authentic Brand Photograph: Presented in Landscape (לרוחב) */}
+          <div className="flex justify-center w-full mt-10 sm:mt-14">
+            <div className="relative w-full max-w-lg sm:max-w-xl lg:max-w-2xl">
+              <div className="overflow-hidden rounded-3xl shadow-xl border-4 border-white aspect-[16/10] sm:aspect-[3/2] bg-brand-beige/30">
+                <img 
+                  src="https://i.postimg.cc/X73f8XLh/IS-1193.jpg" 
+                  alt="בין לבין - תוכניות וריטריטים לנשים" 
+                  className="w-full h-full object-cover object-center transform hover:scale-102 transition-transform duration-700"
+                />
+              </div>
+
+              {/* Organic decorative badge */}
+              <div className="absolute -bottom-3 sm:-bottom-4 -left-2 bg-white/95 backdrop-blur-xs py-2 px-4 rounded-2xl border border-brand-beige shadow-md text-right">
+                <span className="text-sm sm:text-base font-bold text-brand-orange block">
+                  מרחב של הקשבה, חיבור וצמיחה
+                </span>
+              </div>
+            </div>
           </div>
 
         </div>

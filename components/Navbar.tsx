@@ -10,7 +10,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
   const location = useLocation();
   const isMarketingPage = location.pathname === '/' || location.pathname === '/marketing';
   const isPartTwoPage = location.pathname === '/part2';
-  const isRecipesPage = location.pathname === '/recipes';
+  const isRecipesPage = location.pathname === '/recipes' || location.pathname.startsWith('/recipe');
   const isOriginalLanding = location.pathname === '/landing';
   const isMwmPage = location.pathname === '/mwm' || location.pathname === '/ky-mwm';
   const isMwmFormPage = location.pathname === '/mwm-form' || location.pathname === '/form';
@@ -19,13 +19,16 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
     isMwmPage || isMwmFormPage
       ? "היי, מצאתי תוכנית מדהימה לנשים באמצע החיים בשם 'בין לבין' בכוכב יאיר צור יגאל. שווה לך להציץ בדף התוכנית:\n" +
         (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/mwm')
-      : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | תוכניות וריטריטים לנשים'. נראה לי ששווה לך להציץ.\n" +
-        (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
+      : isRecipesPage
+        ? "היי, מצאתי את ספר המתכונים המעולה של 'בין לבין' - מתכונים בריאים, קלים ומזינים:\n" +
+          (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/recipes')
+        : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | תוכניות וריטריטים לנשים'. נראה לי ששווה לך להציץ.\n" +
+          (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
   );
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${shareWhatsAppText}`;
 
-  const navLinks = (hideLinks || isMwmPage || isMwmFormPage || isMarketingPage) ? [] : [
-    { name: 'דף נחיתה', to: '/' },
+  const navLinks = (hideLinks || isMwmPage || isMwmFormPage || isMarketingPage || isRecipesPage) ? [] : [
+    { name: 'דף נחיתה', to: '/landing' },
     { name: 'ספר המתכונים', to: '/recipes' },
     { name: 'חלק ב\'', to: '/part2' },
   ];
@@ -94,7 +97,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
       <nav className="sticky top-0 z-50 w-full glass-card border-b border-brand-beige bg-white/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to={isMwmPage || isMwmFormPage ? "/mwm" : "/"} className="flex items-center gap-2 group">
+            <Link to={isMwmPage || isMwmFormPage ? "/mwm" : isRecipesPage ? "/recipes" : "/"} className="flex items-center gap-2 group">
               <div className="w-12 h-12 rounded-full bg-white border border-brand-green/30 p-1 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-xs">
                 <img 
                   src="/logos/brand-main.webp" 
@@ -117,6 +120,12 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                       כוכב יאיר - צור יגאל
                     </span>
                   </>
+                ) : isRecipesPage ? (
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xl sm:text-2xl font-black text-brand-green tracking-tight">בין לבין</span>
+                    <span className="text-brand-orange font-light text-lg sm:text-xl leading-none">|</span>
+                    <span className="text-xs sm:text-sm font-black text-brand-orange tracking-tight whitespace-nowrap">ספר המתכונים</span>
+                  </div>
                 ) : (
                   <div className="flex items-center gap-1.5">
                     <span className="text-xl sm:text-2xl font-black text-brand-green tracking-tight">בין לבין</span>
@@ -180,10 +189,10 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-white text-gray-700 border border-gray-200 hover:border-gray-300 px-3.5 py-1.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-all shadow-2xs group cursor-pointer"
-                title={isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית בוואטסאפ" : "שתפי חברה בסדנה בוואטסאפ"}
+                title={isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית בוואטסאפ" : isRecipesPage ? "שתפי חברה בספר המתכונים בוואטסאפ" : "שתפי חברה בסדנה בוואטסאפ"}
               >
                 <Share2 className="w-3.5 h-3.5 text-gray-500 group-hover:text-emerald-600 transition-colors" />
-                <span>{isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : "שתפי חברה בסדנה"}</span>
+                <span>{isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : isRecipesPage ? "שתפי חברה במתכונים" : "שתפי חברה בסדנה"}</span>
               </a>
 
               {/* Contact Button */}
@@ -301,7 +310,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Share2 className="w-4 h-4 text-gray-500 group-hover:text-emerald-600 transition-colors" />
-                  <span>{isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : "שתפי חברה בסדנה"}</span>
+                  <span>{isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : isRecipesPage ? "שתפי חברה במתכונים" : "שתפי חברה בסדנה"}</span>
                 </a>
 
                 {/* Contact Button */}

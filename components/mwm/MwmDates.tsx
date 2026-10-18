@@ -42,7 +42,10 @@ export const MwmDates: React.FC = () => {
                 8 מפגשים המשלבים תוכן מקצועי, חוויה ושיתוף
               </h3>
               <p className="text-brand-orange font-bold text-base md:text-lg leading-relaxed">
-                + מפגש בונוס בזום בנושא יפוי כח מתמשך שיועבר על ידי עו"ד מומחית בתחום
+                + מפגש בונוס ייחודי !
+              </p>
+              <p className="text-gray-600 font-medium text-sm md:text-base leading-relaxed mt-1">
+                את מי נפגוש ועל מה נדבר? את הפרטים נגלה בהמשך. בינתיים, השאירי מקום לסקרנות.
               </p>
             </div>
           </div>

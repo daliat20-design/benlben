@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, NavLink, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import Recipes from './pages/Recipes';
 import LandingPage from './pages/LandingPage';
 import PartTwo from './pages/PartTwo';
@@ -104,7 +104,61 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
+const FallbackRoute: React.FC = () => {
+  const location = useLocation();
+  const currentPath = (location.pathname || '').toLowerCase();
+  const currentSearch = (location.search || '').toLowerCase();
+  const rawHash = (typeof window !== 'undefined' ? window.location.hash || '' : '').toLowerCase();
+  const rawHref = (typeof window !== 'undefined' ? window.location.href || '' : '').toLowerCase();
+
+  const isRecipeIntent = 
+    currentPath.includes('recipe') || 
+    currentPath.includes('מתכונ') || 
+    currentPath.includes('cookbook') || 
+    currentPath.includes('matkonim') || 
+    currentSearch.includes('recipe') || 
+    currentSearch.includes('מתכונ') || 
+    rawHash.includes('recipe') || 
+    rawHash.includes('מתכונ') || 
+    rawHref.includes('recipe') || 
+    rawHref.includes('מתכונ');
+
+  if (isRecipeIntent) {
+    return <Recipes />;
+  }
+
+  return <BrandLandingPage />;
+};
+
 const AppContent: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const rawHref = (typeof window !== 'undefined' ? window.location.href || '' : '').toLowerCase();
+    const rawHash = (typeof window !== 'undefined' ? window.location.hash || '' : '').toLowerCase();
+    const rawPath = (typeof window !== 'undefined' ? window.location.pathname || '' : '').toLowerCase();
+    const rawSearch = (typeof window !== 'undefined' ? window.location.search || '' : '').toLowerCase();
+
+    const isRecipeIntent = 
+      rawHref.includes('recipe') || 
+      rawHref.includes('מתכונ') || 
+      rawHref.includes('cookbook') || 
+      rawHref.includes('matkonim') || 
+      rawHash.includes('recipe') || 
+      rawHash.includes('מתכונ') || 
+      rawHash.includes('cookbook') || 
+      rawHash.includes('matkonim') || 
+      rawPath.includes('recipe') || 
+      rawPath.includes('מתכונ') || 
+      rawSearch.includes('recipe') || 
+      rawSearch.includes('מתכונ');
+
+    if (isRecipeIntent && location.pathname !== '/recipes') {
+      navigate('/recipes', { replace: true });
+    }
+  }, [location.pathname, navigate]);
+
   const isDevelopment = typeof window !== 'undefined' && 
     (window.location.hostname.includes('-dev-') || window.location.hostname.includes('localhost'));
 
@@ -160,12 +214,26 @@ const AppContent: React.FC = () => {
         <Route path="/inquiries" element={<InquiriesResponsesPage />} />
         <Route path="/responses" element={<InquiriesResponsesPage />} />
         <Route path="/admin" element={<InquiriesResponsesPage />} />
+        
+        {/* בין לבין - ספר המתכונים - עצמאי לחלוטין וללא תלות בדף הנחיתה */}
         <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipes/*" element={<Recipes />} />
+        <Route path="/recipe" element={<Recipes />} />
+        <Route path="/recipe/*" element={<Recipes />} />
+        <Route path="/cookbook" element={<Recipes />} />
+        <Route path="/cookbook/*" element={<Recipes />} />
+        <Route path="/book" element={<Recipes />} />
+        <Route path="/matkonim" element={<Recipes />} />
+        <Route path="/מתכונים" element={<Recipes />} />
+        <Route path="/מתכונים/*" element={<Recipes />} />
+        <Route path="/מתכון" element={<Recipes />} />
+        <Route path="/ספר-מתכונים" element={<Recipes />} />
+
         <Route path="/landing" element={<BrandLandingPage />} />
         <Route path="/part2" element={<PartTwo />} />
 
-        {/* Fallback route - any unrecognized path opens the brand landing page */}
-        <Route path="*" element={<BrandLandingPage />} />
+        {/* Fallback route - if any recipe intent is detected, render Recipes, else BrandLandingPage */}
+        <Route path="*" element={<FallbackRoute />} />
       </Routes>
     </>
   );
