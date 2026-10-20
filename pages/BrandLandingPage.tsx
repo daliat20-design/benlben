@@ -621,7 +621,7 @@ export const BrandLandingPage: React.FC = () => {
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
                     <span>
-                      ועד <strong className="font-black text-brand-orange">ריטריטים וימי שיא</strong>
+                      ועד <strong className="font-black text-brand-orange">FLOWTRIPS, ריטריטים וימי שיא</strong>
                     </span>
                   </li>
                 </ul>
