@@ -26,7 +26,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
       try {
         await navigator.share({
           title: "עוֹד לְפָנַיִךְ | תוכנית לנשים 60+ | בין לבין",
-          text: "עוֹד לְפָנַיִךְ - תוכנית לנשים 60+ מבית בין לבין | תוכניות וריטריטים לנשים.",
+          text: "עוֹד לְפָנַיִךְ - תוכנית לנשים 60+ מבית בין לבין | מרחבים לנשים.",
           url,
         });
       } catch (err) {
@@ -240,7 +240,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
           {/* Sub-footer sign-off */}
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#b04a5a] text-base sm:text-lg">עוֹד לְפָנַיִךְ | תוכנית לנשים 60+</div>
-            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
+            <div>מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
 

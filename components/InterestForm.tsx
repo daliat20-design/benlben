@@ -40,6 +40,13 @@ export const AVAILABLE_PROGRAMS: Array<{
     activeColor: 'bg-amber-700 text-white border-amber-700',
   },
   {
+    id: 'flowtrips',
+    label: 'FlowTrips',
+    sub: 'חוויות דרך לנשים | מסעות של שלושה ימים. לא ריטריט. לא טיול. חוויה שבונה את הדרך שלך.',
+    color: 'border-amber-600 text-amber-900 bg-amber-50',
+    activeColor: 'bg-amber-600 text-white border-amber-600',
+  },
+  {
     id: 'alchemy',
     label: 'אלכימיה של יסודות',
     sub: 'יום בטבע שמשלב חוויה, תנועה, מפגש והתבוננות דרך ארבעת היסודות.',

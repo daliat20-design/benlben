@@ -7,6 +7,7 @@ import { UpTo180MiniPage } from './UpTo180MiniPage';
 import { HighlightsMiniPage } from './HighlightsMiniPage';
 import { TheTentMiniPage } from './TheTentMiniPage';
 import { AheadOfYouMiniPage } from './AheadOfYouMiniPage';
+import { FlowTripsMiniPage } from './FlowTripsMiniPage';
 
 interface ProductMeta {
   id: string;
@@ -40,15 +41,6 @@ export const MiniPagesManager: React.FC = () => {
 
   const products: ProductMeta[] = [
     {
-      id: 'alchemy',
-      name: 'אלכימיה של יסודות',
-      subtitle: 'יום שיא בטבע לנשים: רוח, מים, אש, אדמה',
-      slug: '/p/alchemy',
-      filePath: 'pages/mini/AlchemyOfElementsPage.tsx',
-      status: 'ready',
-      component: AlchemyOfElementsPage
-    },
-    {
       id: 'midlife',
       name: 'אמצע החיים',
       subtitle: 'סדנת הדגל לנשים בגילאי 45-60',
@@ -56,6 +48,15 @@ export const MiniPagesManager: React.FC = () => {
       filePath: 'pages/mini/MidlifeMiniPage.tsx',
       status: 'ready',
       component: MidlifeMiniPage
+    },
+    {
+      id: 'ahead-of-you',
+      name: 'עוד לפנייך',
+      subtitle: 'תוכנית לנשים 60+',
+      slug: '/p/ahead-of-you',
+      filePath: 'pages/mini/AheadOfYouMiniPage.tsx',
+      status: 'ready',
+      component: AheadOfYouMiniPage
     },
     {
       id: 'up-to-180',
@@ -67,13 +68,22 @@ export const MiniPagesManager: React.FC = () => {
       component: UpTo180MiniPage
     },
     {
-      id: 'highlights',
-      name: 'היילייטס',
-      subtitle: 'מניסיון ונוכחות להובלה והשפעה בארגונים',
-      slug: '/p/highlights',
-      filePath: 'pages/mini/HighlightsMiniPage.tsx',
+      id: 'flowtrips',
+      name: 'FlowTrips',
+      subtitle: 'חוויות דרך לנשים | מסעות של שלושה ימים',
+      slug: '/p/flowtrips',
+      filePath: 'pages/mini/FlowTripsMiniPage.tsx',
       status: 'ready',
-      component: HighlightsMiniPage
+      component: FlowTripsMiniPage
+    },
+    {
+      id: 'alchemy',
+      name: 'אלכימיה של יסודות',
+      subtitle: 'יום שיא בטבע לנשים: רוח, מים, אש, אדמה',
+      slug: '/p/alchemy',
+      filePath: 'pages/mini/AlchemyOfElementsPage.tsx',
+      status: 'ready',
+      component: AlchemyOfElementsPage
     },
     {
       id: 'the-tent',
@@ -85,13 +95,13 @@ export const MiniPagesManager: React.FC = () => {
       component: TheTentMiniPage
     },
     {
-      id: 'ahead-of-you',
-      name: 'עוד לפנייך',
-      subtitle: 'תוכנית לנשים 60+',
-      slug: '/p/ahead-of-you',
-      filePath: 'pages/mini/AheadOfYouMiniPage.tsx',
+      id: 'highlights',
+      name: 'היילייטס',
+      subtitle: 'מניסיון ונוכחות להובלה והשפעה בארגונים',
+      slug: '/p/highlights',
+      filePath: 'pages/mini/HighlightsMiniPage.tsx',
       status: 'ready',
-      component: AheadOfYouMiniPage
+      component: HighlightsMiniPage
     }
   ];
 

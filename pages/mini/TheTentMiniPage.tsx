@@ -26,7 +26,7 @@ export const TheTentMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
       try {
         await navigator.share({
           title: "האוהל | תוכנית למנהיגות, יוזמה והשפעה נשית | בין לבין",
-          text: "האוהל - תוכנית למנהיגות, יוזמה והשפעה נשית. 5 מפגשים תהליכיים + יום שיא. מבית בין לבין | תוכניות לנשים.",
+          text: "האוהל - תוכנית למנהיגות, יוזמה והשפעה נשית. 5 מפגשים תהליכיים + יום שיא. מבית בין לבין | מרחבים לנשים.",
           url,
         });
       } catch (err) {
@@ -314,7 +314,7 @@ export const TheTentMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#914e13] text-base sm:text-lg">האוהל</div>
             <div className="text-gray-700">5 מפגשים תהליכיים + יום שיא לפיתוח יוזמות</div>
-            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
+            <div>מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
 

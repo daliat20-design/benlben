@@ -14,6 +14,7 @@ import UpTo180MiniPage from './pages/mini/UpTo180MiniPage';
 import HighlightsMiniPage from './pages/mini/HighlightsMiniPage';
 import TheTentMiniPage from './pages/mini/TheTentMiniPage';
 import AheadOfYouMiniPage from './pages/mini/AheadOfYouMiniPage';
+import FlowTripsMiniPage from './pages/mini/FlowTripsMiniPage';
 import MiniPagesManager from './pages/mini/MiniPagesManager';
 import BrandLandingPage from './pages/BrandLandingPage';
 
@@ -196,6 +197,10 @@ const AppContent: React.FC = () => {
         <Route path="/the-tent" element={<TheTentMiniPage />} />
         <Route path="/p/ahead-of-you" element={<AheadOfYouMiniPage />} />
         <Route path="/ahead-of-you" element={<AheadOfYouMiniPage />} />
+        <Route path="/p/flowtrips" element={<FlowTripsMiniPage />} />
+        <Route path="/flowtrips" element={<FlowTripsMiniPage />} />
+        <Route path="/p/flow-trips" element={<FlowTripsMiniPage />} />
+        <Route path="/flow-trips" element={<FlowTripsMiniPage />} />
 
         {/* Central Management Workspace (Internal Operational Hub Only) */}
         <Route path="/mini-admin" element={<MiniPagesManager />} />

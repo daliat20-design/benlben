@@ -65,12 +65,15 @@ const HIGHLIGHTS_LOGO_FALLBACK = "/logos/highlights.png";
 const THE_TENT_LOGO_URL = "/logos/the-tent.webp";
 const THE_TENT_LOGO_FALLBACK = "/logos/the-tent.png";
 
+export const FLOWTRIPS_LOGO_URL = "https://i.postimg.cc/D0CqwDT0/ms'-nsy-bsqy'h-tht-flow-Trip.png";
+
 const getProgramBorderColor = (id: string) => {
   switch (id) {
     case 'midlife': return 'rgba(203,119,69,0.4)';
-    case 'up-to-180': return 'rgba(13,110,122,0.4)';
-    case 'alchemy': return 'rgba(72,153,107,0.4)';
     case 'ahead-of-you': return 'rgba(178,58,95,0.4)';
+    case 'up-to-180': return 'rgba(13,110,122,0.4)';
+    case 'flowtrips': return 'rgba(217,119,6,0.4)';
+    case 'alchemy': return 'rgba(72,153,107,0.4)';
     case 'the-tent': return 'rgba(168,103,42,0.4)';
     case 'highlights': return 'rgba(32,76,142,0.4)';
     default: return 'rgba(203,119,69,0.4)';
@@ -146,6 +149,22 @@ const ALL_PROGRAMS: ProgramCardTheme[] = [
     accentBar: 'bg-[#0d6e7a]'
   },
   {
+    id: 'flowtrips',
+    name: 'FlowTrips',
+    categoryNode: <span>חוויות דרך לנשים | 3 ימים</span>,
+    tagline: 'לא ריטריט. לא טיול. חוויה שבונה את הדרך שלך.',
+    icon: Compass,
+    logoUrl: FLOWTRIPS_LOGO_URL,
+    logoFallback: FLOWTRIPS_LOGO_URL,
+    link: '/p/flowtrips',
+    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fffcf7] to-[#feede0]',
+    borderStyle: 'border-2 border-amber-600/40 hover:border-amber-600 hover:shadow-xl shadow-[0_8px_30px_rgba(217,119,6,0.08)]',
+    iconBoxStyle: 'bg-amber-500/15 text-amber-900 border border-amber-500/30',
+    badgeStyle: 'bg-amber-100 text-amber-900 border border-amber-300 font-black',
+    buttonStyle: 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm hover:shadow-md',
+    accentBar: 'bg-amber-600'
+  },
+  {
     id: 'alchemy',
     name: 'אלכימיה של יסודות',
     categoryNode: <span>יום שיא בטבע</span>,
@@ -200,7 +219,7 @@ export const BrandLandingPage: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = "בין לבין תוכניות לנשים";
+    document.title = "בין לבין | מרחבים לנשים";
     window.scrollTo(0, 0);
 
     const handleScroll = () => {
@@ -352,7 +371,7 @@ export const BrandLandingPage: React.FC = () => {
               <div className="max-w-5xl mx-auto">
                 <div className="flex items-center justify-between mb-3 px-1">
                   <span className="text-xs sm:text-sm font-black text-brand-green tracking-wide">
-                    התוכניות והריטריטים של בין לבין:
+                    התוכניות והמרחבים של בין לבין:
                   </span>
                   <span className="text-[11px] text-gray-500 font-medium">
                     לחצי למעבר מהיר
@@ -362,7 +381,7 @@ export const BrandLandingPage: React.FC = () => {
                 {/* רשת קישורים לתוכניות */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
                   
-                  {/* אמצע החיים */}
+                  {/* אממצע החיים */}
                   <Link
                     to="/p/midlife"
                     onClick={() => setIsNavOpen(false)}
@@ -398,23 +417,6 @@ export const BrandLandingPage: React.FC = () => {
                     </div>
                   </Link>
 
-                  {/* אלכימיה של היסודות */}
-                  <Link
-                    to="/p/alchemy"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-teal-50/70 hover:bg-teal-100/80 border border-teal-200 hover:border-teal-400 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Trees className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-teal-700 transition-colors">
-                        אלכימיה של היסודות
-                      </div>
-                      <div className="text-xs text-gray-600">יום שיא וסדנת טבע</div>
-                    </div>
-                  </Link>
-
                   {/* עד 180° */}
                   <Link
                     to="/p/up-to-180"
@@ -432,20 +434,37 @@ export const BrandLandingPage: React.FC = () => {
                     </div>
                   </Link>
 
-                  {/* היילייטס */}
+                  {/* FlowTrips */}
                   <Link
-                    to="/p/highlights"
+                    to="/p/flowtrips"
                     onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 border border-blue-200 hover:border-blue-400 transition-all text-right group shadow-2xs"
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-300 hover:border-amber-600 transition-all text-right group shadow-2xs"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Sparkles className="w-5 h-5" />
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-900 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Compass className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-blue-700 transition-colors">
-                        היילייטס
+                      <div className="font-black text-base text-gray-900 group-hover:text-amber-800 transition-colors">
+                        FlowTrips
                       </div>
-                      <div className="text-xs text-gray-600">לארגונים וחברות</div>
+                      <div className="text-xs text-amber-900 font-medium">חוויות דרך לנשים (3 ימים)</div>
+                    </div>
+                  </Link>
+
+                  {/* אלכימיה של היסודות */}
+                  <Link
+                    to="/p/alchemy"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-teal-50/70 hover:bg-teal-100/80 border border-teal-200 hover:border-teal-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Trees className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-teal-700 transition-colors">
+                        אלכימיה של היסודות
+                      </div>
+                      <div className="text-xs text-gray-600">יום שיא וסדנת טבע</div>
                     </div>
                   </Link>
 
@@ -463,6 +482,23 @@ export const BrandLandingPage: React.FC = () => {
                         האוהל
                       </div>
                       <div className="text-xs text-gray-600">מנהיגות והשפעה נשית</div>
+                    </div>
+                  </Link>
+
+                  {/* היילייטס */}
+                  <Link
+                    to="/p/highlights"
+                    onClick={() => setIsNavOpen(false)}
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 border border-blue-200 hover:border-blue-400 transition-all text-right group shadow-2xs"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-black text-base text-gray-900 group-hover:text-blue-700 transition-colors">
+                        היילייטס
+                      </div>
+                      <div className="text-xs text-gray-600">לארגונים וחברות</div>
                     </div>
                   </Link>
 
@@ -693,7 +729,7 @@ export const BrandLandingPage: React.FC = () => {
               <span>הבית של בין לבין</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-green tracking-tight mb-2">
-              התוכניות והריטריטים שלנו
+              התוכניות והמרחבים שלנו
             </h2>
             <p className="text-sm sm:text-base text-gray-700 font-bold max-w-xl mx-auto leading-relaxed px-2">
               כל תוכנית פוגשת צורך אחר ומציעה דרך ייחודית לעבור תהליך, ללמוד ולהתחבר

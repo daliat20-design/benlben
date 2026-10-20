@@ -26,7 +26,7 @@ export const HighlightsMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
       try {
         await navigator.share({
           title: "היילייטס | מניסיון ונוכחות להובלה והשפעה | בין לבין",
-          text: "היילייטס - תוכנית פיתוח אישית ומקצועית לנשים באמצע החיים בארגונים. מבית בין לבין | תוכניות לנשים.",
+          text: "היילייטס - תוכנית פיתוח אישית ומקצועית לנשים באמצע החיים בארגונים. מבית בין לבין | מרחבים לנשים.",
           url,
         });
       } catch (err) {
@@ -324,7 +324,7 @@ export const HighlightsMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#204C8E] text-base sm:text-lg">היילייטס</div>
             <div className="text-gray-700">תוכנית פיתוח אישית ומקצועית לנשים באמצע החיים בארגונים</div>
-            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
+            <div>מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
 

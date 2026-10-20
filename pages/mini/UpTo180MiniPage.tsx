@@ -26,7 +26,7 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
       try {
         await navigator.share({
           title: "עד 180° | ארבעה מפגשים שמניעים שינוי | בין לבין",
-          text: "עד 180° - ארבעה מפגשים שמניעים שינוי. סדנה תהליכית מבית בין לבין | תוכניות לנשים.",
+          text: "עד 180° - ארבעה מפגשים שמניעים שינוי. סדנה תהליכית מבית בין לבין | מרחבים לנשים.",
           url,
         });
       } catch (err) {
@@ -293,7 +293,7 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#0d6e7a] text-base sm:text-lg">עד 180°</div>
             <div className="text-gray-700">4 מפגשים תהליכיים להתנעת שינוי</div>
-            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
+            <div>מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
 

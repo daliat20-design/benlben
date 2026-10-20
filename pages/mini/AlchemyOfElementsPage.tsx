@@ -249,7 +249,7 @@ export const AlchemyOfElementsPage: React.FC<{ embedded?: boolean; id?: string }
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#327a51] text-base sm:text-lg">אלכימיה של יסודות</div>
             <div className="text-gray-700">יום שיא בטבע לנשים</div>
-            <div>מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
+            <div>מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
 

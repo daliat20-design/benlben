@@ -287,7 +287,7 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#C56B3E] text-base sm:text-lg">אמצע החיים</div>
             <div className="text-gray-700">8 מפגשים לנשים בגילאי <span dir="ltr">45–60</span></div>
-            <div>סדנת הדגל מבית <span className="font-black text-brand-green">בין לבין | תוכניות וריטריטים לנשים</span></div>
+            <div>סדנת הדגל מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
 

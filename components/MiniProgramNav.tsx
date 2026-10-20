@@ -51,6 +51,8 @@ const HIGHLIGHTS_LOGO_FALLBACK = "/logos/highlights.png";
 const THE_TENT_LOGO_URL = "/logos/the-tent.webp";
 const THE_TENT_LOGO_FALLBACK = "/logos/the-tent.png";
 
+export const FLOWTRIPS_LOGO_URL = "https://i.postimg.cc/D0CqwDT0/ms'-nsy-bsqy'h-tht-flow-Trip.png";
+
 export const ALL_MINI_PROGRAMS: MiniProgramMeta[] = [
   {
     id: 'midlife',
@@ -106,6 +108,24 @@ export const ALL_MINI_PROGRAMS: MiniProgramMeta[] = [
     iconBoxStyle: 'bg-[#0d6e7a]/15 text-[#0d6e7a] border border-[#0d6e7a]/30',
     buttonStyle: 'bg-[#0d6e7a] hover:bg-[#08545e] text-white',
     textColor: 'text-[#0d6e7a]'
+  },
+  {
+    id: 'flowtrips',
+    name: 'FlowTrips',
+    category: 'חוויות דרך לנשים | 3 ימים',
+    tagline: 'לא ריטריט. לא טיול. חוויה שבונה את הדרך שלך.',
+    link: '/p/flowtrips',
+    icon: Compass,
+    logoUrl: FLOWTRIPS_LOGO_URL,
+    logoFallback: FLOWTRIPS_LOGO_URL,
+    themeColor: '#d97706',
+    accentBar: 'bg-[#d97706]',
+    badgeStyle: 'bg-amber-100 text-amber-900 border-amber-300',
+    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fffcf7] to-[#feede0]',
+    borderStyle: 'border-2 border-amber-600/40 shadow-[0_10px_30px_rgba(217,119,6,0.1)] hover:border-amber-600',
+    iconBoxStyle: 'bg-amber-500/15 text-amber-900 border border-amber-500/30',
+    buttonStyle: 'bg-amber-600 hover:bg-amber-700 text-white',
+    textColor: 'text-amber-900'
   },
   {
     id: 'alchemy',
@@ -214,11 +234,11 @@ export const MiniPageTopNav: React.FC<MiniPageTopNavProps> = ({
         <div className="flex items-center gap-2.5">
           <Link
             to="/women-programs"
-            className="hidden sm:inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide border border-brand-green/15 hover:bg-brand-green/15 transition-colors"
+            className="inline-flex items-center gap-1.5 sm:gap-2 bg-brand-green/10 text-brand-green px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide border border-brand-green/15 hover:bg-brand-green/15 transition-colors"
           >
             <span>בין לבין</span>
             <span className="text-brand-orange font-light">|</span>
-            <span>תוכניות לנשים</span>
+            <span>מרחבים לנשים</span>
           </Link>
 
           <button
@@ -251,7 +271,7 @@ export const OtherProgramsNav: React.FC<OtherProgramsNavProps> = ({ currentProgr
           <span>הבית של בין לבין</span>
         </div>
         <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-brand-green tracking-tight mb-1 text-center">
-          תוכניות וריטריטים נוספים של בין לבין
+          תוכניות ומרחבים נוספים של בין לבין
         </h2>
         <p className="text-xs sm:text-sm text-gray-600 font-medium text-center">
           מעבר ישיר למידע על שאר התוכניות
