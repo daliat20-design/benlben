@@ -5,23 +5,23 @@ import { Speaker } from '../types';
 
 export const SpeakersGrid: React.FC = () => {
   return (
-    <section id="speakers" className="pt-16 pb-12 bg-white px-6 relative overflow-hidden">
+    <section id="speakers" className="pt-14 pb-12 bg-white px-4 sm:px-6 relative overflow-hidden">
       {/* Decorative background element */}
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-brand-beige/20 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto relative">
-        <div className="text-center mb-16">
-          <div className="inline-block px-6 py-2 bg-brand-orange/10 text-brand-orange rounded-full text-sm font-black mb-4 tracking-tight border border-brand-orange/20">
+        <div className="text-center mb-12 md:mb-16 px-4">
+          <div className="inline-block px-6 py-2 bg-brand-orange/10 text-brand-orange rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight border border-brand-orange/20">
             על המרצות שלנו
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-6 text-brand-green tracking-tighter text-center">צוות המומחיות</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-xl md:text-2xl font-bold leading-relaxed text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 text-brand-green tracking-tight text-center">צוות המומחיות</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl font-bold leading-relaxed text-center">
             צוות המומחיות שלנו מלווה את "בין לבין" בידע, ניסיון וכלים לדרך
           </p>
-          <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-8 rounded-full opacity-50"></div>
+          <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-6 rounded-full opacity-50"></div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
           {SPEAKERS.map((speaker, idx) => (
             <SpeakerCard key={idx} speaker={speaker} />
           ))}

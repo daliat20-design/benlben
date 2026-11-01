@@ -66,6 +66,16 @@ export const ALL_BRAND_PROGRAMS: BrandProgram[] = [
     link: '#/p/midlife'
   },
   {
+    id: 'ahead-of-you',
+    name: 'עוד לפנייך',
+    category: 'תוכנית לנשים 60+',
+    tagline: 'להמשיך לגלות, לבחור, להתחדש וליצור משמעות.',
+    icon: Sun,
+    logoUrl: AHEAD_OF_YOU_LOGO_URL,
+    logoFallback: AHEAD_OF_YOU_LOGO_FALLBACK,
+    link: '#/p/ahead-of-you'
+  },
+  {
     id: 'up-to-180',
     name: 'עד 180°',
     category: 'סדנה לתהליכי שינוי',
@@ -76,24 +86,13 @@ export const ALL_BRAND_PROGRAMS: BrandProgram[] = [
     link: '#/p/up-to-180'
   },
   {
-    id: 'highlights',
-    name: 'היילייטס',
-    category: 'תוכנית פיתוח בארגונים',
-    tagline: 'מניסיון ונוכחות להובלה והשפעה לנשים באמצע החיים.',
-    icon: Sparkles,
-    logoUrl: HIGHLIGHTS_LOGO_URL,
-    logoFallback: HIGHLIGHTS_LOGO_FALLBACK,
-    link: '#/p/highlights'
-  },
-  {
-    id: 'ahead-of-you',
-    name: 'עוד לפנייך',
-    category: 'תוכנית לנשים 60+',
-    tagline: 'להמשיך לגלות, לבחור, להתחדש וליצור משמעות.',
-    icon: Sun,
-    logoUrl: AHEAD_OF_YOU_LOGO_URL,
-    logoFallback: AHEAD_OF_YOU_LOGO_FALLBACK,
-    link: '#/p/ahead-of-you'
+    id: 'flowtrips',
+    name: 'FlowTrips',
+    category: 'חוויות דרך לנשים',
+    tagline: 'מסעות של שלושה ימים. לא ריטריט. לא טיול. חוויה שבונה את הדרך שלך.',
+    icon: Compass,
+    logoUrl: "https://i.postimg.cc/D0CqwDT0/ms'-nsy-bsqy'h-tht-flow-Trip.png",
+    link: '#/p/flowtrips'
   },
   {
     id: 'alchemy-of-elements',
@@ -114,6 +113,16 @@ export const ALL_BRAND_PROGRAMS: BrandProgram[] = [
     logoUrl: THE_TENT_LOGO_URL,
     logoFallback: THE_TENT_LOGO_FALLBACK,
     link: '#/p/the-tent'
+  },
+  {
+    id: 'highlights',
+    name: 'היילייטס',
+    category: 'תוכנית פיתוח בארגונים',
+    tagline: 'מניסיון ונוכחות להובלה והשפעה לנשים באמצע החיים.',
+    icon: Sparkles,
+    logoUrl: HIGHLIGHTS_LOGO_URL,
+    logoFallback: HIGHLIGHTS_LOGO_FALLBACK,
+    link: '#/p/highlights'
   }
 ];
 

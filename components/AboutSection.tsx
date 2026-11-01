@@ -109,11 +109,14 @@ export const AboutSection: React.FC<{ hideDates?: boolean }> = ({ hideDates }) =
               </h3>
               
               {hideDates ? (
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4 flex-wrap">
                    <div className="bg-brand-orange text-white px-8 py-2 rounded-full font-bold text-lg md:text-xl shadow-md">
-                     פעם בשבוע
+                     תוכנית חורף ינואר/פברואר
                    </div>
                    <div className="bg-brand-green text-white px-8 py-2 rounded-full font-bold text-lg md:text-xl shadow-md">
+                     פעם בשבוע
+                   </div>
+                   <div className="bg-brand-beige/80 text-brand-green px-8 py-2 rounded-full font-bold text-lg md:text-xl shadow-md border border-brand-green/20">
                      3 שעות מפגש
                    </div>
                 </div>

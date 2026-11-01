@@ -32,11 +32,12 @@ export const ImportantInfo: React.FC<{ hideDates?: boolean }> = ({ hideDates }) 
               <div className="space-y-4 md:space-y-6 text-gray-700 font-medium leading-relaxed flex-1">
                 <div className="flex items-center gap-3 md:gap-5 p-4 md:p-6 bg-brand-beige/30 rounded-[1.5rem] md:rounded-[2rem] border-r-8 border-brand-green shadow-sm">
                   <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-brand-green animate-pulse flex-shrink-0"></div>
-                  {hideDates ? (
-                    <p className="text-xl md:text-2xl"><span className="font-black text-brand-green">יום המפגש:</span> ימי רביעי</p>
-                  ) : (
-                    <p className="text-xl md:text-2xl"><span className="font-black text-brand-green">מתי מתחילים?</span> 25.2.26</p>
-                  )}
+                  <p className="text-xl md:text-2xl"><span className="font-black text-brand-green">מועד פתיחה:</span> תוכנית חורף ינואר/פברואר</p>
+                </div>
+
+                <div className="flex items-center gap-3 md:gap-5 p-4 md:p-6 bg-brand-green/5 rounded-[1.5rem] md:rounded-[2rem] border-r-8 border-brand-green shadow-sm">
+                  <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-brand-green flex-shrink-0"></div>
+                  <p className="text-xl md:text-2xl"><span className="font-black text-brand-green">תדירות:</span> פעם בשבוע</p>
                 </div>
 
                 <div className="flex items-start md:items-center gap-3 md:gap-5 p-4 md:p-6 bg-brand-orange/5 rounded-[1.5rem] md:rounded-[2rem] border-r-8 border-brand-orange shadow-sm">

@@ -8,8 +8,8 @@ import { ImportantInfo } from '../components/ImportantInfo';
 import { PricingSection } from '../components/PricingSection';
 import { TeamSection } from '../components/TeamSection';
 import { TestimonialsSection } from '../components/TestimonialsSection';
+import { WorkshopInterestForm } from '../components/WorkshopInterestForm';
 import { OtherProgramsSection } from '../components/OtherProgramsSection';
-import { InterestForm } from '../components/InterestForm';
 import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
@@ -17,6 +17,7 @@ import { LegalModals } from '../components/LegalModals';
 
 const LandingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<string>('באות יחד (1,080 ₪ למשתתפת)');
 
   useEffect(() => {
     document.title = "סדנת אמצע החיים - סדנת הדגל של בין לבין";
@@ -41,21 +42,20 @@ const LandingPage: React.FC = () => {
         <ProgramStructure hideDates={true} />
         <SpeakersGrid />
         <ImportantInfo hideDates={true} />
-        <PricingSection />
+        <PricingSection onSelectPackage={setSelectedPackage} />
         <TeamSection />
         <TestimonialsSection />
         
-        {/* טופס התעניינות */}
-        <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4">
-          <InterestForm
+        {/* בואי נתחבר - טופס התעניינות מותאם לסדנה */}
+        <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4 sm:px-6">
+          <WorkshopInterestForm
             id="interest-form"
-            preselectedProgramId="midlife"
-            source="דף נחיתה אמצע החיים"
-            title="מעוניינת לשמוע עוד על התוכנית?"
-            subtitle="השאירי פרטים, ונשמח לחזור אלייך לשיחה אישית, לענות על שאלות ולבדוק התאמה"
+            selectedPackage={selectedPackage}
+            onSelectPackage={setSelectedPackage}
           />
         </section>
 
+        {/* התוכניות הנוספות של בין לבין */}
         <OtherProgramsSection currentProgramId="midlife" />
       </main>
       <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />

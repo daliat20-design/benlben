@@ -34,17 +34,17 @@ const testimonials = [
 
 export const TestimonialsSection: React.FC = () => {
   return (
-    <section id="testimonials" className="py-24 bg-brand-cream px-6 relative overflow-hidden">
+    <section id="testimonials" className="py-16 md:py-24 bg-brand-cream px-4 sm:px-6 relative overflow-hidden">
       <ButterflyIcon size={200} className="absolute -top-10 -right-10 opacity-5 animate-drift pointer-events-none select-none hidden md:block -z-10" />
       <ButterflyIcon size={150} className="absolute -bottom-10 -left-10 opacity-5 animate-float pointer-events-none select-none hidden md:block -z-10" />
       
       <div className="max-w-7xl mx-auto relative">
-        <div className="text-center mb-20">
-          <div className="inline-block px-6 py-2 bg-brand-orange/10 text-brand-orange rounded-full text-sm font-black mb-4 tracking-tight border border-brand-orange/20">
+        <div className="text-center mb-14 md:mb-20 px-4">
+          <div className="inline-block px-6 py-2 bg-brand-orange/10 text-brand-orange rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight border border-brand-orange/20">
             המלצות
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-brand-green tracking-tight text-center">
-            ציפור לחשה לנו שמספרות עלינו ש...
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 text-brand-green tracking-tight text-center">
+            ממליצות עלינו באהבה
           </h2>
           <div className="h-1.5 w-24 bg-brand-orange mx-auto rounded-full opacity-50"></div>
         </div>

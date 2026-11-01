@@ -1,0 +1,368 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Send, CheckCircle2, Sparkles, MessageCircle, AlertCircle, HeartHandshake, Check } from 'lucide-react';
+import { saveInquiry } from '../utils/inquiryStorage';
+
+export const WORKSHOP_PACKAGES = [
+  {
+    id: 'together',
+    name: 'באות יחד',
+    price: '₪1,080 למשתתפת',
+    note: 'חברה מביאה חברה: 8 מפגשים לכל אחת בהרשמה משותפת (135 ₪ למפגש)',
+    tag: 'המחיר המשתלם ביותר',
+    tagColor: 'bg-emerald-600 text-white',
+    border: 'border-emerald-300',
+    activeBg: 'bg-emerald-50 border-emerald-600',
+  },
+  {
+    id: 'full',
+    name: 'כל שמונת המפגשים',
+    price: '₪1,200 למשתתפת',
+    note: 'התוכנית המלאה: 8 מפגשים מעמיקים של 3 שעות (150 ₪ למפגש)',
+    tag: 'התוכנית המלאה',
+    tagColor: 'bg-brand-orange text-white',
+    border: 'border-brand-orange/40',
+    activeBg: 'bg-brand-orange/5 border-brand-orange',
+  },
+  {
+    id: 'partial',
+    name: 'התוכנית החלקית',
+    price: '₪680 למשתתפת',
+    note: '4 מפגשים לבחירה: חלק ראשון או חלק שני (170 ₪ למפגש)',
+    tag: '4 מפגשים',
+    tagColor: 'bg-gray-100 text-gray-700',
+    border: 'border-gray-300',
+    activeBg: 'bg-gray-50 border-brand-green',
+  },
+];
+
+interface WorkshopInterestFormProps {
+  id?: string;
+  selectedPackage?: string;
+  onSelectPackage?: (pkg: string) => void;
+}
+
+export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
+  id = 'interest',
+  selectedPackage: externalSelectedPackage,
+  onSelectPackage,
+}) => {
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [selectedPkg, setSelectedPkg] = useState<string>('באות יחד (1,080 ₪ למשתתפת)');
+  const [aboutSelf, setAboutSelf] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (externalSelectedPackage) {
+      if (externalSelectedPackage.includes('באות יחד')) {
+        setSelectedPkg('באות יחד (1,080 ₪ למשתתפת)');
+      } else if (externalSelectedPackage.includes('שמונת המפגשים') || externalSelectedPackage.includes('המלאה')) {
+        setSelectedPkg('כל שמונת המפגשים - התוכנית המלאה (1,200 ₪)');
+      } else if (externalSelectedPackage.includes('החלקית')) {
+        setSelectedPkg(`התוכנית החלקית - 4 מפגשים (680 ₪)`);
+      }
+    }
+  }, [externalSelectedPackage]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(null);
+
+    if (!fullName.trim()) {
+      setErrorMessage('נא למלא שם מלא');
+      return;
+    }
+
+    const cleanPhone = phone.trim().replace(/[\s-]/g, '');
+    if (!cleanPhone || cleanPhone.length < 9) {
+      setErrorMessage('נא להזין מספר טלפון נייד תקין (לפחות 9 ספרות)');
+      return;
+    }
+
+    const cleanEmail = email.trim();
+    if (!cleanEmail || !cleanEmail.includes('@') || !cleanEmail.includes('.')) {
+      setErrorMessage('נא להזין כתובת מייל תקינה');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await saveInquiry({
+        fullName: fullName.trim(),
+        phone: phone.trim(),
+        email: cleanEmail,
+        programs: [`סדנת אמצע החיים: ${selectedPkg}`],
+        notes: aboutSelf.trim(),
+        source: 'דף נחיתה אמצע החיים - סדנת הדגל',
+        submittedAt: new Date().toISOString(),
+      });
+
+      setIsSubmitted(true);
+    } catch (err: any) {
+      console.error('Error submitting inquiry:', err);
+      setErrorMessage('אירעה שגיאה קלה בשליחה. נא לנסות שנית או לפנות אלינו בוואטסאפ.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetForm = () => {
+    setFullName('');
+    setPhone('');
+    setEmail('');
+    setAboutSelf('');
+    setIsSubmitted(false);
+    setErrorMessage(null);
+  };
+
+  const whatsappMessage = encodeURIComponent(
+    `היי דלית ואלסי, שמי ${fullName || 'מתעניינת'}, שלחתי עכשיו פנייה לסדנת אמצע החיים לגבי מסלול ${selectedPkg} ואשמח לשוחח!`
+  );
+  const quickWhatsappUrl = `https://api.whatsapp.com/send?phone=972508353731&text=${whatsappMessage}`;
+
+  return (
+    <section id={id} className="w-full max-w-3xl mx-auto">
+      <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 md:p-12 shadow-xl border-2 border-brand-beige relative overflow-hidden">
+        {/* Decorative Top Accent */}
+        <div className="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-emerald-600 via-brand-orange to-brand-green" />
+
+        <AnimatePresence mode="wait">
+          {isSubmitted ? (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="text-center py-8 px-4"
+            >
+              <div className="w-20 h-20 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 shadow-sm">
+                <CheckCircle2 className="w-12 h-12" />
+              </div>
+
+              <h3 className="text-2xl sm:text-4xl font-black text-brand-green mb-4">
+                איזה כיף, קיבלנו את הפרטים!
+              </h3>
+
+              <p className="text-xl sm:text-2xl text-gray-800 mb-6 font-medium leading-relaxed max-w-xl mx-auto">
+                תודה <strong className="text-brand-orange font-bold">{fullName}</strong>, 
+                קיבלנו את פנייתך באהבה ונחזור אלייך בהקדם לטלפון{' '}
+                <span dir="ltr" className="font-bold text-gray-900">{phone}</span>
+                <span> לשיחה אישית ושריון מקומך במסלול <strong>{selectedPkg}</strong>.</span>
+              </p>
+
+              <div className="bg-brand-cream/60 border border-brand-beige rounded-2xl p-6 max-w-lg mx-auto mb-8 text-right">
+                <div className="flex items-center gap-2 text-brand-green font-bold text-lg mb-2">
+                  <HeartHandshake className="w-5 h-5" />
+                  <span>רוצה לדבר כבר עכשיו?</span>
+                </div>
+                <p className="text-gray-700 text-base mb-4 leading-normal">
+                  אם את מעדיפה לחסוך זמן או לשאול שאלה ישירה, מוזמנת להמשיך ישירות לשיחה בוואטסאפ:
+                </p>
+                <a
+                  href={quickWhatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>המשך שיחה מהירה בוואטסאפ</span>
+                </a>
+              </div>
+
+              <button
+                type="button"
+                onClick={resetForm}
+                className="text-gray-500 hover:text-brand-green font-semibold text-base underline underline-offset-4 cursor-pointer"
+              >
+                שליחת פנייה נוספת
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="form"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="text-center mb-8 sm:mb-10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green/10 text-brand-green text-sm sm:text-base font-bold mb-3">
+                  <Sparkles className="w-4 h-4" />
+                  <span>בואי נתחבר</span>
+                </div>
+                {/* Exact requested heading */}
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-green mb-3 tracking-tight leading-snug">
+                  השאירי פרטים ונשמח לחזור אלייך לשיחת אישית ושריון מקומך
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 max-w-xl mx-auto leading-relaxed">
+                  הסדנה מתקיימת במסגרת אינטימית בקבוצה קטנה. השאירי פרטים ונעדכן אותך לפני כולן לקראת מחזור חורף הקרוב.
+                </p>
+              </div>
+
+              {errorMessage && (
+                <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-3 text-base sm:text-lg font-medium">
+                  <AlertCircle className="w-6 h-6 flex-shrink-0 text-rose-600" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-7 text-right">
+                {/* 1. שם מלא */}
+                <div>
+                  <label htmlFor="ws-fullName" className="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+                    שם מלא <span className="text-brand-orange">*</span>
+                  </label>
+                  <input
+                    id="ws-fullName"
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="לדוגמה: שרה ישראלי"
+                    className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none transition-all"
+                  />
+                </div>
+
+                {/* 2. נייד ומייל */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+                  <div>
+                    <label htmlFor="ws-phone" className="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+                      מספר נייד <span className="text-brand-orange">*</span>
+                    </label>
+                    <input
+                      id="ws-phone"
+                      type="tel"
+                      required
+                      dir="ltr"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="050-1234567"
+                      className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none text-right transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="ws-email" className="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+                      כתובת מייל <span className="text-brand-orange">*</span>
+                    </label>
+                    <input
+                      id="ws-email"
+                      type="email"
+                      required
+                      dir="ltr"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="name@example.com"
+                      className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none text-right transition-all"
+                    />
+                  </div>
+                </div>
+
+                {/* 3. סימון חבילה מעניינת (מקום לסמן איזו חבילה מעניינת את המתעניינת) */}
+                <div className="pt-2">
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="text-base sm:text-lg font-bold text-gray-900">
+                      איזו חבילה מעניינת אותך? <span className="text-brand-orange">*</span>
+                    </label>
+                    <span className="text-xs sm:text-sm text-gray-500 font-medium">
+                      (בחרי את המסלול המועדף)
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
+                    {WORKSHOP_PACKAGES.map((pkg) => {
+                      const fullLabel = `${pkg.name} (${pkg.price})`;
+                      const isSelected = selectedPkg.includes(pkg.name);
+                      return (
+                        <div
+                          key={pkg.id}
+                          onClick={() => {
+                            setSelectedPkg(fullLabel);
+                            if (onSelectPackage) onSelectPackage(pkg.name);
+                          }}
+                          className={`p-4 sm:p-5 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-3 sm:gap-4 ${
+                            isSelected
+                              ? `${pkg.activeBg} shadow-sm ring-1 ring-brand-green/30`
+                              : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60'
+                          }`}
+                        >
+                          <div
+                            className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center mt-1 border-2 transition-all ${
+                              isSelected
+                                ? 'bg-brand-green border-brand-green text-white'
+                                : 'border-slate-300 bg-white'
+                            }`}
+                          >
+                            {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                          </div>
+
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+                              <span className="text-lg sm:text-xl font-black text-brand-green">
+                                {pkg.name}
+                              </span>
+                              <span className="text-base sm:text-lg font-black text-brand-orange">
+                                {pkg.price}
+                              </span>
+                            </div>
+                            <p className="text-xs sm:text-sm text-gray-600 font-medium leading-relaxed">
+                              {pkg.note}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* 4. מקום לרשום כמה מילים על עצמה */}
+                <div className="pt-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <label htmlFor="ws-about" className="text-base sm:text-lg font-bold text-gray-900">
+                      כמה מילים על עצמך (אופציונלי)
+                    </label>
+                    <span className="text-xs sm:text-sm text-gray-400">אופציונלי</span>
+                  </div>
+                  <textarea
+                    id="ws-about"
+                    rows={3}
+                    value={aboutSelf}
+                    onChange={(e) => setAboutSelf(e.target.value)}
+                    placeholder="ספרי לנו כמה מילים על עצמך, מה מביא אותך או שאלות שחשובות לך לקראת הסדנה..."
+                    className="w-full px-5 py-3.5 text-base sm:text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none transition-all resize-y"
+                  />
+                </div>
+
+                {/* Submit button */}
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 sm:py-5 px-8 rounded-2xl bg-brand-green hover:bg-brand-green/90 text-white font-black text-xl sm:text-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group active:scale-[0.99] cursor-pointer"
+                  >
+                    {isSubmitting ? (
+                      <span>שולחת פרטים...</span>
+                    ) : (
+                      <>
+                        <span>שליחת פרטים ושריון מקומך</span>
+                        <Send className="w-6 h-6 rotate-180 group-hover:-translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </button>
+
+                  <p className="text-center text-gray-500 text-xs sm:text-sm mt-3 font-normal">
+                    הפרטים נשמרים בדיסקרטיות מלאה וישמשו ליצירת קשר אישי בלבד
+                  </p>
+                </div>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
