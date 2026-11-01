@@ -47,7 +47,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
     );
   } else if (isMwmFormPage) {
     sectionLinks.push(
-      { name: 'חזרה לתוכנית המלאה', to: '/mwm' },
+      { name: 'חזרה לדף התוכנית', to: '/p/midlife' },
     );
   } else if (isMarketingPage) {
     sectionLinks.push(

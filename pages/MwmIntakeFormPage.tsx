@@ -207,7 +207,7 @@ export const MwmIntakeFormPage: React.FC = () => {
       {/* Top Header / Nav Bar */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-brand-beige shadow-sm">
         <div className="max-w-4xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link to="/mwm" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <div className="w-12 h-12 flex items-center justify-center overflow-hidden rounded-full shadow-sm border border-brand-beige/50 bg-white">
               <img 
                 src="/logos/brand-main.webp" 
@@ -223,13 +223,13 @@ export const MwmIntakeFormPage: React.FC = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-black text-brand-green leading-tight">בין לבין</span>
-              <span className="text-xs font-bold text-brand-orange">כוכב יאיר - צור יגאל</span>
+              <span className="text-xs font-bold text-brand-orange">מרחבים לנשים</span>
             </div>
           </Link>
 
           <div className="flex items-center gap-2">
             <Link 
-              to="/mwm" 
+              to="/p/midlife" 
               className="flex items-center gap-2 text-sm md:text-base font-black text-brand-green hover:text-brand-orange bg-brand-beige/30 hover:bg-brand-beige/60 px-5 py-2 rounded-full transition-all border border-brand-beige"
             >
               <span>חזרה לדף התוכנית</span>
@@ -295,7 +295,7 @@ export const MwmIntakeFormPage: React.FC = () => {
 
               <div className="pt-2">
                 <Link 
-                  to="/mwm" 
+                  to="/p/midlife" 
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white px-8 py-3.5 rounded-full text-base font-black hover:bg-brand-orange transition-all shadow-md"
                 >
                   <span>חזרה לדף התוכנית</span>

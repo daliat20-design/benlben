@@ -17,34 +17,19 @@ import AheadOfYouMiniPage from './pages/mini/AheadOfYouMiniPage';
 import FlowTripsMiniPage from './pages/mini/FlowTripsMiniPage';
 import MiniPagesManager from './pages/mini/MiniPagesManager';
 import BrandLandingPage from './pages/BrandLandingPage';
+import PasscodeProtected from './components/PasscodeProtected';
 
 const InternalNav: React.FC = () => {
-  const location = useLocation();
-  
-  // Do not show internal nav bar on standalone pages, intake forms, or any mini product landing pages
-  if (
-    location.pathname === '/mwm' || 
-    location.pathname === '/ky-mwm' || 
-    location.pathname === '/mwm-form' || 
-    location.pathname === '/form' ||
-    location.pathname === '/mwm-responses' ||
-    location.pathname === '/responses' ||
-    location.pathname === '/inquiries' ||
-    location.pathname === '/admin' ||
-    location.pathname.startsWith('/p/')
-  ) {
-    return null;
-  }
-  
   const baseUrl = "https://ais-pre-jttptouynfsjqnrg3kuoj3-29867443297.europe-west1.run.app";
   const [showLinks, setShowLinks] = React.useState(false);
 
   const links = [
-    { name: 'דף הבית', path: '#/', full: `${baseUrl}/` },
+    { name: 'דף הבית (האתר הראשי)', path: '#/', full: `${baseUrl}/` },
+    { name: 'בין לבין כיצ"י (פתוח לכולם)', path: '#/mwm', full: `${baseUrl}/#/mwm` },
+    { name: '🔒 סדנת הפיילוט (אמהות עם מהות - חסום)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
     { name: 'פניות מהאתר (בין לבין)', path: '#/responses?code=9672', full: `${baseUrl}/#/responses?code=9672` },
     { name: 'שאלון נעים להכיר (כיצ"י)', path: '#/mwm-responses?code=9672', full: `${baseUrl}/#/mwm-responses?code=9672` },
     { name: 'טופס נעים להכיר (למילוי)', path: '#/mwm-form', full: `${baseUrl}/#/mwm-form` },
-    { name: 'בין לבין כיצ"י MWM', path: '#/mwm', full: `${baseUrl}/#/mwm` },
     { name: 'ניהול מיני-דפים', path: '#/mini-admin', full: `${baseUrl}/#/mini-admin` },
     { name: 'ספר המתכונים', path: '#/recipes', full: `${baseUrl}/#/recipes` },
   ];
@@ -128,6 +113,23 @@ const FallbackRoute: React.FC = () => {
     return <Recipes />;
   }
 
+  const isBenLvenMwmHost = typeof window !== 'undefined' && 
+    window.location.hostname.toLowerCase().includes('ben-lven-mwm');
+
+  if (isBenLvenMwmHost) {
+    return <LandingPage />;
+  }
+
+  return <BrandLandingPage />;
+};
+
+const RootPage: React.FC = () => {
+  const isBenLvenMwmHost = typeof window !== 'undefined' && 
+    window.location.hostname.toLowerCase().includes('ben-lven-mwm');
+
+  if (isBenLvenMwmHost) {
+    return <LandingPage />;
+  }
   return <BrandLandingPage />;
 };
 
@@ -161,7 +163,10 @@ const AppContent: React.FC = () => {
   }, [location.pathname, navigate]);
 
   const isDevelopment = typeof window !== 'undefined' && 
-    (window.location.hostname.includes('-dev-') || window.location.hostname.includes('localhost'));
+    (window.location.hostname.includes('-dev-') || 
+     window.location.hostname.includes('-pre-') || 
+     window.location.hostname.includes('localhost') || 
+     window.location.hostname.includes('run.app'));
 
   return (
     <>
@@ -169,15 +174,16 @@ const AppContent: React.FC = () => {
       {isDevelopment && <InternalNav />}
       <Routes>
         {/* Central Master Brand Landing Page (All Products & Retreats - מרחבים לנשים) */}
-        <Route path="/" element={<BrandLandingPage />} />
+        {/* On ben-lven-mwm.netlify.app this is the pilot page protected by passcode 9672 */}
+        <Route path="/" element={<RootPage />} />
         <Route path="/women-programs" element={<BrandLandingPage />} />
         <Route path="/all-programs" element={<BrandLandingPage />} />
         <Route path="/programs" element={<BrandLandingPage />} />
         <Route path="/brand" element={<BrandLandingPage />} />
         <Route path="/hub" element={<BrandLandingPage />} />
-        <Route path="/index.html" element={<BrandLandingPage />} />
+        <Route path="/index.html" element={<RootPage />} />
         
-        {/* Full Landing Page - Midlife Workshop (סדנת הדגל אמצע החיים) */}
+        {/* Full Landing Page - סדנת הפיילוט שיצאה בשם "אמהות עם מהות" (חסומה בקוד 9672) */}
         <Route path="/midlife-workshop" element={<LandingPage />} />
         <Route path="/midlife-full" element={<LandingPage />} />
         <Route path="/workshop" element={<LandingPage />} />
@@ -207,7 +213,7 @@ const AppContent: React.FC = () => {
         <Route path="/mini-hub" element={<MiniPagesManager />} />
         <Route path="/mini" element={<MiniPagesManager />} />
 
-        {/* כוכב יאיר - שאלון נעים להכיר */}
+        {/* כוכב יאיר צור יגאל - כיצ"י MWM - פתוח וחופשי לכולם */}
         <Route path="/mwm" element={<MwmPage />} />
         <Route path="/ky-mwm" element={<MwmPage />} />
         <Route path="/mwm-form" element={<MwmIntakeFormPage />} />
@@ -237,7 +243,7 @@ const AppContent: React.FC = () => {
         <Route path="/landing" element={<BrandLandingPage />} />
         <Route path="/part2" element={<PartTwo />} />
 
-        {/* Fallback route - if any recipe intent is detected, render Recipes, else BrandLandingPage */}
+        {/* Fallback route - if any recipe intent is detected, render Recipes, else FallbackRoute */}
         <Route path="*" element={<FallbackRoute />} />
       </Routes>
     </>

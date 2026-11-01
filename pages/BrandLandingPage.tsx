@@ -1080,6 +1080,14 @@ export const BrandLandingPage: React.FC = () => {
                 <Lock className="w-3.5 h-3.5 text-brand-orange" />
                 <span>כניסת צוות | ניהול פניות מהאתר</span>
               </Link>
+              <Link
+                to="/midlife-workshop"
+                title="צפייה בדף סדנת הפיילוט שהסתיימה (אמהות עם מהות)"
+                className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand-orange font-bold transition-colors py-1.5 px-3.5 rounded-full bg-white/80 hover:bg-white border border-brand-beige shadow-xs active:scale-95"
+              >
+                <Lock className="w-3.5 h-3.5 text-brand-orange" />
+                <span>דף סדנת הפיילוט - אמהות עם מהות (מוגן בקוד)</span>
+              </Link>
             </div>
           </div>
         </div>

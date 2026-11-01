@@ -76,8 +76,11 @@
                     }
                 }
 
-                // If user arrived with code=9672 on homepage, automatically route to /responses
-                if (code === '9672' && (!h || h === '#/' || h === '#')) {
+                var host = (window.location.hostname || '').toLowerCase();
+                var isBenLvenMwm = host.includes('ben-lven-mwm');
+
+                // If user arrived with code=9672 on homepage of main site and specifically targeting responses
+                if (!isBenLvenMwm && code === '9672' && (!h || h === '#/' || h === '#') && (params.has('responses') || params.has('inquiries') || params.has('admin'))) {
                     window.location.replace('/#/responses?code=9672');
                     return;
                 }

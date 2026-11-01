@@ -14,6 +14,7 @@ import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
 import { LegalModals } from '../components/LegalModals';
+import { PasscodeProtected } from '../components/PasscodeProtected';
 
 const LandingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
@@ -33,35 +34,37 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
-      <Navbar />
-      <main>
-        <Hero />
-        <AboutSection />
-        <ProgramStructure />
-        <SpeakersGrid />
-        <ImportantInfo />
-        <PricingSection />
-        <TeamSection />
-        <TestimonialsSection />
-        
-        {/* טופס התעניינות */}
-        <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4">
-          <InterestForm
-            id="interest-form"
-            preselectedProgramId="midlife"
-            source="דף נחיתה אמצע החיים"
-            title="מעוניינת לשמוע עוד על התוכנית?"
-            subtitle="השאירי פרטים, ונשמח לחזור אלייך לשיחה אישית, לענות על שאלות ולבדוק התאמה"
-          />
-        </section>
+    <PasscodeProtected pageTitle="סדנת הפיילוט (אמהות עם מהות)">
+      <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
+        <Navbar />
+        <main>
+          <Hero />
+          <AboutSection />
+          <ProgramStructure />
+          <SpeakersGrid />
+          <ImportantInfo />
+          <PricingSection />
+          <TeamSection />
+          <TestimonialsSection />
+          
+          {/* טופס התעניינות */}
+          <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4">
+            <InterestForm
+              id="interest-form"
+              preselectedProgramId="midlife"
+              source="דף נחיתה אמצע החיים"
+              title="מעוניינת לשמוע עוד על התוכנית?"
+              subtitle="השאירי פרטים, ונשמח לחזור אלייך לשיחה אישית, לענות על שאלות ולבדוק התאמה"
+            />
+          </section>
 
-        <OtherProgramsSection currentProgramId="midlife" />
-      </main>
-      <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
-      <WhatsAppShare />
-      <LegalModals activeModal={activeModal} closeModal={() => setActiveModal(null)} />
-    </div>
+          <OtherProgramsSection currentProgramId="midlife" />
+        </main>
+        <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
+        <WhatsAppShare />
+        <LegalModals activeModal={activeModal} closeModal={() => setActiveModal(null)} />
+      </div>
+    </PasscodeProtected>
   );
 };
 
