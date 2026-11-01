@@ -10,7 +10,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenPrivacy }) => {
   const shareWhatsAppText = encodeURIComponent(
-    "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | תוכניות וריטריטים לנשים'. נראה לי ששווה לך להציץ.\n" +
+    "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | מרחבים לנשים'. נראה לי ששווה לך להציץ.\n" +
     (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
   );
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${shareWhatsAppText}`;

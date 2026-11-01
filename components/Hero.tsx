@@ -21,16 +21,16 @@ export const Hero: React.FC = () => {
           
           <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-5 sm:mb-6">
             <div className="inline-block bg-brand-green text-white px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base md:text-lg font-black tracking-wide shadow-md border-b-4 border-brand-green/30">
-              בין לבין | תוכניות וריטריטים לנשים
+              בין לבין | מרחבים לנשים
             </div>
           </div>
           
           <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-brand-green leading-none mb-3 sm:mb-4 tracking-tighter drop-shadow-sm">
-            אמצע החיים
+            סדנת אמצע החיים
           </h1>
 
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-brand-orange mb-1 sm:mb-2 tracking-tight">
-            סדנאת הדגל של בין לבין
+            סדנת הדגל של בין לבין
           </div>
 
           <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-brand-green/90 mb-5 sm:mb-6 tracking-normal">
@@ -41,20 +41,22 @@ export const Hero: React.FC = () => {
             מעטפת של ידע, שיח והתבוננות אישית לתקופה שבה הרבה דברים משתנים, והרבה דברים חדשים יכולים להתחיל.
           </p>
 
-          {/* Logo Position: Below the Title */}
+          {/* Logo Position: Below the Title - like general page */}
           <div className="mb-6 sm:mb-8 flex justify-center md:justify-start">
-            <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full shadow-2xl p-2.5 sm:p-3 border-4 border-brand-beige flex items-center justify-center overflow-hidden animate-float relative bg-white">
+            <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full shadow-2xl p-2.5 sm:p-3 border-4 border-brand-orange/30 flex items-center justify-center overflow-hidden animate-float relative bg-white">
               <img 
-                src="/logos/brand-main.webp" 
-                alt="לוגו בין לבין" 
+                src="/logos/midlife.webp" 
+                alt="לוגו סדנת אמצע החיים" 
                 className="w-full h-full object-contain rounded-full"
                 loading="eager"
                 fetchPriority="high"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   const target = e.currentTarget;
-                  if (target.src !== '/logos/brand-main.png') {
-                    target.src = '/logos/brand-main.png';
+                  if (target.src !== '/logos/midlife.png') {
+                    target.src = '/logos/midlife.png';
+                  } else {
+                    target.src = '/logos/brand-main.webp';
                   }
                 }}
               />

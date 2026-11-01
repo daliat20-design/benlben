@@ -11,13 +11,12 @@ import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
 import { LegalModals } from '../components/LegalModals';
-import { PasscodeProtected } from '../components/PasscodeProtected';
 
 const MarketingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
 
   useEffect(() => {
-    document.title = "אמצע החיים | סדנת הדגל של בין לבין לנשים בגילאי 45-60";
+    document.title = "סדנת אמצע החיים - סדנת הדגל של בין לבין";
   }, []);
 
   const openTerms = (e: React.MouseEvent) => {
@@ -31,23 +30,21 @@ const MarketingPage: React.FC = () => {
   };
 
   return (
-    <PasscodeProtected pageTitle="סדנת הפיילוט אמצע החיים">
-      <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
-        <Navbar />
-        <main>
-          <Hero />
-          <AboutSection hideDates={true} />
-          <MarketingSessions />
-          <MarketingSpeakers />
-          <TeamSection />
-          <TestimonialsSection />
-          <OtherProgramsSection currentProgramId="midlife" />
-        </main>
-        <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
-        <WhatsAppShare />
-        <LegalModals activeModal={activeModal} closeModal={() => setActiveModal(null)} />
-      </div>
-    </PasscodeProtected>
+    <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
+      <Navbar />
+      <main>
+        <Hero />
+        <AboutSection hideDates={true} />
+        <MarketingSessions />
+        <MarketingSpeakers />
+        <TeamSection />
+        <TestimonialsSection />
+        <OtherProgramsSection currentProgramId="midlife" />
+      </main>
+      <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
+      <WhatsAppShare />
+      <LegalModals activeModal={activeModal} closeModal={() => setActiveModal(null)} />
+    </div>
   );
 };
 

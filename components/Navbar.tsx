@@ -22,7 +22,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
       : isRecipesPage
         ? "היי, מצאתי את ספר המתכונים המעולה של 'בין לבין' - מתכונים בריאים, קלים ומזינים:\n" +
           (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/recipes')
-        : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | תוכניות וריטריטים לנשים'. נראה לי ששווה לך להציץ.\n" +
+        : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | מרחבים לנשים'. נראה לי ששווה לך להציץ.\n" +
           (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
   );
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${shareWhatsAppText}`;
@@ -130,7 +130,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                   <div className="flex items-center gap-1.5">
                     <span className="text-xl sm:text-2xl font-black text-brand-green tracking-tight">בין לבין</span>
                     <span className="text-brand-orange font-light text-lg sm:text-xl leading-none">|</span>
-                    <span className="text-xs sm:text-sm font-bold text-brand-orange tracking-tight whitespace-nowrap">תוכניות וריטריטים לנשים</span>
+                    <span className="text-xs sm:text-sm font-bold text-brand-orange tracking-tight whitespace-nowrap">מרחבים לנשים</span>
                   </div>
                 )}
               </div>

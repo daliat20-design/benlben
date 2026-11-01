@@ -26,7 +26,7 @@ const InternalNav: React.FC = () => {
   const links = [
     { name: 'דף הבית (האתר הראשי)', path: '#/', full: `${baseUrl}/` },
     { name: 'בין לבין כיצ"י (פתוח לכולם)', path: '#/mwm', full: `${baseUrl}/#/mwm` },
-    { name: '🔒 סדנת הפיילוט (אמהות עם מהות - חסום)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
+    { name: 'סדנת אמצע החיים (סדנת הדגל)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
     { name: 'פניות מהאתר (בין לבין)', path: '#/responses?code=9672', full: `${baseUrl}/#/responses?code=9672` },
     { name: 'שאלון נעים להכיר (כיצ"י)', path: '#/mwm-responses?code=9672', full: `${baseUrl}/#/mwm-responses?code=9672` },
     { name: 'טופס נעים להכיר (למילוי)', path: '#/mwm-form', full: `${baseUrl}/#/mwm-form` },
@@ -183,7 +183,7 @@ const AppContent: React.FC = () => {
         <Route path="/hub" element={<BrandLandingPage />} />
         <Route path="/index.html" element={<RootPage />} />
         
-        {/* Full Landing Page - סדנת הפיילוט שיצאה בשם "אמהות עם מהות" (חסומה בקוד 9672) */}
+        {/* Full Landing Page - סדנת אמצע החיים - סדנת הדגל של בין לבין */}
         <Route path="/midlife-workshop" element={<LandingPage />} />
         <Route path="/midlife-full" element={<LandingPage />} />
         <Route path="/workshop" element={<LandingPage />} />

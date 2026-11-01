@@ -14,13 +14,12 @@ import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
 import { LegalModals } from '../components/LegalModals';
-import { PasscodeProtected } from '../components/PasscodeProtected';
 
 const LandingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
 
   useEffect(() => {
-    document.title = "בין לבין - תוכנית לנשים באמצע החיים";
+    document.title = "סדנת אמצע החיים - סדנת הדגל של בין לבין";
   }, []);
 
   const openTerms = (e: React.MouseEvent) => {
@@ -34,37 +33,35 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <PasscodeProtected pageTitle="סדנת הפיילוט (אמהות עם מהות)">
-      <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
-        <Navbar />
-        <main>
-          <Hero />
-          <AboutSection />
-          <ProgramStructure />
-          <SpeakersGrid />
-          <ImportantInfo />
-          <PricingSection />
-          <TeamSection />
-          <TestimonialsSection />
-          
-          {/* טופס התעניינות */}
-          <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4">
-            <InterestForm
-              id="interest-form"
-              preselectedProgramId="midlife"
-              source="דף נחיתה אמצע החיים"
-              title="מעוניינת לשמוע עוד על התוכנית?"
-              subtitle="השאירי פרטים, ונשמח לחזור אלייך לשיחה אישית, לענות על שאלות ולבדוק התאמה"
-            />
-          </section>
+    <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
+      <Navbar />
+      <main>
+        <Hero />
+        <AboutSection hideDates={true} />
+        <ProgramStructure hideDates={true} />
+        <SpeakersGrid />
+        <ImportantInfo hideDates={true} />
+        <PricingSection />
+        <TeamSection />
+        <TestimonialsSection />
+        
+        {/* טופס התעניינות */}
+        <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4">
+          <InterestForm
+            id="interest-form"
+            preselectedProgramId="midlife"
+            source="דף נחיתה אמצע החיים"
+            title="מעוניינת לשמוע עוד על התוכנית?"
+            subtitle="השאירי פרטים, ונשמח לחזור אלייך לשיחה אישית, לענות על שאלות ולבדוק התאמה"
+          />
+        </section>
 
-          <OtherProgramsSection currentProgramId="midlife" />
-        </main>
-        <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
-        <WhatsAppShare />
-        <LegalModals activeModal={activeModal} closeModal={() => setActiveModal(null)} />
-      </div>
-    </PasscodeProtected>
+        <OtherProgramsSection currentProgramId="midlife" />
+      </main>
+      <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
+      <WhatsAppShare />
+      <LegalModals activeModal={activeModal} closeModal={() => setActiveModal(null)} />
+    </div>
   );
 };
 

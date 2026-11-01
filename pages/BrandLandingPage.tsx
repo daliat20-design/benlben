@@ -695,7 +695,7 @@ export const BrandLandingPage: React.FC = () => {
               <div className="overflow-hidden rounded-3xl shadow-xl border-4 border-white aspect-[16/10] sm:aspect-[3/2] bg-brand-beige/30">
                 <img 
                   src="https://i.postimg.cc/X73f8XLh/IS-1193.jpg" 
-                  alt="בין לבין - תוכניות וריטריטים לנשים" 
+                  alt="בין לבין - מרחבים לנשים" 
                   className="w-full h-full object-cover object-center transform hover:scale-102 transition-transform duration-700"
                 />
               </div>
@@ -1082,11 +1082,11 @@ export const BrandLandingPage: React.FC = () => {
               </Link>
               <Link
                 to="/midlife-workshop"
-                title="צפייה בדף סדנת הפיילוט שהסתיימה (אמהות עם מהות)"
+                title="סדנת אמצע החיים - סדנת הדגל של בין לבין"
                 className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-brand-orange font-bold transition-colors py-1.5 px-3.5 rounded-full bg-white/80 hover:bg-white border border-brand-beige shadow-xs active:scale-95"
               >
-                <Lock className="w-3.5 h-3.5 text-brand-orange" />
-                <span>דף סדנת הפיילוט - אמהות עם מהות (מוגן בקוד)</span>
+                <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
+                <span>סדנת אמצע החיים - סדנת הדגל</span>
               </Link>
             </div>
           </div>

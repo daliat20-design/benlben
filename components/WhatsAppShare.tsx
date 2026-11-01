@@ -21,7 +21,7 @@ export const WhatsAppShare: React.FC = () => {
     isMwm
       ? "היי, מצאתי תוכנית מדהימה לנשים באמצע החיים בשם 'בין לבין' בכוכב יאיר צור יגאל. שווה לך להציץ בדף התוכנית:\n" +
         (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/mwm')
-      : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | תוכניות וריטריטים לנשים'. נראה לי ששווה לך להציץ.\n" +
+      : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | מרחבים לנשים'. נראה לי ששווה לך להציץ.\n" +
         (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
   );
   const shareUrl = `https://api.whatsapp.com/send?text=${shareText}`;
