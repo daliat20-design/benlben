@@ -28,6 +28,7 @@ export interface TeamMember {
   role: string;
   description: string;
   image?: string;
+  imagePosition?: string;
 }
 
 export interface WhatsAppContactItem {

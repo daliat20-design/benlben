@@ -34,8 +34,8 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
-      <Navbar />
+    <div className="min-h-screen font-sans selection:bg-[#C56B3E]/20 selection:text-[#93542B] bg-[#FFF9F4] text-gray-800">
+      <Navbar hideLinks={true} />
       <main>
         <Hero />
         <AboutSection hideDates={true} />
@@ -47,7 +47,7 @@ const LandingPage: React.FC = () => {
         <TestimonialsSection />
         
         {/* בואי נתחבר - טופס התעניינות מותאם לסדנה */}
-        <section id="interest" className="py-16 md:py-24 bg-brand-cream/60 px-4 sm:px-6">
+        <section id="interest" className="py-16 md:py-24 bg-gradient-to-b from-[#FFF4EB] via-[#FDEDE0] to-[#FFF9F4] px-4 sm:px-6">
           <WorkshopInterestForm
             id="interest-form"
             selectedPackage={selectedPackage}

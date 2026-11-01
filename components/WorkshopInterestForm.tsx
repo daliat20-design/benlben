@@ -10,9 +10,9 @@ export const WORKSHOP_PACKAGES = [
     price: '₪1,080 למשתתפת',
     note: 'חברה מביאה חברה: 8 מפגשים לכל אחת בהרשמה משותפת (135 ₪ למפגש)',
     tag: 'המחיר המשתלם ביותר',
-    tagColor: 'bg-emerald-600 text-white',
-    border: 'border-emerald-300',
-    activeBg: 'bg-emerald-50 border-emerald-600',
+    tagColor: 'bg-[#C56B3E] text-white',
+    border: 'border-[#C56B3E]/30',
+    activeBg: 'bg-[#FFF4EB] border-[#C56B3E]',
   },
   {
     id: 'full',
@@ -20,9 +20,9 @@ export const WORKSHOP_PACKAGES = [
     price: '₪1,200 למשתתפת',
     note: 'התוכנית המלאה: 8 מפגשים מעמיקים של 3 שעות (150 ₪ למפגש)',
     tag: 'התוכנית המלאה',
-    tagColor: 'bg-brand-orange text-white',
-    border: 'border-brand-orange/40',
-    activeBg: 'bg-brand-orange/5 border-brand-orange',
+    tagColor: 'bg-[#2D5043] text-white',
+    border: 'border-[#2D5043]/30',
+    activeBg: 'bg-[#2D5043]/5 border-[#2D5043]',
   },
   {
     id: 'partial',
@@ -30,9 +30,9 @@ export const WORKSHOP_PACKAGES = [
     price: '₪680 למשתתפת',
     note: '4 מפגשים לבחירה: חלק ראשון או חלק שני (170 ₪ למפגש)',
     tag: '4 מפגשים',
-    tagColor: 'bg-gray-100 text-gray-700',
-    border: 'border-gray-300',
-    activeBg: 'bg-gray-50 border-brand-green',
+    tagColor: 'bg-[#FFF4EB] text-[#93542B]',
+    border: 'border-[#C56B3E]/20',
+    activeBg: 'bg-[#FFF9F4] border-[#C56B3E]/60',
   },
 ];
 
@@ -127,9 +127,9 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
 
   return (
     <section id={id} className="w-full max-w-3xl mx-auto">
-      <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 md:p-12 shadow-xl border-2 border-brand-beige relative overflow-hidden">
+      <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 md:p-12 shadow-[0_20px_50px_rgba(197,107,62,0.08)] border-2 border-[#C56B3E]/20 relative overflow-hidden">
         {/* Decorative Top Accent */}
-        <div className="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-emerald-600 via-brand-orange to-brand-green" />
+        <div className="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-[#2D5043] via-[#C56B3E] to-[#B85D19]" />
 
         <AnimatePresence mode="wait">
           {isSubmitted ? (
@@ -140,24 +140,24 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
               exit={{ opacity: 0, scale: 0.95 }}
               className="text-center py-8 px-4"
             >
-              <div className="w-20 h-20 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 shadow-sm">
+              <div className="w-20 h-20 mx-auto rounded-full bg-[#FFF4EB] text-[#C56B3E] flex items-center justify-center mb-6 shadow-sm border border-[#C56B3E]/30">
                 <CheckCircle2 className="w-12 h-12" />
               </div>
 
-              <h3 className="text-2xl sm:text-4xl font-black text-brand-green mb-4">
+              <h3 className="text-2xl sm:text-4xl font-black text-[#2D5043] mb-4">
                 איזה כיף, קיבלנו את הפרטים!
               </h3>
 
               <p className="text-xl sm:text-2xl text-gray-800 mb-6 font-medium leading-relaxed max-w-xl mx-auto">
-                תודה <strong className="text-brand-orange font-bold">{fullName}</strong>, 
+                תודה <strong className="text-[#C56B3E] font-bold">{fullName}</strong>, 
                 קיבלנו את פנייתך באהבה ונחזור אלייך בהקדם לטלפון{' '}
                 <span dir="ltr" className="font-bold text-gray-900">{phone}</span>
                 <span> לשיחה אישית ושריון מקומך במסלול <strong>{selectedPkg}</strong>.</span>
               </p>
 
-              <div className="bg-brand-cream/60 border border-brand-beige rounded-2xl p-6 max-w-lg mx-auto mb-8 text-right">
-                <div className="flex items-center gap-2 text-brand-green font-bold text-lg mb-2">
-                  <HeartHandshake className="w-5 h-5" />
+              <div className="bg-[#FFF9F4] border border-[#C56B3E]/20 rounded-2xl p-6 max-w-lg mx-auto mb-8 text-right">
+                <div className="flex items-center gap-2 text-[#2D5043] font-bold text-lg mb-2">
+                  <HeartHandshake className="w-5 h-5 text-[#C56B3E]" />
                   <span>רוצה לדבר כבר עכשיו?</span>
                 </div>
                 <p className="text-gray-700 text-base mb-4 leading-normal">
@@ -167,7 +167,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                   href={quickWhatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg shadow-md hover:shadow-lg transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-3 w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#C56B3E] to-[#B85D19] hover:from-[#B85D19] hover:to-[#93542B] text-white font-bold text-lg shadow-md hover:shadow-lg transition-all cursor-pointer"
                 >
                   <MessageCircle className="w-5 h-5" />
                   <span>המשך שיחה מהירה בוואטסאפ</span>
@@ -177,7 +177,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-gray-500 hover:text-brand-green font-semibold text-base underline underline-offset-4 cursor-pointer"
+                className="text-gray-500 hover:text-[#C56B3E] font-semibold text-base underline underline-offset-4 cursor-pointer"
               >
                 שליחת פנייה נוספת
               </button>
@@ -190,12 +190,12 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
               exit={{ opacity: 0 }}
             >
               <div className="text-center mb-8 sm:mb-10">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green/10 text-brand-green text-sm sm:text-base font-bold mb-3">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C56B3E]/10 text-[#C56B3E] text-sm sm:text-base font-bold mb-3 border border-[#C56B3E]/20">
                   <Sparkles className="w-4 h-4" />
                   <span>בואי נתחבר</span>
                 </div>
                 {/* Exact requested heading */}
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-green mb-3 tracking-tight leading-snug">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] mb-3 tracking-tight leading-snug">
                   השאירי פרטים ונשמח לחזור אלייך לשיחת אישית ושריון מקומך
                 </h3>
                 <p className="text-base sm:text-lg text-gray-700 max-w-xl mx-auto leading-relaxed">
@@ -214,7 +214,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                 {/* 1. שם מלא */}
                 <div>
                   <label htmlFor="ws-fullName" className="block text-base sm:text-lg font-bold text-gray-900 mb-2">
-                    שם מלא <span className="text-brand-orange">*</span>
+                    שם מלא <span className="text-[#C56B3E]">*</span>
                   </label>
                   <input
                     id="ws-fullName"
@@ -223,7 +223,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="לדוגמה: שרה ישראלי"
-                    className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none transition-all"
+                    className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-[#FFF9F4] rounded-2xl border-2 border-[#C56B3E]/20 focus:border-[#C56B3E] focus:bg-white focus:outline-none transition-all"
                   />
                 </div>
 
@@ -231,7 +231,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                   <div>
                     <label htmlFor="ws-phone" className="block text-base sm:text-lg font-bold text-gray-900 mb-2">
-                      מספר נייד <span className="text-brand-orange">*</span>
+                      מספר נייד <span className="text-[#C56B3E]">*</span>
                     </label>
                     <input
                       id="ws-phone"
@@ -241,13 +241,13 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="050-1234567"
-                      className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none text-right transition-all"
+                      className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-[#FFF9F4] rounded-2xl border-2 border-[#C56B3E]/20 focus:border-[#C56B3E] focus:bg-white focus:outline-none text-right transition-all"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="ws-email" className="block text-base sm:text-lg font-bold text-gray-900 mb-2">
-                      כתובת מייל <span className="text-brand-orange">*</span>
+                      כתובת מייל <span className="text-[#C56B3E]">*</span>
                     </label>
                     <input
                       id="ws-email"
@@ -257,16 +257,16 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@example.com"
-                      className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none text-right transition-all"
+                      className="w-full px-5 py-3.5 sm:py-4 text-lg text-gray-900 bg-[#FFF9F4] rounded-2xl border-2 border-[#C56B3E]/20 focus:border-[#C56B3E] focus:bg-white focus:outline-none text-right transition-all"
                     />
                   </div>
                 </div>
 
-                {/* 3. סימון חבילה מעניינת (מקום לסמן איזו חבילה מעניינת את המתעניינת) */}
+                {/* 3. סימון חבילה מעניינת */}
                 <div className="pt-2">
                   <div className="flex items-center justify-between mb-3">
                     <label className="text-base sm:text-lg font-bold text-gray-900">
-                      איזו חבילה מעניינת אותך? <span className="text-brand-orange">*</span>
+                      איזו חבילה מעניינת אותך? <span className="text-[#C56B3E]">*</span>
                     </label>
                     <span className="text-xs sm:text-sm text-gray-500 font-medium">
                       (בחרי את המסלול המועדף)
@@ -286,14 +286,14 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                           }}
                           className={`p-4 sm:p-5 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-3 sm:gap-4 ${
                             isSelected
-                              ? `${pkg.activeBg} shadow-sm ring-1 ring-brand-green/30`
-                              : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60'
+                              ? `${pkg.activeBg} shadow-sm ring-1 ring-[#C56B3E]/40`
+                              : 'border-slate-200 bg-white hover:border-[#C56B3E]/30 hover:bg-[#FFF9F4]/40'
                           }`}
                         >
                           <div
                             className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center mt-1 border-2 transition-all ${
                               isSelected
-                                ? 'bg-brand-green border-brand-green text-white'
+                                ? 'bg-[#C56B3E] border-[#C56B3E] text-white'
                                 : 'border-slate-300 bg-white'
                             }`}
                           >
@@ -302,10 +302,10 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
 
                           <div className="flex-1">
                             <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                              <span className="text-lg sm:text-xl font-black text-brand-green">
+                              <span className="text-lg sm:text-xl font-black text-[#2D5043]">
                                 {pkg.name}
                               </span>
-                              <span className="text-base sm:text-lg font-black text-brand-orange">
+                              <span className="text-base sm:text-lg font-black text-[#C56B3E]">
                                 {pkg.price}
                               </span>
                             </div>
@@ -333,7 +333,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                     value={aboutSelf}
                     onChange={(e) => setAboutSelf(e.target.value)}
                     placeholder="ספרי לנו כמה מילים על עצמך, מה מביא אותך או שאלות שחשובות לך לקראת הסדנה..."
-                    className="w-full px-5 py-3.5 text-base sm:text-lg text-gray-900 bg-brand-cream/40 rounded-2xl border-2 border-brand-beige focus:border-brand-green focus:bg-white focus:outline-none transition-all resize-y"
+                    className="w-full px-5 py-3.5 text-base sm:text-lg text-gray-900 bg-[#FFF9F4] rounded-2xl border-2 border-[#C56B3E]/20 focus:border-[#C56B3E] focus:bg-white focus:outline-none transition-all resize-y"
                   />
                 </div>
 
@@ -342,7 +342,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 sm:py-5 px-8 rounded-2xl bg-brand-green hover:bg-brand-green/90 text-white font-black text-xl sm:text-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group active:scale-[0.99] cursor-pointer"
+                    className="w-full py-4 sm:py-5 px-8 rounded-2xl bg-gradient-to-r from-[#C56B3E] to-[#B85D19] hover:from-[#B85D19] hover:to-[#93542B] text-white font-black text-xl sm:text-2xl shadow-[0_12px_28px_rgba(197,107,62,0.35)] hover:shadow-2xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group active:scale-[0.99] cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>שולחת פרטים...</span>

@@ -163,10 +163,8 @@ const AppContent: React.FC = () => {
   }, [location.pathname, navigate]);
 
   const isDevelopment = typeof window !== 'undefined' && 
-    (window.location.hostname.includes('-dev-') || 
-     window.location.hostname.includes('-pre-') || 
-     window.location.hostname.includes('localhost') || 
-     window.location.hostname.includes('run.app'));
+    (window.location.search.includes('dev=true') || 
+     window.location.hash.includes('dev=true'));
 
   return (
     <>

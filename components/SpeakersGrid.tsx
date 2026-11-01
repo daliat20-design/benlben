@@ -11,14 +11,14 @@ export const SpeakersGrid: React.FC = () => {
       
       <div className="max-w-7xl mx-auto relative">
         <div className="text-center mb-12 md:mb-16 px-4">
-          <div className="inline-block px-6 py-2 bg-brand-orange/10 text-brand-orange rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight border border-brand-orange/20">
+          <div className="inline-block px-6 py-2 bg-[#C56B3E]/10 text-[#C56B3E] rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight border border-[#C56B3E]/30">
             על המרצות שלנו
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 text-brand-green tracking-tight text-center">צוות המומחיות</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl font-bold leading-relaxed text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black mb-4 text-[#C56B3E] tracking-tight text-center">צוות המומחיות</h2>
+          <p className="text-gray-700 max-w-3xl mx-auto text-lg sm:text-xl md:text-2xl font-bold leading-relaxed text-center">
             צוות המומחיות שלנו מלווה את "בין לבין" בידע, ניסיון וכלים לדרך
           </p>
-          <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-6 rounded-full opacity-50"></div>
+          <div className="h-1.5 w-24 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto mt-6 rounded-full opacity-80"></div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
@@ -39,13 +39,13 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
 
   return (
     <div 
-      className={`group flex flex-col bg-white rounded-[3rem] p-5 md:p-6 transition-all duration-500 shadow-sm border border-brand-beige/50 text-right cursor-pointer h-full ${
-        isExpanded ? 'shadow-2xl border-brand-green/30' : 'hover:shadow-[0_20px_50px_rgba(84,99,79,0.12)] hover:border-brand-green/20'
+      className={`group flex flex-col bg-white rounded-[3rem] p-5 md:p-6 transition-all duration-500 shadow-sm border border-[#C56B3E]/20 text-right cursor-pointer h-full ${
+        isExpanded ? 'shadow-2xl border-[#C56B3E]' : 'hover:shadow-[0_20px_50px_rgba(197,107,62,0.12)] hover:border-[#C56B3E]/40'
       }`}
       onClick={() => setIsExpanded(!isExpanded)}
     >
-      {/* Rectangular Image Container (Restored) */}
-      <div className="relative mb-6 overflow-hidden rounded-[2.5rem] shadow-md aspect-[4/5] bg-brand-beige">
+      {/* Rectangular Image Container */}
+      <div className="relative mb-6 overflow-hidden rounded-[2.5rem] shadow-md aspect-[4/5] bg-[#FFF4EB]">
         {!imgError ? (
           <img 
             src={speaker.image} 
@@ -55,15 +55,15 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
             onError={() => setImgError(true)}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-brand-green font-bold text-4xl">
+          <div className="w-full h-full flex items-center justify-center text-[#2D5043] font-bold text-4xl">
             {speaker.name.charAt(0)}
           </div>
         )}
         
-        {/* Topics overlay (Restored functionality) */}
+        {/* Topics overlay */}
         <div className="absolute bottom-3 right-3 left-3 flex flex-wrap gap-1">
           {speaker.topics.slice(0, 2).map((t: string, i: number) => (
-            <span key={i} className="text-[10px] bg-white/90 backdrop-blur-sm text-brand-green font-black px-2.5 py-1 rounded-full shadow-sm">
+            <span key={i} className="text-[10px] bg-white/95 backdrop-blur-sm text-[#2D5043] font-black px-2.5 py-1 rounded-full shadow-sm border border-[#C56B3E]/20">
               {t}
             </span>
           ))}
@@ -71,31 +71,31 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
       </div>
       
       <div className="flex-1 flex flex-col w-full">
-        <h3 className={`text-2xl md:text-3xl font-black mb-1 transition-colors ${isExpanded ? 'text-brand-orange' : 'text-brand-green group-hover:text-brand-orange'}`}>
+        <h3 className={`text-2xl md:text-3xl font-black mb-1 transition-colors ${isExpanded ? 'text-[#C56B3E]' : 'text-[#2D5043] group-hover:text-[#C56B3E]'}`}>
           {speaker.name}
         </h3>
-        <p className="text-brand-lightGreen text-sm md:text-base font-bold mb-4 leading-tight min-h-[2.5rem] flex items-center">
+        <p className="text-[#C56B3E] text-sm md:text-base font-bold mb-4 leading-tight min-h-[2.5rem] flex items-center">
           {speaker.title}
         </p>
 
-        <div className="h-px w-12 bg-brand-orange/30 mb-6"></div>
+        <div className="h-px w-12 bg-[#C56B3E]/30 mb-6"></div>
         
         <div className="relative w-full">
           <p 
-            className={`text-gray-600 text-sm md:text-base leading-relaxed transition-all duration-500 font-medium ${isExpanded ? '' : 'line-clamp-3'}`}
+            className={`text-gray-700 text-sm md:text-base leading-relaxed transition-all duration-500 font-medium ${isExpanded ? '' : 'line-clamp-3'}`}
             dangerouslySetInnerHTML={{ __html: speaker.bio }}
           />
           
           <div className="mt-6 flex flex-col items-start">
              <button 
-              className={`text-sm font-black flex items-center gap-2 transition-colors ${isExpanded ? 'text-brand-orange' : 'text-brand-green hover:text-brand-orange'}`}
+              className={`text-sm font-black flex items-center gap-2 transition-colors ${isExpanded ? 'text-[#C56B3E]' : 'text-[#2D5043] hover:text-[#C56B3E]'}`}
               onClick={(e) => {
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
             >
               <span>{isExpanded ? 'סגירה' : 'קראי עוד'}</span>
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${isExpanded ? 'bg-brand-orange text-white rotate-180' : 'bg-brand-beige text-brand-green'}`}>
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${isExpanded ? 'bg-[#C56B3E] text-white rotate-180' : 'bg-[#FFF4EB] text-[#C56B3E]'}`}>
                 <svg 
                   className="w-3 h-3" 
                   fill="none" 

@@ -8,6 +8,9 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   const location = useLocation();
+  const isMidlifeWorkshop = location.pathname === '/midlife-workshop' || 
+                            location.pathname === '/midlife-full' || 
+                            location.pathname === '/workshop';
   const isMarketingPage = location.pathname === '/' || location.pathname === '/marketing';
   const isPartTwoPage = location.pathname === '/part2';
   const isRecipesPage = location.pathname === '/recipes' || location.pathname.startsWith('/recipe');
@@ -16,25 +19,38 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
   const isMwmFormPage = location.pathname === '/mwm-form' || location.pathname === '/form';
 
   const shareWhatsAppText = encodeURIComponent(
-    isMwmPage || isMwmFormPage
-      ? "היי, מצאתי תוכנית מדהימה לנשים באמצע החיים בשם 'בין לבין' בכוכב יאיר צור יגאל. שווה לך להציץ בדף התוכנית:\n" +
-        (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/mwm')
-      : isRecipesPage
-        ? "היי, מצאתי את ספר המתכונים המעולה של 'בין לבין' - מתכונים בריאים, קלים ומזינים:\n" +
-          (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/recipes')
-        : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | מרחבים לנשים'. נראה לי ששווה לך להציץ.\n" +
-          (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
+    isMidlifeWorkshop
+      ? "היי, מצאתי סדנה מרתקת לנשים באמצע החיים בשם 'סדנת אמצע החיים' מבית 'בין לבין | מרחבים לנשים'. שווה לך להציץ בדף:\n" +
+        (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/midlife-workshop')
+      : isMwmPage || isMwmFormPage
+        ? "היי, מצאתי תוכנית מדהימה לנשים באמצע החיים בשם 'בין לבין' בכוכב יאיר צור יגאל. שווה לך להציץ בדף התוכנית:\n" +
+          (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/mwm')
+        : isRecipesPage
+          ? "היי, מצאתי את ספר המתכונים המעולה של 'בין לבין' - מתכונים בריאים, קלים ומזינים:\n" +
+            (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/recipes')
+          : "היי, מצאתי סדנה לנשים שנקראת 'אמצע החיים', מבית 'בין לבין | מרחבים לנשים'. נראה לי ששווה לך להציץ.\n" +
+            (typeof window !== 'undefined' ? window.location.href : 'https://beinlevein.co.il/#/marketing')
   );
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${shareWhatsAppText}`;
 
-  const navLinks = (hideLinks || isMwmPage || isMwmFormPage || isMarketingPage || isRecipesPage) ? [] : [
+  const navLinks = (hideLinks || isMidlifeWorkshop || isMwmPage || isMwmFormPage || isMarketingPage || isRecipesPage) ? [] : [
     { name: 'דף נחיתה', to: '/landing' },
     { name: 'ספר המתכונים', to: '/recipes' },
     { name: 'חלק ב\'', to: '/part2' },
   ];
 
   const sectionLinks: { name: string; href?: string; to?: string; isButton?: boolean }[] = [];
-  if (isMwmPage) {
+  if (isMidlifeWorkshop) {
+    sectionLinks.push(
+      { name: 'על הסדנה', href: '#about' },
+      { name: 'מבנה המפגשים', href: '#sessions' },
+      { name: 'המרצות', href: '#speakers' },
+      { name: 'עלויות והרשמה', href: '#pricing' },
+      { name: 'הצוות', href: '#team' },
+      { name: 'המלצות', href: '#testimonials' },
+      { name: 'בואי נתחבר', href: '#interest' },
+    );
+  } else if (isMwmPage) {
     sectionLinks.push(
       { name: 'על התוכנית', href: '#about' },
       { name: 'מתכונת ומועדים', href: '#program-format' },
@@ -97,7 +113,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
       <nav className="sticky top-0 z-50 w-full glass-card border-b border-brand-beige bg-white/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to={isMwmPage || isMwmFormPage ? "/mwm" : isRecipesPage ? "/recipes" : "/"} className="flex items-center gap-2 group">
+            <Link to={isMidlifeWorkshop ? "/midlife-workshop" : isMwmPage || isMwmFormPage ? "/mwm" : isRecipesPage ? "/recipes" : "/"} className="flex items-center gap-2 group">
               <div className="w-12 h-12 rounded-full bg-white border border-brand-green/30 p-1 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-xs">
                 <img 
                   src="/logos/brand-main.webp" 
@@ -128,9 +144,9 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                   </div>
                 ) : (
                   <div className="flex items-center gap-1.5">
-                    <span className="text-xl sm:text-2xl font-black text-brand-green tracking-tight">בין לבין</span>
-                    <span className="text-brand-orange font-light text-lg sm:text-xl leading-none">|</span>
-                    <span className="text-xs sm:text-sm font-bold text-brand-orange tracking-tight whitespace-nowrap">מרחבים לנשים</span>
+                    <span className={`text-xl sm:text-2xl font-black tracking-tight ${isMidlifeWorkshop ? 'text-[#2D5043]' : 'text-brand-green'}`}>בין לבין</span>
+                    <span className={`${isMidlifeWorkshop ? 'text-[#C56B3E]' : 'text-brand-orange'} font-light text-lg sm:text-xl leading-none`}>|</span>
+                    <span className={`text-xs sm:text-sm font-bold tracking-tight whitespace-nowrap ${isMidlifeWorkshop ? 'text-[#C56B3E]' : 'text-brand-orange'}`}>מרחבים לנשים</span>
                   </div>
                 )}
               </div>
@@ -173,7 +189,11 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                       key={link.name} 
                       type="button"
                       onClick={(e) => scrollToSection(e, link.href)}
-                      className="text-sm font-bold hover:text-brand-orange transition-colors cursor-pointer text-brand-green"
+                      className={`text-sm font-bold transition-colors cursor-pointer ${
+                        isMidlifeWorkshop
+                          ? 'text-[#2D5043] hover:text-[#C56B3E]'
+                          : 'text-brand-green hover:text-brand-orange'
+                      }`}
                     >
                       {link.name}
                     </button>

@@ -286,12 +286,14 @@ export const TEAM: TeamMember[] = [
     name: "דלית כורה",
     role: "מייסדת בין לבין ומובילת הסדנה",
     description: "מתמחה בהובלת פרויקטים ותרגום רעיונות לתהליכים יישומיים וברורים. בסדנת אמצע החיים דלית מחזיקה את המבנה, הרצף והקצב ומלווה את הצוות מהרעיון – אל המימוש.",
-    image: "https://i.postimg.cc/TPYf2twq/DSC-3250.jpg"
+    image: "https://i.postimg.cc/TPYf2twq/DSC-3250.jpg",
+    imagePosition: "center 12%"
   },
   {
     name: "אלסי זיסלמן",
     role: "מנחה ומרצה, טריינרית NLP",
     description: "מלווה תהליכים אישיים וקבוצתיים של שינוי וקבלת החלטות. מביאה רגישות גבוהה, הקשבה עמוקה, בסדנה היא מסייעת לנשים לתרגם תובנות פנימיות לצעדים מעשיים.",
-    image: "https://i.postimg.cc/fbc302jS/Whats-App-Image-2026-09-14-at-11-31-04.jpg"
+    image: "https://i.postimg.cc/fbc302jS/Whats-App-Image-2026-09-14-at-11-31-04.jpg",
+    imagePosition: "center 15%"
   }
 ];

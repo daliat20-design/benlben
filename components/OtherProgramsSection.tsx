@@ -167,13 +167,13 @@ export const OtherProgramsSection: React.FC<OtherProgramsSectionProps> = ({
               <div
                 key={prog.id}
                 id={`program-card-${prog.id}`}
-                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-3xl p-7 md:p-8 border border-brand-beige shadow-[0_10px_35px_rgba(84,99,79,0.05)] hover:shadow-xl hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-300 flex flex-col text-right group relative overflow-hidden"
+                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-3xl p-5 sm:p-6 md:p-8 border border-brand-beige shadow-[0_10px_35px_rgba(84,99,79,0.05)] hover:shadow-xl hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-300 flex flex-col text-right group relative overflow-hidden"
               >
                 {/* Top Row: Delicate Icon / Logo & Category Badge */}
-                <div className="flex items-start justify-between gap-3 mb-5">
+                <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
                   {prog.logoUrl ? (
                     <div 
-                      className="w-22 h-22 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-white p-1.5 border-2 shadow-md flex items-center justify-center shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105"
+                      className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-white p-1 sm:p-1.5 border-2 shadow-sm flex items-center justify-center shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-105"
                       style={{
                         borderColor: getLogoBorderColor(prog.id)
                       }}
@@ -193,8 +193,8 @@ export const OtherProgramsSection: React.FC<OtherProgramsSectionProps> = ({
                       />
                     </div>
                   ) : (
-                    <div className="w-16 h-16 rounded-2xl bg-brand-cream group-hover:bg-brand-orange/10 border border-brand-beige group-hover:border-brand-orange/30 flex items-center justify-center text-brand-orange transition-colors shrink-0 shadow-xs">
-                      <IconComponent className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-brand-cream group-hover:bg-brand-orange/10 border border-brand-beige group-hover:border-brand-orange/30 flex items-center justify-center text-brand-orange transition-colors shrink-0 shadow-xs">
+                      <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                   )}
                   

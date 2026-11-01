@@ -781,10 +781,10 @@ export const BrandLandingPage: React.FC = () => {
                   </div>
 
                   {/* Top Row: Delicate Icon / Custom Logo & Category Badge */}
-                  <div className="flex items-start justify-between gap-3 mb-5">
+                  <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
                     {prog.logoUrl ? (
                       <div 
-                        className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-white p-1.5 border-2 shadow-md flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0 overflow-hidden"
+                        className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 lg:w-26 lg:h-26 rounded-full bg-white p-1 sm:p-1.5 border-2 shadow-sm flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0 overflow-hidden"
                         style={{
                           borderColor: getProgramBorderColor(prog.id)
                         }}
@@ -804,8 +804,8 @@ export const BrandLandingPage: React.FC = () => {
                         />
                       </div>
                     ) : (
-                      <div className={`w-16 h-16 rounded-2xl ${prog.iconBoxStyle} flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0`}>
-                        <IconComponent className="w-8 h-8" />
+                      <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl ${prog.iconBoxStyle} flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0`}>
+                        <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
                       </div>
                     )}
                     
