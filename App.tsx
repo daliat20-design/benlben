@@ -19,66 +19,228 @@ import MiniPagesManager from './pages/mini/MiniPagesManager';
 import BrandLandingPage from './pages/BrandLandingPage';
 import PasscodeProtected from './components/PasscodeProtected';
 
-const InternalNav: React.FC = () => {
-  const baseUrl = "https://ais-pre-jttptouynfsjqnrg3kuoj3-29867443297.europe-west1.run.app";
-  const [showLinks, setShowLinks] = React.useState(false);
+import { 
+  Sparkles, 
+  ChevronDown, 
+  Eye, 
+  EyeOff, 
+  Layers 
+} from 'lucide-react';
 
-  const links = [
-    { name: 'דף הבית (האתר הראשי)', path: '#/', full: `${baseUrl}/` },
-    { name: 'בין לבין כיצ"י (פתוח לכולם)', path: '#/mwm', full: `${baseUrl}/#/mwm` },
-    { name: 'סדנת אמצע החיים (סדנת הדגל)', path: '#/midlife-workshop', full: `${baseUrl}/#/midlife-workshop` },
-    { name: 'פניות מהאתר (בין לבין)', path: '#/responses?code=9672', full: `${baseUrl}/#/responses?code=9672` },
-    { name: 'שאלון נעים להכיר (כיצ"י)', path: '#/mwm-responses?code=9672', full: `${baseUrl}/#/mwm-responses?code=9672` },
-    { name: 'טופס נעים להכיר (למילוי)', path: '#/mwm-form', full: `${baseUrl}/#/mwm-form` },
-    { name: 'ניהול מיני-דפים', path: '#/mini-admin', full: `${baseUrl}/#/mini-admin` },
-    { name: 'ספר המתכונים', path: '#/recipes', full: `${baseUrl}/#/recipes` },
+const InternalNav: React.FC = () => {
+  const location = useLocation();
+  const [showMiniDropdown, setShowMiniDropdown] = React.useState(false);
+
+  // Check strictly if we are in the development workspace on computer
+  const isWorkspaceEnv = typeof window !== 'undefined' && (
+    window.location.hostname.includes('ais-dev') ||
+    window.location.hostname.includes('localhost') ||
+    window.location.hostname.includes('127.0.0.1')
+  );
+
+  // In the published page / preview / client link - DO NOT RENDER ANYTHING AT ALL!
+  if (!isWorkspaceEnv) {
+    return null;
+  }
+
+  const [isVisible, setIsVisible] = React.useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('beinlevein_workspace_nav_visible');
+      if (saved !== null) return saved === 'true';
+    }
+    return true;
+  });
+
+  const toggleVisibility = () => {
+    setIsVisible(prev => {
+      const next = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('beinlevein_workspace_nav_visible', String(next));
+      }
+      return next;
+    });
+  };
+
+  const mainTabs = [
+    { 
+      id: 'midlife-workshop', 
+      name: 'סדנת אמצע החיים (דף הנחיתה הראשי)', 
+      path: '/midlife-workshop', 
+      isFlagship: true,
+      badge: 'הדגל'
+    },
+    { 
+      id: 'brand-home', 
+      name: 'דף הבית (האתר הראשי / כל המרחבים)', 
+      path: '/' 
+    },
+    { 
+      id: 'mwm', 
+      name: 'בין לבין כיצ"י (MWM)', 
+      path: '/mwm' 
+    },
+    { 
+      id: 'mwm-form', 
+      name: 'טופס "נעים להכיר" (למילוי)', 
+      path: '/mwm-form' 
+    },
+    { 
+      id: 'recipes', 
+      name: 'ספר המתכונים', 
+      path: '/recipes' 
+    },
+    { 
+      id: 'responses', 
+      name: 'מתעניינות בסדנה ופניות מהאתר', 
+      path: '/responses?code=9672',
+      isHighlight: true
+    },
+    { 
+      id: 'mwm-responses', 
+      name: 'תשובות שאלון כיצ"י', 
+      path: '/mwm-responses?code=9672' 
+    },
+    { 
+      id: 'mini-admin', 
+      name: 'ניהול מיני-דפים', 
+      path: '/mini-admin' 
+    },
   ];
 
-  return (
-    <div className="w-full bg-brand-orange/10 border-b border-brand-orange/20 py-2 px-6 flex flex-wrap items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
-        <span className="text-[10px] font-black text-brand-orange uppercase tracking-tighter shrink-0">סביבת פיתוח:</span>
-        <div className="flex flex-wrap gap-2">
-          {links.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path.replace('#', '')}
-              className={({ isActive }) => 
-                `px-3 py-1 rounded-full text-[11px] font-black transition-all ${
-                  isActive 
-                  ? 'bg-brand-orange text-white shadow-sm' 
-                  : 'bg-white/50 text-brand-green border border-brand-beige hover:bg-white'
-                }`
-              }
-            >
-              {link.name}
-            </NavLink>
-          ))}
-        </div>
-      </div>
+  const miniPages = [
+    { name: 'אמצע החיים (מיני דף)', path: '/p/midlife' },
+    { name: 'עוד לפנייך (60+)', path: '/p/ahead-of-you' },
+    { name: 'עד 180°', path: '/p/up-to-180' },
+    { name: 'Flow Trips', path: '/p/flowtrips' },
+    { name: 'אלכימיה של יסודות', path: '/p/alchemy' },
+    { name: 'האוהל', path: '/p/the-tent' },
+    { name: 'היילייטס', path: '/p/highlights' },
+  ];
 
-      <div className="flex items-center gap-4">
-        <button 
-          onClick={() => setShowLinks(!showLinks)}
-          className="text-[10px] font-bold text-brand-orange underline underline-offset-2 hover:text-brand-green transition-colors"
+  const currentPath = location.pathname;
+
+  return (
+    <>
+      {/* If collapsed in workspace, show small floating pill to reopen */}
+      {!isVisible && (
+        <button
+          onClick={toggleVisibility}
+          className="fixed bottom-4 right-4 z-[9999] bg-[#2D5043] hover:bg-[#C56B3E] text-white px-4 py-2.5 rounded-full shadow-2xl border-2 border-white/80 text-xs font-black flex items-center gap-2 transition-all transform hover:scale-105 cursor-pointer"
+          title="פתח לשוניות ניווט בסביבת עבודה"
         >
-          {showLinks ? 'הסתר לינקים' : 'הצג לינקים לפרסום'}
+          <Layers className="w-4 h-4 text-amber-300" />
+          <span>לשוניות סביבת עבודה</span>
+          <Eye className="w-3.5 h-3.5 text-white/80" />
         </button>
-        
-        {showLinks && (
-          <div className="flex gap-4 items-center">
-             {links.map(link => (
-               <div key={link.path} className="flex items-center gap-2">
-                 <span className="text-[9px] font-bold text-gray-500">{link.name}:</span>
-                 <code className="text-[9px] bg-white/80 px-2 py-0.5 rounded border border-brand-beige font-mono text-brand-green select-all">
-                   {link.full}
-                 </code>
-               </div>
-             ))}
+      )}
+
+      {/* Main Workspace Navigation Bar - Only in Workspace */}
+      {isVisible && (
+        <aside aria-label="סרגל ניווט סביבת עבודה" className="sticky top-0 z-[9999] w-full bg-[#1e2f27] text-white border-b-2 border-[#C56B3E]/60 shadow-xl backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-2.5">
+            
+            {/* Right: Badge & Tabs */}
+            <div className="flex items-center flex-wrap gap-1.5 sm:gap-2">
+              <div className="flex items-center gap-1.5 pl-2 border-l border-white/20 ml-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="text-[11px] font-black tracking-wide text-amber-300 whitespace-nowrap">
+                  סביבת עבודה:
+                </span>
+              </div>
+
+              {/* Main Tabs */}
+              <div className="flex items-center flex-wrap gap-1.5">
+                {mainTabs.map((tab) => {
+                  const isActive = currentPath === tab.path || 
+                    (tab.path === '/' && currentPath === '') ||
+                    (tab.id === 'midlife-workshop' && (currentPath === '/midlife-workshop' || currentPath === '/midlife-full' || currentPath === '/workshop')) ||
+                    (tab.id === 'responses' && (currentPath === '/responses' || currentPath === '/inquiries'));
+
+                  return (
+                    <NavLink
+                      key={tab.id}
+                      to={tab.path}
+                      className={
+                        tab.isFlagship
+                          ? `px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
+                              isActive
+                                ? 'bg-[#C56B3E] text-white ring-2 ring-amber-300 shadow-md font-black scale-105'
+                                : 'bg-gradient-to-r from-[#C56B3E]/90 to-[#B85D19]/90 text-white hover:brightness-110 border border-amber-300/40'
+                            }`
+                          : tab.isHighlight
+                          ? `px-2.5 py-1 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                              isActive
+                                ? 'bg-amber-400 text-gray-950 font-black shadow-md ring-2 ring-amber-300'
+                                : 'bg-amber-400/20 text-amber-200 hover:bg-amber-400 hover:text-gray-950 border border-amber-400/30'
+                            }`
+                          : `px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                              isActive
+                                ? 'bg-white text-[#1e2f27] shadow-sm font-black'
+                                : 'bg-white/10 text-gray-200 hover:bg-white/25 hover:text-white border border-white/15'
+                            }`
+                      }
+                    >
+                      {tab.isFlagship && <Sparkles className="w-3.5 h-3.5 text-amber-300" />}
+                      <span>{tab.name}</span>
+                    </NavLink>
+                  );
+                })}
+
+                {/* Mini Pages Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowMiniDropdown(!showMiniDropdown)}
+                    className="px-2.5 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-white/25 text-gray-200 hover:text-white border border-white/15 flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>עוד מיני-דפים</span>
+                    <ChevronDown className={`w-3 h-3 transition-transform ${showMiniDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {showMiniDropdown && (
+                    <div 
+                      className="absolute right-0 top-full mt-2 w-56 bg-white text-gray-800 rounded-2xl shadow-2xl border-2 border-brand-beige p-2 z-[10000] text-right animate-in fade-in"
+                      onMouseLeave={() => setShowMiniDropdown(false)}
+                    >
+                      <div className="text-[10px] font-black text-gray-400 px-2 py-1 uppercase border-b border-gray-100 mb-1">
+                        מיני-דפים עצמאיים:
+                      </div>
+                      {miniPages.map(page => (
+                        <NavLink
+                          key={page.path}
+                          to={page.path}
+                          onClick={() => setShowMiniDropdown(false)}
+                          className={({ isActive }) =>
+                            `block px-3 py-1.5 rounded-xl text-xs font-bold transition-colors ${
+                              isActive 
+                                ? 'bg-[#C56B3E] text-white font-black' 
+                                : 'text-gray-700 hover:bg-gray-100 hover:text-[#C56B3E]'
+                            }`
+                          }
+                        >
+                          {page.name}
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Left Actions: Minimize button only */}
+            <div className="flex items-center gap-2 mr-auto">
+              <button
+                onClick={toggleVisibility}
+                className="p-1 rounded-full hover:bg-white/20 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                title="מזער סרגל לשוניות"
+              >
+                <EyeOff className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
           </div>
-        )}
-      </div>
-    </div>
+        </aside>
+      )}
+    </>
   );
 };
 
@@ -162,14 +324,10 @@ const AppContent: React.FC = () => {
     }
   }, [location.pathname, navigate]);
 
-  const isDevelopment = typeof window !== 'undefined' && 
-    (window.location.search.includes('dev=true') || 
-     window.location.hash.includes('dev=true'));
-
   return (
     <>
       <ScrollToTop />
-      {isDevelopment && <InternalNav />}
+      <InternalNav />
       <Routes>
         {/* Central Master Brand Landing Page (All Products & Retreats - מרחבים לנשים) */}
         {/* On ben-lven-mwm.netlify.app this is the pilot page protected by passcode 9672 */}

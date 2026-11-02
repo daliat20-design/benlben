@@ -57,6 +57,7 @@ export const InquiriesResponsesPage: React.FC = () => {
   const [inquiries, setInquiries] = useState<InquirySubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'midlife' | 'general'>('all');
   const [selectedInquiry, setSelectedInquiry] = useState<InquirySubmission | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -202,7 +203,20 @@ export const InquiriesResponsesPage: React.FC = () => {
     setTimeout(() => setCopiedId(null), 2500);
   };
 
+  const midlifeCount = inquiries.filter(
+    (inq) =>
+      (inq.source && inq.source.includes('אמצע החיים')) ||
+      (inq.programs && inq.programs.some((p) => p.includes('אמצע החיים')))
+  ).length;
+
   const filteredInquiries = inquiries.filter((inq) => {
+    const isMidlife =
+      (inq.source && inq.source.includes('אמצע החיים')) ||
+      (inq.programs && inq.programs.some((p) => p.includes('אמצע החיים')));
+
+    if (categoryFilter === 'midlife' && !isMidlife) return false;
+    if (categoryFilter === 'general' && isMidlife) return false;
+
     if (!searchTerm.trim()) return true;
     const term = searchTerm.toLowerCase();
     return (
@@ -449,6 +463,43 @@ export const InquiriesResponsesPage: React.FC = () => {
               <Search className="w-4 h-4 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
             </div>
           </div>
+        </div>
+
+        {/* Quick Filter Tabs */}
+        <div className="flex flex-wrap items-center gap-2 mb-6">
+          <button
+            onClick={() => setCategoryFilter('all')}
+            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer ${
+              categoryFilter === 'all'
+                ? 'bg-brand-green text-white shadow-sm'
+                : 'bg-white text-gray-700 border border-brand-beige hover:bg-brand-cream'
+            }`}
+          >
+            כל הפניות ({inquiries.length})
+          </button>
+          
+          <button
+            onClick={() => setCategoryFilter('midlife')}
+            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+              categoryFilter === 'midlife'
+                ? 'bg-[#C56B3E] text-white shadow-sm ring-2 ring-amber-300'
+                : 'bg-white text-[#C56B3E] border border-[#C56B3E]/30 hover:bg-[#FFF4EB]'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <span>מתעניינות בסדנת אמצע החיים ({midlifeCount})</span>
+          </button>
+
+          <button
+            onClick={() => setCategoryFilter('general')}
+            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer ${
+              categoryFilter === 'general'
+                ? 'bg-brand-green text-white shadow-sm'
+                : 'bg-white text-gray-700 border border-brand-beige hover:bg-brand-cream'
+            }`}
+          >
+            פניות כלליות מהאתר ({inquiries.length - midlifeCount})
+          </button>
         </div>
 
         {/* Content Area */}

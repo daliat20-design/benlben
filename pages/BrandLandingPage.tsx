@@ -99,7 +99,7 @@ const ALL_PROGRAMS: ProgramCardTheme[] = [
     icon: Flower2,
     logoUrl: MIDLIFE_LOGO_URL,
     logoFallback: MIDLIFE_LOGO_FALLBACK,
-    link: '/p/midlife',
+    link: '/midlife-workshop',
     cardBg: 'bg-gradient-to-b from-[#fffbf7] via-[#fff7ef] to-[#ffeedd]',
     borderStyle: 'border-2 border-brand-orange/60 ring-2 ring-brand-orange/20 shadow-[0_12px_40px_rgba(203,119,69,0.15)] hover:border-brand-orange hover:shadow-2xl',
     iconBoxStyle: 'bg-brand-orange/20 text-brand-orange border border-brand-orange/40 shadow-xs',
@@ -381,9 +381,9 @@ export const BrandLandingPage: React.FC = () => {
                 {/* רשת קישורים לתוכניות */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
                   
-                  {/* אממצע החיים */}
+                  {/* אמצע החיים */}
                   <Link
-                    to="/p/midlife"
+                    to="/midlife-workshop"
                     onClick={() => setIsNavOpen(false)}
                     className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200 hover:border-brand-orange transition-all text-right group shadow-2xs"
                   >

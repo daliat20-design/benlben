@@ -63,7 +63,7 @@ export const ALL_BRAND_PROGRAMS: BrandProgram[] = [
     icon: Flower2,
     logoUrl: MIDLIFE_LOGO_URL,
     logoFallback: MIDLIFE_LOGO_FALLBACK,
-    link: '#/p/midlife'
+    link: '#/midlife-workshop'
   },
   {
     id: 'ahead-of-you',
