@@ -560,8 +560,8 @@ export const MainWebsite: React.FC = () => {
           <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6 sm:space-y-8">
             
             {/* לוגו עגול בולט */}
-            <div className="flex justify-center mb-4 sm:mb-6">
-              <div className="w-32 h-32 sm:w-44 sm:h-44 rounded-full bg-white p-3 border-4 border-brand-green/30 shadow-xl flex items-center justify-center">
+            <div className="flex justify-center mb-3 sm:mb-4">
+              <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-white p-2.5 border-4 border-brand-green/30 shadow-xl flex items-center justify-center">
                 <img 
                   src={MAIN_BRAND_LOGO_URL} 
                   alt="בין לבין לוגו" 
@@ -576,60 +576,35 @@ export const MainWebsite: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-1.5">
-              <span className="text-xs sm:text-sm font-black tracking-widest text-brand-green/80 uppercase">
+            {/* שם המותג גדול במיוחד + מרחבים לנשים ככותרת משנה מתחת ללוגו */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-brand-green tracking-tight leading-none">
                 בין לבין
-              </span>
-              <span className="text-xl sm:text-2xl font-black text-brand-orange">
+              </h1>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-black text-brand-orange tracking-tight">
                 מרחבים לנשים
-              </span>
+              </p>
             </div>
 
-            {/* כותרת ראשית (H1) לפי המלל המדויק */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-brand-green tracking-tight leading-tight max-w-3xl mx-auto">
-              אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו.
-            </h1>
-
-            {/* שאלה פותחת מודגשת */}
-            <p className="text-lg sm:text-2xl font-black text-brand-orange max-w-2xl mx-auto leading-snug">
-              רגע, מי החליט שעם השנים האפשרויות שלנו מצטמצמות?
-            </p>
-
-            {/* המניפסט השלם של בין לבין */}
-            <div className="max-w-2xl mx-auto bg-white/95 backdrop-blur-sm p-6 sm:p-9 rounded-3xl border border-brand-orange/30 shadow-md text-right space-y-4">
-              <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-normal">
-                נכון, יש דברים שמשתנים. הגוף לא תמיד משתף פעולה, החיים מזיזים לנו את הגבינה ולפעמים יותר מזה. אבל בואי, לא הגענו עד לכאן בידיים ריקות.
+            {/* משפט מוביל ושאלת פתיחה - ממורכז, שורה מתחת לשורה ובלי נקודה בסוף */}
+            <div className="max-w-3xl mx-auto space-y-3 pt-2 sm:pt-3">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-snug flex flex-col items-center justify-center text-center">
+                <span>אנחנו לא סופרות שנים</span>
+                <span className="text-brand-green sm:text-gray-900 mt-1 sm:mt-2">
+                  אנחנו משתמשות בהן לטובתנו
+                </span>
+              </h2>
+              <p className="text-lg sm:text-2xl md:text-3xl font-black text-brand-orange leading-snug text-center">
+                מי החליט שעם השנים האפשרויות שלנו מצטמצמות?
               </p>
-              
-              <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-normal">
-                צברנו ניסיון, ידע, קשרים, חוכמת חיים והיכרות עם עצמנו שלא הייתה לנו פעם. אז למה שלא נשתמש בכל אלה כדי להפיק יותר ממה שעוד לפנינו?
-              </p>
-
-              <p className="text-lg sm:text-xl font-black text-brand-green pt-1">
-                בדיוק מהחשיבה הזו נולדה בין לבין.
-              </p>
-
-              <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-normal">
-                יצרנו מרחבים נשיים שמשלבים <strong className="font-black text-brand-orange">מפגש, תוכן וחוויה</strong> בדרכים קצת אחרות: סדנאות, תוכניות עומק, חוויות דרך ומפגשים שמביאים איתם ידע חדש, התנסויות, אנשים מעניינים והרבה מקום להנאה ולגילוי.
-              </p>
-
-              <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-normal">
-                כל מרחב פוגש תקופה אחרת בחיים, רצון אחר או משהו שמתחשק לך לנסות.
-              </p>
-
-              <div className="pt-4 border-t border-brand-beige">
-                <p className="text-base sm:text-lg font-black text-brand-green leading-snug text-center">
-                  אז מה מתאים לך עכשיו? יש לנו הרגשה שנצליח להפתיע אותך, לגלות את המרחב שמתאים לך עכשיו
-                </p>
-              </div>
             </div>
 
-            {/* כפתורי פעולה ב-Hero */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            {/* כפתורי פעולה מרכזיים - נגישים מיד בלי גלילה ארוכה! */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 pb-2">
               <button
                 type="button"
                 onClick={() => scrollToSection('programs')}
-                className="w-full sm:w-auto px-8 py-4 bg-brand-orange hover:bg-brand-green text-white font-black text-base sm:text-lg rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                className="w-full sm:w-auto px-9 py-4 bg-brand-orange hover:bg-brand-green text-white font-black text-lg sm:text-xl rounded-2xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
               >
                 לתוכניות והמרחבים שלנו
               </button>
@@ -637,11 +612,61 @@ export const MainWebsite: React.FC = () => {
                 href={whatsappGeneralUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-6 py-4 bg-white hover:bg-gray-50 text-gray-800 font-bold text-base rounded-2xl border border-gray-300 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="w-full sm:w-auto px-7 py-4 bg-white hover:bg-gray-50 text-gray-800 font-black text-base sm:text-lg rounded-2xl border border-gray-300 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5 text-emerald-600" />
                 <span>דברי איתנו בוואטסאפ</span>
               </a>
+            </div>
+
+            {/* פירוק המניפסט ל-3 כרטיסי נשימה מאווררים ומעוצבים בגופנים מוגדלים וקריאים */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 text-right max-w-4xl mx-auto pt-3">
+              
+              {/* כרטיס 1: חוכמת החיים שנצברה */}
+              <div className="bg-white/90 backdrop-blur-sm p-6 sm:p-7 rounded-3xl border border-brand-beige shadow-xs flex flex-col justify-between space-y-3.5 hover:border-brand-orange/40 transition-colors">
+                <div className="w-11 h-11 rounded-2xl bg-brand-orange/15 text-brand-orange flex items-center justify-center font-black">
+                  <Sun className="w-6 h-6" />
+                </div>
+                <div className="space-y-3 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                  <p>
+                    נכון, יש דברים שמשתנים. הגוף לא תמיד משתף פעולה, החיים מזיזים לנו את הגבינה ולפעמים יותר מזה. אבל בואי, לא הגענו עד לכאן בידיים ריקות.
+                  </p>
+                  <p className="font-bold text-gray-900 pt-1">
+                    צברנו ניסיון, ידע, קשרים, חוכמת חיים והיכרות עם עצמנו שלא הייתה לנו פעם. אז למה שלא נשתמש בכל אלה כדי להפיק יותר ממה שעוד לפנינו?
+                  </p>
+                </div>
+              </div>
+
+              {/* כרטיס 2: המהות של בין לבין */}
+              <div className="bg-white/95 backdrop-blur-sm p-6 sm:p-7 rounded-3xl border-2 border-brand-orange/35 shadow-xs flex flex-col justify-between space-y-3.5 ring-2 ring-brand-orange/10 hover:border-brand-orange transition-colors">
+                <div className="w-11 h-11 rounded-2xl bg-brand-green/15 text-brand-green flex items-center justify-center font-black">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div className="space-y-3 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                  <h3 className="text-lg sm:text-xl font-black text-brand-green">
+                    בדיוק מהחשיבה הזו נולדה בין לבין.
+                  </h3>
+                  <p>
+                    יצרנו מרחבים נשיים שמשלבים <strong className="font-black text-brand-orange">מפגש, תוכן וחוויה</strong> בדרכים קצת אחרות: סדנאות, תוכניות עומק, חוויות דרך ומפגשים שמביאים איתם ידע חדש, התנסויות, אנשים מעניינים והרבה מקום להנאה ולגילוי.
+                  </p>
+                </div>
+              </div>
+
+              {/* כרטיס 3: ההזמנה האישית אלייך */}
+              <div className="bg-white/90 backdrop-blur-sm p-6 sm:p-7 rounded-3xl border border-brand-beige shadow-xs flex flex-col justify-between space-y-3.5 hover:border-brand-orange/40 transition-colors">
+                <div className="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-600 flex items-center justify-center font-black">
+                  <Compass className="w-6 h-6" />
+                </div>
+                <div className="space-y-3 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                  <p>
+                    כל מרחב פוגש תקופה אחרת בחיים, רצון אחר או משהו שמתחשק לך לנסות.
+                  </p>
+                  <p className="font-black text-brand-green pt-1 text-base sm:text-lg leading-snug">
+                    אז מה מתאים לך עכשיו? יש לנו הרגשה שנצליח להפתיע אותך, לגלות את המרחב שמתאים לך עכשיו.
+                  </p>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -666,9 +691,9 @@ export const MainWebsite: React.FC = () => {
               <div className="h-1 w-20 bg-brand-orange mx-auto mt-3 rounded-full opacity-60"></div>
             </div>
 
-            {/* סרגל לשוניות בחירה בין 6 המוצרים: כל לשונית בצבע הייחודי של התוכנית עוד לפני הלחיצה! */}
-            <div className="mb-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto no-scrollbar pb-2">
-              <div className="flex items-stretch sm:justify-center gap-2 sm:gap-2.5 min-w-max">
+            {/* סרגל לשוניות בחירה בין 6 המוצרים: 2 שורות, 3 בכל שורה – כך שכולן נראות בבת אחת ללא צורך בגלילה! */}
+            <div className="mb-6 max-w-4xl mx-auto">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {WEBSITE_PRODUCTS.map((prod, idx) => {
                   const isActive = activeProductIdx === idx;
                   return (
@@ -676,17 +701,17 @@ export const MainWebsite: React.FC = () => {
                       key={prod.id}
                       type="button"
                       onClick={() => setActiveProductIdx(idx)}
-                      className={`px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-right transition-all flex flex-col justify-center cursor-pointer whitespace-nowrap ${
+                      className={`p-2.5 sm:py-3.5 sm:px-4 rounded-2xl text-center sm:text-right transition-all flex flex-col justify-center cursor-pointer ${
                         isActive ? prod.tabActiveStyle : prod.tabInactiveStyle
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 justify-between">
-                        <span className="text-xs sm:text-sm font-black tracking-tight">{prod.name}</span>
+                      <div className="flex items-center gap-1 sm:gap-1.5 justify-center sm:justify-between">
+                        <span className="text-xs sm:text-base font-black tracking-tight">{prod.name}</span>
                         {prod.isFlagship && (
                           <Crown className={`w-3 h-3 fill-current shrink-0 ${isActive ? 'text-amber-300' : 'text-[#C56B3E]'}`} />
                         )}
                       </div>
-                      <span className={`text-[11px] font-bold leading-tight mt-0.5 ${isActive ? 'text-white/95' : 'opacity-90'}`}>
+                      <span className={`text-[10px] sm:text-xs font-bold leading-tight mt-1 ${isActive ? 'text-white/95' : 'opacity-90'}`}>
                         {prod.tabSubtitle}
                       </span>
                     </button>
