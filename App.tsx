@@ -17,6 +17,8 @@ import AheadOfYouMiniPage from './pages/mini/AheadOfYouMiniPage';
 import FlowTripsMiniPage from './pages/mini/FlowTripsMiniPage';
 import MiniPagesManager from './pages/mini/MiniPagesManager';
 import BrandLandingPage from './pages/BrandLandingPage';
+import MainWebsite from './pages/MainWebsite';
+import MidlifeMovementPage from './pages/MidlifeMovementPage';
 import PasscodeProtected from './components/PasscodeProtected';
 
 import { 
@@ -24,8 +26,57 @@ import {
   ChevronDown, 
   Eye, 
   EyeOff, 
-  Layers 
+  Layers,
+  ArrowRight
 } from 'lucide-react';
+
+const FloatingReturnToWebsite: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Hide on main website routes
+  const isMainSite = 
+    location.pathname === '/' || 
+    location.pathname === '/home' || 
+    location.pathname === '/site' || 
+    location.pathname === '/website';
+
+  if (isMainSite) {
+    return null;
+  }
+
+  // Determine target section based on query params or previous navigation
+  const searchParams = new URLSearchParams(location.search);
+  const fromParam = searchParams.get('from');
+  const targetSection = fromParam === 'testimonials' ? 'testimonials' : 'programs';
+  const subtitle = targetSection === 'testimonials' ? 'לאזור ההמלצות' : 'לאזור התוכניות';
+
+  const handleReturn = () => {
+    navigate(`/?section=${targetSection}`);
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-[9995] font-sans" dir="rtl">
+      <button
+        type="button"
+        onClick={handleReturn}
+        className="group flex items-center gap-2.5 bg-gradient-to-r from-[#2D5043] to-[#1E362D] hover:from-[#C56B3E] hover:to-[#A8582D] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl border-2 border-white/90 text-xs sm:text-sm font-black transition-all transform hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
+        title="חזרה לאתר הבית של בין לבין"
+        aria-label="חזרה לאתר הבית של בין לבין"
+      >
+        <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform">
+          <ArrowRight className="w-3.5 h-3.5 text-white" />
+        </span>
+        <div className="flex flex-col text-right">
+          <span className="leading-none text-xs sm:text-sm font-black">חזרה לאתר הבית</span>
+          <span className="text-[10px] text-amber-200/90 font-medium mt-0.5">
+            {subtitle}
+          </span>
+        </div>
+      </button>
+    </div>
+  );
+};
 
 const InternalNav: React.FC = () => {
   const location = useLocation();
@@ -63,16 +114,28 @@ const InternalNav: React.FC = () => {
 
   const mainTabs = [
     { 
-      id: 'midlife-workshop', 
-      name: 'סדנת אמצע החיים (דף הנחיתה הראשי)', 
-      path: '/midlife-workshop', 
+      id: 'main-website', 
+      name: 'אתר הבית (ראשי)', 
+      path: '/', 
       isFlagship: true,
+      badge: 'האתר'
+    },
+    { 
+      id: 'home-landing', 
+      name: 'דף הבית נחיתה (קודם)', 
+      path: '/home-landing' 
+    },
+    { 
+      id: 'midlife-workshop', 
+      name: 'סדנת אמצע החיים (דף הנחיתה)', 
+      path: '/midlife-workshop', 
       badge: 'הדגל'
     },
     { 
-      id: 'brand-home', 
-      name: 'דף הבית (האתר הראשי / כל המרחבים)', 
-      path: '/' 
+      id: 'midlife-movement', 
+      name: 'עד 180°: מרעיון לתנועה', 
+      path: '/midlife-movement',
+      isMovement: true
     },
     { 
       id: 'mwm', 
@@ -152,8 +215,10 @@ const InternalNav: React.FC = () => {
               <div className="flex items-center flex-wrap gap-1.5">
                 {mainTabs.map((tab) => {
                   const isActive = currentPath === tab.path || 
-                    (tab.path === '/' && currentPath === '') ||
+                    (tab.id === 'main-website' && (currentPath === '' || currentPath === '/' || currentPath === '/home' || currentPath === '/site' || currentPath === '/website')) ||
+                    (tab.id === 'home-landing' && (currentPath === '/home-landing' || currentPath === '/brand-landing' || currentPath === '/landing' || currentPath === '/all-programs' || currentPath === '/women-programs')) ||
                     (tab.id === 'midlife-workshop' && (currentPath === '/midlife-workshop' || currentPath === '/midlife-full' || currentPath === '/workshop')) ||
+                    (tab.id === 'midlife-movement' && (currentPath === '/midlife-movement' || currentPath === '/movement' || currentPath === '/motion')) ||
                     (tab.id === 'responses' && (currentPath === '/responses' || currentPath === '/inquiries'));
 
                   return (
@@ -166,6 +231,12 @@ const InternalNav: React.FC = () => {
                               isActive
                                 ? 'bg-[#C56B3E] text-white ring-2 ring-amber-300 shadow-md font-black scale-105'
                                 : 'bg-gradient-to-r from-[#C56B3E]/90 to-[#B85D19]/90 text-white hover:brightness-110 border border-amber-300/40'
+                            }`
+                          : tab.isMovement
+                          ? `px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
+                              isActive
+                                ? 'bg-[#204C8E] text-white ring-2 ring-sky-300 shadow-md font-black scale-105'
+                                : 'bg-[#204C8E]/85 text-white hover:bg-[#204C8E] border border-blue-300/40'
                             }`
                           : tab.isHighlight
                           ? `px-2.5 py-1 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -282,7 +353,7 @@ const FallbackRoute: React.FC = () => {
     return <LandingPage />;
   }
 
-  return <BrandLandingPage />;
+  return <MainWebsite />;
 };
 
 const RootPage: React.FC = () => {
@@ -292,7 +363,7 @@ const RootPage: React.FC = () => {
   if (isBenLvenMwmHost) {
     return <LandingPage />;
   }
-  return <BrandLandingPage />;
+  return <MainWebsite />;
 };
 
 const AppContent: React.FC = () => {
@@ -328,10 +399,17 @@ const AppContent: React.FC = () => {
     <>
       <ScrollToTop />
       <InternalNav />
+      <FloatingReturnToWebsite />
       <Routes>
-        {/* Central Master Brand Landing Page (All Products & Retreats - מרחבים לנשים) */}
-        {/* On ben-lven-mwm.netlify.app this is the pilot page protected by passcode 9672 */}
+        {/* אתר הבית החדש של בין לבין - בית נשי לתוכן, חוויה ומפגש */}
         <Route path="/" element={<RootPage />} />
+        <Route path="/home" element={<MainWebsite />} />
+        <Route path="/site" element={<MainWebsite />} />
+        <Route path="/website" element={<MainWebsite />} />
+
+        {/* דף הבית נחיתה - הדף הקודם שנשמר במלואו כפי שביקשה */}
+        <Route path="/home-landing" element={<BrandLandingPage />} />
+        <Route path="/brand-landing" element={<BrandLandingPage />} />
         <Route path="/women-programs" element={<BrandLandingPage />} />
         <Route path="/all-programs" element={<BrandLandingPage />} />
         <Route path="/programs" element={<BrandLandingPage />} />
@@ -345,6 +423,11 @@ const AppContent: React.FC = () => {
         <Route path="/workshop" element={<LandingPage />} />
         <Route path="/marketing" element={<MarketingPage />} />
         <Route path="/midlife-landing" element={<MarketingPage />} />
+        
+        {/* אמצע החיים: מרעיון לתנועה - דף נחיתה עצמאי */}
+        <Route path="/midlife-movement" element={<MidlifeMovementPage />} />
+        <Route path="/movement" element={<MidlifeMovementPage />} />
+        <Route path="/motion" element={<MidlifeMovementPage />} />
         
         {/* Independent Product Mini Landing Pages (Each standalone, no cross-navigation) */}
         <Route path="/p/alchemy" element={<AlchemyOfElementsPage />} />
