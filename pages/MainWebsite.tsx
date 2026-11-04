@@ -458,7 +458,7 @@ export const MainWebsite: React.FC = () => {
               onClick={() => scrollToSection('team')} 
               className="hover:text-brand-orange transition-colors cursor-pointer"
             >
-              מי אנחנו
+              נעים להכיר
             </button>
             <button 
               type="button" 
@@ -523,7 +523,7 @@ export const MainWebsite: React.FC = () => {
               onClick={() => scrollToSection('team')}
               className="block w-full py-2.5 text-base font-bold text-gray-800 hover:text-brand-orange border-b border-gray-100 text-right"
             >
-              מי אנחנו (דלית ואלסי)
+              נעים להכיר (דלית ואלסי)
             </button>
             <button
               type="button"
@@ -586,17 +586,30 @@ export const MainWebsite: React.FC = () => {
               </p>
             </div>
 
-            {/* משפט מוביל ושאלת פתיחה - ממורכז, שורה מתחת לשורה ובלי נקודה בסוף */}
+            {/* משפט מוביל פואטי ועמוק */}
             <div className="max-w-3xl mx-auto space-y-3 pt-2 sm:pt-3">
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-snug flex flex-col items-center justify-center text-center">
-                <span>אנחנו לא סופרות שנים</span>
-                <span className="text-brand-green sm:text-gray-900 mt-1 sm:mt-2">
-                  אנחנו משתמשות בהן לטובתנו
-                </span>
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-snug text-center">
+                הדברים הכי מעניינים קורים בין לבין
               </h2>
-              <p className="text-lg sm:text-2xl md:text-3xl font-black text-brand-orange leading-snug text-center">
-                מי החליט שעם השנים האפשרויות שלנו מצטמצמות?
+              <p className="text-base sm:text-xl md:text-2xl font-bold text-gray-700 leading-relaxed text-center max-w-2xl mx-auto">
+                אלה לא תמיד הדברים שבגללם יצאנו מהבית, אבל לא פעם הם בדיוק מה שנשאר איתנו.
               </p>
+            </div>
+
+            {/* 3 רגעי הקסם - מעוצבים כקפסולות אווריריות ונעימות */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-3xl mx-auto pt-1">
+              <div className="px-4 py-2 rounded-full bg-white/95 border border-brand-orange/30 text-gray-800 text-xs sm:text-sm font-bold shadow-2xs flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-brand-orange"></span>
+                <span>שיחה שמפתיעה אותך.</span>
+              </div>
+              <div className="px-4 py-2 rounded-full bg-white/95 border border-brand-green/30 text-gray-800 text-xs sm:text-sm font-bold shadow-2xs flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-brand-green"></span>
+                <span>מפגש שפותח משהו חדש.</span>
+              </div>
+              <div className="px-4 py-2 rounded-full bg-white/95 border border-amber-400/40 text-gray-800 text-xs sm:text-sm font-bold shadow-2xs flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span>חוויה שמעוררת מחשבה שלא הייתה שם קודם.</span>
+              </div>
             </div>
 
             {/* כפתורי פעולה מרכזיים - נגישים מיד בלי גלילה ארוכה! */}
@@ -619,54 +632,25 @@ export const MainWebsite: React.FC = () => {
               </a>
             </div>
 
-            {/* פירוק המניפסט ל-3 כרטיסי נשימה מאווררים ומעוצבים בגופנים מוגדלים וקריאים */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 text-right max-w-4xl mx-auto pt-3">
+            {/* כרטיס המניפסט השלם של בין לבין - מעוצב, נעים ומאוורר */}
+            <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm p-6 sm:p-9 rounded-3xl border border-brand-orange/30 shadow-md text-right space-y-4">
+              <p className="text-lg sm:text-xl font-black text-brand-green leading-snug">
+                בבין לבין אנחנו יוצרות את התנאים לרגעים האלה.
+              </p>
               
-              {/* כרטיס 1: חוכמת החיים שנצברה */}
-              <div className="bg-white/90 backdrop-blur-sm p-6 sm:p-7 rounded-3xl border border-brand-beige shadow-xs flex flex-col justify-between space-y-3.5 hover:border-brand-orange/40 transition-colors">
-                <div className="w-11 h-11 rounded-2xl bg-brand-orange/15 text-brand-orange flex items-center justify-center font-black">
-                  <Sun className="w-6 h-6" />
-                </div>
-                <div className="space-y-3 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
-                  <p>
-                    נכון, יש דברים שמשתנים. הגוף לא תמיד משתף פעולה, החיים מזיזים לנו את הגבינה ולפעמים יותר מזה. אבל בואי, לא הגענו עד לכאן בידיים ריקות.
-                  </p>
-                  <p className="font-bold text-gray-900 pt-1">
-                    צברנו ניסיון, ידע, קשרים, חוכמת חיים והיכרות עם עצמנו שלא הייתה לנו פעם. אז למה שלא נשתמש בכל אלה כדי להפיק יותר ממה שעוד לפנינו?
-                  </p>
-                </div>
-              </div>
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                מתוך שנים של הובלת קהילות נשים למדנו שתוכן טוב הוא רק חלק מהסיפור. החוויה השלמה נוצרת מהאנשים, מהשיחות, מהאווירה ומהחיבורים שבדרך.
+              </p>
 
-              {/* כרטיס 2: המהות של בין לבין */}
-              <div className="bg-white/95 backdrop-blur-sm p-6 sm:p-7 rounded-3xl border-2 border-brand-orange/35 shadow-xs flex flex-col justify-between space-y-3.5 ring-2 ring-brand-orange/10 hover:border-brand-orange transition-colors">
-                <div className="w-11 h-11 rounded-2xl bg-brand-green/15 text-brand-green flex items-center justify-center font-black">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <div className="space-y-3 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
-                  <h3 className="text-lg sm:text-xl font-black text-brand-green">
-                    בדיוק מהחשיבה הזו נולדה בין לבין.
-                  </h3>
-                  <p>
-                    יצרנו מרחבים נשיים שמשלבים <strong className="font-black text-brand-orange">מפגש, תוכן וחוויה</strong> בדרכים קצת אחרות: סדנאות, תוכניות עומק, חוויות דרך ומפגשים שמביאים איתם ידע חדש, התנסויות, אנשים מעניינים והרבה מקום להנאה ולגילוי.
-                  </p>
-                </div>
-              </div>
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                לכן יצרנו מרחבים נשיים שמשלבים <strong className="font-black text-brand-orange">מפגש, תוכן וחוויה</strong> בדרכים קצת אחרות: סדנאות, תוכניות עומק וחוויות דרך שבהן ידע מקצועי, התנסויות מפתיעות, אנשים מעניינים והרבה מקום להנאה מתחברים לחוויה אחת.
+              </p>
 
-              {/* כרטיס 3: ההזמנה האישית אלייך */}
-              <div className="bg-white/90 backdrop-blur-sm p-6 sm:p-7 rounded-3xl border border-brand-beige shadow-xs flex flex-col justify-between space-y-3.5 hover:border-brand-orange/40 transition-colors">
-                <div className="w-11 h-11 rounded-2xl bg-amber-500/15 text-amber-600 flex items-center justify-center font-black">
-                  <Compass className="w-6 h-6" />
-                </div>
-                <div className="space-y-3 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
-                  <p>
-                    כל מרחב פוגש תקופה אחרת בחיים, רצון אחר או משהו שמתחשק לך לנסות.
-                  </p>
-                  <p className="font-black text-brand-green pt-1 text-base sm:text-lg leading-snug">
-                    אז מה מתאים לך עכשיו? יש לנו הרגשה שנצליח להפתיע אותך, לגלות את המרחב שמתאים לך עכשיו.
-                  </p>
-                </div>
+              <div className="pt-4 border-t border-brand-beige text-center">
+                <p className="text-base sm:text-xl font-black text-brand-green leading-snug">
+                  אנחנו יוצרות את המרחב. את כל מה שיכול לקרות בתוכו, אנחנו מגלות יחד
+                </p>
               </div>
-
             </div>
 
           </div>
@@ -676,16 +660,35 @@ export const MainWebsite: React.FC = () => {
         <section id="programs" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-b border-brand-beige/80 relative overflow-hidden">
           <div className="max-w-5xl mx-auto">
             
-            {/* כותרת החלק */}
-            <div className="text-center mb-7 sm:mb-9">
+            {/* כותרת ומבוא למרחבים שלנו לפי המלל המדויק */}
+            <div className="text-center mb-8 sm:mb-10 max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-green text-white rounded-full text-xs sm:text-sm font-black mb-3 shadow-xs">
                 <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
-                <span>המרחבים והתוכניות שלנו</span>
+                <span>המרחבים שלנו</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-green tracking-tight mb-2">
-                בחרי מרחב שמתאים לך עכשיו
+              
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-brand-green tracking-tight mb-4">
+                אז מה מתחשק לך עכשיו?
               </h2>
-              <p className="text-base sm:text-lg text-gray-600 max-w-xl mx-auto font-medium">
+
+              <p className="text-base sm:text-xl font-bold text-gray-800 leading-relaxed mb-4">
+                ללמוד משהו חדש? להכיר נשים מעניינות? להניע רעיון שכבר מזמן מחכה לתורו? אולי פשוט לצאת מהשגרה ולחוות משהו קצת אחר?
+              </p>
+
+              <div className="space-y-2 text-sm sm:text-base text-gray-700 leading-relaxed font-normal mb-5">
+                <p className="font-black text-brand-orange text-base sm:text-lg">
+                  לכל אחת מאיתנו יש את ה&quot;בין לבין&quot; שלה.
+                </p>
+                <p>
+                  יצרנו מרחבים שונים, שכל אחד מהם מציע דרך אחרת לשלב ידע, חוויה ומפגש נשי.
+                </p>
+              </div>
+
+              <div className="inline-block px-5 py-2 rounded-full bg-brand-orange/15 text-brand-orange font-black text-sm sm:text-base mb-4 border border-brand-orange/30">
+                בואי לגלות לאן את מתחברת
+              </div>
+
+              <p className="text-xs sm:text-sm text-gray-500 font-bold">
                 לחצי לדפדוף בין 6 התוכניות.
               </p>
               <div className="h-1 w-20 bg-brand-orange mx-auto mt-3 rounded-full opacity-60"></div>
@@ -903,57 +906,47 @@ export const MainWebsite: React.FC = () => {
           </div>
         </section>
 
-        {/* 4. הסיפור שלנו - דלית ואלסי - חלון מתחלף ממוקד */}
+        {/* 4. נעים להכיר - דלית ואלסי */}
         <section id="team" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-b border-brand-beige/80 relative">
           <div className="max-w-4xl mx-auto text-right">
             
-            <div className="text-center mb-8 sm:mb-10">
-              <h2 className="text-3xl sm:text-5xl font-black text-brand-green tracking-tight mb-2">
-                קצת עלינו
+            {/* כותרת החלק ומבוא */}
+            <div className="text-center mb-8 sm:mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-green/10 text-brand-green rounded-full text-xs sm:text-sm font-black mb-3 border border-brand-green/20">
+                <Users className="w-3.5 h-3.5 text-brand-orange" />
+                <span>נעים להכיר</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-black text-brand-green tracking-tight mb-3">
+                נעים להכיר, אנחנו דלית ואלסי
               </h2>
-              <p className="text-base sm:text-xl text-gray-700 font-bold max-w-xl mx-auto leading-relaxed px-2">
-                הצוות שמאחורי התוכניות, הסדנאות והריטריטים של בין לבין
+              <p className="text-lg sm:text-2xl text-brand-orange font-black max-w-2xl mx-auto leading-relaxed px-2">
+                שתי נשים, עולמות ניסיון שונים ואהבה משותפת לאנשים, לתוכן טוב ולחוויות שנשארות איתנו.
               </p>
-              <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-3 rounded-full opacity-60"></div>
+              <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-4 rounded-full opacity-60"></div>
             </div>
 
-            {/* לשוניות מעבר מהיר בין דלית לאלסי (חוסך גלילה כפולה בנייד) */}
-            <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
-              <button
-                type="button"
-                onClick={() => setActiveTeamMember('dalit')}
-                className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs ${
-                  activeTeamMember === 'dalit'
-                    ? 'bg-brand-green text-white shadow-md ring-2 ring-offset-2 ring-brand-green scale-102'
-                    : 'bg-brand-cream text-gray-700 hover:bg-gray-100 border border-brand-beige'
-                }`}
-              >
-                <span>דלית כורה</span>
-                <span className="text-xs opacity-90 hidden sm:inline">• הוגה ומובילת התוכניות</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setActiveTeamMember('elsie')}
-                className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-sm sm:text-base font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs ${
-                  activeTeamMember === 'elsie'
-                    ? 'bg-brand-orange text-white shadow-md ring-2 ring-offset-2 ring-brand-orange scale-102'
-                    : 'bg-brand-cream text-gray-700 hover:bg-gray-100 border border-brand-beige'
-                }`}
-              >
-                <span>אלסי זיסלמן</span>
-                <span className="text-xs opacity-90 hidden sm:inline">• מנחה וטריינרית NLP</span>
-              </button>
+            {/* פסקאות הפתיחה של הסיפור המשותף */}
+            <div className="max-w-3xl mx-auto bg-brand-cream/60 p-6 sm:p-8 rounded-3xl border border-brand-beige shadow-2xs mb-8 sm:mb-10 text-right space-y-3.5 text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+              <p>
+                כל אחת מאיתנו הגיעה עם דרך משלה, ניסיון מקצועי, תחומי עניין ויכולות שפיתחה לאורך השנים.
+              </p>
+              <p>
+                כשנפגשנו, גילינו שאנחנו חולקות הרבה יותר מאהבה לעשייה עם נשים. שתינו מאמינות שידע יכול להיות מרתק, שמפגש אנושי יכול להפתיע ושחוויה טובה יכולה לפתוח אפשרויות חדשות.
+              </p>
+              <p className="text-lg sm:text-xl font-black text-brand-green pt-1">
+                מתוך החיבור הזה נולדה <strong className="text-brand-orange">בין לבין</strong>.
+              </p>
             </div>
 
-            {/* חלון הצגת חברת הצוות הנבחרת (מונע גלילה ארוכה) */}
-            <div className="animate-in fade-in duration-300">
-              {activeTeamMember === 'dalit' ? (
-                /* כרטיס דלית כורה */
-                <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-md border-2 border-brand-green/30 border-t-8 border-t-brand-green flex flex-col text-right">
+            {/* כרטיסי פרופיל של דלית ואלסי - זו לצד זו */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-10 items-stretch">
+              
+              {/* כרטיס דלית כורה */}
+              <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-md border-2 border-brand-green/30 border-t-8 border-t-brand-green flex flex-col justify-between text-right">
+                <div>
                   <div className="mb-4 text-center flex flex-col items-center">
                     <div className="relative mb-3">
-                      <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-md ring-4 ring-brand-green/25 bg-brand-cream">
+                      <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-white shadow-md ring-4 ring-brand-green/25 bg-brand-cream">
                         <img 
                           src={DALIT_PHOTO_URL} 
                           alt="דלית כורה - בין לבין" 
@@ -962,42 +955,39 @@ export const MainWebsite: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <h3 className="text-2xl sm:text-4xl font-black text-brand-green mb-1 text-center">
+                    <h3 className="text-2xl sm:text-3xl font-black text-brand-green mb-1 text-center">
                       דלית כורה
                     </h3>
-                    <div className="inline-block px-4 py-1 bg-brand-green/10 text-brand-green font-black text-sm rounded-full border border-brand-green/20">
-                      הוגה ומובילת התוכניות
+                    <div className="inline-block px-3.5 py-1 bg-brand-green/10 text-brand-green font-black text-xs sm:text-sm rounded-full border border-brand-green/20">
+                      פיתוח תוכן, קהילות והפקת חוויות
                     </div>
                   </div>
-                  <div className="w-16 h-1 bg-brand-orange mb-5 rounded-full mx-auto"></div>
+                  <div className="w-14 h-1 bg-brand-orange mb-4 rounded-full mx-auto"></div>
                   
-                  <div className="space-y-3.5 text-gray-700 leading-relaxed text-sm sm:text-base font-normal mb-6">
-                    <p>
-                      מתמחה בהובלת פרויקטים, בפיתוח תוכניות ובתרגום רעיונות לתהליכים יישומיים, מדויקים וברורים. לאורך השנים צברה ניסיון בהובלת קהילות נשים, בפיתוח תוכן ובהפקת תוכניות ואירועים, מתוך היכרות עמוקה עם הדרך שבה תוכן, שיח וחוויה מתחברים לתהליך שלם.
-                    </p>
-                    <p className="font-bold text-brand-green text-center text-sm sm:text-base bg-brand-cream/60 p-3 rounded-2xl border border-brand-beige">
-                      ב&quot;בין לבין&quot; דלית מחזיקה את התמונה הגדולה ואת הפרטים הקטנים, ומובילה את התוכניות משלב הרעיון, דרך הפיתוח והדיוק ועד למימוש.
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-gray-100 flex items-center justify-center">
-                    <a
-                      href={dalitWhatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-green hover:bg-[#1e3d31] text-white font-black text-sm shadow-xs hover:shadow-md transition-all cursor-pointer"
-                    >
-                      <WhatsAppIcon className="w-4 h-4 fill-white" />
-                      <span>שיחה ישירה עם דלית בוואטסאפ</span>
-                    </a>
-                  </div>
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-normal mb-6">
+                    בעלת ניסיון רב בהובלת קהילות נשים, בפיתוח תוכניות ובהפקת אירועים וחוויות. אוהבת לזהות הזדמנויות, לחבר בין רעיונות ואנשים ולהפוך מחשבה ראשונית למשהו שאפשר לפגוש, להרגיש ולחוות.
+                  </p>
                 </div>
-              ) : (
-                /* כרטיס אלסי זיסלמן */
-                <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-md border-2 border-brand-orange/30 border-t-8 border-t-brand-orange flex flex-col text-right">
+
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-center">
+                  <a
+                    href={dalitWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-green hover:bg-[#1e3d31] text-white font-black text-xs sm:text-sm shadow-xs hover:shadow-md transition-all cursor-pointer"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 fill-white" />
+                    <span>שיחה ישירה עם דלית בוואטסאפ</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* כרטיס אלסי זיסלמן */}
+              <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-md border-2 border-brand-orange/30 border-t-8 border-t-brand-orange flex flex-col justify-between text-right">
+                <div>
                   <div className="mb-4 text-center flex flex-col items-center">
                     <div className="relative mb-3">
-                      <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-md ring-4 ring-brand-orange/25 bg-brand-cream">
+                      <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-white shadow-md ring-4 ring-brand-orange/25 bg-brand-cream">
                         <img 
                           src={ELSIE_PHOTO_URL} 
                           alt="אלסי זיסלמן - בין לבין" 
@@ -1006,37 +996,55 @@ export const MainWebsite: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <h3 className="text-2xl sm:text-4xl font-black text-brand-green mb-1 text-center">
+                    <h3 className="text-2xl sm:text-3xl font-black text-brand-green mb-1 text-center">
                       אלסי זיסלמן
                     </h3>
-                    <div className="inline-block px-4 py-1 bg-brand-orange/10 text-brand-orange font-black text-sm rounded-full border border-brand-orange/20">
-                      מנחה ומרצה, טריינרית NLP
+                    <div className="inline-block px-3.5 py-1 bg-brand-orange/10 text-brand-orange font-black text-xs sm:text-sm rounded-full border border-brand-orange/20">
+                      הנחיה, הרצאות וליווי תהליכים
                     </div>
                   </div>
-                  <div className="w-16 h-1 bg-brand-green mb-5 rounded-full mx-auto"></div>
+                  <div className="w-14 h-1 bg-brand-green mb-4 rounded-full mx-auto"></div>
                   
-                  <div className="space-y-3.5 text-gray-700 leading-relaxed text-sm sm:text-base font-normal mb-6">
-                    <p>
-                      מלווה תהליכים אישיים וקבוצתיים של שינוי, התבוננות וקבלת החלטות. בעלת ניסיון בהנחיית קבוצות ובעבודה עם נשים, ומביאה לתוכניות כלים מעולם ה־NLP לצד יכולת להוביל שיח שמאפשר להתבונן, לדייק ולנוע קדימה.
-                    </p>
-                    <p className="font-bold text-brand-green text-center text-sm sm:text-base bg-brand-cream/60 p-3 rounded-2xl border border-brand-beige">
-                      ב&quot;בין לבין&quot; אלסי מובילה את תהליכי ההתבוננות והשיח, ומסייעת לנשים לתרגם תובנות לבחירות ולצעדים מעשיים.
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-gray-100 flex items-center justify-center">
-                    <a
-                      href={elsieWhatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-orange hover:bg-[#a8582d] text-white font-black text-sm shadow-xs hover:shadow-md transition-all cursor-pointer"
-                    >
-                      <WhatsAppIcon className="w-4 h-4 fill-white" />
-                      <span>שיחה ישירה עם אלסי בוואטסאפ</span>
-                    </a>
-                  </div>
+                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-normal mb-6">
+                    מנחה, מרצה וטריינרית NLP, בעלת ניסיון בליווי תהליכים אישיים וקבוצתיים. מביאה ידע מקצועי, כלים מעשיים ויכולת ליצור מרחב שמזמין שיחה פתוחה, התנסות והתבוננות מזוויות חדשות.
+                  </p>
                 </div>
-              )}
+
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-center">
+                  <a
+                    href={elsieWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-orange hover:bg-[#a8582d] text-white font-black text-xs sm:text-sm shadow-xs hover:shadow-md transition-all cursor-pointer"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 fill-white" />
+                    <span>שיחה ישירה עם אלסי בוואטסאפ</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            {/* כרטיס סינרגיה: ומה קורה כשאנחנו נפגשות? */}
+            <div className="bg-gradient-to-br from-[#fffdfa] via-white to-[#fff8f0] p-6 sm:p-9 rounded-3xl border-2 border-brand-orange/30 shadow-md text-right space-y-4">
+              <h3 className="text-xl sm:text-2xl font-black text-brand-green flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-brand-orange" />
+                <span>ומה קורה כשאנחנו נפגשות?</span>
+              </h3>
+              
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                אנחנו חושבות יחד, מפתחות רעיונות, מחפשות את החיבורים המעניינים ובוחרות בקפידה את האנשים, התוכן והחוויות שירכיבו כל תוכנית.
+              </p>
+              
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-normal">
+                כל אחת מאיתנו מביאה ניסיון, יכולות ונקודת מבט משלה. אנחנו אוהבות את הדרך שבה רעיון מתגלגל בינינו, מקבל עוד זווית, עוד אפשרות, עוד חיבור, עד שהוא הופך למשהו שאף אחת מאיתנו לא הייתה חושבת עליו בדיוק כך לבד.
+              </p>
+
+              <div className="pt-3 border-t border-brand-orange/20">
+                <p className="text-base sm:text-xl font-black text-brand-green leading-snug">
+                  את אותה הנאה שביצירה ובגילוי אנחנו מביאות גם למרחבים שאנחנו יוצרות עבורכן
+                </p>
+              </div>
             </div>
 
           </div>
