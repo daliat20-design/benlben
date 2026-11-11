@@ -15,7 +15,7 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
     
-    <meta name="theme-color" content="#54634f">
+    <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/webp" href="/logos/brand-main.webp">
     <link rel="apple-touch-icon" href="/logos/brand-main.webp">
     <link rel="apple-touch-icon-precomposed" href="/logos/brand-main.webp">
@@ -62,6 +62,25 @@
                 if (isRecipes) {
                     if (window.location.hash !== '#/recipes' || (window.location.pathname !== '/' && window.location.pathname !== '')) {
                         window.location.replace('/#/recipes' + (s ? s : ''));
+                        return;
+                    }
+                }
+
+                // If visiting Soul Training (Reut gym collaboration)
+                var isSoul = p.includes('reut') || 
+                             p.includes('soul') || 
+                             h.includes('reut') || 
+                             h.includes('soul') || 
+                             params.has('reut') || 
+                             params.has('soul') || 
+                             params.get('p') === 'reut' || 
+                             params.get('page') === 'reut' || 
+                             params.get('p') === 'soul' || 
+                             params.get('page') === 'soul';
+
+                if (isSoul) {
+                    if (!window.location.hash.includes('reut') && !window.location.hash.includes('soul')) {
+                        window.location.replace('/#/reut' + (s ? s : ''));
                         return;
                     }
                 }

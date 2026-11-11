@@ -34,14 +34,16 @@ const FloatingReturnToWebsite: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Hide on main website routes
-  const isMainSite = 
+  // Hide on main website routes and on soul training landing page
+  const isExcluded = 
     location.pathname === '/' || 
     location.pathname === '/home' || 
     location.pathname === '/site' || 
-    location.pathname === '/website';
+    location.pathname === '/website' ||
+    location.pathname.includes('reut') ||
+    location.pathname.includes('soul');
 
-  if (isMainSite) {
+  if (isExcluded) {
     return null;
   }
 
@@ -359,6 +361,20 @@ const FallbackRoute: React.FC = () => {
     return <Recipes />;
   }
 
+  const isSoulIntent = 
+    currentPath.includes('reut') || 
+    currentPath.includes('soul') || 
+    currentSearch.includes('reut') || 
+    currentSearch.includes('soul') || 
+    rawHash.includes('reut') || 
+    rawHash.includes('soul') || 
+    rawHref.includes('reut') || 
+    rawHref.includes('soul');
+
+  if (isSoulIntent) {
+    return <SoulTrainingPage />;
+  }
+
   const isBenLvenMwmHost = typeof window !== 'undefined' && 
     window.location.hostname.toLowerCase().includes('ben-lven-mwm');
 
@@ -376,6 +392,28 @@ const RootPage: React.FC = () => {
   if (isBenLvenMwmHost) {
     return <LandingPage />;
   }
+
+  if (typeof window !== 'undefined') {
+    const rawHref = (window.location.href || '').toLowerCase();
+    const rawHash = (window.location.hash || '').toLowerCase();
+    const rawSearch = (window.location.search || '').toLowerCase();
+    const rawPath = (window.location.pathname || '').toLowerCase();
+
+    const isSoulIntent = 
+      rawHref.includes('reut') || 
+      rawHref.includes('soul') || 
+      rawHash.includes('reut') || 
+      rawHash.includes('soul') || 
+      rawPath.includes('reut') || 
+      rawPath.includes('soul') || 
+      rawSearch.includes('reut') || 
+      rawSearch.includes('soul');
+
+    if (isSoulIntent) {
+      return <SoulTrainingPage />;
+    }
+  }
+
   return <MainWebsite />;
 };
 
@@ -405,6 +443,21 @@ const AppContent: React.FC = () => {
 
     if (isRecipeIntent && location.pathname !== '/recipes') {
       navigate('/recipes', { replace: true });
+      return;
+    }
+
+    const isSoulIntent = 
+      rawHref.includes('reut') || 
+      rawHref.includes('soul') || 
+      rawHash.includes('reut') || 
+      rawHash.includes('soul') || 
+      rawPath.includes('reut') || 
+      rawPath.includes('soul') || 
+      rawSearch.includes('reut') || 
+      rawSearch.includes('soul');
+
+    if (isSoulIntent && !location.pathname.includes('reut') && !location.pathname.includes('soul')) {
+      navigate('/reut', { replace: true });
     }
   }, [location.pathname, navigate]);
 
