@@ -279,9 +279,9 @@ export const SoulTrainingPage: React.FC = () => {
     { label: '4 המפגשים', id: 'soul-sessions' },
     { label: 'פרטים נוספים', id: 'logistics' },
     { label: 'גלריית תמונות', id: 'gallery' },
-    { label: 'מה אומרות המשתתפות', id: 'testimonials' },
     { label: 'נבחרת המרצות', id: 'speakers' },
     { label: 'נעים להכיר (דלית ואלסי)', id: 'team' },
+    { label: 'מה אומרות המשתתפות', id: 'testimonials' },
     { label: 'שמירת מקום והרשמה', id: 'soul-interest', isHighlight: true },
   ];
 
@@ -638,121 +638,9 @@ export const SoulTrainingPage: React.FC = () => {
       </section>
 
       {/* 5. AUTHENTIC PHOTO GALLERY WINDOW (RIGHT AFTER SESSIONS) */}
-      <BrandGallerySlider />
+      <BrandGallerySlider title="טעימה מהסדנאות והריטריטים שלנו" />
 
-      {/* 6. TESTIMONIALS - WOMEN SHARE FROM THE HEART IN A FOCUSED WINDOW */}
-      <section id="testimonials" className="py-14 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#FFFDF9] via-white to-[#F0FDF4]/40 border-b border-slate-200 relative overflow-hidden scroll-mt-20">
-        <div className="max-w-4xl mx-auto relative text-right">
-          
-          {/* Section Header */}
-          <div className="text-center mb-8 sm:mb-12 space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#C56B3E]/15 text-[#C56B3E] rounded-full text-xs sm:text-sm font-black mb-1">
-              <Heart className="w-3.5 h-3.5 fill-current" />
-              <span>מילים מהלב • נשים מספרות</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-              ממליצות עלינו באהבה
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto font-medium">
-              רשמים וחוויות מהלב מתוך סדנת אמצע החיים והמפגשים של "בין לבין":
-            </p>
-            <div className="h-1 w-20 bg-gradient-to-r from-[#0E7490] to-[#C56B3E] mx-auto rounded-full mt-3"></div>
-          </div>
-
-          {/* Testimonial Single Focused Window */}
-          {currentTestimonial && (
-            <div className="max-w-2xl mx-auto">
-              <div 
-                onTouchStart={handleTestTouchStart}
-                onTouchEnd={handleTestTouchEnd}
-                style={{ touchAction: 'pan-y' }}
-                className="bg-white rounded-3xl p-6 sm:p-9 border-2 border-[#0E7490]/25 shadow-lg text-right relative flex flex-col justify-between min-h-[250px] sm:min-h-[270px] animate-in fade-in duration-300 select-none"
-              >
-                <ButterflyIcon size={40} className="absolute top-4 left-4 opacity-10 text-[#0E7490]" />
-
-                {/* Top card bar: Program tag, Stars rating & Arrows */}
-                <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-xs font-black px-3 py-1 rounded-full border ${currentTestimonial.programColor}`}>
-                      {currentTestimonial.program}
-                    </span>
-                    <div className="flex items-center gap-0.5 text-amber-400">
-                      {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className="w-3.5 h-3.5 fill-current" />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Navigation arrows inside card */}
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={prevTestimonial}
-                      className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#0E7490] transition-colors cursor-pointer"
-                      title="המלצה קודמת"
-                      aria-label="המלצה קודמת"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                    <span className="text-xs font-black text-slate-400 px-1">
-                      {activeTestimonialIdx + 1}/{SOUL_TESTIMONIALS.length}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={nextTestimonial}
-                      className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#0E7490] transition-colors cursor-pointer"
-                      title="המלצה הבאה"
-                      aria-label="המלצה הבאה"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Quote body */}
-                <div className="mb-6 space-y-2">
-                  <Quote className="w-6 h-6 text-[#0E7490]/30 rotate-180" />
-                  <p className="text-base sm:text-lg text-slate-800 leading-relaxed font-medium italic">
-                    "{currentTestimonial.quote}"
-                  </p>
-                </div>
-
-                {/* Participant name */}
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-bold">משתתפת בסדנה</span>
-                  <span className="text-base sm:text-lg font-black text-[#0E7490]">
-                    {currentTestimonial.author}
-                  </span>
-                </div>
-              </div>
-
-              {/* Mobile swipe hint */}
-              <div className="flex sm:hidden items-center justify-center gap-2 text-[11px] text-slate-400 font-bold mt-3">
-                <ChevronRight className="w-3.5 h-3.5 text-[#0E7490]" />
-                <span>החליקי ימינה או שמאלה למעבר בין ההמלצות</span>
-                <ChevronLeft className="w-3.5 h-3.5 text-[#0E7490]" />
-              </div>
-
-              {/* Dots navigation */}
-              <div className="flex items-center justify-center gap-2 mt-4">
-                {SOUL_TESTIMONIALS.map((_, dotIdx) => (
-                  <button
-                    key={dotIdx}
-                    onClick={() => setActiveTestimonialIdx(dotIdx)}
-                    aria-label={`עבור להמלצה ${dotIdx + 1}`}
-                    className={`h-2 rounded-full transition-all cursor-pointer ${
-                      activeTestimonialIdx === dotIdx ? 'w-6 bg-[#0E7490]' : 'w-2 bg-slate-300 hover:bg-slate-400'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      {/* 7. SPEAKERS & EXPERTS - FOCUSED GALLERY WINDOW (SMALL TABS REMOVED) */}
+      {/* 6. SPEAKERS & EXPERTS - FOCUSED GALLERY WINDOW (SMALL TABS REMOVED) */}
       <section id="speakers" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-slate-200 scroll-mt-20">
         <div className="max-w-5xl mx-auto text-right">
           
@@ -922,6 +810,118 @@ export const SoulTrainingPage: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 8. TESTIMONIALS - WOMEN SHARE FROM THE HEART IN A FOCUSED WINDOW (BEFORE REGISTRATION) */}
+      <section id="testimonials" className="py-14 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#FFFDF9] via-white to-[#F0FDF4]/40 border-t border-slate-200 relative overflow-hidden scroll-mt-20">
+        <div className="max-w-4xl mx-auto relative text-right">
+          
+          {/* Section Header */}
+          <div className="text-center mb-8 sm:mb-12 space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#C56B3E]/15 text-[#C56B3E] rounded-full text-xs sm:text-sm font-black mb-1">
+              <Heart className="w-3.5 h-3.5 fill-current" />
+              <span>מילים מהלב • נשים מספרות</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+              ממליצות עלינו באהבה
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto font-medium">
+              רשמים וחוויות מהלב מתוך סדנת אמצע החיים והמפגשים של "בין לבין":
+            </p>
+            <div className="h-1 w-20 bg-gradient-to-r from-[#0E7490] to-[#C56B3E] mx-auto rounded-full mt-3"></div>
+          </div>
+
+          {/* Testimonial Single Focused Window */}
+          {currentTestimonial && (
+            <div className="max-w-2xl mx-auto">
+              <div 
+                onTouchStart={handleTestTouchStart}
+                onTouchEnd={handleTestTouchEnd}
+                style={{ touchAction: 'pan-y' }}
+                className="bg-white rounded-3xl p-6 sm:p-9 border-2 border-[#0E7490]/25 shadow-lg text-right relative flex flex-col justify-between min-h-[250px] sm:min-h-[270px] animate-in fade-in duration-300 select-none"
+              >
+                <ButterflyIcon size={40} className="absolute top-4 left-4 opacity-10 text-[#0E7490]" />
+
+                {/* Top card bar: Program tag, Stars rating & Arrows */}
+                <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-xs font-black px-3 py-1 rounded-full border ${currentTestimonial.programColor}`}>
+                      {currentTestimonial.program}
+                    </span>
+                    <div className="flex items-center gap-0.5 text-amber-400">
+                      {[...Array(5)].map((_, idx) => (
+                        <Star key={idx} className="w-3.5 h-3.5 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Navigation arrows inside card */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={prevTestimonial}
+                      className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#0E7490] transition-colors cursor-pointer"
+                      title="המלצה קודמת"
+                      aria-label="המלצה קודמת"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    <span className="text-xs font-black text-slate-400 px-1">
+                      {activeTestimonialIdx + 1}/{SOUL_TESTIMONIALS.length}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={nextTestimonial}
+                      className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#0E7490] transition-colors cursor-pointer"
+                      title="המלצה הבאה"
+                      aria-label="המלצה הבאה"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Quote body */}
+                <div className="mb-6 space-y-2">
+                  <Quote className="w-6 h-6 text-[#0E7490]/30 rotate-180" />
+                  <p className="text-base sm:text-lg text-slate-800 leading-relaxed font-medium italic">
+                    "{currentTestimonial.quote}"
+                  </p>
+                </div>
+
+                {/* Participant name */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs text-slate-400 font-bold">משתתפת בסדנה</span>
+                  <span className="text-base sm:text-lg font-black text-[#0E7490]">
+                    {currentTestimonial.author}
+                  </span>
+                </div>
+              </div>
+
+              {/* Mobile swipe hint */}
+              <div className="flex sm:hidden items-center justify-center gap-2 text-[11px] text-slate-400 font-bold mt-3">
+                <ChevronRight className="w-3.5 h-3.5 text-[#0E7490]" />
+                <span>החליקי ימינה או שמאלה למעבר בין ההמלצות</span>
+                <ChevronLeft className="w-3.5 h-3.5 text-[#0E7490]" />
+              </div>
+
+              {/* Dots navigation */}
+              <div className="flex items-center justify-center gap-2 mt-4">
+                {SOUL_TESTIMONIALS.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => setActiveTestimonialIdx(dotIdx)}
+                    aria-label={`עבור להמלצה ${dotIdx + 1}`}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      activeTestimonialIdx === dotIdx ? 'w-6 bg-[#0E7490]' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </section>
 

@@ -17,7 +17,12 @@ export const GALLERY_PHOTO_URLS: string[] = [
   'https://i.postimg.cc/fT0H6239/IS-1115.jpg',
 ];
 
-export const BrandGallerySlider: React.FC = () => {
+interface BrandGallerySliderProps {
+  badge?: string;
+  title?: string;
+}
+
+export const BrandGallerySlider: React.FC<BrandGallerySliderProps> = ({ badge, title }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -71,6 +76,22 @@ export const BrandGallerySlider: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
+        {(badge || title) && (
+          <div className="text-center mb-6 space-y-2">
+            {badge && (
+              <div className="inline-block px-4 py-1.5 bg-[#0E7490]/10 text-[#0E7490] rounded-full text-xs sm:text-sm font-black border border-[#0E7490]/25 shadow-2xs">
+                {badge}
+              </div>
+            )}
+            {title && (
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-800 tracking-tight">
+                {title}
+              </h3>
+            )}
+            <div className="w-12 h-1 bg-[#0E7490] mx-auto rounded-full mt-2 opacity-80"></div>
+          </div>
+        )}
+
         {/* Frame / Window container for the single continuous scrollable gallery */}
         <div className="relative bg-white/70 backdrop-blur-xs rounded-3xl border-2 border-brand-orange/25 p-3 sm:p-5 shadow-[0_10px_30px_rgba(203,119,69,0.08)]">
           
