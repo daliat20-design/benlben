@@ -27,7 +27,7 @@ export const WhatsAppShare: React.FC = () => {
   const shareUrl = `https://api.whatsapp.com/send?text=${shareText}`;
 
   return (
-    <div className="fixed bottom-6 left-6 z-[120] font-sans" dir="rtl">
+    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-[120] font-sans" dir="rtl">
       {/* Floating Popup Card */}
       <AnimatePresence>
         {isOpen && (
@@ -35,7 +35,7 @@ export const WhatsAppShare: React.FC = () => {
             initial={{ opacity: 0, scale: 0.85, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 20 }}
-            className="absolute bottom-20 left-0 w-84 bg-white rounded-3xl shadow-2xl border-2 border-brand-orange/30 p-5 space-y-4 text-right"
+            className="absolute bottom-16 sm:bottom-20 left-0 w-[calc(100vw-2rem)] sm:w-84 max-w-xs sm:max-w-none bg-white rounded-3xl shadow-2xl border-2 border-brand-orange/30 p-4 sm:p-5 space-y-3.5 sm:space-y-4 text-right"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-gray-100 pb-3">

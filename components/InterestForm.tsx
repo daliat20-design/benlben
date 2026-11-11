@@ -3,9 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Send, CheckCircle2, Sparkles, MessageCircle, AlertCircle, HeartHandshake, Check } from 'lucide-react';
 import { saveInquiry } from '../utils/inquiryStorage';
 
+import { FlowTripsTitle } from '../utils/brandPrograms';
+
 export const AVAILABLE_PROGRAMS: Array<{
   id: string;
   label: string;
+  labelNode?: React.ReactNode;
   sub: React.ReactNode;
   color: string;
   activeColor: string;
@@ -19,7 +22,7 @@ export const AVAILABLE_PROGRAMS: Array<{
         <span dir="ltr" className="inline-block font-sans font-medium">
           45-60
         </span>{' '}
-        על השינויים, השאלות והנושאים שמעסיקים אותנו באמצע החיים.
+        | 6 מפגשים (3 בכל חלק – ניתן להירשם לחלק א׳, לחלק ב׳ או לתוכנית כולה).
       </span>
     ),
     color: 'border-brand-orange text-brand-orange bg-brand-orange/5',
@@ -35,23 +38,17 @@ export const AVAILABLE_PROGRAMS: Array<{
   {
     id: 'up-to-180',
     label: 'עד 180°',
-    sub: 'ארבעה מפגשים שמניעים שינוי מרצון וכיוון לצעד ראשון.',
+    sub: 'סדנה תהליכית שמניעה שינוי מרצון וכיוון לצעד ראשון.',
     color: 'border-amber-700 text-amber-800 bg-amber-50',
     activeColor: 'bg-amber-700 text-white border-amber-700',
   },
   {
     id: 'flowtrips',
-    label: 'FlowTrips',
-    sub: 'חוויות דרך לנשים | מסעות של שלושה ימים. לא ריטריט. לא טיול. חוויה שבונה את הדרך שלך.',
+    label: 'FLOWTRIPS וריטריטים',
+    labelNode: <FlowTripsTitle />,
+    sub: 'חוויות דרך וריטריטים לנשים – חוויה שבונה את הדרך שלך.',
     color: 'border-amber-600 text-amber-900 bg-amber-50',
     activeColor: 'bg-amber-600 text-white border-amber-600',
-  },
-  {
-    id: 'alchemy',
-    label: 'אלכימיה של יסודות',
-    sub: 'יום בטבע שמשלב חוויה, תנועה, מפגש והתבוננות דרך ארבעת היסודות.',
-    color: 'border-brand-terracotta text-brand-terracotta bg-brand-terracotta/5',
-    activeColor: 'bg-brand-terracotta text-white border-brand-terracotta',
   },
   {
     id: 'the-tent',
@@ -66,13 +63,6 @@ export const AVAILABLE_PROGRAMS: Array<{
     sub: 'תוכנית פיתוח אישית ומקצועית לנשים בארגונים.',
     color: 'border-[#204C8E] text-[#204C8E] bg-[#204C8E]/5',
     activeColor: 'bg-[#204C8E] text-white border-[#204C8E]',
-  },
-  {
-    id: 'retreats',
-    label: 'ימי שיא וריטריטים',
-    sub: 'יציאה מהשגרה ליום של חברותא וכיף.',
-    color: 'border-rose-700 text-rose-800 bg-rose-50',
-    activeColor: 'bg-rose-700 text-white border-rose-700',
   },
   {
     id: 'consulting',
@@ -359,7 +349,7 @@ export const InterestForm: React.FC<InterestFormProps> = ({
                             <div className={`font-black text-base sm:text-lg ${
                               isSelected ? 'text-brand-green' : 'text-gray-900'
                             }`}>
-                              {program.label}
+                              {program.labelNode || program.label}
                             </div>
                             <div className="text-xs sm:text-sm text-gray-600 font-normal leading-tight mt-0.5">
                               {program.sub}

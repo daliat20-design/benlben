@@ -306,7 +306,7 @@ export const HighlightsMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
             </div>
             
             <p className="text-base sm:text-lg text-gray-700 mb-7 font-medium text-center">
-              דלית מזמינה מנהלות ומנהלי משאבי אנוש, הדרכה, רווחה ומובילות בארגונים לשיחת חשיבה והתאמה משותפת.
+              מזמינות מנהלות ומנהלי משאבי אנוש, הדרכה, רווחה ומובילות בארגונים לשיחת חשיבה והתאמה משותפת.
             </p>
 
             <a

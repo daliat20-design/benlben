@@ -6,7 +6,7 @@ import { Speaker } from '../types';
 export const SpeakersGridPartTwo: React.FC = () => {
   // Filter speakers to only include those for Part B
   const partBSpeakers = SPEAKERS.filter(speaker => 
-    ["גולדי אברהם ושרית אברהם עשור", "סימה ביטון קצביץ", "טליה גולן", "אלסי זיסלמן"].includes(speaker.name)
+    ["גולדי אברהם", "סימה ביטון קצביץ", "טליה גולן", "אלסי זיסלמן"].includes(speaker.name)
   );
 
   return (

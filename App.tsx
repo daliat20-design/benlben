@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, NavLink, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Recipes from './pages/Recipes';
 import LandingPage from './pages/LandingPage';
 import PartTwo from './pages/PartTwo';
@@ -8,7 +8,6 @@ import MwmPage from './pages/MwmPage';
 import MwmIntakeFormPage from './pages/MwmIntakeFormPage';
 import MwmResponsesPage from './pages/MwmResponsesPage';
 import InquiriesResponsesPage from './pages/InquiriesResponsesPage';
-import AlchemyOfElementsPage from './pages/mini/AlchemyOfElementsPage';
 import MidlifeMiniPage from './pages/mini/MidlifeMiniPage';
 import UpTo180MiniPage from './pages/mini/UpTo180MiniPage';
 import HighlightsMiniPage from './pages/mini/HighlightsMiniPage';
@@ -19,6 +18,7 @@ import MiniPagesManager from './pages/mini/MiniPagesManager';
 import BrandLandingPage from './pages/BrandLandingPage';
 import MainWebsite from './pages/MainWebsite';
 import MidlifeMovementPage from './pages/MidlifeMovementPage';
+import SoulTrainingPage from './pages/SoulTrainingPage';
 import PasscodeProtected from './components/PasscodeProtected';
 
 import { 
@@ -56,11 +56,11 @@ const FloatingReturnToWebsite: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9995] font-sans" dir="rtl">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9995] font-sans" dir="rtl">
       <button
         type="button"
         onClick={handleReturn}
-        className="group flex items-center gap-2.5 bg-gradient-to-r from-[#2D5043] to-[#1E362D] hover:from-[#C56B3E] hover:to-[#A8582D] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl border-2 border-white/90 text-xs sm:text-sm font-black transition-all transform hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
+        className="group flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-[#2D5043] to-[#1E362D] hover:from-[#C56B3E] hover:to-[#A8582D] text-white px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-full shadow-2xl border-2 border-white/90 text-xs sm:text-sm font-black transition-all transform hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
         title="חזרה לאתר הבית של בין לבין"
         aria-label="חזרה לאתר הבית של בין לבין"
       >
@@ -132,6 +132,13 @@ const InternalNav: React.FC = () => {
       badge: 'הדגל'
     },
     { 
+      id: 'soul-training', 
+      name: 'אמצע החיים ✦ אימון לנשמה (רעות)', 
+      path: '/soul-training',
+      isSoul: true,
+      badge: 'חדש'
+    },
+    { 
       id: 'midlife-movement', 
       name: 'עד 180°: מרעיון לתנועה', 
       path: '/midlife-movement',
@@ -174,8 +181,7 @@ const InternalNav: React.FC = () => {
     { name: 'אמצע החיים (מיני דף)', path: '/p/midlife' },
     { name: 'עוד לפנייך (60+)', path: '/p/ahead-of-you' },
     { name: 'עד 180°', path: '/p/up-to-180' },
-    { name: 'Flow Trips', path: '/p/flowtrips' },
-    { name: 'אלכימיה של יסודות', path: '/p/alchemy' },
+    { name: 'FLOWTRIPS וריטריטים', path: '/p/flowtrips' },
     { name: 'האוהל', path: '/p/the-tent' },
     { name: 'היילייטס', path: '/p/highlights' },
   ];
@@ -218,6 +224,7 @@ const InternalNav: React.FC = () => {
                     (tab.id === 'main-website' && (currentPath === '' || currentPath === '/' || currentPath === '/home' || currentPath === '/site' || currentPath === '/website')) ||
                     (tab.id === 'home-landing' && (currentPath === '/home-landing' || currentPath === '/brand-landing' || currentPath === '/landing' || currentPath === '/all-programs' || currentPath === '/women-programs')) ||
                     (tab.id === 'midlife-workshop' && (currentPath === '/midlife-workshop' || currentPath === '/midlife-full' || currentPath === '/workshop')) ||
+                    (tab.id === 'soul-training' && (currentPath === '/soul-training' || currentPath === '/reut' || currentPath === '/midlife-soul' || currentPath === '/soul')) ||
                     (tab.id === 'midlife-movement' && (currentPath === '/midlife-movement' || currentPath === '/movement' || currentPath === '/motion')) ||
                     (tab.id === 'responses' && (currentPath === '/responses' || currentPath === '/inquiries'));
 
@@ -231,6 +238,12 @@ const InternalNav: React.FC = () => {
                               isActive
                                 ? 'bg-[#C56B3E] text-white ring-2 ring-amber-300 shadow-md font-black scale-105'
                                 : 'bg-gradient-to-r from-[#C56B3E]/90 to-[#B85D19]/90 text-white hover:brightness-110 border border-amber-300/40'
+                            }`
+                          : tab.isSoul
+                          ? `px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
+                              isActive
+                                ? 'bg-[#0E7490] text-white ring-2 ring-cyan-300 shadow-md font-black scale-105'
+                                : 'bg-[#0E7490]/85 text-white hover:bg-[#0E7490] border border-cyan-300/40'
                             }`
                           : tab.isMovement
                           ? `px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
@@ -424,14 +437,20 @@ const AppContent: React.FC = () => {
         <Route path="/marketing" element={<MarketingPage />} />
         <Route path="/midlife-landing" element={<MarketingPage />} />
         
+        {/* אמצע החיים: אימון לנשמה - דף נחיתה ייעודי בשיתוף מכון הכושר של רעות */}
+        <Route path="/soul-training" element={<SoulTrainingPage />} />
+        <Route path="/midlife-soul" element={<SoulTrainingPage />} />
+        <Route path="/reut" element={<SoulTrainingPage />} />
+        <Route path="/soul" element={<SoulTrainingPage />} />
+        
         {/* אמצע החיים: מרעיון לתנועה - דף נחיתה עצמאי */}
         <Route path="/midlife-movement" element={<MidlifeMovementPage />} />
         <Route path="/movement" element={<MidlifeMovementPage />} />
         <Route path="/motion" element={<MidlifeMovementPage />} />
         
-        {/* Independent Product Mini Landing Pages (Each standalone, no cross-navigation) */}
-        <Route path="/p/alchemy" element={<AlchemyOfElementsPage />} />
-        <Route path="/alchemy" element={<AlchemyOfElementsPage />} />
+        {/* Independent Product Mini Landing Pages */}
+        <Route path="/p/alchemy" element={<Navigate to="/women-programs" replace />} />
+        <Route path="/alchemy" element={<Navigate to="/women-programs" replace />} />
         <Route path="/p/midlife" element={<MidlifeMiniPage />} />
         <Route path="/midlife" element={<MidlifeMiniPage />} />
         <Route path="/p/up-to-180" element={<UpTo180MiniPage />} />

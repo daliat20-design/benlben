@@ -6,10 +6,10 @@
     <meta name="referrer" content="no-referrer">
     
     <title>בין לבין | מרחבים לנשים</title>
-    <meta name="description" content="בבין לבין אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו. מרחבים לנשים המשלבים מפגש, תוכן וחוויה: מאמצע החיים (45-60), עוד לפנייך (60+), עד 180°, היילייטס, FLOWTRIPS, ריטריטים וימי שיא." />
+    <meta name="description" content="בבין לבין אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו. מרחבים לנשים המשלבים מפגש, תוכן וחוויה: אמצע החיים (45-60), עוד לפנייך (60+), עד 180°, FLOWTRIPS וריטריטים, האוהל והיילייטס." />
     
     <meta property="og:title" content="בין לבין | מרחבים לנשים" />
-    <meta property="og:description" content="בבין לבין אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו. מרחבים לנשים המשלבים מפגש, תוכן וחוויה: מאמצע החיים (45-60), עוד לפנייך (60+), עד 180°, היילייטס, FLOWTRIPS, ריטריטים וימי שיא." />
+    <meta property="og:description" content="בבין לבין אנחנו לא סופרות שנים. אנחנו משתמשות בהן לטובתנו. מרחבים לנשים המשלבים מפגש, תוכן וחוויה: אמצע החיים (45-60), עוד לפנייך (60+), עד 180°, FLOWTRIPS וריטריטים, האוהל והיילייטס." />
     <meta property="og:image" content="https://i.postimg.cc/zXNcsDYk/header-jpg.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -168,6 +168,24 @@
         }
         .animate-badge-blink {
             animation: badge-blink 1.2s ease-in-out infinite;
+        }
+
+        @keyframes notice-blink {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 12px 32px -5px rgba(197, 107, 62, 0.28), 0 0 0 0 rgba(197, 107, 62, 0.45);
+                border-color: #C56B3E;
+            }
+            50% {
+                opacity: 0.92;
+                transform: scale(1.012);
+                box-shadow: 0 18px 42px -5px rgba(197, 107, 62, 0.45), 0 0 0 8px rgba(197, 107, 62, 0);
+                border-color: #E28A58;
+            }
+        }
+        .animate-notice-blink {
+            animation: notice-blink 2s ease-in-out infinite;
         }
     </style>
 </head>

@@ -111,8 +111,8 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
   return (
     <>
       <nav className="sticky top-0 z-50 w-full glass-card border-b border-brand-beige bg-white/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link to={isMidlifeWorkshop ? "/midlife-workshop" : isMwmPage || isMwmFormPage ? "/mwm" : isRecipesPage ? "/recipes" : "/"} className="flex items-center gap-2 group">
               <div className="w-12 h-12 rounded-full bg-white border border-brand-green/30 p-1 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-xs">
                 <img 

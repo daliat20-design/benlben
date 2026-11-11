@@ -275,7 +275,7 @@ export const UpTo180MiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
             </div>
             
             <p className="text-base sm:text-lg text-gray-700 mb-7 font-medium text-center">
-              דלית מזמינה אותך לשיחה אישית ופתוחה לבדוק האם זה המרחב המדויק עבורך עכשיו.
+              מזמינות אותך לשיחה אישית ופתוחה לבדוק האם זה המרחב המדויק עבורך עכשיו.
             </p>
 
             <a

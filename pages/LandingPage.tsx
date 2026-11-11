@@ -17,7 +17,7 @@ import { LegalModals } from '../components/LegalModals';
 
 const LandingPage: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<string>('באות יחד (1,080 ₪ למשתתפת)');
+  const [selectedPackage, setSelectedPackage] = useState<string>('באות יחד (₪810 למשתתפת)');
 
   useEffect(() => {
     document.title = "סדנת אמצע החיים - סדנת הדגל של בין לבין";
@@ -34,7 +34,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans selection:bg-[#C56B3E]/20 selection:text-[#93542B] bg-[#FFF9F4] text-gray-800">
+    <div className="min-h-screen font-sans selection:bg-[#C56B3E]/20 selection:text-[#93542B] bg-[#FFF9F4] text-gray-800 overflow-x-clip" dir="rtl">
       <Navbar hideLinks={true} />
       <main>
         <Hero />
@@ -47,7 +47,7 @@ const LandingPage: React.FC = () => {
         <TestimonialsSection />
         
         {/* בואי נתחבר - טופס התעניינות מותאם לסדנה */}
-        <section id="interest" className="py-16 md:py-24 bg-gradient-to-b from-[#FFF4EB] via-[#FDEDE0] to-[#FFF9F4] px-4 sm:px-6">
+        <section id="interest" className="py-12 sm:py-16 md:py-24 bg-gradient-to-b from-[#FFF4EB] via-[#FDEDE0] to-[#FFF9F4] px-4 sm:px-6">
           <WorkshopInterestForm
             id="interest-form"
             selectedPackage={selectedPackage}
@@ -55,7 +55,7 @@ const LandingPage: React.FC = () => {
           />
         </section>
 
-        {/* התוכניות הנוספות של בין לבין */}
+        {/* התוכניות והמרחבים של בין לבין */}
         <OtherProgramsSection currentProgramId="midlife" />
       </main>
       <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />

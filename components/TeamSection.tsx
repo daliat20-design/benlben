@@ -4,22 +4,22 @@ import { ButterflyIcon } from './Hero';
 
 export const TeamSection: React.FC = () => {
   return (
-    <section id="team" className="py-16 md:py-24 bg-gradient-to-b from-[#FFF4EB]/50 via-[#FFF9F4] to-[#FFF4EB]/50 px-4 sm:px-6 relative overflow-hidden text-right" dir="rtl">
+    <section id="team" className="py-12 sm:py-16 md:py-24 bg-gradient-to-b from-[#FFF4EB]/50 via-[#FFF9F4] to-[#FFF4EB]/50 px-4 sm:px-6 relative overflow-hidden text-right" dir="rtl">
       {/* Decorative Background Butterfly - Section Level */}
       <ButterflyIcon size={160} className="absolute bottom-10 right-10 animate-float opacity-[0.04] text-[#C56B3E] hidden md:block pointer-events-none" />
       
       <div className="max-w-6xl mx-auto relative">
-        <div className="text-center mb-12 md:mb-20 px-4">
-          <div className="inline-block px-6 py-2 bg-[#C56B3E]/10 text-[#C56B3E] rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight border border-[#C56B3E]/30">
+        <div className="text-center mb-10 sm:mb-12 md:mb-20 px-2 sm:px-4">
+          <div className="inline-block px-5 sm:px-6 py-1.5 sm:py-2 bg-[#C56B3E]/10 text-[#C56B3E] rounded-full text-xs sm:text-sm font-black mb-4 tracking-tight border border-[#C56B3E]/30">
             מובילות הדרך
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-7xl font-black text-[#C56B3E] text-center tracking-tight leading-tight mb-4 drop-shadow-xs">
             הצוות שמאחורי הקלעים
           </h2>
-          <div className="h-2 w-32 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto rounded-full shadow-inner" />
+          <div className="h-2 w-24 sm:w-32 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto rounded-full shadow-inner" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-4xl mx-auto">
           {TEAM.map((member, idx) => (
             <div 
               key={idx} 

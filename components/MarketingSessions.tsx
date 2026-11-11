@@ -23,8 +23,8 @@ const SESSIONS_DATA: SessionItem[] = [
     value: 'קבלה',
     title: 'כשזה מתחיל להשתנות',
     subtitle: 'התסמינים הפיזיים והרגשיים של גיל המעבר',
-    description: 'מפגש פתיחה העוסק בשינויים הפיזיים, הרגשיים והמנטליים המאפיינים את תקופת גיל המעבר. נבין מה עובר על הגוף, מה קורה לנו מבפנים ואיך אפשר לפגוש את השינוי מתוך ידע, ויסות, בהירות וקבלה.',
-    professionalPart: 'החלק המקצועי יועבר על ידי אשת מקצוע מתחומי הטיפול הרגשי, החוסן, שינויי חיים או ליווי נשים בתקופות מעבר.',
+    description: 'מפגש העוסק בשינויים הפיזיים, הרגשיים והמנטליים המאפיינים את תקופת גיל המעבר. נבין מה עובר על הגוף, מה קורה לנו מבפנים ואיך אפשר לפגוש את השינוי מתוך ידע, ויסות, בהירות וקבלה.',
+    professionalPart: 'הזווית המקצועית: טיפול רגשי, חוסן וקבלת החלטות בתקופות מעבר.',
     icon: Heart
   },
   {
@@ -34,8 +34,8 @@ const SESSIONS_DATA: SessionItem[] = [
     value: 'אחריות ושחרור',
     title: 'בין חיבוק לשחרור',
     subtitle: 'הורים מתבגרים וסינדרום הקן המתרוקן',
-    description: 'מפגש העוסק בציר המשפחתי המורכב של אמצע החיים: מצד אחד ילדים שיוצאים לדרך עצמאית, מצד שני הורים מתבגרים הזקוקים ליותר נוכחות, אחריות ותשומת לב. במפגש ניגע בהיבטים הרגשיים, המשפחתיים והמעשיים של התקופה הזו, ונבחן איך אפשר להחזיק קרוב, לשחרר בעדינות ולשמור גם על עצמנו בתוך המעגל המשפחתי המשתנה.',
-    professionalPart: 'החלק המקצועי עשוי לשלב מומחיות מתחומי הטיפול, ההנחיה, המשפחה, הזקנה, הליווי הרגשי או ההיבטים המשפטיים והמעשיים הקשורים להורים מתבגרים.',
+    description: 'מפגש העוסק בציר המשפחתי המורכב של אמצע החיים: מצד אחד ילדים שיוצאים לדרך עצמאית, מצד שני הורים מתבגרים הזקוקים ליותר נוכחות, אחריות ותשומת לב. נבחן איך אפשר להחזיק קרוב, לשחרר בעדינות ולשמור גם על עצמנו.',
+    professionalPart: 'הזווית המקצועית: פסיכותרפיה וליווי תקופות מעבר במשפחה.',
     icon: Users
   },
   {
@@ -45,8 +45,8 @@ const SESSIONS_DATA: SessionItem[] = [
     value: 'איזון',
     title: 'להחזיר לעצמי כוח',
     subtitle: 'תזונה, תנועה ושיפור היחסים עם הגוף',
-    description: 'מפגש העוסק בגוף המשתנה, באנרגיה, בתזונה, בתנועה ובמערכת היחסים שלנו עם עצמנו. נבחן איך אפשר להחזיר תחושת כוח, חיוניות ואיזון, לא מתוך ביקורת או מאבק, אלא מתוך הקשבה, אחריות אישית ובחירות קטנות שמייצרות שינוי.',
-    professionalPart: 'החלק המקצועי יועבר על ידי אשת מקצוע מתחומי התזונה, אורח החיים הבריא, התנועה, הבריאות הנשית או הליווי ההוליסטי לנשים בגיל המעבר.',
+    description: 'מפגש העוסק בגוף המשתנה, באנרגיה, בתזונה, בתנועה ובמערכת היחסים שלנו עם עצמנו. נבחן איך אפשר להחזיר תחושת כוח, חיוניות ואיזון, מתוך הקשבה, אחריות אישית ובחירות קטנות שמייצרות שינוי.',
+    professionalPart: 'הזווית המקצועית: נטורופתיה, תזונה טבעית ואורח חיים בריא בגיל המעבר.',
     icon: Activity
   },
   {
@@ -56,8 +56,8 @@ const SESSIONS_DATA: SessionItem[] = [
     value: 'בחירה',
     title: 'קבלת החלטות מתוך בחירה',
     subtitle: 'לבחור ממקום אישי ופנימי',
-    description: 'מפגש העוסק ביכולת לעצור, להקשיב לרצונות שלנו ולבחור מתוך מקום פנימי, ולא רק מתוך ציפיות, הרגלים או תפקידים שלקחנו על עצמנו לאורך השנים. נלמד לזהות מה חשוב לנו עכשיו, מה מבקש להשתנות ואיך אפשר לתרגם תובנות לצעדים מעשיים.',
-    professionalPart: 'החלק המקצועי יועבר על ידי מנחת קבוצות, מאמנת אישית, יועצת תהליכית או אשת מקצוע המתמחה בקבלת החלטות, שינוי וצמיחה אישית.',
+    description: 'מפגש העוסק בזיקוק מצבים ותובנות ותרגומם לצעדים מעשיים. נעמיק בהבנת הרצונות האמיתיים שלנו וביכולת לקבל החלטות מתוך בחירה אישית ופנימית המניעה לפעולה.',
+    professionalPart: 'הזווית המקצועית: אימון אישי, הנחיית קבוצות ותהליכי שינוי.',
     icon: Compass
   },
   {
@@ -67,8 +67,8 @@ const SESSIONS_DATA: SessionItem[] = [
     value: 'הקשבה',
     title: 'ללמוד להקשיב',
     subtitle: 'זהות חדשה שמבקשת להיוולד',
-    description: 'מפגש העוסק בזהות, הקשבה פנימית והאפשרות לגלות על עצמנו דברים חדשים גם באמצע החיים. דרך חוויה, התבוננות וכלים יצירתיים נבחן מה עוד קיים בנו, מה מבקש לקבל ביטוי ומה יכול להיפתח כשאנחנו מאפשרות לעצמנו ללמוד מחדש מי אנחנו.',
-    professionalPart: 'החלק המקצועי עשוי להיות מובל על ידי נשות מקצוע מתחומי ההתפתחות האישית, היצירה, הסטיילינג התרפי, ה־NLP, ההנחיה או כלים חווייתיים המחברים בין גוף, רגש וזהות.',
+    description: 'מפגש העוסק בהעמקה בהקשבה לעצמנו ולבחירות שלנו בתקופה של שינויים, דרך כלים חווייתיים ויצירתיים המחברים בין גוף, רגש, מוזיקה, סטיילינג תרפי וזהות.',
+    professionalPart: 'הזווית המקצועית: התפתחות אישית, סטיילינג תרפי, NLP וחיבור חווייתי.',
     icon: BookOpen
   },
   {
@@ -77,9 +77,9 @@ const SESSIONS_DATA: SessionItem[] = [
     partTitle: 'חלק ב׳: צמיחה, חיבור ומשמעות',
     value: 'הגשמה',
     title: 'מי אני עכשיו?',
-    subtitle: 'לגלות כיוון מחדש',
-    description: 'מפגש העוסק בצמתי קריירה, משמעות, עשייה והגשמה אישית. נעסוק בשאלה מה מתאים לי עכשיו, אילו חוזקות וניסיון אני מביאה איתי, ואיך אפשר להתחיל לדייק כיוון חדש או מחודש להמשך הדרך המקצועית והאישית.',
-    professionalPart: 'החלק המקצועי יועבר על ידי אשת מקצוע מתחומי הייעוץ הארגוני, הקריירה, משאבי האנוש, פיתוח אישי או ליווי נשים בצמתי שינוי והגשמה.',
+    subtitle: 'זהות, משמעות ולגלות כיוון מחדש',
+    description: 'מפגש העוסק בזהות, צמתי קריירה, משמעות, עשייה והגשמה אישית. נעסוק בשאלה מי אני כשהתפקידים שהגדירו אותי משתנים, ואיך אפשר לדייק כיוון חדש או מחודש להמשך הדרך.',
+    professionalPart: 'הזווית המקצועית: ייעוץ ארגוני, ייעוץ קריירה וליווי צמתי שינוי.',
     icon: TrendingUp
   },
   {
@@ -89,8 +89,8 @@ const SESSIONS_DATA: SessionItem[] = [
     value: 'קרבה',
     title: 'מגע, מרחק ומה שביניהם',
     subtitle: 'אינטימיות, תשוקה וזוגיות מחודשת',
-    description: 'מפגש העוסק בזוגיות, אינטימיות, מיניות, דימוי גוף וקרבה בתקופת גיל המעבר. נפתח שיח רגיש ואמיץ על נושאים שלא תמיד מקבלים מקום, ונבחן איך אפשר ליצור חיבור מחודש לעצמנו, לגוף שלנו ולמערכות היחסים הקרובות בחיינו.',
-    professionalPart: 'החלק המקצועי יועבר על ידי אשת מקצוע מתחומי הייעוץ הזוגי, המיני, הטיפול הרגשי, דימוי הגוף או ליווי נשים בתהליכי שינוי ביחסים ובאינטימיות.',
+    description: 'מפגש העוסק בזוגיות, אינטימיות, מיניות, דימוי גוף וקרבה בתקופת גיל המעבר. נפתח שיח רגיש ואמיץ ונבחן איך אפשר ליצור חיבור מחודש לעצמנו, לגוף שלנו ולמערכות היחסים בחיינו.',
+    professionalPart: 'הזווית המקצועית: ייעוץ זוגי ומיני וליווי אינטימיות בגיל המעבר.',
     icon: Sparkles
   },
   {
@@ -99,9 +99,9 @@ const SESSIONS_DATA: SessionItem[] = [
     partTitle: 'חלק ב׳: צמיחה, חיבור ומשמעות',
     value: 'הודיה',
     title: 'לסגור מעגל, לפתוח לב',
-    subtitle: 'מפגש סיום: הכרת תודה, אושר ומשמעות',
-    description: 'מפגש סיום המאפשר לאסוף את הדרך שעברנו, לתת מקום לתובנות, לחיבורים ולשינויים שנוצרו לאורך התוכנית. נעסוק בהכרת תודה, משמעות, אושר אישי ופתיחת הלב להמשך הדרך.',
-    professionalPart: 'החלק המקצועי יועבר על ידי מנחת קבוצות, מנחת NLP, אשת טיפול, מאמנת או מומחית להתפתחות אישית, שתסייע לאסוף את התהליך ולתרגם אותו לבהירות, בחירה והמשך תנועה.',
+    subtitle: 'הכרת תודה, אושר ומשמעות',
+    description: 'מפגש המאפשר לאסוף את הדרך שעברנו, לתת מקום לתובנות, לחיבורים ולשינויים שנוצרו לאורך התוכנית. נעסוק בהכרת תודה, משמעות, אושר אישי ופתיחת הלב להמשך הדרך.',
+    professionalPart: 'הזווית המקצועית: הנחיית NLP, איסוף תהליך ופריצות דרך.',
     icon: Sun
   }
 ];
@@ -115,17 +115,16 @@ export const MarketingSessions: React.FC = () => {
   const renderSessionCard = (s: SessionItem) => {
     const IconComponent = s.icon;
     const isOrange = s.part === 'B';
-    const borderTheme = isOrange ? 'border-brand-orange/20 hover:border-brand-orange/40' : 'border-brand-green/20 hover:border-brand-green/40';
-    const numColor = isOrange ? 'text-brand-orange bg-brand-orange/5' : 'text-brand-green bg-brand-green/5';
+    const borderTheme = isOrange ? 'border-brand-orange/25 hover:border-brand-orange/50' : 'border-brand-green/25 hover:border-brand-green/50';
+    const partBadgeColor = isOrange ? 'text-brand-orange bg-brand-orange/10 border-brand-orange/20' : 'text-brand-green bg-brand-green/10 border-brand-green/20';
     const pillColor = isOrange ? 'bg-brand-orange text-white' : 'bg-brand-green text-white';
-    const ringHighlight = isOrange ? 'group-hover:ring-brand-orange/20' : 'group-hover:ring-brand-green/20';
     const textTheme = isOrange ? 'text-brand-orange' : 'text-brand-green';
 
     return (
       <div 
         key={s.id}
         id={`session-card-${s.id}`}
-        className="group relative bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-6 sm:p-8 md:p-10 border-2 transition-all duration-500 shadow-[0_15px_45px_rgba(0,0,0,0.03)] hover:shadow-xl text-right flex flex-col justify-between overflow-hidden"
+        className={`group relative bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-6 sm:p-8 md:p-10 border-2 ${borderTheme} transition-all duration-500 shadow-[0_15px_45px_rgba(0,0,0,0.03)] hover:shadow-xl text-right flex flex-col justify-between overflow-hidden`}
         style={{ contentVisibility: 'auto' }}
         onMouseEnter={() => setHoveredId(s.id)}
         onMouseLeave={() => setHoveredId(null)}
@@ -137,14 +136,14 @@ export const MarketingSessions: React.FC = () => {
         />
 
         <div>
-          {/* Header row */}
+          {/* Header row (Without Session Numbers) */}
           <div className="flex items-center justify-between gap-4 mb-6 pb-5 border-b border-brand-beige/60">
             <span className={`text-sm md:text-base font-black px-4 py-1.5 rounded-full ${pillColor}`}>
               ערך מוביל: {s.value}
             </span>
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl md:text-2xl ${numColor}`}>
-              {s.id}
-            </div>
+            <span className={`text-xs md:text-sm font-black px-3.5 py-1.5 rounded-full border ${partBadgeColor}`}>
+              {isOrange ? 'חלק ב׳' : 'חלק א׳'}
+            </span>
           </div>
 
           {/* Icon + Title block */}
@@ -187,22 +186,25 @@ export const MarketingSessions: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Title Section */}
         <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-7xl font-black mb-6 text-brand-green tracking-tighter">מבנה המפגשים</h2>
-          <p className="text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto font-medium leading-relaxed">
-            סדנת אמצע החיים בנויה משמונה מפגשים המשלבים ידע מקצועי, שיח נשי, התבוננות אישית וכלים מעשיים.
+          <h2 className="text-4xl md:text-7xl font-black mb-6 text-brand-green tracking-tighter">מניפת התכנים של הסדנא</h2>
+          <p className="text-lg md:text-2xl text-gray-700 max-w-3xl mx-auto font-bold leading-relaxed">
+            סדנת אמצע החיים בנויה מ-6 מפגשים המחולקים ל-3 מפגשים בכל חלק, ומשלבת ידע מקצועי, שיח נשי, התבוננות אישית וכלים מעשיים.
           </p>
-          <p className="text-sm md:text-lg text-gray-500 max-w-3xl mx-auto mt-4 font-medium leading-relaxed">
-            בכל מפגש נעסוק בנושא מרכזי אחר מתוך עולמן של נשים באמצע החיים ובתקופת גיל המעבר, דרך הרצאה מקצועית, מעגלי שיח, שאלות מנחות ותהליך אישי מתמשך.
+          <p className="text-sm md:text-lg text-gray-600 max-w-3xl mx-auto mt-4 font-medium leading-relaxed">
+            לפניכן מניפת התכנים המלאה של הסדנה – מתוכה נבחרים בכל מחזור 3 נושאים בכל חלק בהתאם לאופי הקבוצה ולדגשים שנבחר לקיים (ניתן להירשם לחלק הראשון, לחלק השני או לתוכנית כולה).
           </p>
           <div className="h-1.5 w-24 bg-brand-orange mx-auto mt-8 rounded-full opacity-50"></div>
         </div>
 
-        {/* Timeline Part A */}
+        {/* Part A */}
         <div className="mb-20">
-          <div className="flex justify-center mb-12">
+          <div className="flex flex-col items-center mb-12">
             <div className="bg-brand-green text-white px-8 py-4 rounded-full shadow-lg text-center inline-block">
               <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק א׳: התכנסות וחקירה פנימית</h3>
             </div>
+            <p className="mt-3 text-sm md:text-base font-black text-brand-green bg-white px-5 py-1.5 rounded-full border border-brand-green/20 shadow-2xs">
+              מתוך נושאי חלק א׳ מתקיימים 3 מפגשים בכל מחזור
+            </p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -217,17 +219,31 @@ export const MarketingSessions: React.FC = () => {
           </div>
         </div>
 
-        {/* Timeline Part B */}
+        {/* Part B */}
         <div className="mb-12">
-          <div className="flex justify-center mb-12">
+          <div className="flex flex-col items-center mb-12">
             <div className="bg-brand-orange text-white px-8 py-4 rounded-full shadow-lg text-center inline-block">
               <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק ב׳: צמיחה, חיבור ומשמעות</h3>
             </div>
+            <p className="mt-3 text-sm md:text-base font-black text-brand-orange bg-white px-5 py-1.5 rounded-full border border-brand-orange/20 shadow-2xs">
+              מתוך נושאי חלק ב׳ מתקיימים 3 מפגשים בכל מחזור
+            </p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {partB.map(renderSessionCard)}
           </div>
+        </div>
+
+        {/* Bottom flexibility note - Highlighted & Gently Blinking */}
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#FFF4EB] via-[#FFE6D1] to-[#FFF4EB] p-6 sm:p-8 md:p-10 rounded-[2.2rem] border-2 border-brand-orange shadow-xl text-center animate-notice-blink">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-orange text-white text-xs md:text-sm font-black mb-3 shadow-sm">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-200 animate-ping"></span>
+            <span>חשוב לדעת ✦</span>
+          </div>
+          <p className="text-base md:text-xl font-black text-brand-green leading-relaxed">
+            <span className="text-brand-orange underline decoration-2 underline-offset-4">שימי לב:</span> רשימת הנושאים שלעיל מייצגת את מניפת התכנים האפשריים של הסדנה. בכל מחזור מתקיימים 6 מפגשים המחולקים ל-3 מפגשים בכל חלק בליווי נבחרת מרצות הבית שלנו, והדגשים מותאמים לכל קבוצה.
+          </p>
         </div>
       </div>
     </section>

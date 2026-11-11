@@ -5,13 +5,6 @@ import {
   Sparkles, 
   ChevronUp, 
   ChevronDown,
-  Compass, 
-  Sun, 
-  Trees, 
-  Tent, 
-  Flower2, 
-  ArrowLeft,
-  Crown,
   Menu,
   X,
   Lock
@@ -20,199 +13,20 @@ import { ButterflyIcon } from '../components/Hero';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
 import { InterestForm } from '../components/InterestForm';
 import { BrandGallerySlider } from '../components/BrandGallerySlider';
+import {
+  CANONICAL_PROGRAMS,
+  FLOWTRIPS_LOGO_URL,
+  FlowTripsTitle,
+  ProgramCardsGrid,
+} from '../utils/brandPrograms';
+
+export { FLOWTRIPS_LOGO_URL };
 
 const DALIT_PHOTO_URL = "https://i.postimg.cc/TPYf2twq/DSC-3250.jpg";
 const ELSIE_PHOTO_URL = "https://i.postimg.cc/fbc302jS/Whats-App-Image-2026-09-14-at-11-31-04.jpg";
 
-interface ProgramCardTheme {
-  id: string;
-  name: string;
-  isFlagship?: boolean;
-  winterBadge?: boolean;
-  winterBadgeText?: string;
-  categoryNode?: React.ReactNode;
-  tagline: React.ReactNode;
-  icon: React.ComponentType<{ className?: string }>;
-  logoUrl?: string;
-  logoFallback?: string;
-  link: string;
-  cardBg: string;
-  borderStyle: string;
-  iconBoxStyle: string;
-  badgeStyle: string;
-  buttonStyle: string;
-  accentBar: string;
-}
-
 const MAIN_BRAND_LOGO_URL = "/logos/brand-main.webp";
 const MAIN_BRAND_LOGO_FALLBACK = "/logos/brand-main.png";
-
-const MIDLIFE_LOGO_URL = "/logos/midlife.webp";
-const MIDLIFE_LOGO_FALLBACK = "/logos/midlife.png";
-
-const UNTIL180_LOGO_URL = "/logos/up-to-180.webp";
-const UNTIL180_LOGO_FALLBACK = "/logos/up-to-180.png";
-
-const ALCHEMY_LOGO_URL = "/logos/alchemy.webp";
-const ALCHEMY_LOGO_FALLBACK = "/logos/alchemy.png";
-
-const AHEAD_OF_YOU_LOGO_URL = "/logos/ahead-of-you.webp";
-const AHEAD_OF_YOU_LOGO_FALLBACK = "/logos/ahead-of-you.png";
-
-const HIGHLIGHTS_LOGO_URL = "/logos/highlights.webp";
-const HIGHLIGHTS_LOGO_FALLBACK = "/logos/highlights.png";
-
-const THE_TENT_LOGO_URL = "/logos/the-tent.webp";
-const THE_TENT_LOGO_FALLBACK = "/logos/the-tent.png";
-
-export const FLOWTRIPS_LOGO_URL = "https://i.postimg.cc/D0CqwDT0/ms'-nsy-bsqy'h-tht-flow-Trip.png";
-
-const getProgramBorderColor = (id: string) => {
-  switch (id) {
-    case 'midlife': return 'rgba(203,119,69,0.4)';
-    case 'ahead-of-you': return 'rgba(178,58,95,0.4)';
-    case 'up-to-180': return 'rgba(13,110,122,0.4)';
-    case 'flowtrips': return 'rgba(217,119,6,0.4)';
-    case 'alchemy': return 'rgba(72,153,107,0.4)';
-    case 'the-tent': return 'rgba(168,103,42,0.4)';
-    case 'highlights': return 'rgba(32,76,142,0.4)';
-    default: return 'rgba(203,119,69,0.4)';
-  }
-};
-
-const ALL_PROGRAMS: ProgramCardTheme[] = [
-  {
-    id: 'midlife',
-    name: 'אמצע החיים',
-    isFlagship: true,
-    winterBadge: true,
-    winterBadgeText: 'מחזור חורף נפתח בקרוב',
-    categoryNode: (
-      <span>
-        נשים{' '}
-        <span dir="ltr" className="inline-block font-sans font-black">
-          45-60
-        </span>
-      </span>
-    ),
-    tagline: 'מעטפת מקצועית של ידע, שיח והתבוננות אישית לתקופת גיל המעבר.',
-    icon: Flower2,
-    logoUrl: MIDLIFE_LOGO_URL,
-    logoFallback: MIDLIFE_LOGO_FALLBACK,
-    link: '/midlife-workshop',
-    cardBg: 'bg-gradient-to-b from-[#fffbf7] via-[#fff7ef] to-[#ffeedd]',
-    borderStyle: 'border-2 border-brand-orange/60 ring-2 ring-brand-orange/20 shadow-[0_12px_40px_rgba(203,119,69,0.15)] hover:border-brand-orange hover:shadow-2xl',
-    iconBoxStyle: 'bg-brand-orange/20 text-brand-orange border border-brand-orange/40 shadow-xs',
-    badgeStyle: 'bg-brand-orange/10 text-brand-orange border border-brand-orange/30 font-black',
-    buttonStyle: 'bg-brand-orange hover:bg-brand-green text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-brand-orange'
-  },
-  {
-    id: 'ahead-of-you',
-    name: 'עוֹד לְפָנַיִךְ',
-    winterBadge: true,
-    winterBadgeText: 'מחזור חורף נפתח בקרוב',
-    categoryNode: (
-      <span>
-        תוכנית לנשים{' '}
-        <span dir="ltr" className="inline-block font-sans font-black">
-          60+
-        </span>
-      </span>
-    ),
-    tagline: 'להמשיך לגלות, לבחור, להתחדש וליצור משמעות.',
-    icon: Sun,
-    logoUrl: AHEAD_OF_YOU_LOGO_URL,
-    logoFallback: AHEAD_OF_YOU_LOGO_FALLBACK,
-    link: '/p/ahead-of-you',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fffbfc] to-[#fcedf0]',
-    borderStyle: 'border-2 border-[#b23a5f]/40 hover:border-[#b23a5f] hover:shadow-xl shadow-[0_8px_30px_rgba(178,58,95,0.08)]',
-    iconBoxStyle: 'bg-[#b23a5f]/15 text-[#b23a5f] border border-[#b23a5f]/30',
-    badgeStyle: 'bg-[#b23a5f]/10 text-[#b23a5f] border border-[#b23a5f]/30 font-black',
-    buttonStyle: 'bg-[#b23a5f] hover:bg-[#8f2847] text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-[#b23a5f]'
-  },
-  {
-    id: 'up-to-180',
-    name: 'עד 180°',
-    categoryNode: <span>סדנה לתהליכי שינוי</span>,
-    tagline: 'לעצור, לשנות זווית ולבחור את הצעד הבא.',
-    icon: Compass,
-    logoUrl: UNTIL180_LOGO_URL,
-    logoFallback: UNTIL180_LOGO_FALLBACK,
-    link: '/p/up-to-180',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f7fbfb] to-[#edf6f6]',
-    borderStyle: 'border-2 border-[#0d6e7a]/40 hover:border-[#0d6e7a] hover:shadow-xl shadow-[0_8px_30px_rgba(13,110,122,0.08)]',
-    iconBoxStyle: 'bg-[#0d6e7a]/15 text-[#0d6e7a] border border-[#0d6e7a]/30',
-    badgeStyle: 'bg-[#0d6e7a]/10 text-[#0d6e7a] border border-[#0d6e7a]/30 font-black',
-    buttonStyle: 'bg-[#0d6e7a] hover:bg-[#08545e] text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-[#0d6e7a]'
-  },
-  {
-    id: 'flowtrips',
-    name: 'FlowTrips',
-    categoryNode: <span>חוויות דרך לנשים | 3 ימים</span>,
-    tagline: 'לא ריטריט. לא טיול. חוויה שבונה את הדרך שלך.',
-    icon: Compass,
-    logoUrl: FLOWTRIPS_LOGO_URL,
-    logoFallback: FLOWTRIPS_LOGO_URL,
-    link: '/p/flowtrips',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fffcf7] to-[#feede0]',
-    borderStyle: 'border-2 border-amber-600/40 hover:border-amber-600 hover:shadow-xl shadow-[0_8px_30px_rgba(217,119,6,0.08)]',
-    iconBoxStyle: 'bg-amber-500/15 text-amber-900 border border-amber-500/30',
-    badgeStyle: 'bg-amber-100 text-amber-900 border border-amber-300 font-black',
-    buttonStyle: 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-amber-600'
-  },
-  {
-    id: 'alchemy',
-    name: 'אלכימיה של יסודות',
-    categoryNode: <span>יום שיא בטבע</span>,
-    tagline: 'חוויה שמחברת בין טבע, תנועה, התבוננות וחיבור לעצמנו.',
-    icon: Trees,
-    logoUrl: ALCHEMY_LOGO_URL,
-    logoFallback: ALCHEMY_LOGO_FALLBACK,
-    link: '/p/alchemy',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f7faf8] to-[#eaf4ee]',
-    borderStyle: 'border-2 border-[#48996B]/40 hover:border-[#48996B] hover:shadow-xl shadow-[0_8px_30px_rgba(72,153,107,0.08)]',
-    iconBoxStyle: 'bg-[#48996B]/15 text-[#327a51] border border-[#48996B]/30',
-    badgeStyle: 'bg-[#48996B]/10 text-[#327a51] border border-[#48996B]/30 font-black',
-    buttonStyle: 'bg-[#48996B] hover:bg-[#397d56] text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-[#48996B]'
-  },
-  {
-    id: 'the-tent',
-    name: 'האוהל',
-    categoryNode: <span>מנהיגות, יוזמה והשפעה</span>,
-    tagline: 'מהכוחות והעוגנים הפנימיים אל יוזמה, הובלה ועשייה בקהילה.',
-    icon: Tent,
-    logoUrl: THE_TENT_LOGO_URL,
-    logoFallback: THE_TENT_LOGO_FALLBACK,
-    link: '/p/the-tent',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#fdfbf7] to-[#f7efe3]',
-    borderStyle: 'border-2 border-[#b87333]/40 hover:border-[#a05a20] hover:shadow-xl shadow-[0_8px_30px_rgba(184,115,51,0.08)]',
-    iconBoxStyle: 'bg-[#b87333]/15 text-[#914e13] border border-[#b87333]/30',
-    badgeStyle: 'bg-[#b87333]/10 text-[#914e13] border border-[#b87333]/30 font-black',
-    buttonStyle: 'bg-[#914e13] hover:bg-[#723b0b] text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-[#b87333]'
-  },
-  {
-    id: 'highlights',
-    name: 'היילייטס',
-    categoryNode: <span>תוכנית פיתוח בארגונים</span>,
-    tagline: 'מניסיון ונוכחות להובלה והשפעה לנשים באמצע החיים.',
-    icon: Sparkles,
-    logoUrl: HIGHLIGHTS_LOGO_URL,
-    logoFallback: HIGHLIGHTS_LOGO_FALLBACK,
-    link: '/p/highlights',
-    cardBg: 'bg-gradient-to-b from-[#ffffff] via-[#f8fbff] to-[#edf4fc]',
-    borderStyle: 'border-2 border-[#204C8E]/40 hover:border-[#204C8E] hover:shadow-xl shadow-[0_8px_30px_rgba(32,76,142,0.08)]',
-    iconBoxStyle: 'bg-[#204C8E]/15 text-[#204C8E] border border-[#204C8E]/30',
-    badgeStyle: 'bg-[#204C8E]/10 text-[#204C8E] border border-[#204C8E]/30 font-black',
-    buttonStyle: 'bg-[#204C8E] hover:bg-[#183a6d] text-white shadow-sm hover:shadow-md',
-    accentBar: 'bg-[#204C8E]'
-  }
-];
 
 export const BrandLandingPage: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
@@ -380,128 +194,27 @@ export const BrandLandingPage: React.FC = () => {
 
                 {/* רשת קישורים לתוכניות */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
-                  
-                  {/* אמצע החיים */}
-                  <Link
-                    to="/midlife-workshop"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200 hover:border-brand-orange transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Flower2 className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-brand-orange transition-colors">
-                        אמצע החיים
-                      </div>
-                      <div className="text-xs text-gray-600">
-                        סדנת הדגל לנשים <span dir="ltr">45-60</span>
-                      </div>
-                    </div>
-                  </Link>
-
-                  {/* עוד לפנייך */}
-                  <Link
-                    to="/p/ahead-of-you"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-rose-50/70 hover:bg-rose-100/80 border border-rose-200 hover:border-rose-400 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Sun className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-rose-700 transition-colors">
-                        עוֹד לְפָנַיִךְ
-                      </div>
-                      <div className="text-xs text-gray-600">תוכנית לנשים 60+</div>
-                    </div>
-                  </Link>
-
-                  {/* עד 180° */}
-                  <Link
-                    to="/p/up-to-180"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-sky-50/70 hover:bg-sky-100/80 border border-sky-200 hover:border-sky-400 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Compass className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-sky-700 transition-colors">
-                        עד 180°
-                      </div>
-                      <div className="text-xs text-gray-600">סדנה לתהליכי שינוי</div>
-                    </div>
-                  </Link>
-
-                  {/* FlowTrips */}
-                  <Link
-                    to="/p/flowtrips"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-300 hover:border-amber-600 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-900 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Compass className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-amber-800 transition-colors">
-                        FlowTrips
-                      </div>
-                      <div className="text-xs text-amber-900 font-medium">חוויות דרך לנשים (3 ימים)</div>
-                    </div>
-                  </Link>
-
-                  {/* אלכימיה של היסודות */}
-                  <Link
-                    to="/p/alchemy"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-teal-50/70 hover:bg-teal-100/80 border border-teal-200 hover:border-teal-400 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Trees className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-teal-700 transition-colors">
-                        אלכימיה של היסודות
-                      </div>
-                      <div className="text-xs text-gray-600">יום שיא וסדנת טבע</div>
-                    </div>
-                  </Link>
-
-                  {/* האוהל */}
-                  <Link
-                    to="/p/the-tent"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 border border-amber-200/90 hover:border-amber-400 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-amber-100/80 text-[#914e13] flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Tent className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-[#914e13] transition-colors">
-                        האוהל
-                      </div>
-                      <div className="text-xs text-gray-600">מנהיגות והשפעה נשית</div>
-                    </div>
-                  </Link>
-
-                  {/* היילייטס */}
-                  <Link
-                    to="/p/highlights"
-                    onClick={() => setIsNavOpen(false)}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 border border-blue-200 hover:border-blue-400 transition-all text-right group shadow-2xs"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform">
-                      <Sparkles className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-black text-base text-gray-900 group-hover:text-blue-700 transition-colors">
-                        היילייטס
-                      </div>
-                      <div className="text-xs text-gray-600">לארגונים וחברות</div>
-                    </div>
-                  </Link>
-
+                  {CANONICAL_PROGRAMS.map((prog) => {
+                    const IconComponent = prog.icon;
+                    return (
+                      <Link
+                        key={prog.id}
+                        to={prog.landingLink}
+                        onClick={() => setIsNavOpen(false)}
+                        className={`flex items-center gap-3 p-3.5 rounded-2xl ${prog.navCardClass} border transition-all text-right group shadow-2xs`}
+                      >
+                        <div className={`w-10 h-10 rounded-xl ${prog.navIconClass} flex items-center justify-center font-black text-base shrink-0 group-hover:scale-105 transition-transform`}>
+                          <IconComponent className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <div className={`font-black text-base text-gray-900 ${prog.navTitleHoverClass} transition-colors`}>
+                            {prog.nameNode || prog.name}
+                          </div>
+                          <div className="text-xs text-gray-600">{prog.navSubtitle}</div>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 {/* קישורים תחתונים בתפריט: הצוות, צרי קשר והזמיני חברה */}
@@ -651,13 +364,22 @@ export const BrandLandingPage: React.FC = () => {
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
                     <span>
-                      <strong className="font-black text-brand-orange">היילייטס</strong> – מנהיגות ופיתוח בארגונים
+                      <strong className="font-black text-brand-orange">
+                        <FlowTripsTitle />
+                      </strong>{' '}
+                      – חוויות דרך וריטריטים לנשים
                     </span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
                     <span>
-                      ועד <strong className="font-black text-brand-orange">FLOWTRIPS, ריטריטים וימי שיא</strong>
+                      <strong className="font-black text-brand-orange">האוהל</strong> – מנהיגות, יוזמה והשפעה נשית
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-brand-orange font-black text-xl leading-snug shrink-0 select-none">*</span>
+                    <span>
+                      ו<strong className="font-black text-brand-orange">היילייטס</strong> – מנהיגות ופיתוח בארגונים
                     </span>
                   </li>
                 </ul>
@@ -751,95 +473,8 @@ export const BrandLandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Cards Grid: 6 Distinct Products */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-            {ALL_PROGRAMS.map((prog) => {
-              const IconComponent = prog.icon;
-              return (
-                <div
-                  key={prog.id}
-                  id={`program-${prog.id}`}
-                  className={`${prog.cardBg} rounded-3xl p-6 sm:p-7 ${prog.borderStyle} border-2 hover:-translate-y-1 transition-all duration-300 flex flex-col text-right group relative overflow-hidden shadow-sm hover:shadow-xl scroll-mt-24`}
-                >
-                  {/* Colored top accent bar for instant card visual identity */}
-                  <div className={`h-2 w-full ${prog.accentBar} absolute top-0 right-0 left-0`}></div>
-
-                  {/* Top Badges Area: Flagship ribbon & Winter Cohort badge */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3.5">
-                    {prog.isFlagship && (
-                      <div className="inline-flex items-center gap-1.5 bg-brand-orange text-white px-3.5 py-1 rounded-full text-xs sm:text-sm font-black shadow-xs tracking-wide">
-                        <Crown className="w-3.5 h-3.5 fill-current" />
-                        <span>סדנת הדגל של בין לבין</span>
-                      </div>
-                    )}
-                    {prog.winterBadge && (
-                      <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-700 text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-black shadow-lg tracking-wide border-2 border-indigo-200 animate-badge-blink">
-                        <span className="w-2 h-2 rounded-full bg-cyan-300 animate-ping shrink-0" />
-                        <span>{prog.winterBadgeText || 'מחזור חורף נפתח בקרוב'}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Top Row: Delicate Icon / Custom Logo & Category Badge */}
-                  <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
-                    {prog.logoUrl ? (
-                      <div 
-                        className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 lg:w-26 lg:h-26 rounded-full bg-white p-1 sm:p-1.5 border-2 shadow-sm flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0 overflow-hidden"
-                        style={{
-                          borderColor: getProgramBorderColor(prog.id)
-                        }}
-                      >
-                        <img 
-                          src={prog.logoUrl} 
-                          alt={`לוגו ${prog.name}`} 
-                          className="w-full h-full object-contain rounded-full"
-                          referrerPolicy="no-referrer"
-                          onError={(e) => {
-                            const target = e.currentTarget;
-                            const fallback = prog.logoFallback || MIDLIFE_LOGO_FALLBACK;
-                            if (target.src !== fallback) {
-                              target.src = fallback;
-                            }
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl ${prog.iconBoxStyle} flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0`}>
-                        <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
-                      </div>
-                    )}
-                    
-                    {prog.categoryNode && (
-                      <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-black tracking-tight ${prog.badgeStyle}`}>
-                        {prog.categoryNode}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Program Name */}
-                  <h3 className="text-2xl sm:text-3xl font-black text-gray-900 group-hover:text-brand-orange transition-colors tracking-tight mb-2 text-center sm:text-right">
-                    {prog.name}
-                  </h3>
-
-                  {/* Single Short Essence / Tagline */}
-                  <p className="text-base sm:text-lg text-gray-700 font-medium leading-relaxed mb-6 flex-1 text-right">
-                    {prog.tagline}
-                  </p>
-
-                  {/* Action Button to Enter the Program Page */}
-                  <div className="pt-4 border-t border-brand-beige/80 mt-auto">
-                    <Link
-                      to={prog.link}
-                      className={`w-full inline-flex items-center justify-between ${prog.buttonStyle} px-5 py-3.5 sm:py-4 rounded-2xl text-base sm:text-lg font-black transition-all duration-300 group/btn shadow-xs hover:shadow-md active:scale-98`}
-                    >
-                      <span>לפרטים על התוכנית</span>
-                      <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover/btn:-translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* Unified Program Cards Grid: 6 Canonical Products */}
+          <ProgramCardsGrid programs={CANONICAL_PROGRAMS} linkMode="landing" />
 
 
         </div>

@@ -16,22 +16,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenPrivacy }) =>
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${shareWhatsAppText}`;
 
   return (
-    <footer id="footer-contact" className="bg-gradient-to-b from-[#FFF9F4] to-[#FFF4EB] pt-16 pb-12 px-4 md:px-6 relative overflow-hidden border-t border-[#C56B3E]/15 text-center">
+    <footer id="footer-contact" className="bg-gradient-to-b from-[#FFF9F4] to-[#FFF4EB] pt-12 sm:pt-16 pb-24 sm:pb-12 px-4 md:px-6 relative overflow-hidden border-t border-[#C56B3E]/15 text-center">
       {/* Decorative External Background Elements */}
       <ButterflyIcon size={300} className="absolute -top-20 -right-20 animate-drift opacity-[0.03] hidden md:block" />
       <ButterflyIcon size={200} className="absolute bottom-20 -left-10 animate-float opacity-[0.03]" />
       
-      <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center gap-8">
+      <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center gap-6 sm:gap-8">
         {/* Call to Action Container */}
-        <div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-[0_15px_45px_rgba(197,107,62,0.08)] border-2 border-[#C56B3E]/20 w-full max-w-2xl transform hover:scale-[1.01] transition-transform duration-300">
+        <div className="bg-white p-6 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.5rem] shadow-[0_15px_45px_rgba(197,107,62,0.08)] border-2 border-[#C56B3E]/20 w-full max-w-2xl transform hover:scale-[1.01] transition-transform duration-300">
           <div className="w-12 h-12 bg-gradient-to-tr from-[#C56B3E] to-[#B85D19] text-white rounded-full flex items-center justify-center mx-auto mb-4 animate-float shadow-md shadow-[#C56B3E]/20">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
             </svg>
           </div>
-          <h4 className="text-2xl md:text-3xl font-black text-[#C56B3E] mb-3">מעוניינת לכתוב את הפרק הבא שלך?</h4>
-          <p className="text-gray-600 font-medium text-base md:text-lg mb-6 leading-relaxed">
-            דלית ואלסי מזמינות אותך לשיחה אישית, לשמוע פרטים נוספים ולקבל מענה לכל שאלה.
+          <h4 className="text-xl sm:text-2xl md:text-3xl font-black text-[#C56B3E] mb-3">מעוניינת לכתוב את הפרק הבא שלך?</h4>
+          <p className="text-gray-600 font-medium text-sm sm:text-base md:text-lg mb-6 leading-relaxed">
+            מזמינות אותך לשיחה אישית, לשמוע פרטים נוספים ולקבל מענה לכל שאלה.
           </p>
           
           <div className="space-y-3 mb-6">

@@ -182,7 +182,7 @@ export const PasscodeProtected: React.FC<{
         </p>
 
         <p className="text-sm sm:text-base text-gray-700 font-medium leading-relaxed mb-8 max-w-lg mx-auto">
-          מרחבי התוכן, הסדנאות והמסעות של <strong className="font-black text-brand-green">בין לבין</strong> ממשיכים להתחדש עם מגוון תוכניות לנשים באמצע החיים, תוכנית עוד לפנייך (60+), עד 180°, FLOWTRIPS ועוד.
+          מרחבי התוכן, הסדנאות והמסעות של <strong className="font-black text-brand-green">בין לבין</strong> ממשיכים להתחדש עם מגוון תוכניות לנשים באמצע החיים, תוכנית עוד לפנייך (60+), עד 180°, <span dir="rtl" style={{ unicodeBidi: 'isolate' }}><span dir="ltr">FLOWTRIPS</span> וריטריטים</span> ועוד.
         </p>
 
         {/* Primary Call to Action Button - Directs to updated master brand page */}

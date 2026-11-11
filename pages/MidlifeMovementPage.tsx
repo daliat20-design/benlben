@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { saveInquiry } from '../utils/inquiryStorage';
+import { FlowTripsTitle } from '../utils/brandPrograms';
+import { OtherProgramsSection } from '../components/OtherProgramsSection';
 
-type TrackType = 'שלושת המפגשים' | 'פלואו טריפ' | 'המסלול המשולב';
+type TrackType = 'שלושת המפגשים' | 'FLOWTRIPS וריטריטים' | 'המסלול המשולב';
 
 const PROGRAM_LOGO_URL = "https://i.postimg.cc/YCQjBJMs/Butterfly-logo-with-corrected-Hebrew-subtitle.png";
 const BRAND_LOGO_URL = "/logos/brand-main.webp";
@@ -436,33 +438,33 @@ export const MidlifeMovementPage: React.FC = () => {
           </div>
         </section>
 
-        {/* 5. פלואו טריפ - אזור נפרד וקצר עם נוכחות בולטת לכחול העמוק #204C8E */}
+        {/* 5. FLOWTRIPS וריטריטים */}
         <section className="bg-gradient-to-b from-[#204C8E]/5 to-[#204C8E]/10 border-2 border-[#204C8E]/40 rounded-2xl p-6 sm:p-8 text-right space-y-4">
           <p className="text-sm sm:text-base font-bold text-[#204C8E]">
             רוצה להמשיך את התנועה גם מחוץ לשגרה?
           </p>
 
           <h3 className="text-2xl sm:text-3xl font-black text-[#204C8E]">
-            פלואו טריפ | יומיים בכרמל
+            <FlowTripsTitle />
           </h3>
 
           <p className="text-base sm:text-lg text-gray-800 leading-relaxed">
-            יומיים של טבע, טעמים, תנועה, מפגש וזמן לעצמך. הזדמנות להחליף אווירה, ליהנות יחד ולפגוש את מה שעלה בסדנה גם דרך החוויה.
+            חוויית דרך וריטריט של טבע, טעמים, תנועה, מפגש וזמן לעצמך. הזדמנות להחליף אווירה, ליהנות יחד ולפגוש את מה שעלה בסדנה גם דרך החוויה.
           </p>
 
           <div className="pt-2">
             <p className="text-sm sm:text-base font-bold text-gray-700 bg-white/80 border border-[#204C8E]/20 rounded-xl px-4 py-2.5 inline-block">
-              אפשר להירשם לסדנה, לפלואו טריפ או למסלול המשולב.
+              אפשר להירשם לסדנה, ל־<FlowTripsTitle /> או למסלול המשולב.
             </p>
           </div>
 
           <div className="pt-2">
             <button
               type="button"
-              onClick={() => scrollToForm('פלואו טריפ')}
+              onClick={() => scrollToForm('FLOWTRIPS וריטריטים')}
               className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 bg-[#204C8E] hover:bg-[#183a6d] text-white text-sm font-bold rounded-xl transition-colors cursor-pointer"
             >
-              לפרטים על הפלואו טריפ
+              לפרטים על <span className="mr-1"><FlowTripsTitle /></span>
             </button>
           </div>
         </section>
@@ -564,7 +566,7 @@ export const MidlifeMovementPage: React.FC = () => {
                   מעניין אותי:
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  {(['שלושת המפגשים', 'פלואו טריפ', 'המסלול המשולב'] as TrackType[]).map((track) => (
+                  {(['שלושת המפגשים', 'FLOWTRIPS וריטריטים', 'המסלול המשולב'] as TrackType[]).map((track) => (
                     <button
                       key={track}
                       type="button"
@@ -575,7 +577,7 @@ export const MidlifeMovementPage: React.FC = () => {
                           : 'bg-[#FFF9F4] text-gray-700 border-gray-200 hover:border-[#204C8E]/40'
                       }`}
                     >
-                      {track}
+                      {track === 'FLOWTRIPS וריטריטים' ? <FlowTripsTitle /> : track}
                     </button>
                   ))}
                 </div>
@@ -597,6 +599,9 @@ export const MidlifeMovementPage: React.FC = () => {
         </section>
 
       </main>
+
+      {/* תוכניות ומרחבים נוספים של בין לבין */}
+      <OtherProgramsSection currentProgramId="up-to-180" />
 
       {/* Footer מינימלי ונקי */}
       <footer className="border-t border-[#C56B3E]/15 bg-white py-8 px-4 text-center text-xs text-gray-500 space-y-1">

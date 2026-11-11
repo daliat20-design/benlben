@@ -7,8 +7,8 @@ export const WORKSHOP_PACKAGES = [
   {
     id: 'together',
     name: 'באות יחד',
-    price: '₪1,080 למשתתפת',
-    note: 'חברה מביאה חברה: 8 מפגשים לכל אחת בהרשמה משותפת (135 ₪ למפגש)',
+    price: '₪810 למשתתפת',
+    note: '6 מפגשים לכל אחת בהרשמה משותפת של שתי משתתפות (135 ₪ למפגש)',
     tag: 'המחיר המשתלם ביותר',
     tagColor: 'bg-[#C56B3E] text-white',
     border: 'border-[#C56B3E]/30',
@@ -16,23 +16,33 @@ export const WORKSHOP_PACKAGES = [
   },
   {
     id: 'full',
-    name: 'כל שמונת המפגשים',
-    price: '₪1,200 למשתתפת',
-    note: 'התוכנית המלאה: 8 מפגשים מעמיקים של 3 שעות (150 ₪ למפגש)',
-    tag: 'התוכנית המלאה',
+    name: 'החוויה המלאה - כל 6 המפגשים',
+    price: '₪900 למשתתפת',
+    note: 'כל 6 המפגשים: חלק א׳ + חלק ב׳ של התוכנית (150 ₪ למפגש)',
+    tag: 'כל 6 המפגשים',
     tagColor: 'bg-[#2D5043] text-white',
     border: 'border-[#2D5043]/30',
     activeBg: 'bg-[#2D5043]/5 border-[#2D5043]',
   },
   {
-    id: 'partial',
-    name: 'התוכנית החלקית',
-    price: '₪680 למשתתפת',
-    note: '4 מפגשים לבחירה: חלק ראשון או חלק שני (170 ₪ למפגש)',
-    tag: '4 מפגשים',
+    id: 'part1',
+    name: "שלושה בתור התחלה - חלק א'",
+    price: '₪510 למשתתפת',
+    note: '3 מפגשים לבחירה: חלק א׳ (170 ₪ למפגש)',
+    tag: '3 מפגשים',
     tagColor: 'bg-[#FFF4EB] text-[#93542B]',
-    border: 'border-[#C56B3E]/20',
-    activeBg: 'bg-[#FFF9F4] border-[#C56B3E]/60',
+    border: 'border-[#2D5043]/25',
+    activeBg: 'bg-[#2D5043]/5 border-[#2D5043]',
+  },
+  {
+    id: 'part2',
+    name: "שלושה בתור התחלה - חלק ב'",
+    price: '₪510 למשתתפת',
+    note: '3 מפגשים לבחירה: חלק ב׳ (170 ₪ למפגש)',
+    tag: '3 מפגשים',
+    tagColor: 'bg-[#FFF4EB] text-[#93542B]',
+    border: 'border-[#C56B3E]/25',
+    activeBg: 'bg-[#FFF4EB] border-[#C56B3E]',
   },
 ];
 
@@ -50,7 +60,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [selectedPkg, setSelectedPkg] = useState<string>('באות יחד (1,080 ₪ למשתתפת)');
+  const [selectedPkg, setSelectedPkg] = useState<string>('באות יחד (₪810 למשתתפת)');
   const [aboutSelf, setAboutSelf] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -59,11 +69,15 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
   useEffect(() => {
     if (externalSelectedPackage) {
       if (externalSelectedPackage.includes('באות יחד')) {
-        setSelectedPkg('באות יחד (1,080 ₪ למשתתפת)');
-      } else if (externalSelectedPackage.includes('שמונת המפגשים') || externalSelectedPackage.includes('המלאה')) {
-        setSelectedPkg('כל שמונת המפגשים - התוכנית המלאה (1,200 ₪)');
-      } else if (externalSelectedPackage.includes('החלקית')) {
-        setSelectedPkg(`התוכנית החלקית - 4 מפגשים (680 ₪)`);
+        setSelectedPkg('באות יחד (₪810 למשתתפת)');
+      } else if (externalSelectedPackage.includes('ששת המפגשים') || externalSelectedPackage.includes('המלאה') || externalSelectedPackage.includes('כולה') || externalSelectedPackage.includes('6 המפגשים')) {
+        setSelectedPkg('החוויה המלאה - כל 6 המפגשים (₪900 למשתתפת)');
+      } else if (externalSelectedPackage.includes("חלק א'") || externalSelectedPackage.includes('הראשון')) {
+        setSelectedPkg("שלושה בתור התחלה - חלק א' (₪510 למשתתפת)");
+      } else if (externalSelectedPackage.includes("חלק ב'") || externalSelectedPackage.includes('השני')) {
+        setSelectedPkg("שלושה בתור התחלה - חלק ב' (₪510 למשתתפת)");
+      } else if (externalSelectedPackage.includes("חלק א'") || externalSelectedPackage.includes('הראשון') || externalSelectedPackage.includes('שלושה בתור התחלה') || externalSelectedPackage.includes('3 מפגשים')) {
+        setSelectedPkg("שלושה בתור התחלה - חלק א' (₪510 למשתתפת)");
       }
     }
   }, [externalSelectedPackage]);
@@ -127,7 +141,7 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
 
   return (
     <section id={id} className="w-full max-w-3xl mx-auto">
-      <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 md:p-12 shadow-[0_20px_50px_rgba(197,107,62,0.08)] border-2 border-[#C56B3E]/20 relative overflow-hidden">
+      <div className="bg-white rounded-3xl sm:rounded-4xl p-5 sm:p-10 md:p-12 shadow-[0_20px_50px_rgba(197,107,62,0.08)] border-2 border-[#C56B3E]/20 relative overflow-hidden">
         {/* Decorative Top Accent */}
         <div className="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-[#2D5043] via-[#C56B3E] to-[#B85D19]" />
 
@@ -189,16 +203,16 @@ export const WorkshopInterestForm: React.FC<WorkshopInterestFormProps> = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="text-center mb-8 sm:mb-10">
+              <div className="text-center mb-6 sm:mb-10">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C56B3E]/10 text-[#C56B3E] text-sm sm:text-base font-bold mb-3 border border-[#C56B3E]/20">
                   <Sparkles className="w-4 h-4" />
                   <span>בואי נתחבר</span>
                 </div>
                 {/* Exact requested heading */}
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] mb-3 tracking-tight leading-snug">
+                <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] mb-3 tracking-tight leading-snug">
                   השאירי פרטים ונשמח לחזור אלייך לשיחת אישית ושריון מקומך
                 </h3>
-                <p className="text-base sm:text-lg text-gray-700 max-w-xl mx-auto leading-relaxed">
+                <p className="text-sm sm:text-lg text-gray-700 max-w-xl mx-auto leading-relaxed">
                   הסדנה מתקיימת במסגרת אינטימית בקבוצה קטנה. השאירי פרטים ונעדכן אותך לפני כולן לקראת מחזור חורף הקרוב.
                 </p>
               </div>

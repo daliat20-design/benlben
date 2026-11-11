@@ -12,6 +12,7 @@ import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 import { WhatsAppShare } from '../components/WhatsAppShare';
 import { LegalModals } from '../components/LegalModals';
+import { OtherProgramsSection } from '../components/OtherProgramsSection';
 
 const PartTwo: React.FC = () => {
   const [activeModal, setActiveModal] = useState<'terms' | 'privacy' | null>(null);
@@ -31,7 +32,7 @@ const PartTwo: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green">
+    <div className="min-h-screen font-sans selection:bg-brand-beige selection:text-brand-green overflow-x-clip" dir="rtl">
       <Navbar />
       <main>
         <HeroPartTwo />
@@ -42,6 +43,7 @@ const PartTwo: React.FC = () => {
         <PricingSectionPartTwo />
         <TeamSection />
         <TestimonialsSection />
+        <OtherProgramsSection currentProgramId="midlife" />
       </main>
       <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
       <WhatsAppShare />

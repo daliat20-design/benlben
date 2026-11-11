@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ExternalLink, Copy, Check, FileCode, Sparkles, Clock, AlertCircle, Eye, ArrowLeft } from 'lucide-react';
-import { AlchemyOfElementsPage } from './AlchemyOfElementsPage';
 import { MidlifeMiniPage } from './MidlifeMiniPage';
 import { UpTo180MiniPage } from './UpTo180MiniPage';
 import { HighlightsMiniPage } from './HighlightsMiniPage';
 import { TheTentMiniPage } from './TheTentMiniPage';
 import { AheadOfYouMiniPage } from './AheadOfYouMiniPage';
 import { FlowTripsMiniPage } from './FlowTripsMiniPage';
+import { SoulTrainingPage } from '../SoulTrainingPage';
 
 interface ProductMeta {
   id: string;
@@ -27,7 +27,7 @@ export const MiniPagesManager: React.FC = () => {
   }, []);
 
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [selectedPreview, setSelectedPreview] = useState<string>('alchemy');
+  const [selectedPreview, setSelectedPreview] = useState<string>('midlife');
 
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
@@ -69,21 +69,12 @@ export const MiniPagesManager: React.FC = () => {
     },
     {
       id: 'flowtrips',
-      name: 'FlowTrips',
-      subtitle: 'חוויות דרך לנשים | מסעות של שלושה ימים',
+      name: 'FLOWTRIPS וריטריטים',
+      subtitle: 'חוויות דרך וריטריטים לנשים',
       slug: '/p/flowtrips',
       filePath: 'pages/mini/FlowTripsMiniPage.tsx',
       status: 'ready',
       component: FlowTripsMiniPage
-    },
-    {
-      id: 'alchemy',
-      name: 'אלכימיה של יסודות',
-      subtitle: 'יום שיא בטבע לנשים: רוח, מים, אש, אדמה',
-      slug: '/p/alchemy',
-      filePath: 'pages/mini/AlchemyOfElementsPage.tsx',
-      status: 'ready',
-      component: AlchemyOfElementsPage
     },
     {
       id: 'the-tent',
@@ -102,6 +93,15 @@ export const MiniPagesManager: React.FC = () => {
       filePath: 'pages/mini/HighlightsMiniPage.tsx',
       status: 'ready',
       component: HighlightsMiniPage
+    },
+    {
+      id: 'soul-training',
+      name: 'אמצע החיים ✦ אימון לנשמה',
+      subtitle: 'סדנה בת 4 מפגשים בשיתוף מכון הכושר של רעות (גילאי 45–55)',
+      slug: '/soul-training',
+      filePath: 'pages/SoulTrainingPage.tsx',
+      status: 'ready',
+      component: SoulTrainingPage
     }
   ];
 
@@ -158,8 +158,8 @@ export const MiniPagesManager: React.FC = () => {
               הפרדה מוחלטת ובטוחה בין הדפים
             </h2>
             <p className="text-sm text-emerald-800 leading-relaxed">
-              כל מיני-דף בנוי כקובץ עצמאי ונפרד לחלוטין. שינוי, עריכה או עדכון טקסט בדף אחד (למשל באלכימיה של יסודות) מתבצע בקובץ שלו בלבד ולעולם אינו משפיע על דפים אחרים.
-              הגולשת המקבלת קישור ישיר רואה <strong>רק את הדף שלה</strong>, ללא שום ניווט בין שאר המוצרים.
+              כל מיני-דף בנוי כקובץ עצמאי ונפרד לחלוטין. שינוי, עריכה או עדכון טקסט בדף אחד מתבצע בקובץ שלו בלבד ולעולם אינו משפיע על דפים אחרים.
+              כל התוכניות מוצגות באופן אחיד ועדכני בכל הדפים.
             </p>
           </div>
         </div>

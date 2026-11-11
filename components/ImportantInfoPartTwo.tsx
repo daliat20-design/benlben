@@ -43,11 +43,6 @@ export const ImportantInfoPartTwo: React.FC = () => {
                    </div>
                 </div>
 
-                <div className="flex items-center gap-3 md:gap-5 p-4 md:p-6 bg-brand-green/5 rounded-[1.5rem] md:rounded-[2rem] border-r-8 border-brand-green shadow-sm">
-                   <svg className="w-6 h-6 md:w-8 md:h-8 text-brand-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                   <p className="text-xl md:text-2xl"><span className="font-black text-brand-green">מיקום:</span> א.ת כפר סבא (רח' התע״ש)</p>
-                </div>
-
                 <div className="mt-auto pt-4 md:pt-6">
                   <div className="bg-red-600 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border-b-[6px] md:border-b-[8px] border-red-800 shadow-[0_15px_30px_rgba(220,38,38,0.2)] transform -rotate-1 group-hover:rotate-0 transition-transform duration-500">
                     <p className="text-white font-black text-lg md:text-2xl leading-tight">

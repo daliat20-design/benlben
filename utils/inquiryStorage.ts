@@ -10,6 +10,9 @@ export interface InquirySubmission {
   notes?: string;
   submittedAt: string;
   source?: string;
+  audienceType?: 'private' | 'organization';
+  organizationName?: string;
+  role?: string;
 }
 
 const LOCAL_STORAGE_KEY = 'bein_levein_interest_inquiries_cache';
@@ -60,6 +63,9 @@ export async function saveInquiry(
       notes: data.notes || '',
       submittedAt: newInquiry.submittedAt,
       source: data.source || 'website',
+      audienceType: data.audienceType || 'private',
+      organizationName: data.organizationName || '',
+      role: data.role || '',
     });
     firestoreSaved = true;
     finalId = docRef.id;

@@ -231,7 +231,7 @@ export const AlchemyOfElementsPage: React.FC<{ embedded?: boolean; id?: string }
             </div>
             
             <p className="text-base sm:text-lg text-gray-700 mb-7 font-medium text-center">
-              דלית מזמינה אותך לשיחה קצרה לבירור והתאמת החוויה לקבוצה שלך.
+              מזמינות אותך לשיחה קצרה לבירור והתאמת החוויה לקבוצה שלך.
             </p>
 
             <a

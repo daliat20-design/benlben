@@ -38,46 +38,62 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
     }
   };
 
-  const meetings = [
+  const topics = [
     {
-      num: 1,
-      title: 'תסמינים ושינויים בגיל המעבר',
-      desc: 'להבין מה משתנה ומה יכול לעזור.'
+      id: 't1',
+      part: 'חלק א׳',
+      isPartB: false,
+      title: 'כשזה מתחיל להשתנות',
+      desc: 'התסמינים הפיזיים והרגשיים של גיל המעבר – להבין מה משתנה ומה יכול לעזור.'
     },
     {
-      num: 2,
-      title: 'משפחה ותפקידים משתנים',
-      desc: 'בין הורים שמתבגרים לילדים שגדלים ומשחררים.'
+      id: 't2',
+      part: 'חלק א׳',
+      isPartB: false,
+      title: 'בין חיבוק לשחרור',
+      desc: 'הורים מתבגרים וסינדרום הקן המתרוקן – בין הורים שמתבגרים לילדים שגדלים ומשחררים.'
     },
     {
-      num: 3,
-      title: 'תזונה, תנועה והגוף שלי',
-      desc: 'להחזיר לעצמי כוח ולבנות מערכת יחסים טובה יותר עם הגוף.'
+      id: 't3',
+      part: 'חלק א׳',
+      isPartB: false,
+      title: 'להחזיר לעצמי כוח',
+      desc: 'תזונה, תנועה ושיפור היחסים עם הגוף – להחזיר לעצמי כוח ולבנות מערכת יחסים טובה יותר עם הגוף.'
     },
     {
-      num: 4,
-      title: 'בחירה וקבלת החלטות',
-      desc: 'לעצור את האוטומט ולבדוק מה נכון לי עכשיו.'
+      id: 't4',
+      part: 'חלק א׳',
+      isPartB: false,
+      title: 'קבלת החלטות מתוך בחירה',
+      desc: 'לבחור ממקום אישי ופנימי – לזקק מצבים ותובנות ולתרגם אותם לצעדים מעשיים.'
     },
     {
-      num: 5,
-      title: 'זהות והקשבה לעצמי',
-      desc: 'מי אני כשהתפקידים שהגדירו אותי מתחילים להשתנות?'
+      id: 't5',
+      part: 'חלק ב׳',
+      isPartB: true,
+      title: 'ללמוד להקשיב',
+      desc: 'זהות חדשה שמבקשת להיוולד – להעמיק בהקשבה לעצמנו ולבחירות שלנו דרך חיבור חווייתי.'
     },
     {
-      num: 6,
-      title: 'קריירה, משמעות והגשמה',
-      desc: 'לגלות מחדש כיוון, רצון ומה עוד הייתי רוצה לעשות.'
+      id: 't6',
+      part: 'חלק ב׳',
+      isPartB: true,
+      title: 'מי אני עכשיו?',
+      desc: 'זהות, משמעות ולגלות כיוון מחדש – מי אני כשהתפקידים שהגדירו אותי משתנים, ולגלות מחדש כיוון ורצון.'
     },
     {
-      num: 7,
-      title: 'זוגיות, קרבה ואינטימיות',
-      desc: 'לדבר גם על מה שמשתנה בינינו.'
+      id: 't7',
+      part: 'חלק ב׳',
+      isPartB: true,
+      title: 'מגע, מרחק ומה שביניהם',
+      desc: 'אינטימיות, תשוקה וזוגיות מחודשת – לדבר גם על מה שמשתנה בינינו וליצור חיבור מחודש.'
     },
     {
-      num: 8,
-      title: 'הודיה והפרק הבא',
-      desc: 'לסגור את התהליך עם כלים מעולם ה-NLP, במבט על מה שיש ועל מה שעוד אפשרי.'
+      id: 't8',
+      part: 'חלק ב׳',
+      isPartB: true,
+      title: 'לסגור מעגל, לפתוח לב',
+      desc: 'הכרת תודה, אושר ומשמעות – לאסוף את התהליך במבט על מה שיש ועל מה שעוד אפשרי.'
     }
   ];
 
@@ -180,44 +196,60 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
             </p>
 
             <p>
-              במהלך שמונה מפגשים אנחנו נוגעות בנושאים שמעסיקים נשים בתקופה הזו: השינויים הפיזיים והרגשיים, הגוף, הורים מתבגרים וילדים שעוזבים את הקן, בחירות, זהות, קריירה והגשמה, זוגיות ואינטימיות.
+              במהלך שישה מפגשים (המחולקים ל-3 מפגשים בכל חלק) אנחנו נוגעות בנושאים שמעסיקים נשים בתקופה הזו מתוך מניפת התכנים שלנו: תסמינים ושינויים בגיל המעבר, הורים מתבגרים וילדים שעוזבים את הקן, הגוף ותזונה, בחירה ושינוי, זהות וקריירה, זוגיות ואינטימיות. ניתן להירשם לחלק הראשון, לחלק השני או לתוכנית כולה.
             </p>
 
             <div className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-[#C56B3E]/30 shadow-sm mt-6 text-center">
               <p className="text-[#C56B3E] font-black text-xl sm:text-2xl leading-relaxed">
-                כל מפגש משלב הרצאה של אשת מקצוע, שיח בקבוצה ותהליך אישי שממשיך ממפגש למפגש.
+                הסדנה מלווה בנבחרת מרצות הבית שלנו ומשלבת הרצאות מקצועיות, שיח בקבוצה ותהליך אישי שממשיך ממפגש למפגש.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section: The 8 Meetings */}
+        {/* Section: Content Fan (All 8 Possible Topics without session numbers) */}
         <section className="py-10 sm:py-14 border-b border-[#C56B3E]/20">
           <div className="text-center mb-8 sm:mb-10">
             <h2 className="text-3xl sm:text-5xl font-black text-[#C56B3E] tracking-tight mb-3 text-center">
-              שמונה מפגשים. הרבה זוויות. תהליך אחד.
+              מניפת התכנים של הסדנא
             </h2>
             <p className="text-gray-700 text-lg sm:text-xl font-bold text-center">
-              מסע של שמונה שבועות שבו כל מפגש מאיר זווית אחרת של אמצע החיים
+              סדנה בת 6 מפגשים המחולקים ל-3 מפגשים בכל חלק – מתוך מניפת התכנים נבחרים הנושאים והמרצות בהתאמה לכל מחזור
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-            {meetings.map((m) => (
+            {topics.map((m) => (
               <div
-                key={m.num}
-                className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-[#C56B3E]/25 shadow-sm hover:shadow-md hover:border-[#C56B3E] transition-all text-right flex flex-col"
+                key={m.id}
+                className={`bg-white p-6 sm:p-7 rounded-3xl border-2 shadow-sm hover:shadow-md transition-all text-right flex flex-col ${
+                  m.isPartB
+                    ? 'border-[#C56B3E]/25 hover:border-[#C56B3E]'
+                    : 'border-[#2D5043]/25 hover:border-[#2D5043]'
+                }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="w-10 h-10 rounded-2xl bg-[#C56B3E]/15 text-[#C56B3E] font-black text-base flex items-center justify-center">
-                    {m.num}
+                  <span
+                    className={`w-10 h-10 rounded-2xl font-black text-base flex items-center justify-center ${
+                      m.isPartB
+                        ? 'bg-[#C56B3E]/15 text-[#C56B3E]'
+                        : 'bg-[#2D5043]/10 text-[#2D5043]'
+                    }`}
+                  >
+                    ✦
                   </span>
-                  <span className="text-xs sm:text-sm font-black text-gray-500 uppercase tracking-wider">
-                    מפגש {m.num}
+                  <span
+                    className={`text-xs sm:text-sm font-black px-3 py-1 rounded-full ${
+                      m.isPartB
+                        ? 'bg-[#FFF4EB] text-[#C56B3E]'
+                        : 'bg-[#2D5043]/10 text-[#2D5043]'
+                    }`}
+                  >
+                    {m.part}
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight mb-2 text-center">
+                <h3 className={`text-xl sm:text-2xl font-black tracking-tight mb-2 text-center ${m.isPartB ? 'text-[#C56B3E]' : 'text-[#2D5043]'}`}>
                   {m.title}
                 </h3>
 
@@ -226,6 +258,16 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-7 bg-gradient-to-r from-[#FFF4EB] via-[#FFE6D1] to-[#FFF4EB] p-5 sm:p-7 rounded-3xl border-2 border-[#C56B3E] shadow-lg text-center animate-notice-blink">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#C56B3E] text-white text-xs font-black mb-2.5 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-amber-200 animate-ping"></span>
+              <span>שימי לב ✦</span>
+            </div>
+            <p className="text-base sm:text-lg font-black text-[#2D5043] leading-relaxed">
+              בכל מחזור מתקיימים 6 מפגשים המחולקים ל-3 מפגשים בכל חלק מתוך מניפת התכנים ובליווי נבחרת מרצות הבית (מיה קדוש, חגית בן ארי, אנה בדוס ריכטר, מיכל שביט, גולדי אברהם, סימה ביטון קצביץ וטליה גולן) – בהתאמה לקבוצה ולדגשי המחזור.
+            </p>
           </div>
         </section>
 
@@ -269,7 +311,7 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
             </div>
             
             <p className="text-base sm:text-lg text-gray-700 mb-7 font-medium text-center">
-              דלית מזמינה אותך לשיחה אישית ופתוחה לכל שאלה לקראת פתיחת הקבוצה.
+              מזמינות אותך לשיחה אישית ופתוחה לכל שאלה לקראת פתיחת הקבוצה.
             </p>
 
             <a
@@ -286,7 +328,7 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
           {/* Sub-footer sign-off */}
           <div className="mt-8 text-center text-xs sm:text-sm text-gray-600 font-bold space-y-1">
             <div className="font-black text-[#C56B3E] text-base sm:text-lg">אמצע החיים</div>
-            <div className="text-gray-700">8 מפגשים לנשים בגילאי <span dir="ltr">45–60</span></div>
+            <div className="text-gray-700">6 מפגשים (3 בכל חלק) לנשים בגילאי <span dir="ltr">45–60</span></div>
             <div>סדנת הדגל מבית <span className="font-black text-brand-green">בין לבין | מרחבים לנשים</span></div>
           </div>
         </section>
