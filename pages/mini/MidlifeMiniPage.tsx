@@ -150,58 +150,102 @@ export const MidlifeMiniPage: React.FC<{ embedded?: boolean; id?: string }> = ({
             סדנת הדגל של בין לבין לנשים בגילאי <span dir="ltr">45–60</span>
           </div>
 
-          {/* Opening Narrative */}
-          <div className="space-y-5 text-xl sm:text-2xl text-gray-800 leading-[1.8] max-w-2xl font-normal mx-auto text-right">
-            <p className="font-bold text-gray-900">
-              יש תקופות בחיים שבהן הרבה דברים משתנים כמעט במקביל.
-            </p>
+          {/* Opening Narrative: אמצע החיים. מי הכין אותנו לזה? */}
+          <div className="space-y-5 text-lg sm:text-xl text-gray-800 leading-[1.8] max-w-2xl font-normal mx-auto text-right bg-white/85 p-6 sm:p-8 rounded-3xl border border-[#C56B3E]/25 shadow-xs">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#C56B3E] tracking-tight">
+              אמצע החיים. מי הכין אותנו לזה?
+            </h2>
 
             <p>
-              הגוף משתנה. הילדים גדלים. ההורים מתבגרים. הזוגיות מקבלת צורה אחרת. הקריירה מעלה שאלות חדשות. דברים שהתאימו לנו במשך שנים כבר לא תמיד מרגישים מדויקים.
+              פעם, לפני שהתקשרת לחברה בשלוש בלילה, היית צריכה סיבה ממש טובה.
+            </p>
+            <p>
+              היום מספיק לראות שהיא מחוברת.
             </p>
 
-            <div className="bg-[#C56B3E]/10 p-4 rounded-2xl border-r-4 border-[#C56B3E] text-center my-3">
-              <p className="text-[#C56B3E] font-black text-2xl sm:text-3xl">
-                ובתוך כל אלה, נפתח גם מרחב חדש.
-              </p>
+            <div className="my-3 p-4 rounded-2xl bg-[#FFF4EB]/90 border-r-4 border-[#C56B3E] space-y-2 text-[#2D5043] font-bold">
+              <p>&quot;גם את ערה?&quot;</p>
+              <p>&quot;כן. כבר הספקתי לעשות בראש סדר בארונות, לשקול להחליף עבודה ולהיזכר שאין חלב.&quot;</p>
             </div>
 
             <p>
-              מרחב לעצור ולשאול מה נכון לי עכשיו. להבין את השינויים שאני עוברת, לקבל ידע וכלים, לפגוש נשים שנמצאות בשלב דומה ולגלות מה עוד מחכה לי בפרק הבא.
+              בבוקר, כמובן, את כבר לא ממש זוכרת בשביל מה פתחת את המקרר.
+            </p>
+
+            <p className="font-black text-[#2D5043] pt-2 border-t border-[#C56B3E]/15">
+              יש משהו מפתיע באמצע החיים.
+            </p>
+
+            <p>
+              אנחנו מגיעות עם כל כך הרבה ניסיון, ידע ותובנות שצברנו בדרך. ובכל זאת, דווקא עכשיו מתעוררות לא מעט שאלות חדשות.
+            </p>
+
+            <p>
+              חלקן קשורות לגוף ולשינויים שלא תמיד הכינו אותנו אליהם. אחרות קשורות לזוגיות, למשפחה, למערכות היחסים ולמה שאנחנו רוצות מעצמנו ומהחיים.
+            </p>
+
+            <p>
+              ואנחנו, כמו נשים שיודעות להסתדר, מתחילות לחפש תשובות.
+            </p>
+
+            <p>
+              גוגל, צ&apos;ט, פודקאסטים, שיחות עם חברות. לפעמים גם שואלות &quot;בשביל חברה&quot;.
+            </p>
+
+            <p className="font-bold text-[#93542B]">
+              רק שהתשובות לא תמיד מתחברות, ולפעמים כל תשובה מביאה איתה עוד שלוש שאלות.
             </p>
           </div>
         </div>
 
-        {/* Section: Much more than a menopause workshop */}
+        {/* Section: אולי הגיע הזמן לחבר את הנקודות? */}
         <section className="py-10 sm:py-14 border-b border-[#C56B3E]/20 text-center">
-          <div className="inline-block px-5 py-2 bg-[#C56B3E]/10 text-[#C56B3E] rounded-full text-sm sm:text-base font-black mb-4 border border-[#C56B3E]/30">
-            מבט רחב ומעמיק
-          </div>
-
-          <h2 className="text-3xl sm:text-5xl font-black text-[#C56B3E] mb-6 tracking-tight text-center">
-            הרבה יותר מסדנה על גיל המעבר
+          <h2 className="text-3xl sm:text-4xl font-black text-[#C56B3E] mb-6 tracking-tight text-center">
+            אולי הגיע הזמן לחבר את הנקודות?
           </h2>
 
-          <div className="space-y-5 text-lg sm:text-xl md:text-2xl text-gray-800 leading-[1.8] font-normal max-w-2xl mx-auto text-right">
-            <p className="text-center font-medium text-gray-700">
-              ידע על גיל המעבר אפשר למצוא היום כמעט בכל מקום.
-            </p>
-
-            <p className="text-2xl sm:text-3xl font-black text-gray-900 text-center text-[#C56B3E]">
-              אבל אמצע החיים הוא הרבה יותר מגיל המעבר.
+          <div className="space-y-5 text-lg sm:text-xl text-gray-800 leading-[1.8] font-normal max-w-2xl mx-auto text-right">
+            <p className="font-bold text-[#2D5043]">
+              כי לפעמים הבעיה היא לא שאין תשובות. להפך, יש יותר מדי מהן.
             </p>
 
             <p>
-              <strong className="font-black text-[#C56B3E]">אמצע החיים</strong> היא מעטפת שמחברת בין ידע מקצועי, שיח נשי, התבוננות אישית וכלים מעשיים.
+              מה שחסר הוא רגע להבין מה באמת רלוונטי לחיים שלנו, מה אפשר לעשות אחרת, ואולי אפילו להיזכר בכמה דברים שרצינו לעצמנו ומזמן לא מצאנו זמן להתעכב עליהם.
+            </p>
+
+            <div className="bg-[#C56B3E]/10 p-5 rounded-2xl border-r-4 border-[#2D5043] text-center my-4">
+              <p className="text-[#2D5043] font-black text-xl sm:text-2xl">
+                ומה אם לא היינו צריכות לפענח את כל זה לבד?
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: אמצע החיים. הרבה יותר מסדנה על גיל המעבר. */}
+        <section className="py-10 sm:py-14 border-b border-[#C56B3E]/20 text-center">
+          <h2 className="text-3xl sm:text-5xl font-black text-[#C56B3E] mb-6 tracking-tight text-center">
+            אמצע החיים. הרבה יותר מסדנה על גיל המעבר.
+          </h2>
+
+          <div className="space-y-5 text-lg sm:text-xl text-gray-800 leading-[1.8] font-normal max-w-2xl mx-auto text-right">
+            <p>
+              מתוך ההבנה הזאת נולדה{' '}
+              <strong className="font-black text-[#C56B3E]">
+                &quot;אמצע החיים&quot;, סדנת הדגל של בין לבין.
+              </strong>
             </p>
 
             <p>
-              במהלך שישה מפגשים (המחולקים ל-3 מפגשים בכל חלק) אנחנו נוגעות בנושאים שמעסיקים נשים בתקופה הזו מתוך מניפת התכנים שלנו: תסמינים ושינויים בגיל המעבר, הורים מתבגרים וילדים שעוזבים את הקן, הגוף ותזונה, בחירה ושינוי, זהות וקריירה, זוגיות ואינטימיות. ניתן להירשם לחלק הראשון, לחלק השני או לתוכנית כולה.
+              סדנה שמחברת בין ידע מקצועי בגובה העיניים לחוויה נשית משותפת, עם שיחות פתוחות, התנסויות וכלים מעשיים.
+            </p>
+
+            <p>
+              הזדמנות לקבל תשובות לשאלות שמעסיקות אותך, להסתכל על דברים מזווית קצת אחרת, לפגוש נשים שנמצאות בשלב חיים דומה ולקחת איתך כלים ותובנות שתוכלי ליישם גם ביומיום.
             </p>
 
             <div className="bg-white p-6 sm:p-7 rounded-3xl border-2 border-[#C56B3E]/30 shadow-sm mt-6 text-center">
               <p className="text-[#C56B3E] font-black text-xl sm:text-2xl leading-relaxed">
-                הסדנה מלווה בנבחרת מרצות הבית שלנו ומשלבת הרצאות מקצועיות, שיח בקבוצה ותהליך אישי שממשיך ממפגש למפגש.
+                מה אומרת? מצטרפת?
               </p>
             </div>
           </div>
