@@ -2,31 +2,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Sparkles, 
   Dumbbell, 
-  Send, 
-  CheckCircle2, 
-  AlertCircle, 
   Clock, 
-  MapPin, 
-  Users, 
   ChevronDown, 
   ChevronLeft,
   ChevronRight,
   Share2, 
-  ShieldCheck, 
   Menu,
   X,
   Compass,
   Star,
   Quote,
-  Heart
+  Heart,
+  Calendar,
+  CheckCircle2,
 } from 'lucide-react';
 import { ButterflyIcon } from '../components/Hero';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
 import { BrandGallerySlider } from '../components/BrandGallerySlider';
+import { SoulRegistrationForm } from '../components/SoulRegistrationForm';
+import { LegalModals } from '../components/LegalModals';
 import { SPEAKERS, TEAM } from '../constants';
-import { saveInquiry } from '../utils/inquiryStorage';
 
-// 4 Sessions Tailored for Fitness Gym Trainees (Ages 45-55)
+const PAYBOX_URL = 'https://links.payboxapp.com/IxnnnpXV67b';
+const SOUL_DATES = ['19.12.26', '26.12.26', '2.1.27', '9.1.27'];
+
+// 4 Sessions Tailored for Fitness Gym Trainees (Ages 40-55)
 const SOUL_SESSIONS = [
   {
     id: 'change',
@@ -34,7 +34,7 @@ const SOUL_SESSIONS = [
     leadingValue: 'קבלה',
     title: 'כשזה מתחיל להשתנות',
     subtitle: 'תסמינים בגיל המעבר (גם אם את לא יודעת) הם כבר שם',
-    description: 'את מתאמנת, אוכלת נכון ומשקיעה בגוף – אבל פתאום השינה משתבשת, מצב הרוח קופץ, רמות האנרגיה משתנות ומשקל הגוף מתנהג אחרת. במפגש נצלול לעומק השינויים ההורמונליים והפיזיים, ננפץ מיתוסים ונבין איך לזהות את הסימנים המוקדמים בגילאי \u200E45-55\u200E עוד לפני שהם הופכים למשבר.',
+    description: 'את מתאמנת, אוכלת נכון ומשקיעה בגוף – אבל פתאום השינה משתבשת, מצב הרוח קופץ, רמות האנרגיה משתנות ומשקל הגוף מתנהג אחרת. במפגש נצלול לעומק השינויים ההורמונליים והפיזיים, ננפץ מיתוסים ונבין איך לזהות את הסימנים המוקדמים בגילאי \u200E40-55\u200E עוד לפני שהם הופכים למשבר.',
     expertField: 'הרצאת מומחית: ליווי תהליכי שינוי, חוסן פיזיולוגי וקבלת החלטות בגיל המעבר',
     badgeColor: 'bg-[#0E7490] text-white',
     cardBorder: 'border-[#0E7490]/30',
@@ -47,7 +47,7 @@ const SOUL_SESSIONS = [
     title: 'להחזיר לעצמי כח',
     subtitle: 'תזונה מדויקת לאימון, לחיוניות ולאיזון הורמונלי',
     description: 'הגוף שלך באימון דורש מענה תזונתי שונה לחלוטין בתקופת אמצע החיים. נדבר על תזונה נשית מותאמת, צפיפות עצם, מסת שריר, שמירה על אנרגיה יציבה לאורך היום, חילוף חומרים ואיזון הורמונלי טבעי. ידע מעשי שמתחבר ישירות לאורח החיים הספורטיבי שלך.',
-    expertField: 'הרצאת מומחית: נטורופתיה, תזונה טבעית מותאמת ואורח חיים בריא בגילאי \u200E45-55\u200E',
+    expertField: 'הרצאת מומחית: נטורופתיה, תזונה טבעית מותאמת ואורח חיים בריא בגילאי \u200E40-55\u200E',
     badgeColor: 'bg-[#C56B3E] text-white',
     cardBorder: 'border-[#C56B3E]/30',
     iconBg: 'bg-[#C56B3E]/10 text-[#C56B3E]'
@@ -125,18 +125,12 @@ const SOUL_TESTIMONIALS = [
 ];
 
 export const SoulTrainingPage: React.FC = () => {
-  const [fullName, setFullName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState('');
-  const [gymTrack, setGymTrack] = useState('מתאמנת במכון הכושר של רעות');
-  const [questions, setQuestions] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
-  
   // Mobile & In-Page Dropdown Navigation
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Sessions Tabbed Window State
+  const [activeSessionIdx, setActiveSessionIdx] = useState(0);
+  const sessionTouchStartXRef = useRef<number | null>(null);
 
   // Speakers Carousel Gallery State
   const [activeSpeakerIdx, setActiveSpeakerIdx] = useState(0);
@@ -147,8 +141,19 @@ export const SoulTrainingPage: React.FC = () => {
   const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
   const testTouchStartXRef = useRef<number | null>(null);
 
+  // Legal modal state
+  const [activeLegalModal, setActiveLegalModal] = useState<'terms' | 'privacy' | null>(null);
+
   const toggleSpeakerBio = (idx: number) => {
     setExpandedBios(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const nextSession = () => {
+    setActiveSessionIdx(prev => (prev === SOUL_SESSIONS.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSession = () => {
+    setActiveSessionIdx(prev => (prev === 0 ? SOUL_SESSIONS.length - 1 : prev - 1));
   };
 
   const nextSpeaker = () => {
@@ -165,6 +170,24 @@ export const SoulTrainingPage: React.FC = () => {
 
   const prevTestimonial = () => {
     setActiveTestimonialIdx(prev => (prev === 0 ? SOUL_TESTIMONIALS.length - 1 : prev - 1));
+  };
+
+  const handleSessionTouchStart = (e: React.TouchEvent) => {
+    sessionTouchStartXRef.current = e.touches[0].clientX;
+  };
+
+  const handleSessionTouchEnd = (e: React.TouchEvent) => {
+    if (sessionTouchStartXRef.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchEndX - sessionTouchStartXRef.current;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        prevSession();
+      } else {
+        nextSession();
+      }
+    }
+    sessionTouchStartXRef.current = null;
   };
 
   const handleSpeakerTouchStart = (e: React.TouchEvent) => {
@@ -204,7 +227,7 @@ export const SoulTrainingPage: React.FC = () => {
   };
 
   useEffect(() => {
-    document.title = "אמצע החיים - אימון לנשמה | בשיתוף מכון הכושר של רעות | בין לבין";
+    document.title = "אמצע החיים - אימון לנשמה | בשיתוף הסטודיו של רעות | בין לבין";
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
     
     // Ensure mobile browser bar (Android/WhatsApp) is white and seamless
@@ -215,7 +238,7 @@ export const SoulTrainingPage: React.FC = () => {
   }, []);
 
   const whatsappMessage = encodeURIComponent(
-    "היי דלית ואלסי, קראתי על סדנת 'אמצע החיים - אימון לנשמה' בשיתוף מכון הכושר של רעות ואשמח לשמוע פרטים נוספים!"
+    "היי דלית ואלסי, קראתי על סדנת 'אמצע החיים - אימון לנשמה' בשיתוף הסטודיו של רעות ואשמח לשמוע פרטים נוספים!"
   );
   const whatsappUrl = `https://wa.me/972508353731?text=${whatsappMessage}`;
 
@@ -232,8 +255,8 @@ export const SoulTrainingPage: React.FC = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "אמצע החיים - אימון לנשמה | בשיתוף מכון הכושר של רעות",
-          text: "את משקיעה באימון לגוף כל השנה – מתי השקעת באימון לנפש? סדנה בת 4 מפגשים לנשים \u200E45-55\u200E מבית בין לבין.",
+          title: "אמצע החיים - אימון לנשמה | בשיתוף הסטודיו של רעות",
+          text: "את משקיעה באימון לגוף כל השנה – מתי השקעת באימון לנפש? סדנה בת 4 מפגשים לנשים \u200E40-55\u200E מבית בין לבין.",
           url,
         });
       } catch {
@@ -245,44 +268,15 @@ export const SoulTrainingPage: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!fullName.trim() || !phone.trim()) {
-      setFormError('נא למלא שם מלא ומספר טלפון');
-      return;
-    }
-    setFormError(null);
-    setIsSubmitting(true);
-
-    try {
-      await saveInquiry({
-        fullName: fullName.trim(),
-        phone: phone.trim(),
-        email: email.trim(),
-        programs: ['אמצע החיים - אימון לנשמה (מכון הכושר של רעות)'],
-        notes: `גיל: ${age.trim() || 'לא צוין'}. מכון כושר: ${gymTrack}. שאלות: ${questions.trim() || 'אין'}`,
-        submittedAt: new Date().toISOString(),
-        source: 'אמצע החיים - אימון לנשמה (רעות)',
-        audienceType: 'private'
-      });
-
-      setIsSubmitted(true);
-      setIsSubmitting(false);
-    } catch {
-      setIsSubmitting(false);
-      setFormError('אירעה שגיאה קלה בשמירה. ניתן לפנות ישירות בוואטסאפ.');
-    }
-  };
-
   const navMenuItems = [
     { label: 'על הסדנה', id: 'about' },
     { label: '4 המפגשים', id: 'soul-sessions' },
-    { label: 'פרטים נוספים', id: 'logistics' },
-    { label: 'גלריית תמונות', id: 'gallery' },
     { label: 'נבחרת המרצות', id: 'speakers' },
-    { label: 'נעים להכיר (דלית ואלסי)', id: 'team' },
+    { label: 'גלריית תמונות', id: 'gallery' },
+    { label: 'דלית ואלסי', id: 'team' },
     { label: 'מה אומרות המשתתפות', id: 'testimonials' },
-    { label: 'שמירת מקום והרשמה', id: 'soul-interest', isHighlight: true },
+    { label: 'מחיר ומועדים', id: 'pricing-dates' },
+    { label: 'הרשמה ותשלום', id: 'soul-interest', isHighlight: true },
   ];
 
   const currentSpeaker = SPEAKERS[activeSpeakerIdx];
@@ -299,20 +293,41 @@ export const SoulTrainingPage: React.FC = () => {
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#0E7490]/20 shadow-xs">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between gap-3">
           
-          {/* Logo & Clean Title (removed "בשיתוף מכון הכושר...") */}
+          {/* Logos & Clean Title */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-white p-1 border-2 border-[#0E7490]/30 shadow-xs flex items-center justify-center shrink-0">
-              <img
-                src="/logos/midlife.webp"
-                alt="לוגו אמצע החיים"
-                className="w-full h-full object-contain rounded-full"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/logos/midlife.png';
-                }}
-              />
+            <div className="flex items-center -space-x-2 space-x-reverse shrink-0">
+              <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-white p-1 border-2 border-[#54634f]/40 shadow-xs flex items-center justify-center relative z-10">
+                <img
+                  src="/logos/brand-main.webp"
+                  alt="לוגו בין לבין"
+                  className="w-full h-full object-contain rounded-full"
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement;
+                    if (!target.src.endsWith('/logos/brand-main.png')) {
+                      target.src = '/logos/brand-main.png';
+                    }
+                  }}
+                />
+              </div>
+              <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-white p-1 border-2 border-[#0E7490]/30 shadow-xs flex items-center justify-center">
+                <img
+                  src="/logos/midlife.webp"
+                  alt="לוגו אמצע החיים"
+                  className="w-full h-full object-contain rounded-full"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/logos/midlife.png';
+                  }}
+                />
+              </div>
             </div>
-            <div className="text-right truncate">
-              <div className="text-sm sm:text-2xl font-black text-[#0E7490] tracking-tight leading-tight flex items-center gap-1 sm:gap-1.5 whitespace-nowrap">
+            <div className="text-right">
+              {/* Mobile: two distinct stacked lines */}
+              <div className="flex flex-col sm:hidden text-right leading-tight">
+                <span className="text-xs font-black text-[#0E7490] tracking-tight">אמצע החיים</span>
+                <span className="text-[11px] font-black text-[#C56B3E] tracking-tight">אימון לנשמה</span>
+              </div>
+              {/* Desktop: single line with separator */}
+              <div className="hidden sm:flex items-center gap-1.5 text-xl lg:text-2xl font-black text-[#0E7490] tracking-tight whitespace-nowrap">
                 <span>אמצע החיים</span>
                 <span className="text-[#C56B3E]">✦</span>
                 <span className="text-[#C56B3E]">אימון לנשמה</span>
@@ -328,17 +343,17 @@ export const SoulTrainingPage: React.FC = () => {
             <button onClick={() => scrollToSection('soul-sessions')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
               4 המפגשים
             </button>
+            <button onClick={() => scrollToSection('speakers')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
+              נבחרת המרצות
+            </button>
             <button onClick={() => scrollToSection('gallery')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
               גלריה
             </button>
             <button onClick={() => scrollToSection('testimonials')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
               המלצות
             </button>
-            <button onClick={() => scrollToSection('speakers')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
-              נבחרת המרצות
-            </button>
-            <button onClick={() => scrollToSection('team')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
-              דלית ואלסי
+            <button onClick={() => scrollToSection('pricing-dates')} className="hover:text-[#0E7490] transition-colors cursor-pointer">
+              מחיר ומועדים
             </button>
           </nav>
 
@@ -359,10 +374,11 @@ export const SoulTrainingPage: React.FC = () => {
             <button
               onClick={handleShare}
               className="p-1.5 sm:px-3 sm:py-2 rounded-full bg-[#0E7490]/10 hover:bg-[#0E7490]/20 text-[#0E7490] text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
-              title="שתפי מתאמנת"
+              title="שתפי חברה"
+              aria-label="שתפי חברה"
             >
               <Share2 size={15} />
-              <span className="hidden sm:inline">שתפי</span>
+              <span className="hidden sm:inline">שתפי חברה</span>
             </button>
 
             <button
@@ -408,7 +424,7 @@ export const SoulTrainingPage: React.FC = () => {
       </header>
 
       {/* 2. HERO SECTION */}
-      <section className="relative pt-10 sm:pt-14 md:pt-18 pb-14 sm:pb-20 md:pb-24 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#F0FDF4]/60 via-[#F8FAFC] to-[#EFF6FF]/40">
+      <section className="relative pt-10 sm:pt-14 md:pt-18 pb-14 sm:pb-20 md:pb-24 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#E8F5F7] via-[#F3FAFB] to-[#EAF5F6]/70 border-b border-[#0E7490]/10">
         
         {/* Background Ambience */}
         <ButterflyIcon size={240} className="absolute -top-10 -right-20 opacity-[0.04] text-[#0E7490] pointer-events-none" />
@@ -417,15 +433,41 @@ export const SoulTrainingPage: React.FC = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center max-w-4xl mx-auto space-y-6">
             
+            {/* Bein Levein Main Brand Logo in Hero */}
+            <div className="flex flex-col items-center gap-2.5">
+              <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-white p-2.5 border-2 border-[#54634f]/30 shadow-md flex items-center justify-center overflow-hidden">
+                <img
+                  src="/logos/brand-main.webp"
+                  alt="לוגו בין לבין - מרחבים לנשים"
+                  className="w-full h-full object-contain rounded-full"
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement;
+                    if (!target.src.endsWith('/logos/brand-main.png')) {
+                      target.src = '/logos/brand-main.png';
+                    }
+                  }}
+                />
+              </div>
+              <span className="text-lg sm:text-2xl font-black text-[#54634f] tracking-tight">
+                &quot;בין לבין | מרחבים לנשים&quot;
+              </span>
+            </div>
+
             {/* Collaboration Tag */}
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border-2 border-[#0E7490]/30 shadow-xs text-xs sm:text-sm font-black text-[#0E7490]">
               <Dumbbell className="w-4 h-4 text-[#C56B3E]" />
-              <span>בשיתוף בלעדי עם מכון הכושר של רעות</span>
+              <span>בשיתוף הסטודיו של רעות</span>
               <span className="text-slate-300">•</span>
               <span className="text-[#C56B3E]">
-                נשים בגילאי <span dir="ltr">45-55</span>
+                נשים בגילאי <span dir="ltr">40-55</span>
               </span>
             </div>
+
+            {/* H1 Heading - Two distinct lines on mobile and desktop */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#0E7490] tracking-tight leading-[1.12]">
+              <span className="block">אמצע החיים</span>
+              <span className="block text-[#C56B3E] mt-1 sm:mt-2">אימון לנשמה</span>
+            </h1>
 
             {/* Main Punchy Motto */}
             <div className="p-4 sm:p-6 bg-gradient-to-r from-[#0E7490]/10 via-[#C56B3E]/10 to-[#0E7490]/10 rounded-3xl border border-[#0E7490]/20 max-w-2xl mx-auto shadow-xs">
@@ -436,12 +478,6 @@ export const SoulTrainingPage: React.FC = () => {
                 </span>
               </p>
             </div>
-
-            {/* H1 Heading */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#0E7490] tracking-tight leading-[1.08]">
-              אמצע החיים <br className="hidden sm:inline" />
-              <span className="text-[#C56B3E]">אימון לנשמה</span>
-            </h1>
 
             {/* Subtitle */}
             <p className="text-lg sm:text-xl md:text-2xl font-bold text-slate-700 max-w-3xl mx-auto leading-relaxed">
@@ -480,7 +516,7 @@ export const SoulTrainingPage: React.FC = () => {
       </section>
 
       {/* 3. ABOUT SECTION - WHY SOUL TRAINING & 3 UPDATED BENEFIT CARDS */}
-      <section id="about" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-y border-slate-200 scroll-mt-20">
+      <section id="about" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-b border-slate-200/80 scroll-mt-20">
         <div className="max-w-4xl mx-auto text-right space-y-8">
           
           <div className="text-center space-y-3">
@@ -498,7 +534,7 @@ export const SoulTrainingPage: React.FC = () => {
               במכון הכושר את רגילה לחזק את השרירים, להעלות דופק, להזיע, לפרוק מתחים ולשמור על הגוף.
             </p>
             <p>
-              אבל בגילאי <span dir="ltr">45-55</span> משהו נוסף מתחיל להתרחש. לפעמים אלו גלי חום קלים, לפעמים יקיצות באמצע הלילה עם דופק מהיר, לפעמים ירידה בלתי מוסברת באנרגיה, ולפעמים שאלות על הזוגיות, על הילדים שמתבגרים ועל המקום שלך בעולם.
+              אבל בגילאי <span dir="ltr">40-55</span> משהו נוסף מתחיל להתרחש. לפעמים אלו גלי חום קלים, לפעמים יקיצות באמצע הלילה עם דופק מהיר, לפעמים ירידה בלתי מוסברת באנרגיה, ולפעמים שאלות על הזוגיות, על הילדים שמתבגרים ועל המקום שלך בעולם.
             </p>
             <p className="font-bold text-[#0E7490] text-lg sm:text-xl border-t border-slate-200 pt-3">
               אלו אינם סימני חולשה – אלו סימני הדרך של גיל המעבר.
@@ -547,38 +583,101 @@ export const SoulTrainingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. FOUR SESSIONS DETAILS */}
-      <section id="soul-sessions" className="py-14 sm:py-22 px-4 sm:px-6 bg-[#F8FAFC] scroll-mt-20">
-        <div className="max-w-5xl mx-auto">
+      {/* 4. FOUR SESSIONS DETAILS - SINGLE TABBED SLIDING WINDOW */}
+      <section id="soul-sessions" className="py-14 sm:py-22 px-4 sm:px-6 bg-gradient-to-b from-[#FFF7F0] via-[#FCF3EB] to-[#FAF0E6]/80 border-b border-[#C56B3E]/15 scroll-mt-20">
+        <div className="max-w-4xl mx-auto">
           
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-3">
             <span className="text-xs sm:text-sm font-black text-[#C56B3E] tracking-widest uppercase bg-[#C56B3E]/10 px-4 py-1.5 rounded-full">
               תוכנית המפגשים
             </span>
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
               4 מפגשים מעצימים לאימון הנפש
             </h2>
+            <p className="text-sm sm:text-base font-bold text-slate-500">
+              בחרי לשונית למעלה או דפדפי לצדדים בין ארבעת המפגשים
+            </p>
             <div className="w-16 h-1 bg-[#0E7490] mx-auto rounded-full mt-3"></div>
           </div>
 
-          <div className="space-y-6 sm:space-y-8">
-            {SOUL_SESSIONS.map((session) => (
+          {/* Top Tabs Bar above the window */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-4" role="tablist" aria-label="תוכנית 4 המפגשים">
+            {SOUL_SESSIONS.map((session, idx) => {
+              const isActive = activeSessionIdx === idx;
+              const isTeal = idx % 2 === 0;
+              return (
+                <button
+                  key={session.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveSessionIdx(idx)}
+                  className={`p-3 sm:p-4 rounded-2xl border-2 text-right transition-all cursor-pointer flex flex-col justify-between gap-1 ${
+                    isActive
+                      ? isTeal
+                        ? 'bg-[#0E7490] text-white border-[#0E7490] shadow-md -translate-y-0.5'
+                        : 'bg-[#C56B3E] text-white border-[#C56B3E] shadow-md -translate-y-0.5'
+                      : 'bg-white text-slate-700 border-slate-200 hover:border-[#0E7490]/40 hover:bg-slate-50'
+                  }`}
+                >
+                  <span
+                    className={`text-[11px] font-black uppercase tracking-wide ${
+                      isActive ? 'text-white/85' : isTeal ? 'text-[#0E7490]' : 'text-[#C56B3E]'
+                    }`}
+                  >
+                    ערך מוביל: {session.leadingValue}
+                  </span>
+                  <span className="text-sm sm:text-base font-black leading-snug">
+                    {session.title}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Single Focused Sliding Session Window */}
+          {(() => {
+            const session = SOUL_SESSIONS[activeSessionIdx];
+            if (!session) return null;
+            return (
               <div
                 key={session.id}
-                className={`bg-white rounded-3xl p-6 sm:p-9 md:p-10 border-2 ${session.cardBorder} shadow-sm hover:shadow-md transition-all text-right relative overflow-hidden`}
+                onTouchStart={handleSessionTouchStart}
+                onTouchEnd={handleSessionTouchEnd}
+                style={{ touchAction: 'pan-y' }}
+                className={`bg-white rounded-3xl p-6 sm:p-9 md:p-10 border-2 ${session.cardBorder} shadow-lg text-right relative overflow-hidden select-none animate-in fade-in duration-300`}
               >
-                <div className="relative z-10 space-y-4">
-                  {/* Tag & Leading Value (No session numbering) */}
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-black ${session.badgeColor}`}>
-                      ערך מוביל: {session.leadingValue} • {session.theme}
-                    </span>
-                    <span className="text-xs font-bold text-slate-400">
-                      סדנת אמצע החיים | אימון לנשמה
-                    </span>
-                  </div>
+                {/* Top Navigation Header inside window */}
+                <div className="flex items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-100">
+                  <span className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-black ${session.badgeColor}`}>
+                    ערך מוביל: {session.leadingValue} • {session.theme}
+                  </span>
 
-                  {/* Title & Subtitle */}
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      type="button"
+                      onClick={prevSession}
+                      aria-label="למפגש הקודם"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-50 hover:bg-[#0E7490] text-slate-700 hover:text-white border border-slate-200 shadow-2xs flex items-center justify-center transition-all cursor-pointer"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                    <span className="text-xs font-black text-slate-400 px-1.5">
+                      {activeSessionIdx + 1}/{SOUL_SESSIONS.length}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={nextSession}
+                      aria-label="למפגש הבא"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-50 hover:bg-[#0E7490] text-slate-700 hover:text-white border border-slate-200 shadow-2xs flex items-center justify-center transition-all cursor-pointer"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="space-y-4">
                   <div>
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-snug">
                       {session.title}
@@ -588,60 +687,50 @@ export const SoulTrainingPage: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
+                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal min-h-[96px]">
                     {session.description}
                   </p>
 
-                  {/* Expert Field */}
                   <div className="pt-2 text-xs sm:text-sm font-bold text-slate-500 flex items-center gap-2">
                     <Sparkles size={16} className="text-[#C56B3E] shrink-0" />
                     <span>{session.expertField}</span>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* Practical Logistics Card - 3 hours */}
-          <div id="logistics" className="mt-10 p-6 sm:p-8 bg-white rounded-3xl border-2 border-slate-200 text-right space-y-4 shadow-xs scroll-mt-20">
-            <h4 className="text-xl sm:text-2xl font-black text-slate-900">
-              פרטים נוספים שכדאי לדעת:
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm sm:text-base text-slate-700 font-medium">
-              <div className="flex items-center gap-3 p-3 bg-[#F8FAFC] rounded-2xl">
-                <Clock className="w-5 h-5 text-[#0E7490] shrink-0" />
-                <div>
-                  <span className="font-bold block text-slate-900">היקף המפגשים:</span>
-                  <span>4 מפגשים שבועיים, 3 שעות כל מפגש</span>
+                {/* Bottom Dots & Mobile Swipe Hint */}
+                <div className="pt-6 mt-5 border-t border-slate-100 space-y-2.5">
+                  <div className="flex items-center justify-center gap-2">
+                    {SOUL_SESSIONS.map((s, dotIdx) => (
+                      <button
+                        key={s.id}
+                        type="button"
+                        onClick={() => setActiveSessionIdx(dotIdx)}
+                        aria-label={`עבור למפגש ${dotIdx + 1}`}
+                        className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                          activeSessionIdx === dotIdx
+                            ? dotIdx % 2 === 0
+                              ? 'w-8 bg-[#0E7490]'
+                              : 'w-8 bg-[#C56B3E]'
+                            : 'w-2.5 bg-slate-200 hover:bg-slate-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex sm:hidden items-center justify-center gap-2 text-[11px] text-slate-400 font-bold">
+                    <ChevronRight className="w-3.5 h-3.5 text-[#0E7490]" />
+                    <span>החליקי ימינה או שמאלה למעבר בין המפגשים</span>
+                    <ChevronLeft className="w-3.5 h-3.5 text-[#0E7490]" />
+                  </div>
                 </div>
               </div>
+            );
+          })()}
 
-              <div className="flex items-center gap-3 p-3 bg-[#F8FAFC] rounded-2xl">
-                <MapPin className="w-5 h-5 text-[#C56B3E] shrink-0" />
-                <div>
-                  <span className="font-bold block text-slate-900">מיקום ואירוח:</span>
-                  <span>בסטודיו של רעות (כולל כיבוד קל)</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 bg-[#F8FAFC] rounded-2xl">
-                <Users className="w-5 h-5 text-[#0E7490] shrink-0" />
-                <div>
-                  <span className="font-bold block text-slate-900">קבוצה סגורה:</span>
-                  <span>מספר משתתפות מוגבל לשמירה על שיח פתוח</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* 5. AUTHENTIC PHOTO GALLERY WINDOW (RIGHT AFTER SESSIONS) */}
-      <BrandGallerySlider title="טעימה מהסדנאות והריטריטים שלנו" />
-
-      {/* 6. SPEAKERS & EXPERTS - FOCUSED GALLERY WINDOW (SMALL TABS REMOVED) */}
-      <section id="speakers" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-slate-200 scroll-mt-20">
+      {/* 5. SPEAKERS & EXPERTS - FOCUSED GALLERY WINDOW */}
+      <section id="speakers" className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-b border-slate-200/80 scroll-mt-20">
         <div className="max-w-5xl mx-auto text-right">
           
           {/* Headings & Subtitle Kept as Requested */}
@@ -760,8 +849,11 @@ export const SoulTrainingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 8. FOUNDERS TEAM (DALIT & ELSIE) */}
-      <section id="team" className="py-14 sm:py-20 px-4 sm:px-6 bg-[#F8FAFC] border-t border-slate-200 scroll-mt-20">
+      {/* 6. AUTHENTIC PHOTO GALLERY WINDOW (BELOW SPEAKERS) */}
+      <BrandGallerySlider title="טעימה מהסדנאות והריטריטים שלנו" />
+
+      {/* 7. FOUNDERS TEAM (DALIT & ELSIE) */}
+      <section id="team" className="py-14 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#ECF6F7] via-[#F3FAFB] to-[#E8F4F5] border-t border-[#0E7490]/15 scroll-mt-20">
         <div className="max-w-5xl mx-auto text-right">
           
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
@@ -814,7 +906,7 @@ export const SoulTrainingPage: React.FC = () => {
       </section>
 
       {/* 8. TESTIMONIALS - WOMEN SHARE FROM THE HEART IN A FOCUSED WINDOW (BEFORE REGISTRATION) */}
-      <section id="testimonials" className="py-14 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#FFFDF9] via-white to-[#F0FDF4]/40 border-t border-slate-200 relative overflow-hidden scroll-mt-20">
+      <section id="testimonials" className="py-14 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#FFF9F3] via-[#FDF5EC] to-[#FFF8F0] border-t border-[#C56B3E]/15 relative overflow-hidden scroll-mt-20">
         <div className="max-w-4xl mx-auto relative text-right">
           
           {/* Section Header */}
@@ -925,172 +1017,176 @@ export const SoulTrainingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 9. REGISTRATION & INTEREST FORM */}
-      <section id="soul-interest" className="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-[#0E7490] via-[#0891B2] to-[#0E7490] text-white relative scroll-mt-20">
-        <div className="max-w-2xl mx-auto relative z-10 text-right">
-          
-          <div className="text-center space-y-4 mb-8">
-            <span className="text-xs sm:text-sm font-black bg-white/20 text-white px-4 py-1.5 rounded-full border border-white/30">
-              הרשמה מוקדמת למתאמנות רעות
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              שמרי לעצמך מקום בסדנה
-            </h2>
-            <p className="text-base sm:text-xl text-teal-100 font-medium">
-              השאירי פרטים ונחזור אלייך עם מועדי הפתיחה המדויקים, מיקום וכל המידע.
-            </p>
+      {/* 8.5 PRICING, WHAT YOU GET, DATES & PAYBOX TERMS GATE */}
+      <section id="pricing-dates" className="py-16 sm:py-22 px-4 sm:px-6 bg-gradient-to-b from-[#EEF7F6] via-[#F5FBFA] to-[#E6F4F3] border-t border-[#0E7490]/15 scroll-mt-20">
+        <div className="max-w-5xl mx-auto text-right space-y-10">
 
-            {/* Limited spots banner */}
-            <div className="inline-block px-5 py-2.5 rounded-2xl bg-amber-400/20 text-amber-200 border border-amber-300/30 text-xs sm:text-sm font-black shadow-xs">
-              ⚡ מספר המקומות מוגבל למתאמנות מכון הכושר כדי לשמור על מעגל אינטימי, מעמיק ומחבר.
+          {/* Intro & Special Launch Pricing Card */}
+          <div className="bg-white rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 md:p-12 border-2 border-[#C56B3E]/35 shadow-xl relative overflow-hidden">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C56B3E]/10 text-[#C56B3E] text-xs sm:text-sm font-black border border-[#C56B3E]/25">
+                <Sparkles className="w-4 h-4" />
+                <span>הטבת השקה למחזור הראשון</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                מתחילות משהו חדש ביחד!
+              </h2>
+
+              <p className="text-base sm:text-xl font-bold text-slate-700 leading-relaxed">
+                ״אימון לנשמה״ יוצאת לדרך בשיתוף פעולה ראשון בין סטודיו רעות ל״בין לבין״, ולכבוד המאורע מחכה לך מחיר מיוחד למחזור הראשון בלבד.
+              </p>
+            </div>
+
+            {/* Price Highlight + Dates Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-8 items-stretch">
+              {/* Price Box */}
+              <div className="md:col-span-6 bg-gradient-to-br from-[#FFF4EB] to-white p-6 sm:p-8 rounded-3xl border-2 border-[#C56B3E]/30 flex flex-col justify-center text-center space-y-3 shadow-xs">
+                <span className="text-xs font-black text-[#C56B3E] uppercase tracking-wider">
+                  מחיר מיוחד למחזור הראשון בלבד
+                </span>
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-black text-slate-900">
+                    150 ש&quot;ח <span className="text-lg sm:text-xl font-bold text-slate-600">למפגש</span>
+                  </div>
+                  <div className="inline-block px-5 py-1.5 rounded-full bg-[#C56B3E] text-white text-lg sm:text-xl font-black shadow-xs">
+                    סה&quot;כ 600 ש&quot;ח (לכל 4 המפגשים)
+                  </div>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 font-bold pt-1">
+                  בסטודיו של רעות • בקבוצה קטנה ומספר מקומות מוגבל
+                </p>
+              </div>
+
+              {/* Dates & Hours Box */}
+              <div className="md:col-span-6 bg-gradient-to-br from-[#F0FDF4] to-white p-6 sm:p-8 rounded-3xl border-2 border-[#0E7490]/30 flex flex-col justify-between space-y-4 shadow-xs">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-[#0E7490] font-black text-lg sm:text-xl">
+                    <Calendar className="w-5 h-5" />
+                    <span>מועדי המפגשים הקרובים</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-800 font-bold text-base sm:text-lg">
+                    <Clock className="w-4 h-4 text-[#C56B3E] shrink-0" />
+                    <span>מוצ&quot;ש • בשעות <span dir="ltr" className="font-black text-[#0E7490]">19:00–22:00</span></span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-2.5" dir="ltr">
+                  {SOUL_DATES.map((dateStr, i) => (
+                    <div
+                      key={dateStr}
+                      className="bg-white border border-[#0E7490]/25 rounded-2xl px-3 py-2.5 text-center shadow-2xs"
+                    >
+                      <span className="block text-[10px] font-bold text-slate-400">מפגש {i + 1}</span>
+                      <span className="text-base sm:text-lg font-black text-[#0E7490]">{dateStr}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* What You Get Bullets */}
+            <div className="mt-10 pt-8 border-t border-slate-100">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0E7490] tracking-tight">
+                  אז מה את מקבלת?
+                </h3>
+                <div className="h-1 w-16 bg-[#C56B3E] mx-auto mt-2.5 rounded-full opacity-80" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-right">
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
+                  <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base text-slate-800 leading-relaxed">
+                    <strong className="font-black text-[#0E7490]">תוכן מקצועי ואיכותי:</strong> 4 מפגשים מעמיקים בני 3 שעות, עם הרצאות בהובלת נשות מקצוע מומחיות בתחומן.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
+                  <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base text-slate-800 leading-relaxed">
+                    <strong className="font-black text-[#0E7490]">הנחיה וליווי אישי וקבוצתי:</strong> בהובלת מנחות התוכנית דלית ואלסי, לאורך כל הסדרה.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
+                  <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base text-slate-800 leading-relaxed">
+                    <strong className="font-black text-[#0E7490]">הרבה מעבר להרצאות:</strong> התנסויות מעשיות, כלים מעולם ה-NLP, חומרי תוכן וערכת וולקאם אישית ומפנקת.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
+                  <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base text-slate-800 leading-relaxed">
+                    <strong className="font-black text-[#0E7490]">חיבור גם בין המפגשים:</strong> קבוצת וואטסאפ ייעודית לשיתוף, העשרה והמשך הקשר.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15 md:col-span-2">
+                  <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
+                  <p className="text-sm sm:text-base text-slate-800 leading-relaxed">
+                    <strong className="font-black text-[#0E7490]">חוויה מוקפדת:</strong> אירוח בסטודיו של רעות, כיבוד קל ומפנק, אווירה נעימה והזדמנות להכיר נשים חדשות גם מחוץ לאימון.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Clear 3-Step Registration & Payment Copy below What You Get */}
+            <div className="mt-8 pt-7 border-t border-slate-200 space-y-5">
+              <div className="max-w-xl mx-auto bg-gradient-to-br from-[#F0FDF4] to-[#FFF9F4] border-2 border-[#0E7490]/25 rounded-3xl p-5 sm:p-7 text-right space-y-3 shadow-xs">
+                <h4 className="text-lg sm:text-xl font-black text-[#0E7490]">
+                  תהליך ההרשמה והתשלום פשוט:
+                </h4>
+                <ol className="space-y-2 text-sm sm:text-base font-bold text-slate-800 list-none">
+                  <li className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#0E7490] text-white text-xs font-black flex items-center justify-center shrink-0">1</span>
+                    <span>ממלאים את השאלון מטה</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#0E7490] text-white text-xs font-black flex items-center justify-center shrink-0">2</span>
+                    <span>מאשרים בוי (✓) את התקנון</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-[#C56B3E] text-white text-xs font-black flex items-center justify-center shrink-0">3</span>
+                    <span>בסיום יפתח קישור לתשלום ישיר בפייבוקס</span>
+                  </li>
+                </ol>
+                <p className="pt-2 border-t border-[#0E7490]/15 text-xs sm:text-sm font-black text-[#C56B3E]">
+                  שימי לב: רק ביצוע התשלום בפועל מבטיח שריון מקום בסדנה.
+                </p>
+              </div>
+
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('soul-interest')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-2xl bg-gradient-to-r from-[#0E7490] to-[#0891B2] hover:from-[#0891B2] hover:to-[#0E7490] text-white font-black text-base sm:text-lg shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                >
+                  <Sparkles className="w-5 h-5 text-amber-300" />
+                  <span>להרשמה, אישור תקנון ותשלום בפייבוקס</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white text-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl border-4 border-white/30">
-            {isSubmitted ? (
-              <div className="text-center py-8 space-y-4 animate-in fade-in">
-                <div className="w-16 h-16 rounded-full bg-teal-100 text-[#0E7490] mx-auto flex items-center justify-center">
-                  <CheckCircle2 size={36} />
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">
-                  תודה רבה, {fullName}!
-                </h3>
-                <p className="text-base text-slate-600 leading-relaxed max-w-md mx-auto">
-                  הפרטים שלך נקלטו בהצלחה. נחזור אלייך בהקדם עם כל המידע והמועדים לקראת פתיחת סדנת "אמצע החיים - אימון לנשמה".
-                </p>
-                <div className="pt-4">
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#0E7490] hover:bg-[#0891B2] text-white rounded-full font-bold text-sm transition-all shadow-md"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 text-white" />
-                    <span>שיחה ישירה בוואטסאפ עם דלית ואלסי</span>
-                  </a>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                
-                {formError && (
-                  <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm rounded-xl flex items-center gap-2 font-bold">
-                    <AlertCircle size={16} className="shrink-0" />
-                    <span>{formError}</span>
-                  </div>
-                )}
+        </div>
+      </section>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-1">
-                      שם מלא <span className="text-[#0E7490]">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="שם פרטי ומשפחה"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-base focus:outline-none focus:border-[#0E7490] focus:ring-2 focus:ring-[#0E7490]/10 transition-all text-right"
-                      required
-                    />
-                  </div>
-
-                  {/* Age Field */}
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-1">
-                      גיל <span className="text-[#0E7490]">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      dir="ltr"
-                      value={age}
-                      onChange={(e) => setAge(e.target.value)}
-                      placeholder="למשל: 48"
-                      min={35}
-                      max={75}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-base focus:outline-none focus:border-[#0E7490] focus:ring-2 focus:ring-[#0E7490]/10 transition-all text-right"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-1">
-                      טלפון נייד <span className="text-[#0E7490]">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      dir="ltr"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="050-1234567"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-base focus:outline-none focus:border-[#0E7490] focus:ring-2 focus:ring-[#0E7490]/10 transition-all text-right"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-1">
-                      דוא״ל <span className="text-xs text-slate-400 font-normal">(שדה רשות)</span>
-                    </label>
-                    <input
-                      type="email"
-                      dir="ltr"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="name@example.com"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-base focus:outline-none focus:border-[#0E7490] focus:ring-2 focus:ring-[#0E7490]/10 transition-all text-right"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-1">
-                    האם את מתאמנת במכון הכושר של רעות?
-                  </label>
-                  <select
-                    value={gymTrack}
-                    onChange={(e) => setGymTrack(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-base focus:outline-none focus:border-[#0E7490] focus:ring-2 focus:ring-[#0E7490]/10 transition-all text-right bg-white"
-                  >
-                    <option value="מתאמנת במכון הכושר של רעות">כן, אני מתאמנת אצל רעות</option>
-                    <option value="חברה של מתאמנת / מעוניינת להצטרף יחד">חברה של מתאמנת / רוצה להצטרף יחד</option>
-                    <option value="מתעניינת בסדנה באופן עצמאי">מתעניינת בסדנה באופן עצמאי</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-1">
-                    משהו שתרצי לשאול או לספר לנו? <span className="text-xs text-slate-400 font-normal">(שדה רשות)</span>
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={questions}
-                    onChange={(e) => setQuestions(e.target.value)}
-                    placeholder="שאלות, נושאים שחשוב לך לגעת בהם, או כל דבר שתרצי לשתף..."
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-base focus:outline-none focus:border-[#0E7490] focus:ring-2 focus:ring-[#0E7490]/10 transition-all text-right resize-none"
-                  />
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 px-6 bg-[#0E7490] hover:bg-[#0891B2] active:scale-99 text-white font-black text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70"
-                  >
-                    <Send size={18} className="rotate-180" />
-                    <span>{isSubmitting ? 'שומרת פרטים...' : 'שמרי לי מקום בסדנה'}</span>
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-center gap-1.5 text-xs text-slate-500 pt-2">
-                  <ShieldCheck size={14} className="text-[#0E7490]" />
-                  <span>הפרטים שלך נשמרים בפרטיות מלאה ולא יועברו לאיש.</span>
-                </div>
-              </form>
-            )}
+      {/* 9. REGISTRATION FORM */}
+      <section id="soul-interest" className="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-[#0E7490] via-[#0891B2] to-[#0E7490] text-white relative scroll-mt-20">
+        <div className="max-w-3xl mx-auto relative z-10 text-right">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              טופס הרשמה | בין לבין - אימון לנשמה
+            </h2>
           </div>
+
+          <SoulRegistrationForm
+            whatsappUrl={whatsappUrl}
+            payboxUrl={PAYBOX_URL}
+            onOpenTerms={() => setActiveLegalModal('terms')}
+          />
 
           {/* Direct WhatsApp Prompt */}
           <div className="mt-8 text-center space-y-2 text-white">
@@ -1111,12 +1207,27 @@ export const SoulTrainingPage: React.FC = () => {
       {/* 10. FOOTER */}
       <footer className="bg-slate-900 text-slate-400 py-12 px-4 sm:px-6 text-center text-xs sm:text-sm space-y-4">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-6">
-          <div className="text-right">
-            <div className="text-lg font-black text-white">
-              אמצע החיים ✦ אימון לנשמה
+          <div className="flex items-center gap-3 text-right">
+            <div className="w-11 h-11 rounded-full bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden">
+              <img
+                src="/logos/brand-main.webp"
+                alt="לוגו בין לבין"
+                className="w-full h-full object-contain rounded-full"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  if (!target.src.endsWith('/logos/brand-main.png')) {
+                    target.src = '/logos/brand-main.png';
+                  }
+                }}
+              />
             </div>
-            <div className="text-xs text-slate-400">
-              בשיתוף מכון הכושר של רעות & בית "בין לבין | מרחבים לנשים"
+            <div>
+              <div className="text-lg font-black text-white">
+                אמצע החיים ✦ אימון לנשמה
+              </div>
+              <div className="text-xs text-slate-400">
+                בשיתוף הסטודיו של רעות &amp; &quot;בין לבין | מרחבים לנשים&quot;
+              </div>
             </div>
           </div>
 
@@ -1126,7 +1237,7 @@ export const SoulTrainingPage: React.FC = () => {
               className="px-4 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <Share2 size={14} />
-              <span>שתפי מתאמנת</span>
+              <span>שתפי חברה</span>
             </button>
             <a
               href={whatsappUrl}
@@ -1140,11 +1251,35 @@ export const SoulTrainingPage: React.FC = () => {
           </div>
         </div>
 
+        <div className="flex items-center justify-center gap-4 text-xs">
+          <button
+            type="button"
+            onClick={() => setActiveLegalModal('terms')}
+            className="underline hover:text-white transition-colors cursor-pointer"
+          >
+            תקנון התוכנית ותנאי הרשמה
+          </button>
+          <span>•</span>
+          <button
+            type="button"
+            onClick={() => setActiveLegalModal('privacy')}
+            className="underline hover:text-white transition-colors cursor-pointer"
+          >
+            מדיניות פרטיות
+          </button>
+        </div>
+
         <p>© {new Date().getFullYear()} "בין לבין | מרחבים לנשים" & מכון הכושר של רעות. כל הזכויות שמורות.</p>
         <p className="text-slate-500 text-xs">
-          דף נחיתה ייעודי לשיתוף פעולה. הסדנה מיועדת לנשים בגילאי <span dir="ltr">45-55</span>.
+          דף נחיתה ייעודי לשיתוף פעולה. הסדנה מיועדת לנשים בגילאי <span dir="ltr">40-55</span>.
         </p>
       </footer>
+
+      <LegalModals
+        activeModal={activeLegalModal}
+        closeModal={() => setActiveLegalModal(null)}
+        variant="soul"
+      />
     </div>
   );
 };

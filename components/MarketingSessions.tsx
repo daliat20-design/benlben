@@ -203,7 +203,7 @@ export const MarketingSessions: React.FC = () => {
               <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק א׳: התכנסות וחקירה פנימית</h3>
             </div>
             <p className="mt-3 text-sm md:text-base font-black text-brand-green bg-white px-5 py-1.5 rounded-full border border-brand-green/20 shadow-2xs">
-              מתוך נושאי חלק א׳ מתקיימים 3 מפגשים בכל מחזור
+              בכל מחזור נבחרים 3 מפגשים מתוך מאגר הנושאים של שני החלקים.
             </p>
           </div>
           
@@ -226,7 +226,7 @@ export const MarketingSessions: React.FC = () => {
               <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק ב׳: צמיחה, חיבור ומשמעות</h3>
             </div>
             <p className="mt-3 text-sm md:text-base font-black text-brand-orange bg-white px-5 py-1.5 rounded-full border border-brand-orange/20 shadow-2xs">
-              מתוך נושאי חלק ב׳ מתקיימים 3 מפגשים בכל מחזור
+              בכל מחזור נבחרים 3 מפגשים מתוך מאגר הנושאים של שני החלקים.
             </p>
           </div>
           

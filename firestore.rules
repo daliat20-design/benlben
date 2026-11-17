@@ -58,6 +58,105 @@ service cloud.firestore {
              (!data.keys().hasAny(['source']) || (data.source is string && data.source.size() <= 100));
     }
 
+    // PageStat Validation (summary and daily counters)
+    function isValidPageStat(data) {
+      return data.keys().hasAll(['kind', 'pageKey', 'totalVisits', 'uniqueVisits', 'lastVisitAt']) &&
+             data.keys().hasOnly(['kind', 'pageKey', 'date', 'totalVisits', 'uniqueVisits', 'lastVisitAt']) &&
+             data.kind is string && (data.kind == 'live_summary' || data.kind == 'live_daily') &&
+             data.pageKey is string && data.pageKey.size() > 0 && data.pageKey.size() <= 60 &&
+             data.pageKey.matches('^[a-zA-Z0-9_\\-]+$') &&
+             (!data.keys().hasAny(['date']) || (data.date is string && data.date.size() <= 20)) &&
+             data.totalVisits is int && data.totalVisits >= 1 &&
+             data.uniqueVisits is int && data.uniqueVisits >= 0 &&
+             data.lastVisitAt is string && data.lastVisitAt.size() > 0 && data.lastVisitAt.size() <= 100;
+    }
+
+    match /page_stats/{statId} {
+      allow read: if true;
+      allow create: if isValidId(statId) &&
+                       isValidPageStat(incoming()) &&
+                       incoming().totalVisits == 1 &&
+                       incoming().uniqueVisits <= 1;
+      allow update: if isValidId(statId) &&
+                       isValidPageStat(incoming()) &&
+                       incoming().diff(existing()).affectedKeys().hasOnly(['totalVisits', 'uniqueVisits', 'lastVisitAt']) &&
+                       incoming().kind == existing().kind &&
+                       incoming().pageKey == existing().pageKey &&
+                       incoming().totalVisits == existing().totalVisits + 1 &&
+                       (incoming().uniqueVisits == existing().uniqueVisits || incoming().uniqueVisits == existing().uniqueVisits + 1);
+      allow delete: if isSignedIn() &&
+                       request.auth.token.email == 'daliat20@gmail.com' &&
+                       request.auth.token.email_verified == true;
+    }
+
+    // PageVisitLog Validation (timestamped visit history)
+    function isValidPageVisitLog(data) {
+      return data.keys().hasAll(['pageKey', 'visitedAt', 'isUnique', 'deviceType']) &&
+             data.keys().hasOnly(['pageKey', 'visitedAt', 'isUnique', 'deviceType']) &&
+             data.pageKey is string && data.pageKey.size() > 0 && data.pageKey.size() <= 60 &&
+             data.pageKey.matches('^[a-zA-Z0-9_\\-]+$') &&
+             data.visitedAt is string && data.visitedAt.size() > 0 && data.visitedAt.size() <= 100 &&
+             data.isUnique is bool &&
+             data.deviceType is string && (data.deviceType == 'mobile' || data.deviceType == 'desktop');
+    }
+
+    match /page_visit_logs/{logId} {
+      allow read: if true;
+      allow create: if isValidId(logId) && isValidPageVisitLog(incoming());
+      allow delete: if isSignedIn() &&
+                       request.auth.token.email == 'daliat20@gmail.com' &&
+                       request.auth.token.email_verified == true;
+    }
+
+    // SoulRegistration Validation (15-question Soul Training registration)
+    function isValidSoulRegistration(data) {
+      return data.keys().hasAll([
+               'fullName', 'phone', 'email', 'age', 'maritalStatus',
+               'childrenAges', 'trainsAtStudio', 'joinReasons', 'joinReasonsOther',
+               'curiousTopics', 'personalGift', 'heardFrom', 'heardFromOther',
+               'allergies', 'termsAccepted', 'photoConsent', 'stayInTouchConsent',
+               'submittedAt', 'source'
+             ]) &&
+             data.keys().hasOnly([
+               'fullName', 'phone', 'email', 'age', 'maritalStatus',
+               'childrenAges', 'trainsAtStudio', 'joinReasons', 'joinReasonsOther',
+               'curiousTopics', 'personalGift', 'heardFrom', 'heardFromOther',
+               'allergies', 'termsAccepted', 'photoConsent', 'stayInTouchConsent',
+               'paid', 'paidAt',
+               'submittedAt', 'source'
+             ]) &&
+             data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 120 &&
+             data.phone is string && data.phone.size() > 0 && data.phone.size() <= 50 &&
+             data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
+             data.age is int && data.age >= 18 && data.age <= 120 &&
+             data.maritalStatus is string && data.maritalStatus.size() > 0 && data.maritalStatus.size() <= 80 &&
+             data.childrenAges is list && data.childrenAges.size() >= 1 && data.childrenAges.size() <= 10 && data.childrenAges[0] is string &&
+             data.trainsAtStudio is string && (data.trainsAtStudio == 'כן' || data.trainsAtStudio == 'לא') &&
+             data.joinReasons is list && data.joinReasons.size() >= 1 && data.joinReasons.size() <= 10 && data.joinReasons[0] is string &&
+             data.joinReasonsOther is string && data.joinReasonsOther.size() <= 500 &&
+             data.curiousTopics is list && data.curiousTopics.size() >= 1 && data.curiousTopics.size() <= 2 && data.curiousTopics[0] is string &&
+             data.personalGift is string && data.personalGift.size() > 0 && data.personalGift.size() <= 5000 &&
+             data.heardFrom is string && data.heardFrom.size() > 0 && data.heardFrom.size() <= 100 &&
+             data.heardFromOther is string && data.heardFromOther.size() <= 500 &&
+             data.allergies is string && data.allergies.size() > 0 && data.allergies.size() <= 500 &&
+             data.termsAccepted is bool && data.termsAccepted == true &&
+             data.photoConsent is bool &&
+             data.stayInTouchConsent is bool &&
+             (!data.keys().hasAny(['paid']) || data.paid is bool) &&
+             (!data.keys().hasAny(['paidAt']) || (data.paidAt is string && data.paidAt.size() <= 100)) &&
+             data.submittedAt is string && data.submittedAt.size() > 0 && data.submittedAt.size() <= 100 &&
+             data.source is string && data.source.size() > 0 && data.source.size() <= 100;
+    }
+
+    match /soul_registrations/{regId} {
+      allow create: if isValidId(regId) && isValidSoulRegistration(incoming());
+      allow update: if isValidId(regId) &&
+                       incoming().diff(existing()).affectedKeys().hasOnly(['paid', 'paidAt']) &&
+                       incoming().paid is bool &&
+                       (!incoming().keys().hasAny(['paidAt']) || (incoming().paidAt is string && incoming().paidAt.size() <= 100));
+      allow read, delete: if true; // Allows team review and deletion from PIN-protected dashboard
+    }
+
     match /mwm_intake_forms/{formId} {
       allow create: if isValidMwmIntakeForm(incoming());
       allow read, delete: if true; // Allows team review and deletion of test submissions

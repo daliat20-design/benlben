@@ -33,7 +33,7 @@ export const ImportantInfo: React.FC<{ hideDates?: boolean }> = ({ hideDates }) 
                 <div className="flex items-center gap-3 md:gap-5 p-3.5 sm:p-5 md:p-6 bg-[#FFF4EB] rounded-2xl sm:rounded-[1.5rem] md:rounded-[2rem] border-r-4 sm:border-r-8 border-[#C56B3E] shadow-sm">
                   <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-[#C56B3E] animate-pulse flex-shrink-0"></div>
                   <p className="text-base sm:text-xl md:text-2xl">
-                    <span className="font-black text-[#C56B3E]">מועדי הסדנה:</span> ימי רביעי, החל מ־<span dir="ltr" className="font-bold">6.1.26</span> ועד <span dir="ltr" className="font-bold">10.2.26</span>
+                    <span className="font-black text-[#C56B3E]">מועדי הסדנה:</span> ימי רביעי, החל מ־<span dir="ltr" className="font-bold">6.1.27</span> ועד <span dir="ltr" className="font-bold">10.2.27</span>
                   </p>
                 </div>
 

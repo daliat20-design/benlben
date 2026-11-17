@@ -20,6 +20,7 @@ import MainWebsite from './pages/MainWebsite';
 import MidlifeMovementPage from './pages/MidlifeMovementPage';
 import SoulTrainingPage from './pages/SoulTrainingPage';
 import PasscodeProtected from './components/PasscodeProtected';
+import { trackPageVisit } from './utils/analyticsStorage';
 
 import { 
   Sparkles, 
@@ -141,6 +142,13 @@ const InternalNav: React.FC = () => {
       badge: 'חדש'
     },
     { 
+      id: 'ahead-of-you', 
+      name: 'עוד לפנייך (60+)', 
+      path: '/p/ahead-of-you',
+      isAheadOfYou: true,
+      badge: '60+'
+    },
+    { 
       id: 'midlife-movement', 
       name: 'עד 180°: מרעיון לתנועה', 
       path: '/midlife-movement',
@@ -227,6 +235,7 @@ const InternalNav: React.FC = () => {
                     (tab.id === 'home-landing' && (currentPath === '/home-landing' || currentPath === '/brand-landing' || currentPath === '/landing' || currentPath === '/all-programs' || currentPath === '/women-programs')) ||
                     (tab.id === 'midlife-workshop' && (currentPath === '/midlife-workshop' || currentPath === '/midlife-full' || currentPath === '/workshop')) ||
                     (tab.id === 'soul-training' && (currentPath === '/soul-training' || currentPath === '/reut' || currentPath === '/midlife-soul' || currentPath === '/soul')) ||
+                    (tab.id === 'ahead-of-you' && (currentPath === '/p/ahead-of-you' || currentPath === '/ahead-of-you')) ||
                     (tab.id === 'midlife-movement' && (currentPath === '/midlife-movement' || currentPath === '/movement' || currentPath === '/motion')) ||
                     (tab.id === 'responses' && (currentPath === '/responses' || currentPath === '/inquiries'));
 
@@ -246,6 +255,12 @@ const InternalNav: React.FC = () => {
                               isActive
                                 ? 'bg-[#0E7490] text-white ring-2 ring-cyan-300 shadow-md font-black scale-105'
                                 : 'bg-[#0E7490]/85 text-white hover:bg-[#0E7490] border border-cyan-300/40'
+                            }`
+                          : tab.isAheadOfYou
+                          ? `px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
+                              isActive
+                                ? 'bg-[#b23a5f] text-white ring-2 ring-pink-300 shadow-md font-black scale-105'
+                                : 'bg-[#b23a5f]/85 text-white hover:bg-[#b23a5f] border border-pink-300/40'
                             }`
                           : tab.isMovement
                           ? `px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
@@ -458,7 +473,11 @@ const AppContent: React.FC = () => {
 
     if (isSoulIntent && !location.pathname.includes('reut') && !location.pathname.includes('soul')) {
       navigate('/reut', { replace: true });
+      return;
     }
+
+    // Passively record page visit without affecting navigation or links
+    trackPageVisit(location.pathname);
   }, [location.pathname, navigate]);
 
   return (

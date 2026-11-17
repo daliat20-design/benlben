@@ -48,7 +48,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
 export const LegalModals: React.FC<{ 
   activeModal: 'terms' | 'privacy' | null; 
   closeModal: () => void; 
-}> = ({ activeModal, closeModal }) => {
+  variant?: 'default' | 'soul';
+}> = ({ activeModal, closeModal, variant = 'default' }) => {
   return (
     <>
       {/* Terms of Use */}
@@ -57,27 +58,76 @@ export const LegalModals: React.FC<{
         onClose={closeModal} 
         title="תקנון התוכנית ותנאי הרשמה"
       >
-        <div className="space-y-6">
-          <section>
-            <h3 className="text-xl font-black text-brand-orange mb-3">1. כללי</h3>
-            <p>השתתפות בתוכנית "בין לבין" (להלן: "התוכנית") מותנית בקבלת תנאי תקנון זה. התוכנית מופעלת על ידי הנהלת התוכנית.</p>
-          </section>
-          
-          <section>
-            <h3 className="text-xl font-black text-brand-orange mb-3">2. הרשמה</h3>
-            <p>ההרשמה הראשונית לתוכנית מתבצעת באמצעות טופס הצטרפות. הבטחת המקום בתוכנית תתבצע לאחר שיחה אישית והסדרת הרישום מול צוות התוכנית.</p>
-          </section>
+        {variant === 'soul' ? (
+          <div className="space-y-6">
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">1. כללי ושיתוף הפעולה</h3>
+              <p>הסדנה &quot;אמצע החיים – אימון לנשמה&quot; מופעלת על ידי &quot;בין לבין | מרחבים לנשים&quot; בשיתוף פעולה עם סטודיו רעות. ההרשמה וההשתתפות במפגשים מותנות בקריאת תקנון זה ואישורו.</p>
+            </section>
 
-          <section>
-            <h3 className="text-xl font-black text-brand-orange mb-3">3. שינויים בתוכנית</h3>
-            <p>הנהלת התוכנית שומרת לעצמה את הזכות לבצע שינויים בלוח הזמנים, בזהות המרצות או בתכנים במידת הצורך, תוך עדכון המשתתפות מראש ככל הניתן.</p>
-          </section>
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">2. מועדים ועלות הסדרה</h3>
+              <p>המחזור הראשון כולל 4 מפגשים בימי מוצ&quot;ש בין השעות 19:00–22:00 בתאריכים: 19.12.26, 26.12.26, 2.1.27, 9.1.27. עלות הסדנה במחיר ההשקה למחזור הראשון היא 150 ש&quot;ח למפגש, סה&quot;כ 600 ש&quot;ח לכל הסדרה.</p>
+            </section>
 
-          <section>
-            <h3 className="text-xl font-black text-brand-orange mb-3">4. קניין רוחני</h3>
-            <p>חל איסור מוחלט על הקלטה, צילום או הפצה של חומרי הלימוד והתכנים המועברים במפגשים ללא אישור מפורש ובכתב מהנהלת התוכנית.</p>
-          </section>
-        </div>
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">3. תנאי הרשמה וביטול</h3>
+              <ul className="list-disc pr-5 space-y-2">
+                <li>ההרשמה היא לסדרה מלאה של ארבעה מפגשים. המקום בסדנה משוריין לאחר השלמת התשלום.</li>
+                <li>ביטול עד 4.12.2026: החזר כספי מלא.</li>
+                <li>ביטול בין 5.12 ל-11.12.2026: החזר של 50% מהתשלום.</li>
+                <li>ביטול החל מ-12.12.2026: לא יינתן החזר כספי, בכפוף להוראות הדין.</li>
+                <li>במקרה של ביטול מאוחר ניתן להעביר את ההשתתפות בסדרה במלואה למשתתפת אחרת, בתיאום מראש.</li>
+                <li>ככל שתהיה אפשרות לסייע במציאת משתתפת חלופית או להציע פתרון אחר, נשמח לעשות זאת.</li>
+                <li>לא יינתן החזר בגין היעדרות ממפגש בודד.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">4. קיום הסדנה ושינויים בתוכנית</h3>
+              <div className="space-y-2">
+                <p>פתיחת הסדנה מותנית במספר מינימלי של משתתפות. אישור סופי על קיומה יישלח עד 12.12.2026.</p>
+                <p>אם הסדנה לא תיפתח ביוזמת המארגנות, יוחזר מלוא התשלום.</p>
+                <p>הנהלת התוכנית שומרת לעצמה את הזכות לבצע התאמות במועדים, בתכנים או בזהות המרצות במידת הצורך, תוך עדכון מראש של המשתתפות.</p>
+              </div>
+            </section>
+
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">5. זכויות ביטול על פי חוק</h3>
+              <div className="space-y-2">
+                <p>תנאי הביטול כפופים לחוק הגנת הצרכן. במקרים שבהם עומדת למשתתפת זכות ביטול על פי חוק, יחולו הוראות החוק לעניין מועדי הביטול ודמי הביטול, גם אם הן מיטיבות עמה ביחס לתנאים המפורטים לעיל.</p>
+                <p>בקשות ביטול יימסרו באמצעות דרכי ההתקשרות המפורסמות באתר.</p>
+              </div>
+            </section>
+
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">6. סודיות, כבוד הדדי וקניין רוחני</h3>
+              <p>השיח במפגשים מתקיים במרחב נשי בטוח ומכבד — מה שנאמר בקבוצה נשאר בקבוצה. חל איסור מוחלט על הקלטה, צילום או הפצה של חומרי התוכן והמרצות ללא אישור מראש ובכתב מהנהלת בין לבין.</p>
+            </section>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">1. כללי</h3>
+              <p>השתתפות בתוכנית "בין לבין" (להלן: "התוכנית") מותנית בקבלת תנאי תקנון זה. התוכנית מופעלת על ידי הנהלת התוכנית.</p>
+            </section>
+            
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">2. הרשמה</h3>
+              <p>ההרשמה הראשונית לתוכנית מתבצעת באמצעות טופס הצטרפות. הבטחת המקום בתוכנית תתבצע לאחר שיחה אישית והסדרת הרישום מול צוות התוכנית.</p>
+            </section>
+
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">3. שינויים בתוכנית</h3>
+              <p>הנהלת התוכנית שומרת לעצמה את הזכות לבצע שינויים בלוח הזמנים, בזהות המרצות או בתכנים במידת הצורך, תוך עדכון המשתתפות מראש ככל הניתן.</p>
+            </section>
+
+            <section>
+              <h3 className="text-xl font-black text-brand-orange mb-3">4. קניין רוחני</h3>
+              <p>חל איסור מוחלט על הקלטה, צילום או הפצה של חומרי הלימוד והתכנים המועברים במפגשים ללא אישור מפורש ובכתב מהנהלת התוכנית.</p>
+            </section>
+          </div>
+        )}
       </Modal>
 
       {/* Privacy Policy */}

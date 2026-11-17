@@ -47,6 +47,66 @@
         "source": { "type": "string", "description": "Originating page or CTA", "maxLength": 100 }
       },
       "required": ["fullName", "phone", "email"]
+    },
+    "PageStat": {
+      "title": "Page Visit Statistic",
+      "description": "Aggregated page visit counter (summary or daily) for landing pages and website routes",
+      "type": "object",
+      "properties": {
+        "kind": { "type": "string", "enum": ["live_summary", "live_daily"], "description": "Whether this record is a lifetime summary or a daily counter", "maxLength": 20 },
+        "pageKey": { "type": "string", "description": "Normalized page identifier (e.g. home, midlife-workshop, ahead-of-you)", "maxLength": 60 },
+        "date": { "type": "string", "description": "YYYY-MM-DD date string for daily records", "maxLength": 20 },
+        "totalVisits": { "type": "integer", "description": "Total recorded visits" },
+        "uniqueVisits": { "type": "integer", "description": "Unique browser/device visits" },
+        "lastVisitAt": { "type": "string", "description": "ISO timestamp of most recent visit", "maxLength": 100 }
+      },
+      "required": ["kind", "pageKey", "totalVisits", "uniqueVisits", "lastVisitAt"]
+    },
+    "PageVisitLog": {
+      "title": "Page Visit Log",
+      "description": "Timestamped visit event log for viewing exact visit hours by page",
+      "type": "object",
+      "properties": {
+        "pageKey": { "type": "string", "description": "Normalized page identifier", "maxLength": 60 },
+        "visitedAt": { "type": "string", "description": "ISO timestamp of visit", "maxLength": 100 },
+        "isUnique": { "type": "boolean", "description": "Whether this was a first-time visit for this browser/device" },
+        "deviceType": { "type": "string", "enum": ["mobile", "desktop"], "description": "Visitor device category", "maxLength": 20 }
+      },
+      "required": ["pageKey", "visitedAt", "isUnique", "deviceType"]
+    },
+    "SoulRegistration": {
+      "title": "Soul Training Registration",
+      "description": "Full 15-question registration submission for Bein Levein Soul Training",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "maxLength": 120 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 150 },
+        "age": { "type": "integer" },
+        "maritalStatus": { "type": "string", "maxLength": 80 },
+        "childrenAges": { "type": "array" },
+        "trainsAtStudio": { "type": "string", "enum": ["כן", "לא"], "maxLength": 10 },
+        "joinReasons": { "type": "array" },
+        "joinReasonsOther": { "type": "string", "maxLength": 500 },
+        "curiousTopics": { "type": "array" },
+        "personalGift": { "type": "string", "maxLength": 5000 },
+        "heardFrom": { "type": "string", "maxLength": 100 },
+        "heardFromOther": { "type": "string", "maxLength": 500 },
+        "allergies": { "type": "string", "maxLength": 500 },
+        "termsAccepted": { "type": "boolean" },
+        "photoConsent": { "type": "boolean" },
+        "stayInTouchConsent": { "type": "boolean" },
+        "paid": { "type": "boolean", "description": "Whether PayBox payment was verified by admin" },
+        "paidAt": { "type": "string", "maxLength": 100 },
+        "submittedAt": { "type": "string", "maxLength": 100 },
+        "source": { "type": "string", "maxLength": 100 }
+      },
+      "required": [
+        "fullName", "phone", "email", "age", "maritalStatus",
+        "childrenAges", "trainsAtStudio", "joinReasons", "curiousTopics",
+        "personalGift", "heardFrom", "allergies", "termsAccepted", "photoConsent",
+        "stayInTouchConsent", "submittedAt", "source"
+      ]
     }
   },
   "firestore": {
@@ -61,6 +121,18 @@
     "inquiries": {
       "schema": "Inquiry",
       "description": "Short interest inquiries from potential participants"
+    },
+    "page_stats": {
+      "schema": "PageStat",
+      "description": "Aggregated visit counters per page (summary and daily)"
+    },
+    "page_visit_logs": {
+      "schema": "PageVisitLog",
+      "description": "Timestamped page visit events showing exact hour and device type"
+    },
+    "soul_registrations": {
+      "schema": "SoulRegistration",
+      "description": "Full registration questionnaire submissions for Soul Training workshop"
     }
   }
 }

@@ -5,7 +5,8 @@ import {
   Users, Phone, Mail, Calendar, MessageCircle, 
   Trash2, Search, Copy, Check, Sparkles,
   Layers, Lock, KeyRound, AlertCircle, ArrowRight,
-  ShieldCheck, RefreshCw, LogOut, CheckCircle2, Share2, Smartphone, X
+  ShieldCheck, RefreshCw, LogOut, CheckCircle2, Share2, Smartphone, X,
+  BarChart3, Eye, ChevronDown, ChevronUp, Globe, Clock, Monitor
 } from 'lucide-react';
 import { ButterflyIcon } from '../components/Hero';
 import { 
@@ -13,6 +14,19 @@ import {
   subscribeToInquiries, 
   deleteInquiry 
 } from '../utils/inquiryStorage';
+import {
+  PageStatsSummary,
+  PageVisitLog,
+  TRACKED_PAGES,
+  TrackedPageKey,
+  subscribeToPageStats,
+  subscribeToRecentVisitLogs
+} from '../utils/analyticsStorage';
+import {
+  SoulRegistration,
+  subscribeToSoulRegistrations
+} from '../utils/soulRegistrationStorage';
+import { SoulRegistrationsPanel } from '../components/SoulRegistrationsPanel';
 import { auth } from '../firebase';
 import { onAuthStateChanged, GoogleAuthProvider, signInWithPopup, User } from 'firebase/auth';
 
@@ -65,6 +79,13 @@ export const InquiriesResponsesPage: React.FC = () => {
   const [isSigningInGoogle, setIsSigningInGoogle] = useState(false);
   const [copiedDirectLink, setCopiedDirectLink] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [pageStats, setPageStats] = useState<PageStatsSummary[]>([]);
+  const [showAllPageStats, setShowAllPageStats] = useState(false);
+  const [visitLogs, setVisitLogs] = useState<PageVisitLog[]>([]);
+  const [showVisitLogs, setShowVisitLogs] = useState(false);
+  const [logPageFilter, setLogPageFilter] = useState<'all' | TrackedPageKey>('all');
+  const [soulRegistrations, setSoulRegistrations] = useState<SoulRegistration[]>([]);
+  const [activeSection, setActiveSection] = useState<'inquiries' | 'soul'>('inquiries');
 
   const getDirectLink = () => {
     // Shared public Cloud Run URL is universally accessible to Elsi and external users without dev login
@@ -118,9 +139,24 @@ export const InquiriesResponsesPage: React.FC = () => {
       setLoading(false);
     });
 
+    const unsubscribeStats = subscribeToPageStats((stats) => {
+      setPageStats(stats);
+    });
+
+    const unsubscribeLogs = subscribeToRecentVisitLogs((logs) => {
+      setVisitLogs(logs);
+    });
+
+    const unsubscribeSoul = subscribeToSoulRegistrations((regs) => {
+      setSoulRegistrations(regs);
+    });
+
     return () => {
       unsubscribeAuth();
       unsubscribeData();
+      unsubscribeStats();
+      unsubscribeLogs();
+      unsubscribeSoul();
     };
   }, []);
 
@@ -465,6 +501,292 @@ export const InquiriesResponsesPage: React.FC = () => {
           </div>
         </div>
 
+        {/* Page Visits Analytics Card */}
+        {pageStats.length > 0 && (
+          <section className="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-brand-beige mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-brand-orange/15 text-brand-orange flex items-center justify-center shrink-0">
+                  <BarChart3 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-brand-green leading-tight">
+                    כניסות לאתר ולדפי הנחיתה
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-gray-500">
+                    סופר כניסות מקישורי השיתוף הציבוריים בלבד • אינו סופר כניסות שלך מסביבת העבודה
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={() => setShowVisitLogs((prev) => !prev)}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer ${
+                    showVisitLogs
+                      ? 'bg-brand-green text-white border-brand-green'
+                      : 'bg-brand-cream hover:bg-brand-beige text-brand-green border-brand-beige'
+                  }`}
+                >
+                  <Clock className={`w-3.5 h-3.5 ${showVisitLogs ? 'text-amber-300' : 'text-brand-orange'}`} />
+                  <span>יומן כניסות לפי שעה ({visitLogs.length})</span>
+                  {showVisitLogs ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAllPageStats((prev) => !prev)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-cream hover:bg-brand-beige text-brand-green border border-brand-beige transition-colors cursor-pointer"
+                >
+                  <Globe className="w-3.5 h-3.5 text-brand-orange" />
+                  <span>{showAllPageStats ? 'הצג רק דפים ראשיים' : `כל הדפים (${pageStats.length})`}</span>
+                  {showAllPageStats ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Primary 3 Pages Highlight */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              {pageStats
+                .filter((s) => s.meta.isPrimary)
+                .map((stat) => (
+                  <div
+                    key={stat.key}
+                    className="rounded-2xl border border-brand-beige bg-brand-cream/35 p-4 flex flex-col justify-between relative overflow-hidden"
+                  >
+                    <div
+                      className="absolute top-0 right-0 left-0 h-1"
+                      style={{ backgroundColor: stat.meta.accentColor }}
+                    />
+                    <div className="flex items-start justify-between gap-2 mb-2 pt-0.5">
+                      <div>
+                        <h4 className="font-black text-sm sm:text-base text-brand-green leading-snug">
+                          {stat.meta.title}
+                        </h4>
+                        <span className="text-[11px] text-gray-500 block">{stat.meta.subtitle}</span>
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-black px-2 py-0.5 rounded-full bg-white border border-brand-beige text-gray-600 shrink-0">
+                        <Eye className="w-3 h-3 text-brand-orange" />
+                        היום: {stat.todayVisits}
+                      </span>
+                    </div>
+
+                    <div className="flex items-end justify-between gap-2 mt-2 pt-2 border-t border-brand-beige/70">
+                      <div>
+                        <span className="text-[11px] text-gray-500 block">סה״כ כניסות</span>
+                        <span
+                          className="text-2xl sm:text-3xl font-black leading-none"
+                          style={{ color: stat.meta.accentColor }}
+                        >
+                          {stat.totalVisits.toLocaleString('he-IL')}
+                        </span>
+                      </div>
+                      <div className="text-left">
+                        <span className="text-[11px] text-gray-500 block">מבקרות ייחודיות</span>
+                        <span className="text-sm font-black text-gray-800">
+                          {stat.uniqueVisits.toLocaleString('he-IL')}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mt-2 text-[10px] text-gray-400 font-mono">
+                      {stat.lastVisitAt
+                        ? `ביקור אחרון: ${new Date(stat.lastVisitAt).toLocaleString('he-IL', {
+                            timeZone: 'Asia/Jerusalem',
+                            day: 'numeric',
+                            month: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}`
+                        : 'טרם נרשמו כניסות מאז הפעלת המונה'}
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {/* Hourly Visit Logs Panel */}
+            {showVisitLogs && (
+              <div className="mt-4 pt-4 border-t border-brand-beige space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-brand-orange" />
+                    <h4 className="text-xs sm:text-sm font-black text-brand-green">
+                      יומן שעות כניסה אחרונות (שעון ישראל)
+                    </h4>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {(
+                      [
+                        { key: 'all', label: 'הכל' },
+                        { key: 'home', label: 'אתר הבית' },
+                        { key: 'midlife-workshop', label: 'אמצע החיים' },
+                        { key: 'ahead-of-you', label: 'עוד לפנייך' },
+                      ] as const
+                    ).map((f) => (
+                      <button
+                        key={f.key}
+                        type="button"
+                        onClick={() => setLogPageFilter(f.key)}
+                        className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition-colors cursor-pointer ${
+                          logPageFilter === f.key
+                            ? 'bg-brand-orange text-white'
+                            : 'bg-brand-cream text-gray-700 hover:bg-brand-beige'
+                        }`}
+                      >
+                        {f.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {(() => {
+                  const filteredLogs =
+                    logPageFilter === 'all'
+                      ? visitLogs
+                      : visitLogs.filter((l) => l.pageKey === logPageFilter);
+
+                  if (filteredLogs.length === 0) {
+                    return (
+                      <div className="text-center py-6 bg-brand-cream/30 rounded-2xl border border-dashed border-brand-beige text-xs text-gray-500">
+                        עדיין לא נרשמו כניסות מהקישורים הציבוריים מאז הפעלת יומן השעות.
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div className="max-h-64 overflow-y-auto divide-y divide-brand-beige/60 rounded-2xl border border-brand-beige bg-brand-cream/20">
+                      {filteredLogs.map((log) => {
+                        const meta = TRACKED_PAGES.find((p) => p.key === log.pageKey);
+                        const dt = new Date(log.visitedAt);
+                        const timeStr = dt.toLocaleTimeString('he-IL', {
+                          timeZone: 'Asia/Jerusalem',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        });
+                        const dateStr = dt.toLocaleDateString('he-IL', {
+                          timeZone: 'Asia/Jerusalem',
+                          day: 'numeric',
+                          month: 'numeric',
+                        });
+
+                        return (
+                          <div
+                            key={log.id}
+                            className="px-3.5 py-2.5 flex items-center justify-between gap-3 text-xs hover:bg-white/70 transition-colors"
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <span className="font-mono font-black text-brand-green bg-white px-2 py-0.5 rounded-lg border border-brand-beige shrink-0">
+                                {timeStr}
+                              </span>
+                              <span className="text-[11px] text-gray-400 font-mono shrink-0">{dateStr}</span>
+                              <span
+                                className="font-black truncate px-2 py-0.5 rounded-full text-white text-[11px]"
+                                style={{ backgroundColor: meta?.accentColor || '#54634f' }}
+                              >
+                                {meta?.title || log.pageKey}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-2 shrink-0 text-[11px]">
+                              <span
+                                className={`px-2 py-0.5 rounded-full font-bold ${
+                                  log.isUnique
+                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                    : 'bg-gray-100 text-gray-600'
+                                }`}
+                              >
+                                {log.isUnique ? 'מבקרת חדשה' : 'ביקור חוזר'}
+                              </span>
+                              <span
+                                className="inline-flex items-center gap-1 text-gray-500"
+                                title={log.deviceType === 'mobile' ? 'נייד' : 'מחשב'}
+                              >
+                                {log.deviceType === 'mobile' ? (
+                                  <>
+                                    <Smartphone className="w-3.5 h-3.5" />
+                                    <span className="hidden sm:inline">נייד</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Monitor className="w-3.5 h-3.5" />
+                                    <span className="hidden sm:inline">מחשב</span>
+                                  </>
+                                )}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* Secondary Pages Collapsible Grid */}
+            {showAllPageStats && (
+              <div className="mt-4 pt-4 border-t border-brand-beige grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {pageStats
+                  .filter((s) => !s.meta.isPrimary)
+                  .map((stat) => (
+                    <div
+                      key={stat.key}
+                      className="rounded-xl border border-brand-beige/80 bg-white p-3 flex items-center justify-between gap-2"
+                    >
+                      <div className="min-w-0">
+                        <div className="font-black text-xs text-brand-green truncate">{stat.meta.title}</div>
+                        <div className="text-[10px] text-gray-400 truncate">{stat.meta.subtitle}</div>
+                      </div>
+                      <div className="text-left shrink-0">
+                        <div className="text-base font-black text-brand-green leading-none">
+                          {stat.totalVisits.toLocaleString('he-IL')}
+                        </div>
+                        <div className="text-[10px] text-gray-400 mt-0.5">
+                          ייחודיות: {stat.uniqueVisits}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Main Section Switcher: Inquiries vs Soul Training Questionnaire */}
+        <div className="flex flex-wrap items-center gap-3 mb-6 pb-4 border-b border-brand-beige">
+          <button
+            type="button"
+            onClick={() => setActiveSection('inquiries')}
+            className={`px-5 py-2.5 rounded-2xl text-sm font-black transition-all flex items-center gap-2 cursor-pointer ${
+              activeSection === 'inquiries'
+                ? 'bg-brand-green text-white shadow-md'
+                : 'bg-white text-gray-700 border border-brand-beige hover:bg-brand-cream'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span>פניות התעניינות מהאתר ({inquiries.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveSection('soul')}
+            className={`px-5 py-2.5 rounded-2xl text-sm font-black transition-all flex items-center gap-2 cursor-pointer ${
+              activeSection === 'soul'
+                ? 'bg-[#0E7490] text-white shadow-md ring-2 ring-cyan-200'
+                : 'bg-white text-[#0E7490] border border-[#0E7490]/30 hover:bg-cyan-50'
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-amber-300" />
+            <span>נרשמות &quot;אימון לנשמה&quot; — שאלון מלא וייצוא ({soulRegistrations.length})</span>
+          </button>
+        </div>
+
+        {activeSection === 'soul' ? (
+          <SoulRegistrationsPanel registrations={soulRegistrations} />
+        ) : (
+          <>
         {/* Quick Filter Tabs */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
           <button
@@ -750,6 +1072,8 @@ export const InquiriesResponsesPage: React.FC = () => {
               )}
             </div>
           </div>
+        )}
+          </>
         )}
 
       </main>
