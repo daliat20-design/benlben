@@ -12,6 +12,10 @@ export interface Session {
   value: string;
   lecturers: SessionLecturer[];
   description: string;
+  introParagraphs?: string[];
+  bulletsTitle?: string;
+  bullets?: string[];
+  closingParagraphs?: string[];
 }
 
 export interface Speaker {

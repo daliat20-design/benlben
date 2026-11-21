@@ -42,11 +42,11 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
   const sectionLinks: { name: string; href?: string; to?: string; isButton?: boolean }[] = [];
   if (isMidlifeWorkshop) {
     sectionLinks.push(
-      { name: 'על הסדנה', href: '#about' },
-      { name: 'מבנה המפגשים', href: '#sessions' },
+      { name: 'איך נראים המפגשים', href: '#about' },
+      { name: 'על מה נדבר', href: '#sessions' },
       { name: 'המרצות', href: '#speakers' },
       { name: 'עלויות והרשמה', href: '#pricing' },
-      { name: 'הצוות', href: '#team' },
+      { name: 'נעים להכיר', href: '#team' },
       { name: 'המלצות', href: '#testimonials' },
       { name: 'בואי נתחבר', href: '#interest' },
     );
@@ -212,7 +212,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                 title={isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית בוואטסאפ" : isRecipesPage ? "שתפי חברה בספר המתכונים בוואטסאפ" : "שתפי חברה בסדנה בוואטסאפ"}
               >
                 <Share2 className="w-3.5 h-3.5 text-gray-500 group-hover:text-emerald-600 transition-colors" />
-                <span>{isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : isRecipesPage ? "שתפי חברה במתכונים" : "שתפי חברה בסדנה"}</span>
+                <span>{isMidlifeWorkshop ? "שתפי חברה" : isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : isRecipesPage ? "שתפי חברה במתכונים" : "שתפי חברה בסדנה"}</span>
               </a>
 
               {/* Contact Button */}
@@ -330,7 +330,7 @@ export const Navbar: React.FC<{ hideLinks?: boolean }> = ({ hideLinks = false })
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Share2 className="w-4 h-4 text-gray-500 group-hover:text-emerald-600 transition-colors" />
-                  <span>{isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : isRecipesPage ? "שתפי חברה במתכונים" : "שתפי חברה בסדנה"}</span>
+                  <span>{isMidlifeWorkshop ? "שתפי חברה" : isMwmPage || isMwmFormPage ? "שתפי חברה בתוכנית" : isRecipesPage ? "שתפי חברה במתכונים" : "שתפי חברה בסדנה"}</span>
                 </a>
 
                 {/* Contact Button */}

@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ButterflyIcon } from './Hero';
 import { CONTACT_PHONE, WHATSAPP_MESSAGE } from '../constants';
-import { CheckCircle2, MessageCircle } from 'lucide-react';
+import { Check, MessageCircle } from 'lucide-react';
 
 interface PricingSectionProps {
   hidePrices?: boolean;
   onSelectPackage?: (packageName: string) => void;
+  includedTitle?: string;
 }
 
-export const PricingSection: React.FC<PricingSectionProps> = ({ hidePrices, onSelectPackage }) => {
-
+export const PricingSection: React.FC<PricingSectionProps> = ({
+  onSelectPackage,
+  includedTitle = 'אז מה את מקבלת ?',
+}) => {
   const handleSelect = (pkgName: string) => {
     if (onSelectPackage) {
       onSelectPackage(pkgName);
@@ -21,116 +24,119 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ hidePrices, onSe
   };
 
   return (
-    <section id="pricing" className="py-12 sm:py-20 md:py-28 bg-gradient-to-b from-white via-[#FFF9F4] to-[#FFF4EB] px-4 sm:px-6 relative overflow-hidden text-right" dir="rtl">
-      {/* Background Decor - Brand Butterflies */}
-      <ButterflyIcon size={320} className="absolute -top-20 -right-20 animate-drift opacity-[0.03] text-[#C56B3E] hidden md:block pointer-events-none -z-10" />
-      <ButterflyIcon size={240} className="absolute bottom-10 -left-10 animate-float opacity-[0.03] text-[#2D5043] hidden md:block pointer-events-none -z-10" />
+    <section
+      id="pricing"
+      className="py-12 sm:py-16 md:py-20 bg-white border-b border-[#C56B3E]/15 px-4 sm:px-6 relative overflow-hidden text-right"
+      dir="rtl"
+    >
+      {/* Background Decor - Subtle Brand Butterflies */}
+      <ButterflyIcon
+        size={260}
+        className="absolute -top-20 -right-20 animate-drift opacity-[0.03] text-[#C56B3E] hidden md:block pointer-events-none -z-10"
+      />
+      <ButterflyIcon
+        size={200}
+        className="absolute bottom-10 -left-10 animate-float opacity-[0.03] text-[#2D5043] hidden md:block pointer-events-none -z-10"
+      />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-16 md:mb-20 px-2 sm:px-4">
-          <div className="inline-block bg-[#C56B3E]/10 text-[#C56B3E] border border-[#C56B3E]/30 px-5 sm:px-6 py-1.5 sm:py-2 rounded-full font-black text-xs md:text-sm uppercase tracking-wider mb-4 shadow-xs">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <div className="inline-block bg-[#C56B3E] text-white px-4 py-1 rounded-full font-black text-xs sm:text-sm mb-3 shadow-xs">
             השקעה בעצמך
           </div>
-          <h2 className="text-3xl sm:text-5xl md:text-7xl font-black mb-4 text-[#C56B3E] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 text-[#C56B3E] tracking-tight">
             בחרי את המסלול שמתאים לך
           </h2>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto rounded-full"></div>
+          <div className="h-1.5 w-20 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto rounded-full"></div>
+          <p className="mt-5 max-w-2xl mx-auto text-sm sm:text-base md:text-lg font-bold text-[#2D5043] bg-[#F3EAD8] px-5 py-3 rounded-2xl border-2 border-[#2D5043]/25 leading-relaxed">
+            המפגשים בסדנה מחולקים לשני חלקים (3 מפגשים בכל חלק). ניתן להירשם לסדנה המלאה (מומלץ!!) או לבחור להירשם לאחד משני החלקים.
+          </p>
         </div>
 
-        {/* 3 Pricing Cards Grid - Center Card is "באות יחד" (המחיר המשתלם ביותר) */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 sm:gap-8 lg:gap-6 items-stretch mb-12 sm:mb-16">
-          
-          {/* חבילה 1: שלושה בתור התחלה */}
-          <div className="bg-white p-6 sm:p-8 md:p-9 rounded-3xl sm:rounded-[2.5rem] md:rounded-[3rem] shadow-lg border-2 border-[#C56B3E]/20 flex flex-col hover:border-[#C56B3E]/50 transition-all duration-300 relative group">
-            <div className="mb-6">
-              <span className="inline-block bg-[#FFF4EB] text-[#93542B] text-xs sm:text-sm font-black px-4 py-1.5 rounded-full mb-3 border border-[#C56B3E]/20">
+        {/* 3 Visually Distinct Pricing Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch mb-10 sm:mb-12">
+          {/* מסלול 1: שלושה בתור התחלה (זהוב-ארד חמים עשיר) */}
+          <div className="bg-[#F6E9D2] p-5 sm:p-6 rounded-3xl border-2 border-[#B9803B]/70 border-t-[8px] border-t-[#B9803B] flex flex-col hover:border-[#B9803B] transition-all shadow-md relative">
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="text-xs font-black text-[#8C5A2B] bg-[#F3E6D0] px-3 py-1 rounded-full border border-[#B9803B]/30">
+                מסלול 1 • טעימה
+              </span>
+              <span className="shrink-0 bg-white text-[#8C5A2B] text-xs font-black px-3 py-1 rounded-full border border-[#B9803B]/30">
                 3 מפגשים לבחירה
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-[#2D5043] tracking-tight">
-                שלושה בתור התחלה
-              </h3>
             </div>
 
-            {/* Price Box */}
-            <div className="mb-6 p-5 sm:p-6 bg-[#FFF4EB] rounded-2xl border border-[#C56B3E]/20 text-center">
-              <div className="flex items-baseline justify-center gap-2 mb-1">
-                <span className="text-4xl sm:text-5xl font-black text-[#C56B3E]">₪510</span>
-                <span className="text-gray-700 font-bold text-sm sm:text-base">למשתתפת</span>
+            <h3 className="text-xl sm:text-2xl font-black text-[#73451B] tracking-tight mb-3">
+              שלושה בתור התחלה
+            </h3>
+
+            <div className="mb-4 pb-4 border-b border-[#B9803B]/20 flex items-baseline justify-between gap-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black text-[#8C5A2B]">₪510</span>
+                <span className="text-[#73451B]/80 font-bold text-xs sm:text-sm">למשתתפת</span>
               </div>
-              <div className="inline-block bg-white text-[#C56B3E] border border-[#C56B3E]/30 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black mt-2 shadow-2xs">
+              <span className="text-xs sm:text-sm font-black text-white bg-[#B9803B] px-3 py-1 rounded-full">
                 170 ₪ למפגש
-              </div>
+              </span>
             </div>
 
-            {/* Description */}
-            <div className="space-y-2 text-gray-700 font-medium text-sm md:text-base leading-relaxed mb-5">
+            <div className="space-y-2.5 text-gray-700 text-sm sm:text-base leading-relaxed mb-5 flex-1">
               <p>
-                מתחילה בשלושה מפגשים, מכירה את החוויה ומחליטה מה מתאים לך.
+                מתחילה בשלושה מפגשים, מכירה את החוויה ומחליטה מה מתאים לך.{' '}
+                <strong className="font-bold text-[#73451B]">חלק א&apos; או חלק ב&apos;, לבחירתך.</strong>
               </p>
-              <p className="font-bold text-[#2D5043]">
-                חלק א&apos; או חלק ב&apos;, לבחירתך.
-              </p>
-            </div>
-
-            {/* Continuation Offer Callout */}
-            <div className="mb-7 p-4 rounded-2xl bg-[#FFF4EB]/80 border-r-4 border-[#C56B3E] text-xs sm:text-sm space-y-1">
-              <p className="font-black text-[#93542B]">
-                נרשמת לחלק א&apos; ורוצה להמשיך?
-              </p>
-              <p className="text-gray-800 font-bold">
-                תוכלי להצטרף גם לחלק ב&apos; בתוספת של 390 ₪ בלבד.
-              </p>
-              <p className="text-gray-600 text-xs">
-                ההמשך אפשרי באותו מחזור בלבד, בכפוף למקום פנוי.
+              <p className="text-xs sm:text-sm text-gray-700 bg-white/95 p-3 rounded-xl border-r-4 border-[#B9803B] leading-relaxed shadow-2xs">
+                <strong className="font-black text-[#8C5A2B] block mb-0.5">
+                  נרשמת לחלק א&apos; ורוצה להמשיך?
+                </strong>
+                תוכלי להצטרף גם לחלק ב&apos; בתוספת של <strong>390 ₪</strong> בלבד (באותו מחזור בלבד, בכפוף למקום פנוי).
               </p>
             </div>
 
             <button
               type="button"
-              onClick={() => handleSelect("שלושה בתור התחלה (3 מפגשים לבחירה)")}
-              className="mt-auto w-full py-4 px-5 rounded-2xl bg-[#FFF9F4] hover:bg-[#C56B3E] hover:text-white text-[#C56B3E] font-black text-base border-2 border-[#C56B3E]/40 transition-all text-center cursor-pointer shadow-xs"
+              onClick={() => handleSelect('שלושה בתור התחלה (3 מפגשים לבחירה)')}
+              className="mt-auto w-full py-3 px-4 rounded-xl bg-[#9E682B] hover:bg-[#7D4F1E] text-white font-black text-sm sm:text-base transition-all text-center cursor-pointer shadow-sm"
             >
               לשריון מקומך וקבלת פרטים נוספים
             </button>
           </div>
 
-          {/* חבילה 2 (במרכז - מובלטת): באות יחד */}
-          <div className="mt-5 lg:mt-0 bg-white p-6 sm:p-8 md:p-10 rounded-3xl sm:rounded-[2.8rem] md:rounded-[3.2rem] shadow-[0_20px_50px_rgba(197,107,62,0.18)] border-4 border-[#C56B3E] lg:scale-105 z-20 flex flex-col relative group transition-all duration-300 hover:border-[#B85D19]">
-            {/* Top ribbon badge */}
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-30 bg-gradient-to-r from-[#C56B3E] via-[#B85D19] to-[#93542B] text-white font-black text-xs sm:text-sm md:text-base px-6 sm:px-8 py-2 rounded-full shadow-lg border-2 border-white tracking-wider whitespace-nowrap">
+          {/* מסלול 2 (מומלץ): באות יחד (שמנת חמה נקייה עם מסגרת והדגשות טרה-קוטה) */}
+          <div className="mt-3 lg:mt-0 bg-[#FFFCF5] p-5 sm:p-6 rounded-3xl border-2 border-[#C56B3E] border-t-[8px] border-t-[#C56B3E] shadow-[0_18px_42px_rgba(197,107,62,0.22)] flex flex-col relative">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#C56B3E] text-white font-black text-xs px-4 py-1 rounded-full shadow-md whitespace-nowrap">
               המחיר המשתלם ביותר
             </div>
 
-            <div className="mb-6 pt-2">
-              <span className="inline-block bg-[#FFF4EB] text-[#93542B] text-xs sm:text-sm font-black px-4 py-1.5 rounded-full mb-3 border border-[#C56B3E]/30">
+            <div className="flex items-center justify-between gap-2 mb-3 pt-2">
+              <span className="text-xs font-black text-white bg-[#C56B3E] px-3 py-1 rounded-full">
+                מסלול 2 • יחד עם חברה
+              </span>
+              <span className="shrink-0 bg-white text-[#93542B] text-xs font-black px-3 py-1 rounded-full border border-[#C56B3E]/35">
                 6 מפגשים לכל אחת
               </span>
-              <h3 className="text-3xl sm:text-4xl font-black text-[#C56B3E] tracking-tight">
-                באות יחד
-              </h3>
             </div>
 
-            {/* Price Box */}
-            <div className="mb-6 p-6 sm:p-7 bg-gradient-to-b from-[#FFF4EB] to-[#FDEDE0] rounded-3xl border-2 border-[#C56B3E]/30 text-center">
-              <div className="flex items-baseline justify-center gap-2 mb-2">
-                <span className="text-5xl sm:text-6xl font-black text-[#C56B3E] tracking-tight">
-                  ₪810
-                </span>
-                <span className="text-[#93542B] font-black text-base md:text-lg">למשתתפת</span>
+            <h3 className="text-xl sm:text-2xl font-black text-[#C56B3E] tracking-tight mb-3">
+              באות יחד
+            </h3>
+
+            <div className="mb-4 pb-4 border-b border-[#C56B3E]/25 flex items-baseline justify-between gap-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black text-[#C56B3E]">₪810</span>
+                <span className="text-[#93542B] font-bold text-xs sm:text-sm">למשתתפת</span>
               </div>
-              <div className="inline-block bg-[#C56B3E] text-white px-5 py-1.5 rounded-full text-sm sm:text-base font-black shadow-sm">
+              <span className="text-xs sm:text-sm font-black bg-[#C56B3E] text-white px-3 py-1 rounded-full">
                 135 ₪ למפגש
-              </div>
+              </span>
             </div>
 
-            {/* Description */}
-            <div className="space-y-3 text-gray-800 font-bold text-base md:text-lg leading-relaxed mb-8">
-              <p>
+            <div className="space-y-2.5 text-gray-800 text-sm sm:text-base leading-relaxed mb-5 flex-1">
+              <p className="font-bold">
                 נרשמות יחד לכל ששת המפגשים ונהנות מהחוויה המלאה
               </p>
-              <p className="text-sm md:text-base text-[#93542B] bg-[#FFF4EB] p-3.5 rounded-2xl border border-[#C56B3E]/20">
+              <p className="text-xs sm:text-sm text-[#93542B] bg-white/95 p-3 rounded-xl border-r-4 border-[#C56B3E] font-medium shadow-2xs">
                 המחיר מותנה בהרשמה משותפת של שתי משתתפות.
               </p>
             </div>
@@ -138,40 +144,40 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ hidePrices, onSe
             <button
               type="button"
               onClick={() => handleSelect('באות יחד (6 מפגשים - הרשמה משותפת)')}
-              className="mt-auto w-full py-4.5 px-6 rounded-full bg-gradient-to-r from-[#C56B3E] to-[#B85D19] hover:from-[#B85D19] hover:to-[#93542B] text-white font-black text-base sm:text-lg transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 cursor-pointer text-center"
+              className="mt-auto w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#C56B3E] to-[#B85D19] hover:from-[#B85D19] hover:to-[#93542B] text-white font-black text-sm sm:text-base transition-all shadow-md hover:shadow-lg cursor-pointer text-center"
             >
               לשריון מקומך וקבלת פרטים נוספים
             </button>
           </div>
 
-          {/* חבילה 3: החוויה המלאה */}
-          <div className="bg-white p-6 sm:p-8 md:p-9 rounded-3xl sm:rounded-[2.5rem] md:rounded-[3rem] shadow-lg border-2 border-[#2D5043]/30 flex flex-col hover:border-[#2D5043] transition-all duration-300 relative group">
-            <div className="mb-6">
-              <span className="inline-block bg-[#2D5043]/10 text-[#2D5043] text-xs sm:text-sm font-black px-4 py-1.5 rounded-full mb-3 border border-[#2D5043]/30">
+          {/* מסלול 3: החוויה המלאה (ירוק מרווה עמוק ועשיר) */}
+          <div className="bg-gradient-to-b from-[#CFE5D9] to-[#E2EFE8] p-5 sm:p-6 rounded-3xl border-2 border-[#2D5043]/75 border-t-[8px] border-t-[#2D5043] flex flex-col hover:border-[#2D5043] transition-all shadow-md relative">
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="text-xs font-black text-white bg-[#2D5043] px-3 py-1 rounded-full">
+                מסלול 3 • הסדנה המלאה
+              </span>
+              <span className="shrink-0 bg-white text-[#2D5043] text-xs font-black px-3 py-1 rounded-full border border-[#2D5043]/30">
                 כל 6 המפגשים
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-[#2D5043] tracking-tight">
-                החוויה המלאה
-              </h3>
             </div>
 
-            {/* Price Box */}
-            <div className="mb-6 p-5 sm:p-6 bg-[#2D5043]/5 rounded-2xl border-2 border-[#2D5043]/20 text-center">
-              <div className="flex items-baseline justify-center gap-2 mb-1">
-                <span className="text-4xl sm:text-5xl font-black text-[#2D5043] tracking-tight">₪900</span>
-                <span className="text-[#3A5A40] font-black text-sm sm:text-base">למשתתפת</span>
+            <h3 className="text-xl sm:text-2xl font-black text-[#2D5043] tracking-tight mb-3">
+              החוויה המלאה
+            </h3>
+
+            <div className="mb-4 pb-4 border-b border-[#2D5043]/20 flex items-baseline justify-between gap-2">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl sm:text-4xl font-black text-[#2D5043]">₪900</span>
+                <span className="text-[#3A5A40] font-bold text-xs sm:text-sm">למשתתפת</span>
               </div>
-              <div className="inline-block bg-[#2D5043] text-white px-4 py-1 rounded-full text-xs sm:text-sm font-black mt-2 shadow-2xs">
+              <span className="text-xs sm:text-sm font-black bg-[#2D5043] text-white px-3 py-1 rounded-full">
                 150 ₪ למפגש
-              </div>
+              </span>
             </div>
 
-            {/* Description */}
-            <div className="space-y-3 text-gray-700 font-medium text-sm md:text-base leading-relaxed mb-8">
-              <p>
-                בוחרת מראש בחוויה השלמה, מהמפגש הראשון ועד האחרון.
-              </p>
-              <p className="font-bold text-[#2D5043]">
+            <div className="space-y-2.5 text-gray-700 text-sm sm:text-base leading-relaxed mb-5 flex-1">
+              <p>בוחרת מראש בחוויה השלמה, מהמפגש הראשון ועד האחרון.</p>
+              <p className="text-xs sm:text-sm font-bold text-[#2D5043] bg-white/95 p-3 rounded-xl border-r-4 border-[#2D5043] shadow-2xs">
                 כולל חלק א&apos; וחלק ב&apos; של התוכנית.
               </p>
             </div>
@@ -179,55 +185,53 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ hidePrices, onSe
             <button
               type="button"
               onClick={() => handleSelect('החוויה המלאה - כל ששת המפגשים (6 מפגשים)')}
-              className="mt-auto w-full py-4 px-5 rounded-2xl bg-[#2D5043] hover:bg-[#1E362C] text-white font-black text-base transition-all text-center cursor-pointer shadow-md hover:shadow-lg"
+              className="mt-auto w-full py-3 px-4 rounded-xl bg-[#2D5043] hover:bg-[#1E362C] text-white font-black text-sm sm:text-base transition-all text-center cursor-pointer shadow-sm"
             >
               לשריון מקומך וקבלת פרטים נוספים
             </button>
           </div>
-
         </div>
 
-        {/* Unified Section: אז מה את מקבלת ? */}
-        <div className="bg-white rounded-3xl sm:rounded-[2.5rem] md:rounded-[3rem] p-5 sm:p-10 md:p-12 border-2 border-[#C56B3E]/25 shadow-lg mb-10 sm:mb-14 max-w-5xl mx-auto">
-          <div className="text-center mb-6 sm:mb-8 space-y-2.5">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] tracking-tight">
-              אז מה את מקבלת ?
+        {/* Concise Clean List: מה עוד את מקבלת */}
+        <div className="bg-[#DCECE3] rounded-3xl p-5 sm:p-8 border-2 border-[#2D5043]/30 shadow-sm mb-8 sm:mb-10 max-w-4xl mx-auto">
+          <div className="text-center mb-5">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-[#C56B3E] tracking-tight">
+              {includedTitle}
             </h3>
-            <div className="h-1 w-20 bg-[#C56B3E] mx-auto !mt-3 rounded-full opacity-70"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 text-right">
-            <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
-              <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base text-gray-800 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3.5 text-right text-sm sm:text-base text-gray-800">
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-[#C56B3E] stroke-[3] shrink-0 mt-1" />
+              <p className="leading-relaxed">
                 <strong className="font-black text-[#2D5043]">תוכן מקצועי ואיכותי:</strong> מפגשים מעמיקים בני 3 שעות, עם הרצאות בהובלת נשות מקצוע מומחיות בתחומן.
               </p>
             </div>
 
-            <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
-              <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base text-gray-800 leading-relaxed">
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-[#C56B3E] stroke-[3] shrink-0 mt-1" />
+              <p className="leading-relaxed">
                 <strong className="font-black text-[#2D5043]">הנחיה וליווי אישי וקבוצתי:</strong> בהובלת מנחות התוכנית, לאורך המפגשים.
               </p>
             </div>
 
-            <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
-              <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base text-gray-800 leading-relaxed">
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-[#C56B3E] stroke-[3] shrink-0 mt-1" />
+              <p className="leading-relaxed">
                 <strong className="font-black text-[#2D5043]">הרבה מעבר להרצאות:</strong> התנסויות מעשיות, חומרי תוכן וערכות חווייתיות שנבחרו במיוחד לכל מפגש.
               </p>
             </div>
 
-            <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15">
-              <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base text-gray-800 leading-relaxed">
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-[#C56B3E] stroke-[3] shrink-0 mt-1" />
+              <p className="leading-relaxed">
                 <strong className="font-black text-[#2D5043]">חיבור גם בין המפגשים:</strong> קבוצת וואטסאפ ייעודית לשיתוף, העשרה והמשך הקשר.
               </p>
             </div>
 
-            <div className="flex items-start gap-3.5 p-4 sm:p-5 rounded-2xl bg-[#FFF9F4] border border-[#C56B3E]/15 md:col-span-2">
-              <CheckCircle2 className="w-6 h-6 text-[#C56B3E] shrink-0 mt-0.5" />
-              <p className="text-sm sm:text-base text-gray-800 leading-relaxed">
+            <div className="flex items-start gap-2.5 md:col-span-2">
+              <Check className="w-4 h-4 text-[#C56B3E] stroke-[3] shrink-0 mt-1" />
+              <p className="leading-relaxed">
                 <strong className="font-black text-[#2D5043]">חוויה מוקפדת:</strong> אירוח, כיבוד קל, אווירה נעימה והזדמנות להכיר נשים חדשות.
               </p>
             </div>
@@ -235,21 +239,20 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ hidePrices, onSe
         </div>
 
         {/* WhatsApp Contact Bar */}
-        <div className="flex flex-col items-center gap-4 text-center">
-          <p className="text-[#2D5043] font-black text-lg md:text-2xl">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 text-center">
+          <p className="text-[#2D5043] font-black text-base sm:text-lg">
             רוצה להתייעץ איתנו או לבדוק התאמה?
           </p>
-          <a 
+          <a
             href={`https://wa.me/${CONTACT_PHONE}?text=${WHATSAPP_MESSAGE}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-[#2D5043] border-2 border-[#2D5043]/30 px-8 py-3.5 rounded-full text-base md:text-lg font-black hover:bg-[#C56B3E] hover:text-white hover:border-transparent transition-all shadow-md flex items-center gap-3 cursor-pointer group"
+            className="bg-white text-[#2D5043] border-2 border-[#2D5043]/30 px-6 py-2.5 rounded-full text-sm sm:text-base font-black hover:bg-[#C56B3E] hover:text-white hover:border-transparent transition-all shadow-xs flex items-center gap-2.5 cursor-pointer group"
           >
-            <MessageCircle className="w-5 h-5 text-[#25D366] group-hover:text-white transition-colors" />
+            <MessageCircle className="w-4 h-4 text-[#25D366] group-hover:text-white transition-colors" />
             <span>דברי איתנו ישירות בוואטסאפ</span>
           </a>
         </div>
-
       </div>
     </section>
   );

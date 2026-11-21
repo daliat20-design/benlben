@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { TEAM } from '../constants';
 import { ButterflyIcon } from './Hero';
 
-export const TeamSection: React.FC = () => {
+export const TeamSection: React.FC<{ customTitle?: string; bgClassName?: string }> = ({
+  customTitle = 'הצוות שמאחורי הקלעים',
+  bgClassName = 'bg-gradient-to-b from-[#FFF4EB]/50 via-[#FFF9F4] to-[#FFF4EB]/50',
+}) => {
   return (
-    <section id="team" className="py-12 sm:py-16 md:py-24 bg-gradient-to-b from-[#FFF4EB]/50 via-[#FFF9F4] to-[#FFF4EB]/50 px-4 sm:px-6 relative overflow-hidden text-right" dir="rtl">
+    <section id="team" className={`py-12 sm:py-16 md:py-24 ${bgClassName} px-4 sm:px-6 relative overflow-hidden text-right`} dir="rtl">
       {/* Decorative Background Butterfly - Section Level */}
       <ButterflyIcon size={160} className="absolute bottom-10 right-10 animate-float opacity-[0.04] text-[#C56B3E] hidden md:block pointer-events-none" />
       
@@ -14,7 +17,7 @@ export const TeamSection: React.FC = () => {
             מובילות הדרך
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-7xl font-black text-[#C56B3E] text-center tracking-tight leading-tight mb-4 drop-shadow-xs">
-            הצוות שמאחורי הקלעים
+            {customTitle}
           </h2>
           <div className="h-2 w-24 sm:w-32 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto rounded-full shadow-inner" />
         </div>

@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
                 סדנת הדגל של בין לבין • נשים בגילאי <span dir="ltr" className="inline-block font-sans text-[#93542B]">45-60</span>
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#C56B3E] leading-[1.08] tracking-tighter drop-shadow-xs">
-                סדנת אמצע החיים
+                אמצע החיים
               </h1>
             </div>
           </div>
@@ -60,54 +60,109 @@ export const Hero: React.FC = () => {
             <span className="text-sm sm:text-base md:text-lg font-black text-[#C56B3E]" dir="ltr">
               19:00 - 22:00
             </span>
+            <span className="text-gray-400 hidden sm:inline">•</span>
+            <span className="text-sm sm:text-base md:text-lg font-black text-[#2D5043]">
+              מיקום: כפר סבא
+            </span>
           </div>
 
-          {/* Section 1 Narrative: אמצע החיים. מי הכין אותנו לזה? */}
-          <div className="bg-white/90 backdrop-blur-sm p-6 sm:p-8 md:p-10 rounded-3xl border border-[#C56B3E]/25 shadow-[0_12px_40px_rgba(197,107,62,0.08)] text-right max-w-2xl mx-auto md:mx-0 mb-8 space-y-5">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] tracking-tight leading-snug">
-              אמצע החיים. מי הכין אותנו לזה?
-            </h2>
-
-            <div className="space-y-4 text-base sm:text-lg md:text-xl text-gray-800 leading-relaxed font-medium">
-              <p>
-                פעם, לפני שהתקשרת לחברה בשלוש בלילה, היית צריכה סיבה ממש טובה.
-              </p>
-              <p>
-                היום מספיק לראות שהיא מחוברת.
-              </p>
-
-              {/* Late-night chat dialogue */}
-              <div className="my-4 p-4 sm:p-5 rounded-2xl bg-[#FFF4EB]/80 border-r-4 border-[#C56B3E] space-y-2.5 text-[#2D5043] font-bold">
-                <p>&quot;גם את ערה?&quot;</p>
-                <p>&quot;כן. כבר הספקתי לעשות בראש סדר בארונות, לשקול להחליף עבודה ולהיזכר שאין חלב.&quot;</p>
+          {/* Opening Narrative - WhatsApp Conversation + Regular Follow-up */}
+          <div className="max-w-2xl mx-auto md:mx-0 mb-8 space-y-5 text-right">
+            {/* WhatsApp Chat Window */}
+            <div className="rounded-3xl overflow-hidden border border-[#C56B3E]/25 shadow-[0_14px_44px_rgba(7,94,84,0.12)] bg-[#EFEAE2]">
+              {/* WhatsApp Top Bar */}
+              <div className="bg-[#075E54] text-white px-4 sm:px-5 py-3 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-white/15 border border-white/25 flex items-center justify-center shrink-0">
+                  <img
+                    src="/logos/midlife.webp"
+                    alt="בין לבין"
+                    className="w-7 h-7 object-contain rounded-full"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                </div>
+                <div className="text-right">
+                  <div className="text-sm sm:text-base font-black leading-tight">
+                    בין חברות • אמצע החיים
+                  </div>
+                </div>
               </div>
 
-              <p>
-                בבוקר, כמובן, את כבר לא ממש זוכרת בשביל מה פתחת את המקרר.
-              </p>
+              {/* Chat Wallpaper & Bubbles */}
+              <div className="p-4 sm:p-6 space-y-3 flex flex-col bg-[radial-gradient(#d8d0c5_1px,transparent_1px)] [background-size:16px_16px]">
+                {/* Message 1: Incoming */}
+                <div className="self-start max-w-[85%] bg-white text-gray-900 px-4 py-2.5 rounded-2xl rounded-tr-xs shadow-xs">
+                  <p className="text-base sm:text-lg font-black">״היי אהובה, מה שלומך?״</p>
+                </div>
 
-              <p className="font-black text-[#2D5043] pt-2 border-t border-[#C56B3E]/15">
-                יש משהו מפתיע באמצע החיים.
-              </p>
+                {/* Message 2: Outgoing */}
+                <div className="self-end max-w-[85%] bg-[#D9FDD3] text-gray-900 px-4 py-2.5 rounded-2xl rounded-tl-xs shadow-xs flex items-end gap-2">
+                  <p className="text-base sm:text-lg font-black">״הכול בסדר.״</p>
+                  <svg className="w-4 h-4 text-[#53BDEB] shrink-0 mb-0.5" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 5.5L4.5 9L11.5 1.5" />
+                    <path d="M5.5 5.5L9 9L15 1.5" />
+                  </svg>
+                </div>
 
-              <p>
-                אנחנו מגיעות עם כל כך הרבה ניסיון, ידע ותובנות שצברנו בדרך. ובכל זאת, דווקא עכשיו מתעוררות לא מעט שאלות חדשות.
-              </p>
+                {/* Message 3: Incoming reflection */}
+                <div className="self-start max-w-[92%] sm:max-w-[88%] bg-white text-gray-800 px-4 py-3 rounded-2xl rounded-tr-xs shadow-xs">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                    כמה פעמים ביום אנחנו עונות ככה? לפעמים זו באמת כל התשובה. לפעמים, אם רק הייתה לנו הזדמנות להרחיב, היה לנו עוד הרבה מה לשתף.
+                  </p>
+                </div>
 
-              <p>
-                חלקן קשורות לגוף ולשינויים שלא תמיד הכינו אותנו אליהם. אחרות קשורות לזוגיות, למשפחה, למערכות היחסים ולמה שאנחנו רוצות מעצמנו ומהחיים.
-              </p>
+                {/* Message 4: Outgoing */}
+                <div className="self-end max-w-[92%] sm:max-w-[88%] bg-[#D9FDD3] text-gray-800 px-4 py-3 rounded-2xl rounded-tl-xs shadow-xs">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                    אולי היינו מספרות על משהו שהשתנה בגוף ואנחנו מנסות להבין אם הוא קשור לגיל המעבר.
+                  </p>
+                  <div className="flex justify-end mt-1">
+                    <svg className="w-4 h-4 text-[#53BDEB]" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 5.5L4.5 9L11.5 1.5" />
+                      <path d="M5.5 5.5L9 9L15 1.5" />
+                    </svg>
+                  </div>
+                </div>
 
-              <p>
-                ואנחנו, כמו נשים שיודעות להסתדר, מתחילות לחפש תשובות.
-              </p>
+                {/* Message 5: Incoming */}
+                <div className="self-start max-w-[92%] sm:max-w-[88%] bg-white text-gray-800 px-4 py-3 rounded-2xl rounded-tr-xs shadow-xs">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                    אולי היינו שואלות למה מה שתמיד עבד לנו בתזונה כבר פחות מתאים, איך מדברות עם בן הזוג על מה שהשתנה בינינו, או מה בא לנו לעשות עם הזמן שמתפנה כשהילדים פחות צריכים אותנו.
+                  </p>
+                </div>
 
+                {/* Message 6: Outgoing */}
+                <div className="self-end max-w-[92%] sm:max-w-[88%] bg-[#D9FDD3] text-gray-800 px-4 py-3 rounded-2xl rounded-tl-xs shadow-xs">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                    אולי היינו משתפות ברעיון שכבר שנים אנחנו שומרות ל״יום אחד״.
+                  </p>
+                  <div className="flex justify-end mt-1">
+                    <svg className="w-4 h-4 text-[#53BDEB]" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M1 5.5L4.5 9L11.5 1.5" />
+                      <path d="M5.5 5.5L9 9L15 1.5" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Message 7: Final punchy question */}
+                <div className="self-start max-w-[92%] sm:max-w-[88%] bg-white text-gray-900 px-4 py-3 rounded-2xl rounded-tr-xs shadow-xs border-r-4 border-[#075E54]">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                    לפעמים כל מה שמתחשק לנו לשאול זה{' '}
+                    <strong className="font-black text-[#075E54]">״תגידי, גם אצלך זה ככה?״</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Regular Follow-up Text */}
+            <div className="bg-white/95 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-[#C56B3E]/25 shadow-sm space-y-4 text-base sm:text-lg md:text-xl text-gray-800 leading-relaxed font-medium">
               <p>
-                גוגל, צ&apos;ט, פודקאסטים, שיחות עם חברות. לפעמים גם שואלות &quot;בשביל חברה&quot;.
+                מתוך כל השאלות, השינויים והשיחות שלא תמיד יוצא לנו לנהל, נולדה ״אמצע החיים״ של בין לבין. מרחב שבו את יכולה להבין קצת יותר את מה שעובר עלייך, לקבל מידע רלוונטי ממרצות מומחיות בתחומן, לשתף, להקשיב ולפגוש נשים שנמצאות בתקופת חיים דומה לשלך.
               </p>
 
               <p className="font-bold text-[#93542B] pt-1">
-                רק שהתשובות לא תמיד מתחברות, ולפעמים כל תשובה מביאה איתה עוד שלוש שאלות.
+                את מוזמנת להצטרף אלינו, להביא איתך את מה שמעסיק אותך עכשיו ולגלות מה עוד אפשרי.
               </p>
             </div>
           </div>

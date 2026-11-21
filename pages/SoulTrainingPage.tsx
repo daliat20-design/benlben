@@ -24,10 +24,34 @@ import { LegalModals } from '../components/LegalModals';
 import { SPEAKERS, TEAM } from '../constants';
 
 const PAYBOX_URL = 'https://links.payboxapp.com/IxnnnpXV67b';
-const SOUL_DATES = ['19.12.26', '26.12.26', '2.1.27', '9.1.27'];
+const SOUL_DATES = ['9.1.27', '16.1.27', '23.1.27', '30.1.27'];
+
+const SOUL_SPEAKER_ORDER = ['מיה קדוש', 'יעל ינאי אלי', 'טליה גולן', 'חגית בן ארי'];
+const SOUL_SPEAKERS = [
+  ...SOUL_SPEAKER_ORDER
+    .map((name) => SPEAKERS.find((s) => s.name === name))
+    .filter((s): s is (typeof SPEAKERS)[number] => Boolean(s)),
+  ...SPEAKERS.filter((s) => !SOUL_SPEAKER_ORDER.includes(s.name)),
+];
+
+interface SoulSessionItem {
+  id: string;
+  theme?: string;
+  leadingValue: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  introParagraphs?: string[];
+  bulletsTitle?: string;
+  bullets?: string[];
+  closingParagraphs?: string[];
+  badgeColor: string;
+  cardBorder: string;
+  iconBg: string;
+}
 
 // 4 Sessions Tailored for Fitness Gym Trainees (Ages 40-55)
-const SOUL_SESSIONS = [
+const SOUL_SESSIONS: SoulSessionItem[] = [
   {
     id: 'change',
     theme: 'תסמינים ושינויים בגיל המעבר',
@@ -35,19 +59,30 @@ const SOUL_SESSIONS = [
     title: 'כשזה מתחיל להשתנות',
     subtitle: 'תסמינים בגיל המעבר (גם אם את לא יודעת) הם כבר שם',
     description: 'את מתאמנת, אוכלת נכון ומשקיעה בגוף – אבל פתאום השינה משתבשת, מצב הרוח קופץ, רמות האנרגיה משתנות ומשקל הגוף מתנהג אחרת. במפגש נצלול לעומק השינויים ההורמונליים והפיזיים, ננפץ מיתוסים ונבין איך לזהות את הסימנים המוקדמים בגילאי \u200E40-55\u200E עוד לפני שהם הופכים למשבר.',
-    expertField: 'הרצאת מומחית: ליווי תהליכי שינוי, חוסן פיזיולוגי וקבלת החלטות בגיל המעבר',
     badgeColor: 'bg-[#0E7490] text-white',
     cardBorder: 'border-[#0E7490]/30',
     iconBg: 'bg-[#0E7490]/10 text-[#0E7490]'
   },
   {
-    id: 'strength',
-    theme: 'תזונה ואנרגיה',
-    leadingValue: 'איזון',
-    title: 'להחזיר לעצמי כח',
-    subtitle: 'תזונה מדויקת לאימון, לחיוניות ולאיזון הורמונלי',
-    description: 'הגוף שלך באימון דורש מענה תזונתי שונה לחלוטין בתקופת אמצע החיים. נדבר על תזונה נשית מותאמת, צפיפות עצם, מסת שריר, שמירה על אנרגיה יציבה לאורך היום, חילוף חומרים ואיזון הורמונלי טבעי. ידע מעשי שמתחבר ישירות לאורח החיים הספורטיבי שלך.',
-    expertField: 'הרצאת מומחית: נטורופתיה, תזונה טבעית מותאמת ואורח חיים בריא בגילאי \u200E40-55\u200E',
+    id: 'breath',
+    leadingValue: 'שחרור ואיזון',
+    title: 'לוקחות אוויר',
+    introParagraphs: [
+      'אנחנו נושמות כל הזמן, אבל כמה מאיתנו באמת עוצרות לשים לב לאופן שבו אנחנו נושמות?',
+      'במפגש חווייתי נגלה איך הנשימה משפיעה על הגוף, על התחושות שלנו ועל איכות החיים ביומיום.'
+    ],
+    bulletsTitle: 'נכיר טכניקות נשימה פשוטות שיכולות לסייע לנו:',
+    bullets: [
+      'להירגע ולהפחית מתח',
+      'לשפר את איכות השינה',
+      'לווסת את הגוף במצבי לחץ',
+      'למצוא רגעים של איזון ובהירות במהלך היום'
+    ],
+    closingParagraphs: [
+      'נתנסה בתרגילי נשימה ונחווה טעימה קצרה של נשימה מעגלית בליווי מוזיקה והנחיה, שתאפשר לנו לעצור, להרפות ולהתחבר לגוף.',
+      'נשלב גם תנועה וריקוד חופשי, קצת מוזיקה והרבה מקום לשחרר.',
+      'לא צריך ניסיון קודם. רק לבוא ולנשום.'
+    ],
     badgeColor: 'bg-[#C56B3E] text-white',
     cardBorder: 'border-[#C56B3E]/30',
     iconBg: 'bg-[#C56B3E]/10 text-[#C56B3E]'
@@ -59,7 +94,6 @@ const SOUL_SESSIONS = [
     title: 'מגע מרחק ומה שביניהם',
     subtitle: 'זוגיות, תשוקה ואינטימיות מחודשת כשהשנים עוברות',
     description: 'איך השינויים של אמצע החיים פוגשים את הזוגיות והאינטימיות? מפגש פתוח, רגיש ואמיץ על החשק המיני, השינויים ברגש, תיאום ציפיות מחודש עם בן/בת הזוג, ואיך להפוך את השלב הזה בחיים להזדמנות של קרבה עמוקה, קבלה עצמית וחיבור חדש.',
-    expertField: 'הרצאת מומחית: ייעוץ זוגי ומיני וליווי אינטימיות בגיל המעבר',
     badgeColor: 'bg-[#0E7490] text-white',
     cardBorder: 'border-[#0E7490]/30',
     iconBg: 'bg-[#0E7490]/10 text-[#0E7490]'
@@ -71,7 +105,6 @@ const SOUL_SESSIONS = [
     title: 'בין חיבוק לשחרור',
     subtitle: 'המשפחה, הבחירה והזמן שאת מחזירה לעצמך',
     description: 'הילדים גדלים, המשפחה בתנועה, והעומס היומיומי של קריירה ובית שואב אותנו בלי הפסקה. במפגש הסיום נעצור להתבונן בך – איפה את נמצאת בתוך כל המשוואה הזו? איך מפנים מקום אמיתי לרצונות שלך, מנהלים את האנרגיה מול המשפחה, ומגלים את הפרק הבא שלך מתוך אמון, שמחה, בהירות ועוצמה.',
-    expertField: 'הרצאת מומחית: ייעוץ אישי, ליווי תהליכי שינוי ויצירת פריצות דרך',
     badgeColor: 'bg-[#C56B3E] text-white',
     cardBorder: 'border-[#C56B3E]/30',
     iconBg: 'bg-[#C56B3E]/10 text-[#C56B3E]'
@@ -157,11 +190,11 @@ export const SoulTrainingPage: React.FC = () => {
   };
 
   const nextSpeaker = () => {
-    setActiveSpeakerIdx(prev => (prev === SPEAKERS.length - 1 ? 0 : prev + 1));
+    setActiveSpeakerIdx(prev => (prev === SOUL_SPEAKERS.length - 1 ? 0 : prev + 1));
   };
 
   const prevSpeaker = () => {
-    setActiveSpeakerIdx(prev => (prev === 0 ? SPEAKERS.length - 1 : prev - 1));
+    setActiveSpeakerIdx(prev => (prev === 0 ? SOUL_SPEAKERS.length - 1 : prev - 1));
   };
 
   const nextTestimonial = () => {
@@ -279,7 +312,7 @@ export const SoulTrainingPage: React.FC = () => {
     { label: 'הרשמה ותשלום', id: 'soul-interest', isHighlight: true },
   ];
 
-  const currentSpeaker = SPEAKERS[activeSpeakerIdx];
+  const currentSpeaker = SOUL_SPEAKERS[activeSpeakerIdx];
   const isCurrentBioExpanded = !!expandedBios[activeSpeakerIdx];
   const cleanCurrentBio = currentSpeaker ? currentSpeaker.bio.replace(/<[^>]+>/g, '') : '';
   const isCurrentBioLong = cleanCurrentBio.length > 150;
@@ -494,7 +527,7 @@ export const SoulTrainingPage: React.FC = () => {
 
               <div className="p-4 sm:p-5 bg-white rounded-2xl border-2 border-[#C56B3E]/35 shadow-xs flex items-center justify-center min-h-[90px] sm:min-h-[105px]">
                 <div className="text-base sm:text-lg font-black text-slate-800 leading-snug">
-                  תזונה ואנרגיה
+                  נשימה, שחרור ואיזון
                 </div>
               </div>
 
@@ -650,7 +683,7 @@ export const SoulTrainingPage: React.FC = () => {
                 {/* Top Navigation Header inside window */}
                 <div className="flex items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-100">
                   <span className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-black ${session.badgeColor}`}>
-                    ערך מוביל: {session.leadingValue} • {session.theme}
+                    ערך מוביל: {session.leadingValue}{session.theme ? ` • ${session.theme}` : ''}
                   </span>
 
                   <div className="flex items-center gap-1.5 shrink-0">
@@ -682,19 +715,49 @@ export const SoulTrainingPage: React.FC = () => {
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-snug">
                       {session.title}
                     </h3>
-                    <p className="text-base sm:text-xl font-bold text-[#0E7490] mt-1">
-                      {session.subtitle}
+                    {session.subtitle && (
+                      <p className="text-base sm:text-xl font-bold text-[#0E7490] mt-1">
+                        {session.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  {session.description ? (
+                    <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal min-h-[96px]">
+                      {session.description}
                     </p>
-                  </div>
+                  ) : (
+                    <div className="space-y-3 text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
+                      {session.introParagraphs?.map((para, pIdx) => (
+                        <p key={pIdx}>{para}</p>
+                      ))}
 
-                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal min-h-[96px]">
-                    {session.description}
-                  </p>
+                      {session.bulletsTitle && (
+                        <div className="bg-[#FFF4EB]/60 border-r-4 border-[#C56B3E] rounded-2xl p-4 sm:p-5 space-y-2">
+                          <p className="font-bold text-slate-900">{session.bulletsTitle}</p>
+                          <ul className="space-y-1.5 pr-4 list-disc marker:text-[#C56B3E] font-medium text-slate-800">
+                            {session.bullets?.map((item, bIdx) => (
+                              <li key={bIdx}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
 
-                  <div className="pt-2 text-xs sm:text-sm font-bold text-slate-500 flex items-center gap-2">
-                    <Sparkles size={16} className="text-[#C56B3E] shrink-0" />
-                    <span>{session.expertField}</span>
-                  </div>
+                      {session.closingParagraphs?.map((para, cIdx) => (
+                        <p
+                          key={cIdx}
+                          className={
+                            cIdx === (session.closingParagraphs?.length || 0) - 1
+                              ? 'font-bold text-[#0E7490]'
+                              : ''
+                          }
+                        >
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
                 </div>
 
                 {/* Bottom Dots & Mobile Swipe Hint */}
@@ -758,7 +821,7 @@ export const SoulTrainingPage: React.FC = () => {
               {/* Window Navigation Header */}
               <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
                 <span className="text-xs font-black px-3.5 py-1.5 rounded-full bg-[#0E7490]/10 text-[#0E7490]">
-                  מרצה {activeSpeakerIdx + 1} מתוך {SPEAKERS.length}
+                  מרצה {activeSpeakerIdx + 1} מתוך {SOUL_SPEAKERS.length}
                 </span>
 
                 <div className="flex items-center gap-2">
@@ -813,7 +876,7 @@ export const SoulTrainingPage: React.FC = () => {
                     </p>
                   </div>
 
-                  <p className={`text-sm sm:text-base text-slate-700 leading-relaxed font-normal ${isCurrentBioExpanded ? '' : 'line-clamp-4'}`}>
+                  <p className={`text-sm sm:text-base text-slate-700 leading-relaxed font-normal whitespace-pre-line ${isCurrentBioExpanded ? '' : 'line-clamp-4'}`}>
                     {cleanCurrentBio}
                   </p>
 
@@ -832,7 +895,7 @@ export const SoulTrainingPage: React.FC = () => {
 
               {/* Dots indicator at bottom */}
               <div className="flex items-center justify-center gap-2 pt-6 mt-4 border-t border-slate-100">
-                {SPEAKERS.map((_, dotIdx) => (
+                {SOUL_SPEAKERS.map((_, dotIdx) => (
                   <button
                     key={dotIdx}
                     onClick={() => setActiveSpeakerIdx(dotIdx)}
@@ -1043,14 +1106,28 @@ export const SoulTrainingPage: React.FC = () => {
               {/* Price Box */}
               <div className="md:col-span-6 bg-gradient-to-br from-[#FFF4EB] to-white p-6 sm:p-8 rounded-3xl border-2 border-[#C56B3E]/30 flex flex-col justify-center text-center space-y-3 shadow-xs">
                 <span className="text-xs font-black text-[#C56B3E] uppercase tracking-wider">
-                  מחיר מיוחד למחזור הראשון בלבד
+                  הנחה מיוחדת למחזור הראשון בלבד
                 </span>
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl font-black text-slate-900">
-                    150 ש&quot;ח <span className="text-lg sm:text-xl font-bold text-slate-600">למפגש</span>
+                <div className="space-y-2.5">
+                  <div className="flex flex-wrap items-baseline justify-center gap-3">
+                    <span
+                      className="text-2xl sm:text-3xl font-black text-slate-400 line-through decoration-[2.5px] decoration-[#C56B3E]/85"
+                      aria-label="מחיר מקורי 150 שקלים"
+                    >
+                      150 ש&quot;ח
+                    </span>
+                    <div className="text-4xl sm:text-5xl font-black text-[#C56B3E]">
+                      125 ש&quot;ח <span className="text-lg sm:text-xl font-bold text-slate-700">למפגש</span>
+                    </div>
                   </div>
-                  <div className="inline-block px-5 py-1.5 rounded-full bg-[#C56B3E] text-white text-lg sm:text-xl font-black shadow-xs">
-                    סה&quot;כ 600 ש&quot;ח (לכל 4 המפגשים)
+                  <div className="inline-flex flex-wrap items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#C56B3E] text-white text-base sm:text-lg font-black shadow-xs">
+                    <span>סה&quot;כ 500 ש&quot;ח</span>
+                    <span className="text-xs sm:text-sm font-bold text-white/90 line-through decoration-white/80">
+                      600 ש&quot;ח
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-white/95">
+                      (לכל 4 המפגשים)
+                    </span>
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 font-bold pt-1">

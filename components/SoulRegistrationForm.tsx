@@ -272,7 +272,9 @@ export const SoulRegistrationForm: React.FC<SoulRegistrationFormProps> = ({
 
         <div className="bg-gradient-to-br from-[#FFF7ED] to-[#F0FDF4] p-5 sm:p-6 rounded-2xl border-2 border-[#C56B3E]/30 max-w-lg mx-auto space-y-3">
           <p className="text-sm sm:text-base font-black text-slate-800">
-            הסדרת תשלום בפייבוקס (600 ש&quot;ח עבור 4 מפגשים):
+            הסדרת תשלום בפייבוקס (500 ש&quot;ח{' '}
+            <span className="line-through text-slate-400 font-bold">600 ש&quot;ח</span>{' '}
+            עבור 4 מפגשים):
           </p>
           <p className="text-xs sm:text-sm font-black text-[#C56B3E]">
             שימי לב: רק ביצוע התשלום בפועל מבטיח שריון מקום בסדנה.

@@ -33,7 +33,9 @@ const testimonials = [
   }
 ];
 
-export const TestimonialsSection: React.FC = () => {
+export const TestimonialsSection: React.FC<{ bgClassName?: string }> = ({
+  bgClassName = 'bg-gradient-to-b from-[#FFF9F4] via-white to-[#FFF4EB]',
+}) => {
   const [activeTestimonialIdx, setActiveTestimonialIdx] = useState<number>(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
 
@@ -52,7 +54,7 @@ export const TestimonialsSection: React.FC = () => {
   const currentTestimonial = testimonials[activeTestimonialIdx];
 
   return (
-    <section id="testimonials" className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#FFF9F4] via-white to-[#FFF4EB] px-4 sm:px-6 relative overflow-hidden text-right" dir="rtl">
+    <section id="testimonials" className={`py-12 sm:py-16 md:py-20 ${bgClassName} px-4 sm:px-6 relative overflow-hidden text-right`} dir="rtl">
       <ButterflyIcon size={200} className="absolute -top-10 -right-10 opacity-[0.03] text-[#C56B3E] animate-drift pointer-events-none select-none hidden md:block -z-10" />
       <ButterflyIcon size={150} className="absolute -bottom-10 -left-10 opacity-[0.03] text-[#2D5043] animate-float pointer-events-none select-none hidden md:block -z-10" />
 

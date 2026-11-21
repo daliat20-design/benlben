@@ -1,197 +1,210 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const GALLERY_IMAGES = [
   {
     src: 'https://i.postimg.cc/xCC3XM6R/d1eb9c15-b336-4bf3-9cb0-d7400712e8c1.jpg',
-    alt: 'מפגש נשי אינטימי – יוצרות חיבור, שיח וקרבה',
+    alt: 'טעימה מהסדנאות 1',
   },
   {
     src: 'https://i.postimg.cc/8zS3jXMk/fd1e841d-049f-48a3-a8ca-c76337f4b653.jpg',
-    alt: 'סדנת כתיבה – לתת ביטוי לקול הפנימי בכתב',
+    alt: 'טעימה מהסדנאות 2',
   },
   {
     src: 'https://i.postimg.cc/N0tNjyh0/525a7ebb-7c86-4e7b-af5e-b420962adb68.jpg',
-    alt: 'יוצרות חזון – שלוש משתתפות מציגות את דפי היצירה שלהן',
+    alt: 'טעימה מהסדנאות 3',
   },
   {
     src: 'https://i.postimg.cc/TYjHbqRg/b084b620-c6fb-4fc2-a02f-e0d055e497af.jpg',
-    alt: 'חיבור פנימי – הזדמנות לעצור, לנשום ולהתחדש',
+    alt: 'טעימה מהסדנאות 4',
   },
   {
     src: 'https://i.postimg.cc/wvyFWDDY/84f2391c-518c-48b6-9dca-008dddc665e0.jpg',
-    alt: 'יצירה והשראה – ביטוי עצמי וצמיחה משותפת',
+    alt: 'טעימה מהסדנאות 5',
   },
 ];
 
 export const ImageGallery: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const hasDraggedRef = useRef(false);
 
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      x: dir < 0 ? 300 : -300,
-      opacity: 0,
-    }),
+  const handleScroll = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+    const el = scrollContainerRef.current;
+    const scrollAmount = Math.max(300, el.clientWidth * 0.65);
+    const delta = direction === 'left' ? -scrollAmount : scrollAmount;
+    el.scrollBy({ left: delta, behavior: 'smooth' });
   };
 
-  const nextSlide = () => {
-    setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % GALLERY_IMAGES.length);
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    hasDraggedRef.current = false;
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeftState(scrollContainerRef.current.scrollLeft);
   };
 
-  const prevSlide = () => {
-    setDirection(-1);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    if (Math.abs(walk) > 6) {
+      hasDraggedRef.current = true;
+    }
+    scrollContainerRef.current.scrollLeft = scrollLeftState - walk;
   };
 
-  // Autoplay functionality
+  const handleMouseUpOrLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleImageClick = (index: number) => {
+    if (hasDraggedRef.current) return;
+    setLightboxIndex(index);
+  };
+
+  const nextLightbox = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLightboxIndex((prev) => (prev === null ? 0 : (prev + 1) % GALLERY_IMAGES.length));
+  };
+
+  const prevLightbox = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLightboxIndex((prev) =>
+      prev === null ? 0 : (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
+    );
+  };
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 5000); // changes image every 5 seconds
-    return () => clearInterval(timer);
-  }, []);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'Escape') setLightboxIndex(null);
+      if (e.key === 'ArrowRight') {
+        setLightboxIndex((prev) => (prev === null ? 0 : (prev + 1) % GALLERY_IMAGES.length));
+      }
+      if (e.key === 'ArrowLeft') {
+        setLightboxIndex((prev) =>
+          prev === null ? 0 : (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
+        );
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex]);
 
   return (
-    <div className="relative w-full group">
-      {/* Main Image Viewport */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2.5rem] bg-brand-cream shadow-inner cursor-pointer" onClick={() => setIsLightboxOpen(true)}>
-        <AnimatePresence initial={false} custom={direction} mode="wait">
-          <motion.img
-            key={currentIndex}
-            src={GALLERY_IMAGES[currentIndex].src}
-            alt={GALLERY_IMAGES[currentIndex].alt}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full h-full object-cover select-none"
-            referrerPolicy="no-referrer"
-          />
-        </AnimatePresence>
-
-        {/* Gradient overlay for title/caption */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-6 pt-12 flex flex-col justify-end text-right pointer-events-none">
-          <p className="text-white font-black text-lg md:text-xl leading-tight drop-shadow-md">
-            {GALLERY_IMAGES[currentIndex].alt}
-          </p>
-          <p className="text-white/80 text-xs md:text-sm font-bold mt-1">
-            תמונה {currentIndex + 1} מתוך {GALLERY_IMAGES.length}
-          </p>
-        </div>
-
-        {/* Lightbox Trigger Icon overlay */}
-        <div className="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white p-2.5 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Maximize2 size={18} />
-        </div>
-      </div>
-
-      {/* Navigation Arrows */}
+    <div className="relative w-full group" dir="rtl">
+      {/* Side Navigation Arrows */}
       <button
-        onClick={(e) => {
-          e.stopPropagation();
-          prevSlide();
-        }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-brand-green p-3 rounded-full shadow-lg border border-brand-beige/50 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 flex items-center justify-center opacity-0 group-hover:opacity-100 md:opacity-100 focus:opacity-100"
-        aria-label="התמונה הקודמת"
-      >
-        <ChevronLeft size={24} className="stroke-[3]" />
-      </button>
-
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          nextSlide();
-        }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-brand-green p-3 rounded-full shadow-lg border border-brand-beige/50 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 flex items-center justify-center opacity-0 group-hover:opacity-100 md:opacity-100 focus:opacity-100"
-        aria-label="התמונה הבאה"
+        type="button"
+        onClick={() => handleScroll('right')}
+        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-10 bg-white/95 hover:bg-white text-brand-green p-2.5 sm:p-3 rounded-full shadow-lg border border-brand-beige/60 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer"
+        aria-label="גלול ימינה"
       >
         <ChevronRight size={24} className="stroke-[3]" />
       </button>
 
-      {/* Dots Indicator */}
-      <div className="flex justify-center gap-2 mt-4 relative z-10">
-        {GALLERY_IMAGES.map((_, index) => (
-          <button
+      <button
+        type="button"
+        onClick={() => handleScroll('left')}
+        className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-10 bg-white/95 hover:bg-white text-brand-green p-2.5 sm:p-3 rounded-full shadow-lg border border-brand-beige/60 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer"
+        aria-label="גלול שמאלה"
+      >
+        <ChevronLeft size={24} className="stroke-[3]" />
+      </button>
+
+      {/* Manual Horizontal Scrollable Gallery Track (No Autoplay, No Text Overlays) */}
+      <div
+        ref={scrollContainerRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        className={`flex items-center gap-3 sm:gap-4 overflow-x-auto py-1 px-2 sm:px-3 select-none cursor-grab active:cursor-grabbing no-scrollbar ${
+          isDragging ? 'scroll-auto' : 'scroll-smooth snap-x snap-mandatory'
+        }`}
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
+        {GALLERY_IMAGES.map((image, index) => (
+          <div
             key={index}
-            onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1);
-              setCurrentIndex(index);
-            }}
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              index === currentIndex 
-                ? 'w-6 bg-brand-orange' 
-                : 'w-2.5 bg-brand-green/30 hover:bg-brand-green/50'
-            }`}
-            aria-label={`עבור לתמונה ${index + 1}`}
-          />
+            onClick={() => handleImageClick(index)}
+            className="flex-none w-[84%] sm:w-[58%] md:w-[54%] aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-brand-cream shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer snap-center border border-[#C56B3E]/15"
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              draggable={false}
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover select-none pointer-events-none"
+            />
+          </div>
         ))}
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal (Clean Image Only, No Text Overlay) */}
       <AnimatePresence>
-        {isLightboxOpen && (
+        {lightboxIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-8"
-            onClick={() => setIsLightboxOpen(false)}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-8"
+            onClick={() => setLightboxIndex(null)}
           >
-            {/* Close Button */}
             <button
-              onClick={() => setIsLightboxOpen(false)}
-              className="absolute top-6 right-6 text-white hover:text-brand-orange p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all"
+              type="button"
+              onClick={() => setLightboxIndex(null)}
+              className="absolute top-6 right-6 text-white hover:text-brand-orange p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all cursor-pointer"
+              aria-label="סגור תמונה"
             >
               <X size={28} />
             </button>
 
-            {/* Lightbox Image Container */}
-            <div className="relative max-w-5xl w-full max-h-[80vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="relative max-w-5xl w-full max-h-[85vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
               <motion.img
+                key={lightboxIndex}
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                src={GALLERY_IMAGES[currentIndex].src}
-                alt={GALLERY_IMAGES[currentIndex].alt}
-                className="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl border-4 border-white/10"
+                transition={{ duration: 0.25 }}
+                src={GALLERY_IMAGES[lightboxIndex].src}
+                alt={GALLERY_IMAGES[lightboxIndex].alt}
+                className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border-4 border-white/10"
                 referrerPolicy="no-referrer"
               />
 
-              {/* Lightbox Navigation Buttons */}
               <button
-                onClick={prevSlide}
-                className="absolute left-4 md:-left-16 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all hover:scale-110"
+                type="button"
+                onClick={prevLightbox}
+                className="absolute left-4 md:-left-16 top-1/2 -translate-y-1/2 bg-white/15 hover:bg-white/25 text-white p-4 rounded-full transition-all hover:scale-110 cursor-pointer"
+                aria-label="התמונה הקודמת"
               >
                 <ChevronLeft size={32} />
               </button>
 
               <button
-                onClick={nextSlide}
-                className="absolute right-4 md:-right-16 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all hover:scale-110"
+                type="button"
+                onClick={nextLightbox}
+                className="absolute right-4 md:-right-16 top-1/2 -translate-y-1/2 bg-white/15 hover:bg-white/25 text-white p-4 rounded-full transition-all hover:scale-110 cursor-pointer"
+                aria-label="התמונה הבאה"
               >
                 <ChevronRight size={32} />
               </button>
-            </div>
-
-            {/* Lightbox Caption */}
-            <div className="mt-6 text-center max-w-2xl px-4" onClick={(e) => e.stopPropagation()}>
-              <p className="text-white text-xl md:text-2xl font-black">{GALLERY_IMAGES[currentIndex].alt}</p>
-              <p className="text-white/60 text-sm mt-2">תמונה {currentIndex + 1} מתוך {GALLERY_IMAGES.length}</p>
             </div>
           </motion.div>
         )}

@@ -44,13 +44,19 @@ const FloatingReturnToWebsite: React.FC = () => {
     location.pathname.includes('reut') ||
     location.pathname.includes('soul');
 
-  if (isExcluded) {
+  // Determine target section based on query params
+  const searchParams = new URLSearchParams(location.search);
+  const fromParam = searchParams.get('from');
+  const cameFromMainWebsite =
+    fromParam === 'programs' ||
+    fromParam === 'testimonials' ||
+    fromParam === 'home' ||
+    fromParam === 'website';
+
+  if (isExcluded || !cameFromMainWebsite) {
     return null;
   }
 
-  // Determine target section based on query params or previous navigation
-  const searchParams = new URLSearchParams(location.search);
-  const fromParam = searchParams.get('from');
   const targetSection = fromParam === 'testimonials' ? 'testimonials' : 'programs';
   const subtitle = targetSection === 'testimonials' ? 'לאזור ההמלצות' : 'לאזור התוכניות';
 

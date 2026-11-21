@@ -19,7 +19,6 @@ import {
   Compass
 } from 'lucide-react';
 import { WhatsAppIcon } from '../../components/WhatsAppIcon';
-import { OtherProgramsNav } from '../../components/MiniProgramNav';
 import { saveInquiry } from '../../utils/inquiryStorage';
 
 // Program Contacts
@@ -114,16 +113,16 @@ const REGISTRATION_PLANS = [
     name: 'חברה מביאה חברה - כפל מבצעים (710 ₪ לכל אחת)',
     shortLabel: 'חברה מביאה חברה',
     price: '710 ₪ לכל אחת',
-    benefit: 'כפל מבצעים: מעל 5% הנחה + מפגש בונוס חינם',
+    benefit: 'כפל מבצעים: מעל 5% הנחה + מפגש בונוס חינם · כ־118 ₪ למפגש · עד 31.12.26',
     badge: 'הכי משתלם'
   },
   {
     id: 'plan_early',
-    name: 'הרשמה מוקדמת - עיריית כפר סבא (750 ₪)',
-    shortLabel: 'הרשמה מוקדמת',
+    name: 'מבצע סוף שנה (750 ₪)',
+    shortLabel: 'מבצע סוף שנה',
     price: '750 ₪',
-    benefit: 'מפגש בונוס מתנה · 6 מפגשים במחיר 5',
-    badge: 'עיריית כפר סבא'
+    benefit: 'מפגש בונוס מתנה · 6 מפגשים במחיר 5 · עד 31.12.26',
+    badge: 'עד 31.12.26'
   },
   {
     id: 'plan_regular',
@@ -262,8 +261,11 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
   id = 'ahead-of-you'
 }) => {
   const [selectedPlan, setSelectedPlan] = useState<string>('חברה מביאה חברה - כפל מבצעים (710 ₪ לכל אחת)');
+  const [audienceOption, setAudienceOption] = useState<'sharon' | 'national' | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+  const optionPanelRef = useRef<HTMLDivElement>(null);
   
-  // Form fields
+  // Form fields (main registration / contact form)
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -273,6 +275,16 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedLead, setSubmittedLead] = useState<{ fullName: string; selectedPlan: string } | null>(null);
+
+  // National / locality inquiry form fields
+  const [nationalName, setNationalName] = useState('');
+  const [nationalPhone, setNationalPhone] = useState('');
+  const [nationalTown, setNationalTown] = useState('');
+  const [nationalHosting, setNationalHosting] = useState('');
+  const [nationalErrors, setNationalErrors] = useState<{ name?: string; phone?: string; town?: string }>({});
+  const [isNationalSubmitting, setIsNationalSubmitting] = useState(false);
+  const [isNationalSubmitted, setIsNationalSubmitted] = useState(false);
+  const [submittedNationalLead, setSubmittedNationalLead] = useState<{ name: string; town: string } | null>(null);
 
   // Floating WhatsApp widget open state
   const [isWaWidgetOpen, setIsWaWidgetOpen] = useState(false);
@@ -310,12 +322,24 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
   };
 
   const scrollToContact = (planName?: string) => {
+    setAudienceOption('sharon');
     if (planName) {
       setSelectedPlan(planName);
     }
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    setIsFormOpen(true);
+    setTimeout(() => {
+      const element = document.getElementById('contact-form-box') || document.getElementById('contact');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 60);
+  };
+
+  const handleGlobalInterestClick = () => {
+    if (audienceOption === 'sharon') {
+      scrollToContact();
+    } else {
+      scrollToSection('schedule');
     }
   };
 
@@ -406,6 +430,98 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
     setSubmittedLead(null);
   };
 
+  const handleSelectAudienceOption = (option: 'sharon' | 'national') => {
+    setAudienceOption(option);
+    if (option !== 'sharon') {
+      setIsFormOpen(false);
+    }
+    setTimeout(() => {
+      optionPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 60);
+  };
+
+  const handleNationalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors: { name?: string; phone?: string; town?: string } = {};
+
+    if (!nationalName.trim()) {
+      errors.name = 'נא להזין שם';
+    } else if (nationalName.trim().length < 2) {
+      errors.name = 'השם קצר מדי';
+    }
+
+    if (!nationalPhone.trim()) {
+      errors.phone = 'נא להזין מספר טלפון';
+    } else if (!validatePhone(nationalPhone.trim())) {
+      errors.phone = 'נא להזין מספר טלפון ישראלי תקין (לדוגמה: 050-1234567)';
+    }
+
+    if (!nationalTown.trim()) {
+      errors.town = 'נא לציין את שם היישוב';
+    } else if (nationalTown.trim().length < 2) {
+      errors.town = 'נא להזין שם יישוב תקין';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setNationalErrors(errors);
+      return;
+    }
+
+    setIsNationalSubmitting(true);
+    setNationalErrors({});
+
+    const trimmedName = nationalName.trim();
+    const trimmedPhone = nationalPhone.trim();
+    const trimmedTown = nationalTown.trim();
+    const trimmedHosting = nationalHosting.trim();
+
+    try {
+      const localKey = 'od_lefanayich_inquiries';
+      const existing = JSON.parse(localStorage.getItem(localKey) || '[]');
+      existing.unshift({
+        id: 'lead_local_' + Date.now(),
+        fullName: trimmedName,
+        phone: trimmedPhone,
+        town: trimmedTown,
+        hostingGroup: trimmedHosting || undefined,
+        selectedPlan: 'הבאת התוכנית ליישוב שלך',
+        createdAt: new Date().toISOString()
+      });
+      localStorage.setItem(localKey, JSON.stringify(existing));
+
+      await saveInquiry({
+        fullName: trimmedName,
+        phone: trimmedPhone,
+        email: '',
+        programs: ['עוד לפנייך', 'הבאת התוכנית ליישוב שלך'],
+        notes: `יישוב: ${trimmedTown}${trimmedHosting ? ` | קבוצה או מקום אירוח: ${trimmedHosting}` : ' | פנייה אישית (ללא מקום אירוח מוגדר כרגע)'}`,
+        submittedAt: new Date().toISOString(),
+        source: 'עוד לפנייך - הבאת התוכנית ליישוב',
+        audienceType: trimmedHosting ? 'organization' : 'private',
+        organizationName: trimmedTown
+      });
+
+      setSubmittedNationalLead({ name: trimmedName, town: trimmedTown });
+      setIsNationalSubmitted(true);
+      setIsNationalSubmitting(false);
+    } catch {
+      setIsNationalSubmitting(false);
+      setNationalErrors({
+        phone: 'אירעה שגיאה קלה בשמירה. אנא נסי שוב או פני אלינו ישירות בווטסאפ.'
+      });
+    }
+  };
+
+  const handleResetNationalForm = () => {
+    setNationalName('');
+    setNationalPhone('');
+    setNationalTown('');
+    setNationalHosting('');
+    setNationalErrors({});
+    setIsNationalSubmitted(false);
+    setSubmittedNationalLead(null);
+  };
+
   const dalitInquiryMsg = encodeURIComponent(
     `שלום דלית, השארתי פרטים באתר "עוד לפנייך" עבור: ${selectedPlan}. שמי: ${fullName || 'מתעניינת'}.`
   );
@@ -475,7 +591,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
           <div className="flex items-center gap-2 sm:gap-3">
             <ShareButton variant="pill" size="sm" className="hidden sm:inline-flex" />
             <button
-              onClick={() => scrollToContact()}
+              onClick={handleGlobalInterestClick}
               className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold text-white bg-[#982D49] hover:bg-[#7A2139] active:scale-[0.98] transition-all shadow-xs shrink-0 cursor-pointer"
             >
               השאירי פרטים
@@ -640,7 +756,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
               </button>
 
               <button
-                onClick={() => scrollToContact()}
+                onClick={handleGlobalInterestClick}
                 className="w-full sm:w-auto px-7 py-3.5 text-base font-semibold text-[#476653] bg-white hover:bg-[#FAF1F3] hover:text-[#982D49] border border-[#476653]/30 rounded-full transition-all shadow-2xs min-h-[50px] flex items-center justify-center cursor-pointer"
               >
                 השאירי פרטים ונחזור אלייך
@@ -704,7 +820,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
               רוצה לדעת מתי נפתח המחזור הקרוב?
             </p>
             <button
-              onClick={() => scrollToContact()}
+              onClick={handleGlobalInterestClick}
               className="w-full sm:w-auto px-9 py-4 text-base sm:text-lg font-semibold text-white bg-[#982D49] hover:bg-[#7A2139] active:scale-[0.99] rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer min-h-[48px] flex items-center justify-center mx-auto"
             >
               לחצי כאן ונשוחח
@@ -998,7 +1114,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
 
           <div className="mt-10 text-center">
             <button
-              onClick={() => scrollToContact()}
+              onClick={() => scrollToSection('registration-options')}
               className="px-8 py-3.5 text-base font-bold text-white bg-[#982D49] hover:bg-[#7A2139] rounded-full shadow-md transition-all cursor-pointer"
             >
               השאירי פרטים להרשמה
@@ -1007,223 +1123,515 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
         </div>
       </section>
 
-      {/* 8. SCHEDULE & PRICING PLANS */}
+      {/* 8. WHERE DO WE MEET & REGISTRATION OPTIONS */}
       <section id="schedule" className="py-16 md:py-24 bg-[#FAF0F2] border-b border-[#D68B98]/20 scroll-mt-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div id="registration-options" className="text-center max-w-3xl mx-auto mb-10 scroll-mt-24">
             <span className="text-sm font-semibold tracking-wider text-[#476653]">מידע, מועדים והרשמה</span>
             <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold text-[#982D49] font-display">
-              כל הפרטים שכדאי לדעת
+              איפה ניפגש?
             </h2>
-            <div className="w-16 h-0.5 bg-[#D68B98] mx-auto mt-4 rounded-full" />
-          </div>
-
-          {/* 3 Overview Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 text-right mb-10">
-            {/* When */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/25 shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#FAF1F3] text-[#982D49] flex items-center justify-center shrink-0">
-                    <Calendar size={20} />
-                  </div>
-                  <h3 className="text-xl font-bold text-[#982D49] font-display">מתי מתחילות?</h3>
-                </div>
-                <p className="text-base text-[#2C2422]/90 leading-relaxed font-normal">
-                  המחזור הקרוב של "עוד לפנייך" מתוכנן לצאת לדרך בקרוב. התאריכים המדויקים יימסרו לנרשמות מראש.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#D68B98]/15 flex items-center gap-2 text-xs font-semibold text-[#476653]">
-                <span className="inline-block w-2 h-2 rounded-full bg-[#476653]" />
-                <span>המועדים המדויקים יימסרו לנרשמות מראש</span>
-              </div>
-            </div>
-
-            {/* Where */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/25 shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#F2F6F3] text-[#476653] flex items-center justify-center shrink-0">
-                    <MapPin size={20} />
-                  </div>
-                  <h3 className="text-xl font-bold text-[#476653] font-display">איפה נפגשות?</h3>
-                </div>
-                <p className="text-base text-[#2C2422]/90 leading-relaxed font-normal">
-                  בכפר סבא. בחלל אינטימי, נעים, נגיש ומזמין המותאם במיוחד לאופי המפגשים.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#476653]/15 flex items-center gap-2 text-xs font-semibold text-[#476653]">
-                <span className="inline-block w-2 h-2 rounded-full bg-[#476653]" />
-                <span>חלל אינטימי, נעים, נגיש ומזמין</span>
-              </div>
-            </div>
-
-            {/* Structure */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/25 shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#FAF1F3] text-[#982D49] flex items-center justify-center shrink-0">
-                    <Clock size={20} />
-                  </div>
-                  <h3 className="text-xl font-bold text-[#982D49] font-display">מבנה המפגשים</h3>
-                </div>
-                <p className="text-base text-[#2C2422]/90 leading-relaxed font-normal">
-                  5 מפגשים, אחת לשבוע, בני שעתיים וחצי עד שלוש שעות כל אחד.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#D68B98]/15 flex items-center gap-2 text-xs font-semibold text-[#982D49]">
-                <span className="inline-block w-2 h-2 rounded-full bg-[#982D49]" />
-                <span>משלב תוכן מקצועי, שיח חופשי וכיבוד מפנק</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Full Series Notice */}
-          <div className="mb-10 p-5 sm:p-6 rounded-3xl bg-white border border-[#D68B98]/30 shadow-xs text-right space-y-2">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2 text-[#982D49] font-bold text-base sm:text-lg">
-                <AlertCircle size={20} className="shrink-0" />
-                <span>הרשמה לסדרה המלאה</span>
-              </div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF1F3] border border-[#D68B98]/40 text-[#982D49] text-xs font-black">
-                מס' המקומות מוגבל – מהרי לשריין מקומך!
-              </span>
-            </div>
-            <p className="text-sm sm:text-base text-[#2C2422]/90 leading-relaxed font-normal">
-              ההרשמה היא לכל חמשת המפגשים, כדי לאפשר היכרות, אינטימיות ופתיחות בקבוצה, וליצור תהליך משותף שנבנה ממפגש למפגש.{' '}
-              <span className="text-[#982D49] font-semibold">(אין אפשרות לרכישת מפגש בודד).</span>
+            <p className="mt-3 text-base sm:text-lg md:text-xl text-[#2C2422]/90 leading-relaxed font-medium">
+              ״עוד לפנייך״ היא סדרה של חמישה מפגשים המשלבים תוכן מקצועי, שיחה פתוחה וכיבוד מפנק.
             </p>
-            <p className="text-xs sm:text-sm text-[#476653] font-semibold pt-1">
-              • מספר המקומות מוגבל, כדי לשמור על האווירה האינטימית והאישית שמאפיינת את המפגשים. מהרי לשריין מקומך.
-            </p>
+            <div className="w-16 h-0.5 bg-[#D68B98] mx-auto mt-5 rounded-full" />
           </div>
 
-          {/* Pricing Cards Header */}
-          <div className="text-center max-w-xl mx-auto mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#982D49] font-display">אפשרויות הרשמה והטבות</h3>
-            <p className="text-sm text-[#476653] font-medium mt-1">בחרי את האפשרות המתאימה לך ביותר</p>
-          </div>
-
-          {/* 3 Tier Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-right items-stretch">
-            
-            {/* Regular */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/30 shadow-xs flex flex-col justify-between">
+          {/* Two Audience Choice Cards (Always Visible at the Top for Easy Switching) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 max-w-4xl mx-auto text-right">
+            {/* Option 1: Sharon Series */}
+            <button
+              type="button"
+              onClick={() => handleSelectAudienceOption('sharon')}
+              aria-pressed={audienceOption === 'sharon'}
+              className={`group text-right rounded-3xl p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between cursor-pointer ${
+                audienceOption === 'sharon'
+                  ? 'bg-[#FFF5F7] border-2 border-[#982D49] shadow-md ring-4 ring-[#982D49]/10'
+                  : 'bg-white border-2 border-[#D68B98]/35 hover:border-[#982D49]/70 shadow-xs hover:shadow-md'
+              }`}
+            >
               <div>
-                <h4 className="text-xl font-bold text-[#2C2422] font-display">הרשמה רגילה</h4>
-                <div className="mt-4 mb-3">
-                  <div className="text-4xl sm:text-5xl font-black text-[#982D49] font-display tracking-tight">
-                    750 ₪
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-colors ${
+                      audienceOption === 'sharon'
+                        ? 'bg-[#982D49] text-white'
+                        : 'bg-[#FAF1F3] text-[#982D49] group-hover:bg-[#982D49] group-hover:text-white'
+                    }`}
+                  >
+                    <MapPin size={22} />
                   </div>
-                  <div className="text-sm font-semibold text-[#476653] mt-1">150 ₪ למפגש</div>
+                  <span
+                    className={`text-xs font-bold px-3 py-1 rounded-full transition-colors ${
+                      audienceOption === 'sharon'
+                        ? 'bg-[#982D49] text-white'
+                        : 'bg-[#FAF1F3] text-[#982D49]'
+                    }`}
+                  >
+                    {audienceOption === 'sharon' ? 'נבחר' : 'אזור השרון'}
+                  </span>
                 </div>
-                <div className="pt-3 border-t border-[#D68B98]/20 space-y-2">
-                  <div className="text-lg font-bold text-[#2C2422]">5 מפגשים</div>
-                  <p className="text-sm sm:text-base text-[#2C2422]/85 leading-relaxed">
-                    כל התכנים והחוויות של התוכנית.
+
+                <h3 className="text-xl sm:text-2xl font-bold text-[#982D49] font-display leading-snug">
+                  מצטרפת לסדרה באזור השרון?
+                </h3>
+                <p className="mt-2.5 text-base sm:text-lg text-[#2C2422]/90 leading-relaxed font-medium">
+                  המחזור הקרוב מתוכנן להתקיים בכפר סבא.
+                </p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-[#D68B98]/20">
+                <span
+                  className={`w-full py-3 px-4 rounded-full text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
+                    audienceOption === 'sharon'
+                      ? 'bg-[#982D49] text-white shadow-xs'
+                      : 'bg-[#FAF1F3] text-[#982D49] group-hover:bg-[#982D49] group-hover:text-white'
+                  }`}
+                >
+                  <span>לפרטים ולבחירת חבילה</span>
+                  <ChevronDown
+                    size={17}
+                    className={`transition-transform duration-300 ${audienceOption === 'sharon' ? 'rotate-180' : ''}`}
+                  />
+                </span>
+              </div>
+            </button>
+
+            {/* Option 2: Bring to Your Town */}
+            <button
+              type="button"
+              onClick={() => handleSelectAudienceOption('national')}
+              aria-pressed={audienceOption === 'national'}
+              className={`group text-right rounded-3xl p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between cursor-pointer ${
+                audienceOption === 'national'
+                  ? 'bg-[#F2F6F3] border-2 border-[#476653] shadow-md ring-4 ring-[#476653]/10'
+                  : 'bg-white border-2 border-[#476653]/30 hover:border-[#476653] shadow-xs hover:shadow-md'
+              }`}
+            >
+              <div>
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-colors ${
+                      audienceOption === 'national'
+                        ? 'bg-[#476653] text-white'
+                        : 'bg-[#F2F6F3] text-[#476653] group-hover:bg-[#476653] group-hover:text-white'
+                    }`}
+                  >
+                    <Compass size={22} />
+                  </div>
+                  <span
+                    className={`text-xs font-bold px-3 py-1 rounded-full transition-colors ${
+                      audienceOption === 'national'
+                        ? 'bg-[#476653] text-white'
+                        : 'bg-[#F2F6F3] text-[#476653]'
+                    }`}
+                  >
+                    {audienceOption === 'national' ? 'נבחר' : 'ברחבי הארץ'}
+                  </span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-bold text-[#476653] font-display leading-snug">
+                  רוצה להביא את ״עוד לפנייך״ ליישוב שלך?
+                </h3>
+                <p className="mt-2.5 text-base sm:text-lg text-[#2C2422]/90 leading-relaxed font-medium">
+                  השאירי פרטים ונבדוק יחד מה מתאים לקבוצה שלכן.
+                </p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-[#476653]/20">
+                <span
+                  className={`w-full py-3 px-4 rounded-full text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
+                    audienceOption === 'national'
+                      ? 'bg-[#476653] text-white shadow-xs'
+                      : 'bg-[#F2F6F3] text-[#476653] group-hover:bg-[#476653] group-hover:text-white'
+                  }`}
+                >
+                  <span>אשמח לשמוע על קבוצה באזור שלי</span>
+                  <ChevronDown
+                    size={17}
+                    className={`transition-transform duration-300 ${audienceOption === 'national' ? 'rotate-180' : ''}`}
+                  />
+                </span>
+              </div>
+            </button>
+          </div>
+
+          {/* Revealed Panel Based on Selection */}
+          <div ref={optionPanelRef} className="scroll-mt-24">
+            {audienceOption === 'sharon' && (
+              <div className="mt-10 sm:mt-12 space-y-10 animate-in fade-in duration-300">
+                {/* Kfar Saba Details Header */}
+                <div className="text-center max-w-2xl mx-auto">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#982D49] font-display">
+                    כל הפרטים על המחזור בכפר סבא
+                  </h3>
+                  <div className="w-12 h-0.5 bg-[#D68B98] mx-auto mt-3 rounded-full" />
+                </div>
+
+                {/* 3 Kfar Saba Overview Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 text-right">
+                  {/* When */}
+                  <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/25 shadow-xs flex flex-col justify-start">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-2xl bg-[#FAF1F3] text-[#982D49] flex items-center justify-center shrink-0">
+                        <Calendar size={20} />
+                      </div>
+                      <h4 className="text-xl font-bold text-[#982D49] font-display">מתי מתחילות?</h4>
+                    </div>
+                    <p className="text-base text-[#2C2422]/90 leading-relaxed font-normal">
+                      התאריכים המדויקים יימסרו לנרשמות מראש.
+                    </p>
+                  </div>
+
+                  {/* Where */}
+                  <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/25 shadow-xs flex flex-col justify-start">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-2xl bg-[#F2F6F3] text-[#476653] flex items-center justify-center shrink-0">
+                        <MapPin size={20} />
+                      </div>
+                      <h4 className="text-xl font-bold text-[#476653] font-display">איפה נפגשות?</h4>
+                    </div>
+                    <p className="text-base text-[#2C2422]/90 leading-relaxed font-normal">
+                      בכפר סבא, בחלל נעים ונגיש שמתאים למפגש בקבוצה קטנה.
+                    </p>
+                  </div>
+
+                  {/* How it works */}
+                  <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/25 shadow-xs flex flex-col justify-start">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-2xl bg-[#FAF1F3] text-[#982D49] flex items-center justify-center shrink-0">
+                        <Clock size={20} />
+                      </div>
+                      <h4 className="text-xl font-bold text-[#982D49] font-display">איך זה עובד?</h4>
+                    </div>
+                    <p className="text-base text-[#2C2422]/90 leading-relaxed font-normal">
+                      חמישה מפגשים, אחת לשבוע. כל מפגש נמשך בין שעתיים וחצי לשלוש שעות.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Package Choice Header */}
+                <div className="text-center max-w-xl mx-auto pt-2">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#982D49] font-display">
+                    בחרי את החבילה שמתאימה לך
+                  </h3>
+                  <p className="text-sm sm:text-base text-[#476653] font-semibold mt-1.5">
+                    ההרשמה היא לכל חמשת המפגשים.
                   </p>
                 </div>
-              </div>
-              <div className="mt-6 pt-4 border-t border-[#D68B98]/15">
-                <button
-                  onClick={() => scrollToContact('הרשמה רגילה (750 ₪)')}
-                  className="w-full py-3 px-4 text-sm font-bold text-[#982D49] bg-[#FAF1F3] hover:bg-[#982D49] hover:text-white rounded-full transition-colors cursor-pointer text-center"
-                >
-                  השאירי פרטים להרשמה
-                </button>
-              </div>
-            </div>
 
-            {/* Early Bird Kfar Saba */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/30 shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-semibold text-[#476653]">עד 30.11.26</span>
-                  <span className="text-xs font-semibold text-[#982D49]">עיריית כפר סבא</span>
+                {/* 3 Existing Tier Cards */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-right items-stretch">
+                  {/* Regular */}
+                  <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/30 shadow-xs flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-xl font-bold text-[#2C2422] font-display">הרשמה רגילה</h4>
+                      <div className="mt-4 mb-3">
+                        <div className="text-4xl sm:text-5xl font-black text-[#982D49] font-display tracking-tight">
+                          750 ₪
+                        </div>
+                        <div className="text-sm font-semibold text-[#476653] mt-1">150 ₪ למפגש</div>
+                      </div>
+                      <div className="pt-3 border-t border-[#D68B98]/20 space-y-2">
+                        <div className="text-lg font-bold text-[#2C2422]">5 מפגשים</div>
+                        <p className="text-sm sm:text-base text-[#2C2422]/85 leading-relaxed">
+                          כל התכנים והחוויות של התוכנית.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-[#D68B98]/15">
+                      <button
+                        onClick={() => scrollToContact('הרשמה רגילה (750 ₪)')}
+                        className="w-full py-3 px-4 text-sm font-bold text-[#982D49] bg-[#FAF1F3] hover:bg-[#982D49] hover:text-white rounded-full transition-colors cursor-pointer text-center"
+                      >
+                        השאירי פרטים להרשמה
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* End of Year Offer */}
+                  <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#D68B98]/30 shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-semibold text-[#476653]">עד 31.12.26</span>
+                        <span className="text-xs font-semibold text-[#982D49]">מבצע סוף שנה</span>
+                      </div>
+                      <h4 className="text-xl font-bold text-[#2C2422] font-display">מבצע סוף שנה</h4>
+
+                      <div className="my-3.5 p-3.5 bg-[#FAF1F3] border border-[#D68B98]/50 rounded-2xl text-center">
+                        <span className="block text-lg font-bold text-[#982D49]">מפגש בונוס מתנה</span>
+                        <span className="block text-xs text-[#476653] font-medium mt-1">
+                          בהרשמה עד 31.12.26
+                        </span>
+                      </div>
+
+                      <div className="py-2.5 px-3 bg-[#F9F1EA]/70 rounded-xl border border-[#D68B98]/20 text-center my-2">
+                        <div className="text-base sm:text-lg font-bold text-[#2C2422]">
+                          6 מפגשים במחיר של 5 מפגשים
+                        </div>
+                      </div>
+
+                      <div className="mt-3 mb-2">
+                        <div className="text-4xl sm:text-5xl font-black text-[#982D49] font-display tracking-tight">
+                          750 ₪
+                        </div>
+                        <div className="text-sm font-semibold text-[#476653] mt-1">125 ₪ למפגש</div>
+                      </div>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-[#D68B98]/15">
+                      <button
+                        onClick={() => scrollToContact('מבצע סוף שנה (750 ₪)')}
+                        className="w-full py-3 px-4 text-sm font-bold text-[#982D49] bg-[#FAF1F3] hover:bg-[#982D49] hover:text-white rounded-full transition-colors cursor-pointer text-center"
+                      >
+                        השאירי פרטים
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Friend Brings Friend - Featured */}
+                  <div className="bg-[#FFF5F7] rounded-3xl p-6 sm:p-7 border-2 border-[#982D49] shadow-md flex flex-col justify-between relative">
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black bg-[#982D49] text-white shadow-md">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                          <span>הכי משתלם</span>
+                        </span>
+                        <span className="text-xs font-semibold text-[#982D49]">עד 31.12.26</span>
+                      </div>
+
+                      <h4 className="text-xl sm:text-2xl font-bold text-[#982D49] font-display">חברה מביאה חברה</h4>
+
+                      <div className="mt-4 mb-3">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-4xl sm:text-5xl font-black text-[#982D49] font-display tracking-tight">
+                            710 ₪
+                          </span>
+                          <span className="text-base font-bold text-[#982D49]">לכל אחת</span>
+                        </div>
+                        <div className="text-sm font-semibold text-[#2C2422]/60 line-through mt-0.5">
+                          במקום 750 ₪
+                        </div>
+                        <div className="text-sm font-bold text-[#476653] mt-1">כ־118 ₪ למפגש (ל־6 מפגשים)</div>
+                      </div>
+
+                      <div className="my-3.5 p-3.5 bg-[#982D49] text-white rounded-2xl text-center shadow-xs space-y-1">
+                        <span className="block text-lg sm:text-xl font-black font-display tracking-tight text-white">
+                          כפל מבצעים !!
+                        </span>
+                        <span className="block text-sm font-bold text-[#F4D0D8]">מעל 5% הנחה</span>
+                        <span className="block text-sm font-bold text-white">מפגש בונוס חינם</span>
+                      </div>
+
+                      <div className="pt-2 border-t border-[#982D49]/20 space-y-1">
+                        <p className="text-sm font-bold text-[#982D49]">בתוקף לשתיכן בהרשמה עד 31.12.26</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-[#982D49]/20 space-y-2.5">
+                      <button
+                        onClick={() => scrollToContact('חברה מביאה חברה - כפל מבצעים (710 ₪ לכל אחת)')}
+                        className="w-full py-3.5 px-4 text-sm font-bold text-white bg-[#982D49] hover:bg-[#7A2139] rounded-full transition-colors cursor-pointer text-center shadow-xs"
+                      >
+                        שריינו מקום יחד (710 ₪)
+                      </button>
+                      <ShareButton variant="pill" text="שתפי עם חברה" size="sm" className="w-full justify-center" />
+                    </div>
+                  </div>
                 </div>
-                <h4 className="text-xl font-bold text-[#2C2422] font-display">הרשמה מוקדמת</h4>
-                <p className="text-xs sm:text-sm text-[#476653] font-medium mt-0.5">
-                  במסגרת ההפי האוור של עיריית כפר סבא
+
+                {/* Single clean sentence on small group size */}
+                <p className="text-center text-sm sm:text-base text-[#476653] font-semibold max-w-2xl mx-auto">
+                  מספר המקומות מוגבל כדי שנוכל לשמור על קבוצה קטנה שבה יש מקום לכל אחת לדבר.
                 </p>
+              </div>
+            )}
 
-                <div className="my-3.5 p-3.5 bg-[#FAF1F3] border border-[#D68B98]/50 rounded-2xl text-center">
-                  <span className="block text-lg font-bold text-[#982D49]">מפגש בונוס מתנה</span>
-                  <span className="block text-xs text-[#476653] font-medium mt-1">
-                    במסגרת ההפי האוור של עיריית כפר סבא · בהרשמה עד 30.11.26
-                  </span>
-                </div>
-
-                <div className="py-2.5 px-3 bg-[#F9F1EA]/70 rounded-xl border border-[#D68B98]/20 text-center my-2">
-                  <div className="text-base sm:text-lg font-bold text-[#2C2422]">
-                    6 מפגשים במחיר של 5 מפגשים
+            {audienceOption === 'national' && (
+              <div className="mt-10 sm:mt-12 max-w-2xl mx-auto animate-in fade-in duration-300">
+                <div className="bg-white rounded-3xl p-6 sm:p-9 border-2 border-[#476653]/35 shadow-sm text-right space-y-6">
+                  <div className="space-y-3">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-[#476653] font-display">
+                      בואי נבדוק אם אפשר להיפגש קרוב אלייך
+                    </h3>
+                    <div className="p-4 sm:p-5 rounded-2xl bg-[#F2F6F3] border border-[#476653]/20 space-y-2.5 text-base sm:text-lg text-[#2C2422] leading-relaxed font-normal">
+                      <p>
+                        אם את רוצה להצטרף לקבוצה באזור שלך, השאירי לנו שם, טלפון ואת שם היישוב. אם כבר יש לכן קבוצה או מקום שיכול לארח, ספרי לנו על זה בטופס.
+                      </p>
+                      <p className="font-medium text-[#476653]">
+                        אם תיפתח קבוצה באזור שלך, נעדכן אותך במועדים, במיקום ובמחיר.
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="mt-3 mb-2">
-                  <div className="text-4xl sm:text-5xl font-black text-[#982D49] font-display tracking-tight">
-                    750 ₪
-                  </div>
-                  <div className="text-sm font-semibold text-[#476653] mt-1">125 ₪ למפגש</div>
+                  {isNationalSubmitted ? (
+                    <div className="text-center py-6 space-y-4 animate-in fade-in duration-300">
+                      <div className="w-14 h-14 rounded-full bg-[#EBF1ED] text-[#476653] mx-auto flex items-center justify-center">
+                        <CheckCircle2 size={32} />
+                      </div>
+                      <h4 className="text-2xl font-bold text-[#476653] font-display">
+                        תודה רבה, {submittedNationalLead?.name}!
+                      </h4>
+                      <p className="text-base text-[#2C2422]/85 leading-relaxed max-w-md mx-auto">
+                        קיבלנו את פנייתך עבור <strong>{submittedNationalLead?.town}</strong> ונחזור אלייך בהקדם כדי לבדוק יחד את האפשרויות לקבוצה באזורך.
+                      </p>
+                      <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <a
+                          href={`https://wa.me/${CONTACTS.dalit.cleanNumber}?text=${encodeURIComponent(
+                            `שלום דלית, השארתי פרטים להבאת תוכנית "עוד לפנייך" ליישוב ${submittedNationalLead?.town || ''}. שמי ${submittedNationalLead?.name || ''}.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#476653] hover:bg-[#385242] text-white text-sm font-semibold rounded-full transition-colors w-full sm:w-auto"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 text-white" />
+                          <span>שיחה עם דלית בווטסאפ</span>
+                        </a>
+                        <a
+                          href={`https://wa.me/${CONTACTS.elsie.cleanNumber}?text=${encodeURIComponent(
+                            `שלום אלסי, השארתי פרטים להבאת תוכנית "עוד לפנייך" ליישוב ${submittedNationalLead?.town || ''}. שמי ${submittedNationalLead?.name || ''}.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#476653] hover:bg-[#385242] text-white text-sm font-semibold rounded-full transition-colors w-full sm:w-auto"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 text-white" />
+                          <span>שיחה עם אלסי בווטסאפ</span>
+                        </a>
+                      </div>
+                      <div className="pt-2">
+                        <button
+                          type="button"
+                          onClick={handleResetNationalForm}
+                          className="text-xs text-[#2C2422]/60 hover:text-[#476653] underline cursor-pointer"
+                        >
+                          לשליחת פנייה נוספת
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleNationalSubmit} className="space-y-4 text-right" noValidate>
+                      {/* Name */}
+                      <div>
+                        <label htmlFor="national-name" className="block text-sm font-semibold text-[#2C2422] mb-1">
+                          שם <span className="text-[#982D49]">*</span>
+                        </label>
+                        <input
+                          id="national-name"
+                          type="text"
+                          value={nationalName}
+                          onChange={(e) => {
+                            setNationalName(e.target.value);
+                            if (nationalErrors.name) setNationalErrors({ ...nationalErrors, name: undefined });
+                          }}
+                          placeholder="השם המלא שלך"
+                          className={`w-full px-4 py-2.5 rounded-xl border text-base bg-white focus:outline-none transition-all ${
+                            nationalErrors.name
+                              ? 'border-red-400 ring-2 ring-red-100'
+                              : 'border-[#476653]/30 focus:border-[#476653] focus:ring-2 focus:ring-[#476653]/15'
+                          }`}
+                        />
+                        {nationalErrors.name && (
+                          <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                            <AlertCircle size={13} />
+                            <span>{nationalErrors.name}</span>
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Phone */}
+                      <div>
+                        <label htmlFor="national-phone" className="block text-sm font-semibold text-[#2C2422] mb-1">
+                          טלפון <span className="text-[#982D49]">*</span>
+                        </label>
+                        <input
+                          id="national-phone"
+                          type="tel"
+                          dir="ltr"
+                          value={nationalPhone}
+                          onChange={(e) => {
+                            setNationalPhone(e.target.value);
+                            if (nationalErrors.phone) setNationalErrors({ ...nationalErrors, phone: undefined });
+                          }}
+                          placeholder="050-1234567"
+                          className={`w-full px-4 py-2.5 rounded-xl border text-base bg-white text-right focus:outline-none transition-all ${
+                            nationalErrors.phone
+                              ? 'border-red-400 ring-2 ring-red-100'
+                              : 'border-[#476653]/30 focus:border-[#476653] focus:ring-2 focus:ring-[#476653]/15'
+                          }`}
+                        />
+                        {nationalErrors.phone && (
+                          <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                            <AlertCircle size={13} />
+                            <span>{nationalErrors.phone}</span>
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Town / Locality */}
+                      <div>
+                        <label htmlFor="national-town" className="block text-sm font-semibold text-[#2C2422] mb-1">
+                          יישוב <span className="text-[#982D49]">*</span>
+                        </label>
+                        <input
+                          id="national-town"
+                          type="text"
+                          value={nationalTown}
+                          onChange={(e) => {
+                            setNationalTown(e.target.value);
+                            if (nationalErrors.town) setNationalErrors({ ...nationalErrors, town: undefined });
+                          }}
+                          placeholder="באיזה יישוב תרצי שנפגש?"
+                          className={`w-full px-4 py-2.5 rounded-xl border text-base bg-white focus:outline-none transition-all ${
+                            nationalErrors.town
+                              ? 'border-red-400 ring-2 ring-red-100'
+                              : 'border-[#476653]/30 focus:border-[#476653] focus:ring-2 focus:ring-[#476653]/15'
+                          }`}
+                        />
+                        {nationalErrors.town && (
+                          <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                            <AlertCircle size={13} />
+                            <span>{nationalErrors.town}</span>
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Optional Hosting / Group Question */}
+                      <div>
+                        <label htmlFor="national-hosting" className="block text-sm font-semibold text-[#2C2422] mb-1">
+                          יש לכן כבר קבוצה או מקום שיכול לארח?{' '}
+                          <span className="text-xs font-normal text-[#2C2422]/60">(שדה רשות)</span>
+                        </label>
+                        <textarea
+                          id="national-hosting"
+                          rows={2}
+                          value={nationalHosting}
+                          onChange={(e) => setNationalHosting(e.target.value)}
+                          placeholder="לדוגמה: קבוצת חברות, מועדון גמלאיות, מרכז קהילתי, בית מארח או פנייה אישית..."
+                          className="w-full px-4 py-2.5 rounded-xl border border-[#476653]/30 text-base bg-white focus:outline-none focus:border-[#476653] focus:ring-2 focus:ring-[#476653]/15 transition-all resize-none"
+                        />
+                      </div>
+
+                      {/* Submit */}
+                      <div className="pt-2">
+                        <button
+                          type="submit"
+                          disabled={isNationalSubmitting}
+                          className="w-full py-4 px-6 text-base sm:text-lg font-bold text-white bg-[#476653] hover:bg-[#385242] active:scale-[0.99] rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 min-h-[50px]"
+                        >
+                          <Send size={18} className="rotate-180" />
+                          <span>{isNationalSubmitting ? 'שומרת פרטים...' : 'אשמח לשמוע על קבוצה באזור שלי'}</span>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-center gap-1.5 text-xs text-[#2C2422]/60 pt-1">
+                        <ShieldCheck size={12} />
+                        <span>הפרטים שלך נשמרים אצלנו בפרטיות מוחלטת ולא יועברו לאיש</span>
+                      </div>
+                    </form>
+                  )}
                 </div>
               </div>
-              <div className="mt-6 pt-4 border-t border-[#D68B98]/15">
-                <button
-                  onClick={() => scrollToContact('הרשמה מוקדמת - עיריית כפר סבא (750 ₪)')}
-                  className="w-full py-3 px-4 text-sm font-bold text-[#982D49] bg-[#FAF1F3] hover:bg-[#982D49] hover:text-white rounded-full transition-colors cursor-pointer text-center"
-                >
-                  השאירי פרטים
-                </button>
-              </div>
-            </div>
-
-            {/* Friend Brings Friend - Featured */}
-            <div className="bg-[#FFF5F7] rounded-3xl p-6 sm:p-7 border-2 border-[#982D49] shadow-md flex flex-col justify-between relative">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black bg-[#982D49] text-white shadow-md">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-                    <span>הכי משתלם</span>
-                  </span>
-                  <span className="text-xs font-semibold text-[#982D49]">עד 30.11.26</span>
-                </div>
-
-                <h4 className="text-xl sm:text-2xl font-bold text-[#982D49] font-display">חברה מביאה חברה</h4>
-
-                <div className="mt-4 mb-3">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl sm:text-5xl font-black text-[#982D49] font-display tracking-tight">
-                      710 ₪
-                    </span>
-                    <span className="text-base font-bold text-[#982D49]">לכל אחת</span>
-                  </div>
-                  <div className="text-sm font-semibold text-[#2C2422]/60 line-through mt-0.5">
-                    במקום 750 ₪
-                  </div>
-                </div>
-
-                <div className="my-3.5 p-3.5 bg-[#982D49] text-white rounded-2xl text-center shadow-xs space-y-1">
-                  <span className="block text-lg sm:text-xl font-black font-display tracking-tight text-white">
-                    כפל מבצעים !!
-                  </span>
-                  <span className="block text-sm font-bold text-[#F4D0D8]">מעל 5% הנחה</span>
-                  <span className="block text-sm font-bold text-white">מפגש בונוס חינם</span>
-                </div>
-
-                <div className="pt-2 border-t border-[#982D49]/20 space-y-1">
-                  <p className="text-sm font-bold text-[#982D49]">בתוקף לשתיכן בהרשמה עד 30.11.26</p>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-[#982D49]/20 space-y-2.5">
-                <button
-                  onClick={() => scrollToContact('חברה מביאה חברה - כפל מבצעים (710 ₪ לכל אחת)')}
-                  className="w-full py-3.5 px-4 text-sm font-bold text-white bg-[#982D49] hover:bg-[#7A2139] rounded-full transition-colors cursor-pointer text-center shadow-xs"
-                >
-                  שריינו מקום יחד (710 ₪)
-                </button>
-                <ShareButton variant="pill" text="שתפי עם חברה" size="sm" className="w-full justify-center" />
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -1244,15 +1652,44 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
                 לא צריך להגיע עם שאלת שינוי גדולה. מספיק קצת סקרנות, רצון לחוות משהו חדש ולהכיר נשים נוספות.
               </p>
               <p className="font-bold text-white text-lg sm:text-xl">
-                רוצה לשמוע עוד ולהתעדכן לפני כולן? השאירי פרטים ונחזור אלייך אישית.
+                {audienceOption === 'sharon'
+                  ? 'רוצה לשמוע עוד ולהתעדכן לפני כולן? השאירי פרטים ונחזור אלייך אישית.'
+                  : 'בחרי למעלה אם את מצטרפת לסדרה באזור השרון או מעוניינת בקבוצה ביישוב שלך.'}
               </p>
             </div>
-            <div className="inline-block mt-3 p-3.5 sm:p-4 bg-white/20 backdrop-blur-xs rounded-2xl border border-white/40 text-white shadow-sm text-sm sm:text-base font-black">
-              <span>⚡ מס' המקומות מוגבל – מהרי לשריין מקומך!</span>
-            </div>
+            {audienceOption === 'sharon' ? (
+              <>
+                <div className="inline-block mt-3 p-3.5 sm:p-4 bg-white/20 backdrop-blur-xs rounded-2xl border border-white/40 text-white shadow-sm text-sm sm:text-base font-black">
+                  <span>⚡ מס' המקומות מוגבל – מהרי לשריין מקומך!</span>
+                </div>
+                {!isFormOpen && (
+                  <div className="pt-4">
+                    <button
+                      type="button"
+                      onClick={() => scrollToContact()}
+                      className="px-9 py-4 text-base sm:text-xl font-black text-[#982D49] bg-white hover:bg-[#FAF1F3] rounded-full shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 cursor-pointer inline-flex items-center gap-2.5"
+                    >
+                      <span>לשריון מקומך והשארת פרטים</span>
+                      <ChevronDown size={20} />
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="pt-4">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('schedule')}
+                  className="px-9 py-4 text-base sm:text-xl font-black text-[#982D49] bg-white hover:bg-[#FAF1F3] rounded-full shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 cursor-pointer inline-flex items-center gap-2.5"
+                >
+                  <span>לבחירת אזור והשארת פרטים</span>
+                </button>
+              </div>
+            )}
           </div>
 
-          <div className="bg-[#FFFCF8] text-[#2C2422] rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl border border-white/20 max-w-xl mx-auto">
+          {audienceOption === 'sharon' && isFormOpen && (
+            <div id="contact-form-box" className="bg-[#FFFCF8] text-[#2C2422] rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl border border-white/20 max-w-xl mx-auto animate-in fade-in duration-300">
             {isSubmitted ? (
               <div className="text-center py-8 space-y-5 animate-in fade-in duration-300">
                 <div className="w-16 h-16 rounded-full bg-[#EBF1ED] text-[#476653] mx-auto flex items-center justify-center">
@@ -1483,6 +1920,7 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
               </form>
             )}
           </div>
+          )}
 
           {/* Personal contact options */}
           <div className="mt-10 text-center space-y-4">
@@ -1513,11 +1951,15 @@ export const AheadOfYouMiniPage: React.FC<{ embedded?: boolean; id?: string }> =
         </div>
       </section>
 
-      {/* 10. COMPACT PROGRAM TABS - OTHER PROGRAMS NAVIGATION */}
-      <section className="py-12 px-4 sm:px-6 bg-[#FAF1F3] border-t border-[#D68B98]/30">
-        <div className="max-w-5xl mx-auto">
-          <OtherProgramsNav currentProgramId="ahead-of-you" />
-        </div>
+      {/* 10. BUTTON BACK TO BEIN LEVEIN HOME & OTHER PROGRAMS */}
+      <section className="py-10 px-4 sm:px-6 bg-[#FAF1F3] border-t border-[#D68B98]/30 text-center">
+        <a
+          href="/?section=programs"
+          className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-white text-[#982D49] hover:bg-[#982D49] hover:text-white rounded-full text-sm sm:text-base font-bold border border-[#982D49]/30 transition-all shadow-xs"
+        >
+          <span>לאתר הבית של בין לבין לתוכניות והמרחבים הנוספים</span>
+          <ArrowLeft size={16} />
+        </a>
       </section>
 
       {/* 11. FOOTER */}

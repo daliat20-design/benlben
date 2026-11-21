@@ -49,12 +49,12 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
 
       <div className="max-w-5xl mx-auto">
         
-        {/* הערה מרכזית לפני פירוט המפגשים */}
+        {/* כותרת מרכזית לפני פירוט המפגשים */}
         <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-5 sm:px-8 py-2.5 sm:py-3 bg-white rounded-full border-2 border-[#C56B3E]/40 shadow-sm text-center">
             <Sparkles className="w-4 h-4 text-[#C56B3E] shrink-0" />
             <p className="text-xs sm:text-base md:text-lg font-black text-[#2D5043]">
-              בכל מחזור נבחרים 3 מפגשים מתוך מאגר הנושאים של שני החלקים.
+              סדנת הדגל: אמצע החיים
             </p>
           </div>
         </div>
@@ -65,12 +65,15 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
         <div className="mb-14 sm:mb-20">
           
           {/* כותרת מודגשת לפני חלון גלריה חלק א' */}
-          <div className="text-center mb-6 sm:mb-8">
+          <div className="text-center mb-6 sm:mb-8 space-y-3">
             <div className="inline-block px-6 sm:px-10 py-3 sm:py-4 bg-[#2D5043]/10 rounded-3xl sm:rounded-full border-b-4 border-[#2D5043] shadow-md backdrop-blur-xs">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#2D5043] tracking-tight">
-                חלק א': התכנסות וחקירה פנימית
+              <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-[#2D5043] tracking-tight">
+                חלק א׳: להבין מה משתנה, למצוא את האיזון
               </h3>
             </div>
+            <p className="text-sm sm:text-base md:text-lg font-bold text-slate-700 max-w-2xl mx-auto">
+              ארבעה נושאים אפשריים העוסקים בגוף, במשפחה ובבחירות שלנו בתקופת אמצע החיים.
+            </p>
           </div>
 
           {/* חלון גלריה ממוקד (Focused Window Gallery) חלק א' */}
@@ -130,39 +133,71 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
                     <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#2D5043] tracking-tight leading-snug">
                       {currentSessionA.title}
                     </h4>
-                    <p className="text-base sm:text-xl font-bold text-[#3A5A40] mt-1.5">
-                      {currentSessionA.subtitle}
-                    </p>
+                    {currentSessionA.subtitle && (
+                      <p className="text-base sm:text-xl font-bold text-[#3A5A40] mt-1.5">
+                        {currentSessionA.subtitle}
+                      </p>
+                    )}
                   </div>
 
                   {/* הזוויות המקצועיות */}
-                  <div className="space-y-3">
-                    {currentSessionA.lecturers.map((lecturer, idx) => (
-                      <div key={idx} className="bg-[#2D5043]/5 rounded-2xl p-4 sm:p-6 border-r-[6px] border-[#2D5043] shadow-xs">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="w-6 h-6 rounded-lg bg-[#2D5043] text-white flex items-center justify-center text-xs font-black">
-                            ✦
-                          </span>
-                          <span className="text-xs sm:text-sm font-black text-[#C56B3E] uppercase tracking-wider">
-                            הזווית המקצועית:
-                          </span>
-                        </div>
-                        <p className="text-base sm:text-xl font-black text-[#2D5043] leading-snug mb-1">
-                          {lecturer.name}
-                        </p>
-                        {lecturer.description && (
-                          <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal mt-2">
-                            {lecturer.description}
+                  {currentSessionA.lecturers && currentSessionA.lecturers.length > 0 && (
+                    <div className="space-y-3">
+                      {currentSessionA.lecturers.map((lecturer, idx) => (
+                        <div key={idx} className="bg-[#2D5043]/5 rounded-2xl p-4 sm:p-6 border-r-[6px] border-[#2D5043] shadow-xs">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="w-6 h-6 rounded-lg bg-[#2D5043] text-white flex items-center justify-center text-xs font-black">
+                              ✦
+                            </span>
+                            <span className="text-xs sm:text-sm font-black text-[#C56B3E] uppercase tracking-wider">
+                              הזווית המקצועית:
+                            </span>
+                          </div>
+                          <p className="text-base sm:text-xl font-black text-[#2D5043] leading-snug mb-1">
+                            {lecturer.name}
                           </p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                          {lecturer.description && (
+                            <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal mt-2">
+                              {lecturer.description}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-                  {/* תיאור נוסף אם קיים */}
-                  {currentSessionA.description && (
-                    <div className="p-4 sm:p-5 bg-[#FFF4EB] rounded-2xl border-r-4 border-[#C56B3E] text-slate-700 text-sm sm:text-base leading-relaxed font-medium italic">
+                  {/* תיאור המפגש */}
+                  {currentSessionA.description ? (
+                    <div className="p-5 sm:p-6 bg-[#2D5043]/5 rounded-2xl border-r-[6px] border-[#2D5043] text-slate-800 text-base sm:text-lg leading-relaxed font-medium shadow-xs">
                       {currentSessionA.description}
+                    </div>
+                  ) : (currentSessionA.introParagraphs || currentSessionA.bullets) && (
+                    <div className="p-5 sm:p-6 bg-[#2D5043]/5 rounded-2xl border-r-[6px] border-[#2D5043] text-slate-800 text-base sm:text-lg leading-relaxed font-medium shadow-xs space-y-3">
+                      {currentSessionA.introParagraphs?.map((para, pIdx) => (
+                        <p key={pIdx}>{para}</p>
+                      ))}
+                      {currentSessionA.bulletsTitle && (
+                        <div className="bg-white/80 rounded-2xl p-4 space-y-2 border border-[#2D5043]/15">
+                          <p className="font-bold text-[#2D5043]">{currentSessionA.bulletsTitle}</p>
+                          <ul className="space-y-1.5 pr-4 list-disc marker:text-[#2D5043]">
+                            {currentSessionA.bullets?.map((b, bIdx) => (
+                              <li key={bIdx}>{b}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {currentSessionA.closingParagraphs?.map((para, cIdx) => (
+                        <p
+                          key={cIdx}
+                          className={
+                            cIdx === (currentSessionA.closingParagraphs?.length || 0) - 1
+                              ? 'font-black text-[#2D5043]'
+                              : ''
+                          }
+                        >
+                          {para}
+                        </p>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -201,12 +236,15 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
         <div className="mb-14 sm:mb-20">
           
           {/* כותרת מודגשת לפני חלון גלריה חלק ב' */}
-          <div className="text-center mb-6 sm:mb-8">
+          <div className="text-center mb-6 sm:mb-8 space-y-3">
             <div className="inline-block px-6 sm:px-10 py-3 sm:py-4 bg-[#C56B3E]/10 rounded-3xl sm:rounded-full border-b-4 border-[#C56B3E] shadow-md backdrop-blur-xs">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] tracking-tight">
-                חלק ב': צמיחה, חיבור ומשמעות
+              <h3 className="text-xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] tracking-tight">
+                חלק ב׳: להקשיב לעצמנו, לגלות אפשרויות חדשות
               </h3>
             </div>
+            <p className="text-sm sm:text-base md:text-lg font-bold text-slate-700 max-w-2xl mx-auto">
+              ארבעה נושאים אפשריים העוסקים בזהות, בקריירה, ביחסים וביצירת שינוי.
+            </p>
           </div>
 
           {/* חלון גלריה ממוקד (Focused Window Gallery) חלק ב' */}
@@ -222,7 +260,7 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-[#C56B3E]/15">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-xs sm:text-sm font-black px-3.5 py-1.5 rounded-full bg-[#C56B3E] text-white shadow-xs">
-                      מפגש {activePartBIdx + 1} מתוך {partBSessions.length} • חלק ב׳
+                      מפגש {activePartBIdx + 5} מתוך 8 • חלק ב׳
                     </span>
                     {currentSessionB.value && (
                       <span className="text-xs sm:text-sm font-black px-3 py-1.5 rounded-full bg-[#C56B3E]/10 text-[#C56B3E] border border-[#C56B3E]/20">
@@ -266,39 +304,71 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
                     <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#C56B3E] tracking-tight leading-snug">
                       {currentSessionB.title}
                     </h4>
-                    <p className="text-base sm:text-xl font-bold text-[#93542B] mt-1.5">
-                      {currentSessionB.subtitle}
-                    </p>
+                    {currentSessionB.subtitle && (
+                      <p className="text-base sm:text-xl font-bold text-[#93542B] mt-1.5">
+                        {currentSessionB.subtitle}
+                      </p>
+                    )}
                   </div>
 
                   {/* הזוויות המקצועיות */}
-                  <div className="space-y-3">
-                    {currentSessionB.lecturers.map((lecturer, idx) => (
-                      <div key={idx} className="bg-[#FFF4EB] rounded-2xl p-4 sm:p-6 border-r-[6px] border-[#C56B3E] shadow-xs">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="w-6 h-6 rounded-lg bg-[#C56B3E] text-white flex items-center justify-center text-xs font-black">
-                            ✦
-                          </span>
-                          <span className="text-xs sm:text-sm font-black text-[#2D5043] uppercase tracking-wider">
-                            הזווית המקצועית:
-                          </span>
-                        </div>
-                        <p className="text-base sm:text-xl font-black text-[#C56B3E] leading-snug mb-1">
-                          {lecturer.name}
-                        </p>
-                        {lecturer.description && (
-                          <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal mt-2">
-                            {lecturer.description}
+                  {currentSessionB.lecturers && currentSessionB.lecturers.length > 0 && (
+                    <div className="space-y-3">
+                      {currentSessionB.lecturers.map((lecturer, idx) => (
+                        <div key={idx} className="bg-[#FFF4EB] rounded-2xl p-4 sm:p-6 border-r-[6px] border-[#C56B3E] shadow-xs">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="w-6 h-6 rounded-lg bg-[#C56B3E] text-white flex items-center justify-center text-xs font-black">
+                              ✦
+                            </span>
+                            <span className="text-xs sm:text-sm font-black text-[#2D5043] uppercase tracking-wider">
+                              הזווית המקצועית:
+                            </span>
+                          </div>
+                          <p className="text-base sm:text-xl font-black text-[#C56B3E] leading-snug mb-1">
+                            {lecturer.name}
                           </p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                          {lecturer.description && (
+                            <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal mt-2">
+                              {lecturer.description}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-                  {/* תיאור נוסף אם קיים */}
-                  {currentSessionB.description && (
-                    <div className="p-4 sm:p-5 bg-[#FFF4EB] rounded-2xl border-r-4 border-[#C56B3E] text-slate-700 text-sm sm:text-base leading-relaxed font-medium italic">
+                  {/* תיאור המפגש */}
+                  {currentSessionB.description ? (
+                    <div className="p-5 sm:p-6 bg-[#FFF4EB] rounded-2xl border-r-[6px] border-[#C56B3E] text-slate-800 text-base sm:text-lg leading-relaxed font-medium shadow-xs">
                       {currentSessionB.description}
+                    </div>
+                  ) : (currentSessionB.introParagraphs || currentSessionB.bullets) && (
+                    <div className="p-5 sm:p-6 bg-[#FFF4EB] rounded-2xl border-r-[6px] border-[#C56B3E] text-slate-800 text-base sm:text-lg leading-relaxed font-medium shadow-xs space-y-3">
+                      {currentSessionB.introParagraphs?.map((para, pIdx) => (
+                        <p key={pIdx}>{para}</p>
+                      ))}
+                      {currentSessionB.bulletsTitle && (
+                        <div className="bg-white/85 rounded-2xl p-4 space-y-2 border border-[#C56B3E]/20">
+                          <p className="font-bold text-[#93542B]">{currentSessionB.bulletsTitle}</p>
+                          <ul className="space-y-1.5 pr-4 list-disc marker:text-[#C56B3E]">
+                            {currentSessionB.bullets?.map((b, bIdx) => (
+                              <li key={bIdx}>{b}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {currentSessionB.closingParagraphs?.map((para, cIdx) => (
+                        <p
+                          key={cIdx}
+                          className={
+                            cIdx === (currentSessionB.closingParagraphs?.length || 0) - 1
+                              ? 'font-black text-[#C56B3E]'
+                              : ''
+                          }
+                        >
+                          {para}
+                        </p>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -335,7 +405,7 @@ export const ProgramStructure: React.FC<{ hideDates?: boolean }> = () => {
             <span>חשוב לדעת ✦</span>
           </div>
           <p className="text-base sm:text-lg md:text-xl font-bold text-[#2D5043] leading-relaxed">
-            <span className="text-[#C56B3E] underline decoration-2 underline-offset-4 font-black">שימי לב:</span> רשימת הנושאים שלעיל מייצגת את מניפת התכנים האפשריים של הסדנה. בכל מחזור מתקיימים 6 מפגשים המחולקים ל-3 מפגשים בכל חלק, והנושאים והדגשים מותאמים לכל קבוצה ועשויים להתעדכן בהתאם לצורכי המשתתפות.
+            רשימת המפגשים מציגה את מאגר הנושאים של סדנת ״אמצע החיים״. בכל מחזור מתקיימים שישה מפגשים, שלושה בכל חלק. הנושאים נבחרים מתוך שני החלקים וניתן לשלב ביניהם בהתאם לאופי הקבוצה ולצרכיה.
           </p>
         </div>
 

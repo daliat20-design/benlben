@@ -11,6 +11,10 @@ interface SessionItem {
   title: string;
   subtitle: string;
   description: string;
+  introParagraphs?: string[];
+  bulletsTitle?: string;
+  bullets?: string[];
+  closingParagraphs?: string[];
   professionalPart: string;
   icon: React.ComponentType<any>;
 }
@@ -19,89 +23,105 @@ const SESSIONS_DATA: SessionItem[] = [
   {
     id: 1,
     part: 'A',
-    partTitle: 'חלק א׳: התכנסות וחקירה פנימית',
+    partTitle: 'חלק א׳: להבין מה משתנה, למצוא את האיזון',
     value: 'קבלה',
-    title: 'כשזה מתחיל להשתנות',
-    subtitle: 'התסמינים הפיזיים והרגשיים של גיל המעבר',
-    description: 'מפגש העוסק בשינויים הפיזיים, הרגשיים והמנטליים המאפיינים את תקופת גיל המעבר. נבין מה עובר על הגוף, מה קורה לנו מבפנים ואיך אפשר לפגוש את השינוי מתוך ידע, ויסות, בהירות וקבלה.',
-    professionalPart: 'הזווית המקצועית: טיפול רגשי, חוסן וקבלת החלטות בתקופות מעבר.',
+    title: 'גיל המעבר: מה בעצם קורה לי?',
+    subtitle: 'תסמינים ושינויים פיזיים ורגשיים',
+    description: 'שינה שמשתבשת, שינויים במצב הרוח, עייפות, גלי חום או תחושה שמשהו בגוף כבר לא עובד כמו פעם. מה מכל אלה קשור לגיל המעבר, ואילו שינויים יכולים להופיע עוד לפני שאנחנו מזהות שהתקופה הזו התחילה? נכיר את התסמינים הפיזיים והרגשיים, נבין את הקשר ביניהם ונקבל כלים להתמודדות עם השינויים מתוך ידע, קבלה וביטחון.',
+    professionalPart: '',
     icon: Heart
   },
   {
     id: 2,
     part: 'A',
-    partTitle: 'חלק א׳: התכנסות וחקירה פנימית',
+    partTitle: 'חלק א׳: להבין מה משתנה, למצוא את האיזון',
     value: 'אחריות ושחרור',
-    title: 'בין חיבוק לשחרור',
-    subtitle: 'הורים מתבגרים וסינדרום הקן המתרוקן',
-    description: 'מפגש העוסק בציר המשפחתי המורכב של אמצע החיים: מצד אחד ילדים שיוצאים לדרך עצמאית, מצד שני הורים מתבגרים הזקוקים ליותר נוכחות, אחריות ותשומת לב. נבחן איך אפשר להחזיק קרוב, לשחרר בעדינות ולשמור גם על עצמנו.',
-    professionalPart: 'הזווית המקצועית: פסיכותרפיה וליווי תקופות מעבר במשפחה.',
+    title: 'בין הילדים להורים: ואיפה אני בכל הסיפור?',
+    subtitle: 'הורים מתבגרים, ילדים שעוזבים את הבית ושינויים במשפחה',
+    description: 'מצד אחד, הילדים גדלים ויוצאים לדרך עצמאית. מצד שני, ההורים שלנו מתבגרים ולעיתים זקוקים לנו יותר מתמיד. בתוך השינויים האלה אנחנו מוצאות את עצמנו בתפקידים חדשים, בין דאגה, אחריות ורצון להיות שם בשביל כולם. נדבר על השינויים ביחסים המשפחתיים, על הצבת גבולות, על שחרור ועל מציאת המקום שלנו בתוך המשפחה המשתנה.',
+    professionalPart: '',
     icon: Users
   },
   {
     id: 3,
     part: 'A',
-    partTitle: 'חלק א׳: התכנסות וחקירה פנימית',
+    partTitle: 'חלק א׳: להבין מה משתנה, למצוא את האיזון',
     value: 'איזון',
-    title: 'להחזיר לעצמי כוח',
-    subtitle: 'תזונה, תנועה ושיפור היחסים עם הגוף',
-    description: 'מפגש העוסק בגוף המשתנה, באנרגיה, בתזונה, בתנועה ובמערכת היחסים שלנו עם עצמנו. נבחן איך אפשר להחזיר תחושת כוח, חיוניות ואיזון, מתוך הקשבה, אחריות אישית ובחירות קטנות שמייצרות שינוי.',
-    professionalPart: 'הזווית המקצועית: נטורופתיה, תזונה טבעית ואורח חיים בריא בגיל המעבר.',
+    title: 'מה הגוף שלי צריך עכשיו?',
+    subtitle: 'תזונה, אנרגיה ובריאות בגיל המעבר',
+    description: 'פתאום מה שעבד לנו במשך שנים כבר לא בהכרח עובד באותה צורה. חילוף החומרים משתנה, המשקל מתנהג אחרת וגם רמות האנרגיה לא תמיד צפויות. נבין כיצד השינויים ההורמונליים משפיעים על הצרכים התזונתיים שלנו, נדבר על שמירה על מסת שריר, בריאות העצם וחיוניות ונכיר עקרונות תזונה והרגלים מעשיים שיכולים לתמוך בגוף בתקופה הזו.',
+    professionalPart: '',
     icon: Activity
   },
   {
     id: 4,
     part: 'A',
-    partTitle: 'חלק א׳: התכנסות וחקירה פנימית',
+    partTitle: 'חלק א׳: להבין מה משתנה, למצוא את האיזון',
     value: 'בחירה',
-    title: 'קבלת החלטות מתוך בחירה',
-    subtitle: 'לבחור ממקום אישי ופנימי',
-    description: 'מפגש העוסק בזיקוק מצבים ותובנות ותרגומם לצעדים מעשיים. נעמיק בהבנת הרצונות האמיתיים שלנו וביכולת לקבל החלטות מתוך בחירה אישית ופנימית המניעה לפעולה.',
-    professionalPart: 'הזווית המקצועית: אימון אישי, הנחיית קבוצות ותהליכי שינוי.',
+    title: 'מה אני באמת רוצה, ומה אני בוחרת?',
+    subtitle: 'קבלת החלטות מתוך הקשבה לרצונות ולצרכים שלנו',
+    description: 'אנחנו רגילות לקבל החלטות, אבל לא תמיד עוצרות לשאול עד כמה הן באמת משקפות את מה שאנחנו רוצות. איך מבדילים בין הרצון שלנו לבין הציפיות של הסביבה? מה עושים כשיש התלבטות, ואיך מקבלים החלטות בלי לתת לפחד או להרגל לנהל אותנו? נתרגל כלים שיעזרו לנו לזהות מה חשוב לנו, לבחון אפשרויות ולבחור מתוך בהירות וביטחון.',
+    professionalPart: '',
     icon: Compass
   },
   {
     id: 5,
     part: 'B',
-    partTitle: 'חלק ב׳: צמיחה, חיבור ומשמעות',
-    value: 'הקשבה',
-    title: 'ללמוד להקשיב',
-    subtitle: 'זהות חדשה שמבקשת להיוולד',
-    description: 'מפגש העוסק בהעמקה בהקשבה לעצמנו ולבחירות שלנו בתקופה של שינויים, דרך כלים חווייתיים ויצירתיים המחברים בין גוף, רגש, מוזיקה, סטיילינג תרפי וזהות.',
-    professionalPart: 'הזווית המקצועית: התפתחות אישית, סטיילינג תרפי, NLP וחיבור חווייתי.',
+    partTitle: 'חלק ב׳: להקשיב לעצמנו, לגלות אפשרויות חדשות',
+    value: 'שחרור ואיזון',
+    title: 'לוקחות אוויר',
+    subtitle: '',
+    description: '',
+    introParagraphs: [
+      'אנחנו נושמות כל הזמן, אבל כמה מאיתנו באמת עוצרות לשים לב לאופן שבו אנחנו נושמות?',
+      'במפגש חווייתי נגלה איך הנשימה משפיעה על הגוף, על התחושות שלנו ועל איכות החיים ביומיום.'
+    ],
+    bulletsTitle: 'נכיר טכניקות נשימה פשוטות שיכולות לסייע לנו:',
+    bullets: [
+      'להירגע ולהפחית מתח',
+      'לשפר את איכות השינה',
+      'לווסת את הגוף במצבי לחץ',
+      'למצוא רגעים של איזון ובהירות במהלך היום'
+    ],
+    closingParagraphs: [
+      'נתנסה בתרגילי נשימה ונחווה טעימה קצרה של נשימה מעגלית בליווי מוזיקה והנחיה, שתאפשר לנו לעצור, להרפות ולהתחבר לגוף.',
+      'נשלב גם תנועה וריקוד חופשי, קצת מוזיקה והרבה מקום לשחרר.',
+      'לא צריך ניסיון קודם. רק לבוא ולנשום.'
+    ],
+    professionalPart: '',
     icon: BookOpen
   },
   {
     id: 6,
     part: 'B',
-    partTitle: 'חלק ב׳: צמיחה, חיבור ומשמעות',
+    partTitle: 'חלק ב׳: להקשיב לעצמנו, לגלות אפשרויות חדשות',
     value: 'הגשמה',
-    title: 'מי אני עכשיו?',
-    subtitle: 'זהות, משמעות ולגלות כיוון מחדש',
-    description: 'מפגש העוסק בזהות, צמתי קריירה, משמעות, עשייה והגשמה אישית. נעסוק בשאלה מי אני כשהתפקידים שהגדירו אותי משתנים, ואיך אפשר לדייק כיוון חדש או מחודש להמשך הדרך.',
-    professionalPart: 'הזווית המקצועית: ייעוץ ארגוני, ייעוץ קריירה וליווי צמתי שינוי.',
+    title: 'ומה עכשיו עם הקריירה שלי?',
+    subtitle: 'עבודה, קריירה וכיוונים מקצועיים חדשים באמצע החיים',
+    description: 'אולי אנחנו מרוצות מהעבודה אבל רוצות להתפתח, אולי מרגישות שמיצינו, ואולי יש חלום מקצועי שעדיין לא העזנו לבדוק. נבחן מה חשוב לנו היום בעולם העבודה, אילו יכולות וניסיון צברנו לאורך השנים ואילו אפשרויות עומדות בפנינו. נדבר על שינוי מקצועי, התפתחות, משמעות והדרך להפוך מחשבה על שינוי לכיוון שאפשר להתחיל לקדם.',
+    professionalPart: '',
     icon: TrendingUp
   },
   {
     id: 7,
     part: 'B',
-    partTitle: 'חלק ב׳: צמיחה, חיבור ומשמעות',
+    partTitle: 'חלק ב׳: להקשיב לעצמנו, לגלות אפשרויות חדשות',
     value: 'קרבה',
-    title: 'מגע, מרחק ומה שביניהם',
-    subtitle: 'אינטימיות, תשוקה וזוגיות מחודשת',
-    description: 'מפגש העוסק בזוגיות, אינטימיות, מיניות, דימוי גוף וקרבה בתקופת גיל המעבר. נפתח שיח רגיש ואמיץ ונבחן איך אפשר ליצור חיבור מחודש לעצמנו, לגוף שלנו ולמערכות היחסים בחיינו.',
-    professionalPart: 'הזווית המקצועית: ייעוץ זוגי ומיני וליווי אינטימיות בגיל המעבר.',
+    title: 'זוגיות ואינטימיות: מה משתנה בינינו?',
+    subtitle: 'קרבה, תשוקה ומיניות בתקופת גיל המעבר',
+    description: 'גיל המעבר יכול להשפיע לא רק על הגוף שלנו, אלא גם על החשק, האינטימיות והיחסים הזוגיים. איך מדברים על מה שמשתנה? מה עושים כשיש פערים בצרכים וברצונות? איך שומרים על קרבה ומגלים אותה מחדש? מפגש פתוח ורגיש שבו נדבר על זוגיות, מיניות, תקשורת, דימוי גוף והאפשרות ליצור אינטימיות שמתאימה למי שאנחנו היום.',
+    professionalPart: '',
     icon: Sparkles
   },
   {
     id: 8,
     part: 'B',
-    partTitle: 'חלק ב׳: צמיחה, חיבור ומשמעות',
+    partTitle: 'חלק ב׳: להקשיב לעצמנו, לגלות אפשרויות חדשות',
     value: 'הודיה',
-    title: 'לסגור מעגל, לפתוח לב',
-    subtitle: 'הכרת תודה, אושר ומשמעות',
-    description: 'מפגש המאפשר לאסוף את הדרך שעברנו, לתת מקום לתובנות, לחיבורים ולשינויים שנוצרו לאורך התוכנית. נעסוק בהכרת תודה, משמעות, אושר אישי ופתיחת הלב להמשך הדרך.',
-    professionalPart: 'הזווית המקצועית: הנחיית NLP, איסוף תהליך ופריצות דרך.',
+    title: 'מהתובנות לחיים עצמם',
+    subtitle: 'כלים מעולם ה-NLP לחיבור התובנות וליצירת שינוי',
+    description: 'לאורך הדרך אנחנו לומדות על עצמנו, מזהות דברים שהיינו רוצות לשמר ואחרים שהגיע הזמן לשנות. אבל איך לוקחים את כל התובנות האלה אל החיים עצמם? במפגש חווייתי נשתמש בעקרונות ובכלים מעולם ה-NLP כדי להתבונן בדפוסי חשיבה, לזהות את המשאבים והחוזקות שלנו ולחבר בין מה שגילינו לבין הבחירות והצעדים הבאים שלנו. נסיים בהכרת תודה על מה שכבר יש ועל האפשרויות שעוד לפנינו.',
+    professionalPart: '',
     icon: Sun
   }
 ];
@@ -155,24 +175,58 @@ export const MarketingSessions: React.FC = () => {
               <h4 className="text-xl md:text-3xl font-black text-brand-green leading-snug tracking-tight mb-1">
                 {s.title}
               </h4>
-              <p className={`text-base md:text-xl font-bold ${textTheme}`}>
-                {s.subtitle}
-              </p>
+              {s.subtitle && (
+                <p className={`text-base md:text-xl font-bold ${textTheme}`}>
+                  {s.subtitle}
+                </p>
+              )}
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-gray-600 text-sm md:text-lg leading-relaxed font-medium mb-6">
-            {s.description}
-          </p>
+          {s.description ? (
+            <p className="text-gray-600 text-sm md:text-lg leading-relaxed font-medium mb-6">
+              {s.description}
+            </p>
+          ) : (
+            <div className="space-y-3 text-gray-600 text-sm md:text-lg leading-relaxed font-medium mb-6">
+              {s.introParagraphs?.map((para, pIdx) => (
+                <p key={pIdx}>{para}</p>
+              ))}
+              {s.bulletsTitle && (
+                <div className="bg-[#FFF9F4] rounded-2xl p-4 space-y-2 border border-brand-orange/20">
+                  <p className="font-bold text-brand-green">{s.bulletsTitle}</p>
+                  <ul className="space-y-1 pr-4 list-disc marker:text-brand-orange">
+                    {s.bullets?.map((b, bIdx) => (
+                      <li key={bIdx}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {s.closingParagraphs?.map((para, cIdx) => (
+                <p
+                  key={cIdx}
+                  className={
+                    cIdx === (s.closingParagraphs?.length || 0) - 1
+                      ? 'font-black text-brand-orange'
+                      : ''
+                  }
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Professional Part Box */}
-        <div className={`p-4 md:p-5 rounded-2xl ${isOrange ? 'bg-brand-orange/5' : 'bg-brand-green/5'} border-r-4 ${isOrange ? 'border-brand-orange' : 'border-brand-green'}`}>
-          <p className="text-xs md:text-base text-gray-700 leading-relaxed font-bold">
-            {s.professionalPart}
-          </p>
-        </div>
+        {/* Professional Part Box (only if provided) */}
+        {s.professionalPart && (
+          <div className={`p-4 md:p-5 rounded-2xl ${isOrange ? 'bg-brand-orange/5' : 'bg-brand-green/5'} border-r-4 ${isOrange ? 'border-brand-orange' : 'border-brand-green'}`}>
+            <p className="text-xs md:text-base text-gray-700 leading-relaxed font-bold">
+              {s.professionalPart}
+            </p>
+          </div>
+        )}
       </div>
     );
   };
@@ -200,10 +254,10 @@ export const MarketingSessions: React.FC = () => {
         <div className="mb-20">
           <div className="flex flex-col items-center mb-12">
             <div className="bg-brand-green text-white px-8 py-4 rounded-full shadow-lg text-center inline-block">
-              <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק א׳: התכנסות וחקירה פנימית</h3>
+              <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק א׳: להבין מה משתנה, למצוא את האיזון</h3>
             </div>
             <p className="mt-3 text-sm md:text-base font-black text-brand-green bg-white px-5 py-1.5 rounded-full border border-brand-green/20 shadow-2xs">
-              בכל מחזור נבחרים 3 מפגשים מתוך מאגר הנושאים של שני החלקים.
+              ארבעה נושאים אפשריים העוסקים בגוף, במשפחה ובבחירות שלנו בתקופת אמצע החיים.
             </p>
           </div>
           
@@ -223,10 +277,10 @@ export const MarketingSessions: React.FC = () => {
         <div className="mb-12">
           <div className="flex flex-col items-center mb-12">
             <div className="bg-brand-orange text-white px-8 py-4 rounded-full shadow-lg text-center inline-block">
-              <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק ב׳: צמיחה, חיבור ומשמעות</h3>
+              <h3 className="text-xl md:text-3xl font-black tracking-tight">חלק ב׳: להקשיב לעצמנו, לגלות אפשרויות חדשות</h3>
             </div>
             <p className="mt-3 text-sm md:text-base font-black text-brand-orange bg-white px-5 py-1.5 rounded-full border border-brand-orange/20 shadow-2xs">
-              בכל מחזור נבחרים 3 מפגשים מתוך מאגר הנושאים של שני החלקים.
+              ארבעה נושאים אפשריים העוסקים בזהות, בקריירה, ביחסים וביצירת שינוי.
             </p>
           </div>
           
@@ -242,7 +296,7 @@ export const MarketingSessions: React.FC = () => {
             <span>חשוב לדעת ✦</span>
           </div>
           <p className="text-base md:text-xl font-black text-brand-green leading-relaxed">
-            <span className="text-brand-orange underline decoration-2 underline-offset-4">שימי לב:</span> רשימת הנושאים שלעיל מייצגת את מניפת התכנים האפשריים של הסדנה. בכל מחזור מתקיימים 6 מפגשים המחולקים ל-3 מפגשים בכל חלק בליווי נבחרת מרצות הבית שלנו, והדגשים מותאמים לכל קבוצה.
+            רשימת המפגשים מציגה את מאגר הנושאים של סדנת ״אמצע החיים״. בכל מחזור מתקיימים שישה מפגשים, שלושה בכל חלק. הנושאים נבחרים מתוך שני החלקים וניתן לשלב ביניהם בהתאם לאופי הקבוצה ולצרכיה.
           </p>
         </div>
       </div>

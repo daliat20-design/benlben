@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { SPEAKERS } from '../constants';
 import { ChevronRight, ChevronLeft, ChevronDown } from 'lucide-react';
 
-export const SpeakersGrid: React.FC = () => {
+export const SpeakersGrid: React.FC<{ customSubtitle?: string; bgClassName?: string }> = ({
+  customSubtitle,
+  bgClassName = 'bg-white',
+}) => {
   const [activeSpeakerIdx, setActiveSpeakerIdx] = useState<number>(0);
   const [expandedBios, setExpandedBios] = useState<Record<number, boolean>>({});
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -32,7 +35,7 @@ export const SpeakersGrid: React.FC = () => {
   const isCurrentBioLong = cleanCurrentBio.length > 150;
 
   return (
-    <section id="speakers" className="pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20 bg-white px-4 sm:px-6 relative overflow-hidden text-right" dir="rtl">
+    <section id="speakers" className={`pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20 ${bgClassName} px-4 sm:px-6 relative overflow-hidden text-right`} dir="rtl">
       {/* Decorative background element */}
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-brand-beige/20 to-transparent pointer-events-none"></div>
 
@@ -46,7 +49,7 @@ export const SpeakersGrid: React.FC = () => {
             נבחרת מרצות הבית
           </h2>
           <p className="text-gray-700 max-w-3xl mx-auto text-base sm:text-lg md:text-xl font-bold leading-relaxed">
-            צוות המומחיות ומרצות הבית שלנו מלווה את הסדנאות בידע, ניסיון וכלים לדרך. הרכב המרצות בכל מחזור נקבע ומתעדכן בהתאם לתכני המחזור, לזמינות ולצרכי הקבוצה.
+            {customSubtitle || 'צוות המומחיות ומרצות הבית שלנו מלווה את הסדנאות בידע, ניסיון וכלים לדרך. הרכב המרצות בכל מחזור נקבע ומתעדכן בהתאם לתכני המחזור, לזמינות ולצרכי הקבוצה.'}
           </p>
           <div className="h-1.5 w-24 bg-gradient-to-r from-[#C56B3E] to-[#E28A58] mx-auto mt-4 rounded-full opacity-80"></div>
         </div>
@@ -135,7 +138,7 @@ export const SpeakersGrid: React.FC = () => {
 
                   <div className="h-0.5 w-14 bg-[#C56B3E]/30 rounded-full my-2"></div>
 
-                  <p className={`text-sm sm:text-base text-slate-700 leading-relaxed font-normal ${isCurrentBioExpanded ? '' : 'line-clamp-4'}`}>
+                  <p className={`text-sm sm:text-base text-slate-700 leading-relaxed font-normal whitespace-pre-line ${isCurrentBioExpanded ? '' : 'line-clamp-4'}`}>
                     {cleanCurrentBio}
                   </p>
 

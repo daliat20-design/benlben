@@ -12,6 +12,9 @@ export const WhatsAppShare: React.FC = () => {
                 location.pathname === '/ky-mwm' || 
                 location.pathname === '/mwm-form' || 
                 location.pathname === '/form';
+  const isMidlifeWorkshop = location.pathname === '/midlife-workshop' ||
+                            location.pathname === '/midlife-full' ||
+                            location.pathname === '/workshop';
 
   const contacts = isMwm ? MWM_CONTACTS : MARKETING_CONTACTS;
   const headerTitle = isMwm ? 'לשיחה עם מובילות MWM כיצ"י' : 'לשיחה עם מובילות "בין לבין"';
@@ -102,7 +105,7 @@ export const WhatsAppShare: React.FC = () => {
                 className="flex items-center justify-center gap-2 w-full py-2 px-3.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-700 font-bold text-xs transition-all border border-gray-200 cursor-pointer"
               >
                 <Share2 className="w-3.5 h-3.5 text-gray-500" />
-                <span>{isMwm ? "שתפי חברה בתוכנית בוואטסאפ" : "שתפי חברה בסדנה"}</span>
+                <span>{isMwm ? "שתפי חברה בתוכנית בוואטסאפ" : isMidlifeWorkshop ? "שתפי חברה" : "שתפי חברה בסדנה"}</span>
               </a>
             </div>
           </motion.div>
